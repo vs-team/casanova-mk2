@@ -1,0 +1,23 @@
+﻿- better record errors in case of mis-typing - speed up
+- [] in place of Query<T>.empty
+- fields with same name
+
+- waits system
+- IndexOf (query_expr.[id]) in TypedAST.Expression
+- RTS
+- optimize query indexes (rule A = 
+                            ...
+                            let idx = ...
+                            [for elem in idx do ... ]
+                            ...
+                          => 
+                          rule idx = 
+                            when idx change
+                            yield new_idx
+
+                          rule A =
+                            [for elem in idx do ... ]
+                            ...
+- RTS2 / paper
+- pattern matching?
+

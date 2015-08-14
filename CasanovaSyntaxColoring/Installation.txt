@@ -1,0 +1,6 @@
+- Copy usertype.dat in VS2012/Common7/IDE
+- Restart VS.
+- Go to Tools -> Options -> Fonts and Colors and check that, in the list Display Items , C/C++ User Keywords has Item Forground in blue.
+- Go to Text Editor -> File Extension and add .cnv to Microsoft Visual C++ as extension rule.
+- Close and open again any .cnv file in use.
+- Enjoy.

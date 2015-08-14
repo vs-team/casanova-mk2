@@ -1,0 +1,18 @@
+﻿UNHANDLED EXCEPTIONS:
+
+1. Rule body is empty.
+2. Generic type instantiation with an invalid type.
+
+GENERIC BUGS:
+1. yielding a new value on a query in the world freezes the game. EXAMPLE:
+      rule Selected,world.SelectedPlanets,UnityPlanet.Color =
+        wait Input.GetMouseButtonDown(0)
+        if UnityPlanet.ClickedOver then
+          let x =  this :: (world.SelectedPlanets)
+          yield true,x,UnityEngine.Color.red
+        else
+          let updatedSelection =
+            [for p in world.SelectedPlanets do
+             where (p <> this)
+             select (p)]
+          yield true,updatedSelection,UnityEngine.Color.white

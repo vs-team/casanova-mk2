@@ -1,0 +1,160 @@
+﻿module Fight
+open System.Collections.Generic
+open System.Collections
+open System.Console
+open Microsoft.FSharp.Collections
+open System.Linq
+open Casanova.Query
+
+worldEntity World =
+  {
+    LeftWarrior     : Warrior
+    RightWarrior    : Archer
+    RandomGenerator : System.Random
+
+    Create() =
+      {
+        LeftWarrior     = Warrior.Create(100,30,-200.0f,1.0f,10.0f,2.0f,"Warrior")
+        RightWarrior    = Archer.Create(100,20,200.0f,2.5f,-15.0f,100.0f,1.0f,"Archer")
+        RandomGenerator = new System.Random()
+      }
+  }
+
+entity Warrior =
+  {
+    Health          : int
+    DamageDie       : int
+    Position        : float
+    AttackSpeed     : float
+    MovementSpeed   : float
+    AttackRange     : float
+    Name            : string
+
+    rule Position,world.RightWarrior.Health =
+      let distance = System.Math.Abs(Position - world.RightWarrior.Position)
+      !| Health <= 0 =>
+          System.Console.Write(Name)
+          System.Console.WriteLine(" : Dead")
+          yield Position,world.RightWarrior.Health
+      !| distance <= AttackRange && world.RightWarrior.Health > 0 =>
+          let next_r = world.RandomGenerator.Next(DamageDie)
+          let r = 1 + next_r
+          System.Console.Write(Name)
+          System.Console.Write(" : Attacking ")
+          System.Console.Write(" Damage = ")
+          System.Console.Write(r)
+          System.Console.Write(" Enemy health = ")
+          System.Console.WriteLine(world.RightWarrior.Health)
+          yield Position,world.RightWarrior.Health - r
+          wait AttackSpeed
+      !| world.RightWarrior.Health > 0 =>
+          wait 1.0f
+          System.Console.Write(Name)
+          System.Console.Write(" : Moving")
+          System.Console.Write(" Position = ")
+          System.Console.WriteLine(Position)
+          yield Position + MovementSpeed,world.RightWarrior.Health
+      !| _ =>
+          System.Console.Write(Name)
+          System.Console.WriteLine(" Idling...")
+          yield Position,world.RightWarrior.Health
+
+    rule Position = Position
+
+    rule MovementSpeed =
+      wait (Position - world.RightWarrior.Position > 0.0f && MovementSpeed > 0.0f) || (Position - world.RightWarrior.Position < 0.0f && MovementSpeed < 0.0f)
+      yield 0.0f - (MovementSpeed)
+
+    rule Health = Health
+          
+          
+
+
+
+    Create(health : int,damage_die : int,position : float,attack_speed : float,movement_speed : float,attack_range : float,name : string) =
+      {
+        Health          = health
+        DamageDie       = damage_die
+        Position        = position
+        AttackSpeed     = attack_speed
+        MovementSpeed   = movement_speed
+        AttackRange     = attack_range
+        Name            = name
+      }
+
+  }
+
+entity Archer =
+  {
+    Health          : int
+    DamageDie       : int
+    Position        : float
+    AttackSpeed     : float
+    MovementSpeed   : float
+    AttackRange     : float
+    HitSpeed        : float
+    Name            : string
+
+    rule Position,world.LeftWarrior.Health =
+      let distance = System.Math.Abs(Position - world.LeftWarrior.Position)
+      !| Health <= 0 =>
+          System.Console.Write(Name)
+          System.Console.WriteLine(" : Dead")
+          yield Position,world.LeftWarrior.Health
+      !| distance <= AttackRange && world.LeftWarrior.Health > 0 =>
+          let r = world.RandomGenerator.Next(100)
+          .| r < 50 && distance < 35.0f =>
+            yield Position + MovementSpeed,world.LeftWarrior.Health
+            System.Console.Write(Name)
+            System.Console.WriteLine(" : Retreating ")
+            wait 1.0f
+          .| _ =>
+              let next_r = world.RandomGenerator.Next(DamageDie)
+              let r = 1 + next_r
+              System.Console.Write(Name)
+              System.Console.Write(" : Attacking ")
+              System.Console.Write(" Damage = ")
+              System.Console.Write(r)
+              System.Console.Write(" Enemy health = ")
+              System.Console.WriteLine(world.LeftWarrior.Health)
+              wait HitSpeed
+              yield Position,world.LeftWarrior.Health - r
+              wait AttackSpeed
+      !| world.LeftWarrior.Health > 0 =>
+          wait 1.0f
+          System.Console.Write(Name)
+          System.Console.Write(" : Moving")
+          System.Console.Write(" Position = ")
+          System.Console.WriteLine(Position)
+          yield Position + MovementSpeed,world.LeftWarrior.Health
+      !| _ =>
+          System.Console.Write(Name)
+          System.Console.WriteLine(" Idling...")
+          yield Position,world.LeftWarrior.Health
+
+    rule Position = Position
+
+    rule MovementSpeed =
+      wait (Position - world.LeftWarrior.Position > 0.0f && MovementSpeed > 0.0f) || (Position - world.LeftWarrior.Position < 0.0f && MovementSpeed < 0.0f)
+      yield 0.0f - (MovementSpeed)
+
+    rule Health = Health
+          
+          
+
+
+
+    Create(health : int,damage_die : int,position : float,attack_speed : float,movement_speed : float,attack_range : float,hit_speed:float,name : string) =
+      {
+        Health          = health
+        DamageDie       = damage_die
+        Position        = position
+        AttackSpeed     = attack_speed
+        MovementSpeed   = movement_speed
+        AttackRange     = attack_range
+        Name            = name
+        HitSpeed        = hit_speed
+      }
+
+  }
+
