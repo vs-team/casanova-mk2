@@ -1,0 +1,287 @@
+Developing a game almost invariably offers the same set of "core challenges" that routinely arises at least once in all games. We now study these challenges, so that they may act as requirements to fulfill in the rest of this work.
+
+Games are (soft) real-time applications that simulate a virtual environment with which the user can interact in some meaningful way. Modern games achieve interactivity through their main structure, which is known as the \textit{game loop}; the game loops keeps invoking the functions that perform the game logic and then draw the game, and if the game loop is fast enough then the user has the feeling of a real-time interaction. Games compute a numerical integration of the game state; this integration is steered by the stream of \textit{user input}, the physics of the game world, and the AI and behaviors of the logical entities. AI and lots of the logic of the game is modeled in terms of \textit{state machines}, in order to implement timers, loops, and much more. The game \textit{draws} the game world on the screen so that the user may see a representation of the game entities that is up to the last few hundredths of a second. 
+
+In the following we discuss how these features are realized in a modern game.
+
+\section{The game loop}
+The game loop, also called main loop, is responsible for updating the internal data structures that represent the game world, either according to the game world logical rules (such as physics or AI), or because of user input. Together with updating the game world, the main loop \footnote{we call \textit{frame} an iteration of the main loop} also needs to re-draw the game world to the screen. Drawing is not incremental in virtually all games (with the possible exception of games that feature large, still landscapes such as the old Myst); instead, drawing clears the screen to some default color and then re-draws the entire scene. This makes sense when one considers that incremental drawing would need to store a representation of where each entity has ended up on the screen in the last frame and which entity covers which other in order to know the entities to re-draw and where on the screen. Entities change and move a lot across the screen during the most intense gameplay sessions, so this process would only amount to a lot of useless overhead, since most of the screen would have to be re-drawn during each frame anyway.
+
+A simple implementation of the game data structure (in pseudo-ML) could contain just an update and a draw function; the update function takes as input the delta time between its own last invocation, so that it knows for how much time it has to compute the world update \footnote{We remind the C-minded reader that \texttt{Unit} has a similar role, in ML, as the \texttt{void} datatype, with a minor difference: \texttt{Unit} is a proper datatype with only one value, \texttt{()}, and as such it can be used as a parameter for generic datatypes; \texttt{void}, on the other hand, is just syntactic sugar for defining procedures with the same syntax as functions. For a more detailed discussion on the syntax used, see Appendix \ref{chap:fsharp}}:
+
+\begin{lstlisting}
+type Game = {
+  Update : float -> Unit
+  Draw   : Unit ->Unit
+}
+\end{lstlisting}
+
+We can now define the game loop as a function that takes as input the game and runs a loop that invokes the update and draw functions of the input game, in sequence, at every iteration. Update also gets as input the delta (difference) of the time between the current and the last iteration of the game loop. This way it can correctly compensate for the time elapsed by integrating all its entities by the appropriate amount of time:
+
+\begin{lstlisting}
+let game_loop (game:Game) =
+  let rec loop (t:Time) =
+    let t' = getTime()
+    let dt = t' - t
+    do game.Update dt
+    do game.Draw ()
+    do loop t' 
+  do loop (getTime())
+\end{lstlisting}
+
+Indeed, games can be seen as a big numerical integrator that approximates the following integral for all times $T$ of the game:
+
+$$w_t = \int_{t=0}^{t=T} \frac{dw_t}{dt}dt$$
+
+with numeric methods, where $w_t$ denotes the state of the world at time $t$. For example, consider the world defined as a single ship which has a position, a velocity, and an acceleration:
+
+\begin{lstlisting}
+type World = { 
+  ShipPos : Vector2
+  ShipVel : Vector2 
+  ShipAcc : Vector2
+}
+\end{lstlisting}
+
+integrating the world means that we compute (and then draw to the screen) the state of the world at time $t=0$, $t=1/n$, $t=2/n$, etc. for a game that runs at $n$ frames per second. Of course instead of computing the integrated game world at a certain time from scratch every frame, we make an incremental computation so that we only have to perform the "missing part of the integration"; this means that, since the integral mentioned above is usually impossible to compute analytically, instead of recomputing the integral for every time $t$ of the game starting from $w_0$, we compute $w_t$ from $w_{t-dt}$ whenever $dt$ seconds elapse in the game. \footnote{The choice of $dt$ depends on the computing power of the machine, since updating and drawing the game world takes time, and so the $dt$ may never be smaller than the time required in order to perform the computations for a single frame. Of course we may insert waiting statements to slow down the loop on a very fast machine.} The integration for the above definition would then be:
+
+\begin{lstlisting}
+let update (world:World) (dt:float) = 
+  { 
+    ShipPos = world.ShipPos + world.ShipVel * dt
+    ShipVel = world.ShipVel + world.ShipAcc * dt
+    ShipAcc = world.ShipAcc
+  }
+\end{lstlisting}
+
+with a simple Euler integration. \footnote{Note that \texttt{\{ L1 = e1; ...; Ln = en \}} invokes the constructor for the record with labels \texttt{L1, ..., Ln}.} Since precision in this integration may be important, and framerate may be lower than we wish on certain machines with little power, it may sometimes happen that integration with the Euler method actually fails and accumulates odd errors. To avoid this it is possible to use a more precise numerical integration method, such as Ralston's: 
+
+\begin{lstlisting}
+let update (world:World) (dt:float) =
+  let f(v,x) = (world.ShipAcc,v)
+
+  let k1 = f(world.ShipVel, world.ShipPos)
+  let k2 = f((world.ShipVel,world.ShipPos) + 0.5 * dt * k1)
+  let k3 = f((world.ShipVel,world.ShipPos) + 0.75 * dt * k2)
+  let (v',p') = 
+    (world.ShipVel,world.ShipPos) + 
+    (2.0 / 9.0) * dt * k1 + (1.0 / 3.0) * dt * k2 + 
+    (4.0 / 9.0) * dt * k3
+  {
+    ShipPos = p'
+    ShipVel = v'
+    ShipAcc = world.ShipAcc
+  }
+\end{lstlisting}
+
+The above update function is more precise than its Euler counterpart when it comes to bouncing objects and collision detection, and the approximation errors, dithering effects, etc. are small enough to be below the perception threshold of the user. Unfortunately, this method performs more operations per frame per entity, and is more difficult to write and maintain, so it is not always the best solution: in certain cases the simpler version may suffice or even be better. This is an example of one of the many trade-offs between run-time speed and numerical accuracy that games must make. Usually the choice is made so that accuracy is reduced as much as possible but not so much that visible artifacts occur, in order to maximize execution speed. Exceptions may be made for games that feature simulations such as realistic flight simulators.
+
+The game world used in the last two samples is a simple game world with only a physical simulation. For this reason it appears obvious how to apply numerical methods to compute its continuous integral. A simple AI, on the other hand, can be integrated as well, even though it must be treated as a hybrid system (with both continuous and discrete aspects). For example, we could have a world defined as:
+
+\begin{lstlisting}
+type World = {
+  Self   : Character
+  Enemy  : Character 
+}
+\end{lstlisting}
+  
+which integrates the enemy by choosing to hide or attack depending on the relative strength of the player:
+
+\begin{lstlisting}
+let update (world:World) (dt:float) =
+  let self' = ... // update pos, vel, life, etc.
+  let enemy' = ... // update pos, vel, life, etc.
+  let enemy'' = 
+    if enemy'.Health > self'.Health && 
+       distace(self,enemy) < 100.0 then
+      { enemy' with Velocity = towards enemy' self' }
+    else
+      { enemy' with Velocity = away enemy' self' }
+  { Self = self'; Enemy = enemy'' }
+\end{lstlisting}
+
+The enemy in the implementation above is a simple \textit{reflex agent} which, depending on some condition, will perform some action. The implementation above suffers from \textit{dithering}, that is if the player is chasing the enemy, and the distance condition keeps changing from true to false, then the agent will keep switching between the fleeing and chasing behaviors. To avoid this, the enemy also needs a fleeing timer so that as soon as it starts fleeing then the timer is reset and the enemy will keep its flight until at least the timer ends. More elaborate solutions can of course be implemented, but are beyond the scope of this presentation. The important aspect to realize is the presence of discrete components in the game world integration that usually are part of the AI or input systems; the more discrete in nature, the more complex it will be to define the numeric integral.
+
+The game loop is not as straightforward as presented above. To avoid wasting computational power, it is not needed to update all the game world at every tick of the update function. While certain aspects of the simulation, such as the physics or the animations modules must update the world at every tick (otherwise the entities' movement may be "hicky", or the integrations may lose precision), other aspects such as AI or user input can be updated with much lower frequency; for example, AIs may safely be run at 5 frames per second, since they do not need the ability to make much more than five decisions per second, and input may safely be run at 20 frames per second, in order to perfectly capture the user's physical input which runs on the order of 10 Hz. This technique also improves the game responsiveness by reducing its computational load, because in a single unit of time, for example 1 second, at 60 frames per second, instead of computing 60 physical updates, 60 input updates, and 60 AI updates, we have computed 60 physical updates, 20 input updates and 5 AI updates, and this has no effect that the user can perceive.
+
+To accommodate different update frequencies, though, we need to complicate the game loop as presented above, and we must complicate our definition of game world as well:
+
+\begin{lstlisting}
+type Game = {
+    UpdateInput : float -> Unit
+    UpdateAI    : float -> Unit
+    UpdateLogic : float -> Unit
+    Draw        : Unit -> Unit 
+  }
+\end{lstlisting}
+
+the game loop will now run three different loops: one for the input, one for the AI of the game entities, and one for the logic and the drawing of the game. These can either be run with explicit timers, or on separate threads. A multi-threaded loop could be defined as follows:
+
+\begin{lstlisting}
+let game_loop (game:Game) = 
+  let rec loop f t dt =
+    while(getTime() - t < dt) sleep(0);
+    do f dt
+    do loop f (t+dt)
+  let logic_draw_loop() = 
+    loop (fun dt -> game.Update dt; game.Draw dt) 
+         getTime()
+         (1.0/60.0)
+  let AI_loop() =
+    loop game.UpdateAI (1.0/5.0)
+  let input_loop() =
+    loop game.UpdateInput (1.0/20.0)
+  run_thread [logic_draw_loop; AI_loop; input_loop]
+\end{lstlisting}
+
+In the code above we define a generic \texttt{loop} function which performs an operation, \texttt{f}, with a certain time delta of \texttt{dt} between successive invocations; we then use this function to launch three loops: the logic loop, the AI loop, and the input loop, which are then run in three separate threads.
+
+Multi-threading is also desirable because it provides a performance boost in the presence of multiple cores. Each thread could run on a different core, thereby evaluating different portions of the game loop in parallel.
+
+Multi-threading unfortunately has some serious shortcomings. In particular, if all the loops access the same world data (which they do!), then we will need to insert some synchronization mechanism such as locks or monitors. The high latency associated with these synchronization mechanisms though makes them unattractive for game developers, and under unfortunate circumstances we may even suffer from starvation of one of the threads, with disastrous effects for the game experience.
+
+We can address this shortcoming by explicitly alternating the calls to the various update functions in a single loop which explicitly keeps track of the time since the last invocation of each, effectively building a software scheduler on a single thread, or we could use lock-less threading \cite{CHAPTER_2_LOCKLESS_THREADING}, a complex technique that allows for efficient synchronization of multiple threads. Unfortunately the first solution loses the performance advantages of true multi-threading, while the second solution is more complex to build.
+
+
+\section{State machines}
+The second, very common activity that games perform is that of maintaining state machines. State machines come into play for timing, input management, AIs, and many more scenarios in games, to the point that a simple web search shows hundreds of tutorials and manuals on the single topic of creating a state machine for a game; also, state machines for games are described in many books and articles: \cite{CHAPTER_2_STATE_MACHINES1, CHAPTER_2_STATE_MACHINES2, CHAPTER_2_STATE_MACHINES3, CHAPTER_2_STATE_MACHINES4}.
+
+Let us consider the simple example where we want to wait for a specific event to happen before doing something else; in particular, we wish to wait for the user to press a key, and then another, within a certain amount of time from each other, in order to activate some weapon.
+
+We could, naïvely, code this as a piece of the update function which does some polling:
+
+\begin{lstlisting}
+while(is_key_up(key1)) do sleep(0)
+let t = getTime()
+while(is_key_up(key2)) do sleep(0)
+let dt = getTime() - t
+if dt < 0.3f then
+  do shoot_super_weapon()
+\end{lstlisting}
+
+Unfortunately, we cannot run this code inside the update function, because this would lock the game loop into spin-waiting until the user presses the \texttt{key1} key, thereby completely freezing all the game animations, responses to other input, and drawing. We could run such an event detection on a separate thread, but the number of threads we would need would be at least equal to the number of possible concurrent spin-waits to do: one for each game entity, one for each input event, etc. This would allocate too many threads, squandering too much memory and CPU execution time for context switching between threads; also, some synchronization strategy is needed in order to make sure that the various threads correctly work on the shared game world. Ultimately, this technique results to be not feasible for a game, both because it is very complex and because it can run very slowly.
+
+The usual solution is to build a state machine which tracks explicitly where in the execution of the above snippet of code we are. We then define a step function which updates the state of the state machine by checking its current state and the various transition conditions. The above state machine could be defined as an ML discriminated union \footnote{For a further discussion on these, see Appendix \ref{chap:fsharp}}:
+
+\begin{lstlisting}
+type StateMachine = 
+  | Wait1
+  | Wait2 of float
+  | Success
+  | Failure
+\end{lstlisting}
+
+The states of this state machine are waiting for the first key, waiting for the second key (for a certain amount of time), and then either success or failure. The state machine is updated as follows:
+
+\begin{lstlisting}
+let update_SM (sm:StateMachine) (dt:float) =
+  match sm with
+  | Wait1 ->
+    if is_key_down(key1) then Wait2(0.3f)
+    else Wait1
+  | Wait2(t) ->
+    if t <= 0.0f then Failure
+    elif is_key_down(key2) then Success
+    else Wait2(t-dt)
+\end{lstlisting}
+
+the general pattern for a state machines with states $s_1,s_2, ..., s_n$, transition matrix $t_{ij}$ (that defines the conditions for going from state $s_i$ to state $s_j$), and $s_{ij}$ initialization matrix (that stores the input of the new state after a transition), we can define the state machine as:
+
+\begin{lstlisting}
+type StateMachine = 
+  | S1 of s1
+  | S2 of s2
+  | ...
+  | SN of sn
+\end{lstlisting}
+
+The transitions are defined as:
+
+\begin{lstlisting}
+let transition (sm:StateMachine) (dt:float) =
+  match sm with
+  | S1(s1) -> 
+    if t11 then S1(i11)
+    elif t12 then S2(i12)
+    ...
+    elif t1n then Sn(i1n)
+    else S1(s1)
+  | S2(s2) -> 
+    if t21 then S1(i21)
+    elif t22 then S2(i22)
+    ...
+    elif t2n then Sn(i2n)
+    else S2(s2)
+  | ...
+  | Sn(sn) -> 
+    if tn1 then S1(in1)
+    elif tn2 then S2(in2)
+    ...
+    elif tnn then Sn(inn)
+    else Sn(sn)
+\end{lstlisting}
+
+Unfortunately the above approach yields code that is complex to write correctly, complex to read, and complex to maintain. This complexity stems from the fact that the behavior that we want is described as a simple sentence such as "press \texttt{key1}, then press \texttt{key2} before 0.3 seconds", but the corresponding code does barely resemble this at all and being able to translate the two concepts requires focus, effort, and experience. This issue is slightly worsened by the fact that a state machine is modeled in the ML language (and in our samples above) more easily than in an imperative, struct- or class- oriented language. Such languages, for example C++ or C\#, are some of the most used in game development, adding relevance to the above statement. This happens because state machines represent a series of mutually exclusive states \textit{each of which contains certain parameters}, and discriminated unions are a datatype that is created explicitly to model a series of mutually exclusive values each with its own parameters. Contrast the use of discriminated unions with the typical imperative implementation of an enum plus the union of all the arguments:
+
+\begin{lstlisting}
+class SM {
+  enum State {
+    Wait1,
+    Wait2,
+    Success,
+    Failure
+  }
+  
+  State state;
+  float t;
+  
+  void Transition(float dt) {
+    switch(state) {
+      case Wait1:
+        if(is_key_down(key1)) {
+          state = Wait2;
+          t = 0.3f;
+        }
+      case Wait2:
+        if(t <= 0.0f) {
+          state = Failure;
+        } else if(is_key_down(key2)) {
+          state = Success;
+        } else 
+          t = t - dt;
+    }
+  }
+}
+\end{lstlisting}
+
+Where a parameter, such as \texttt{t}, may be accessed in any state of the machine, even those (such as \texttt{Wait1}, \texttt{Success}, and \texttt{Failure}) where it may not make any sense to do so: the developer is forced to follow certain rules by hand on pain of committing hard-to-debug mistakes. Notice that we could partially emulate discriminated unions with inheritance and the visitor pattern \cite{CHAPTER_2_VISITOR_PATTERN}, but the complexity of using such pattern can be elevated.
+
+\section{Drawing}
+The logic of the game gives life to the interactive simulation, where the game world and its entities are updated according to their internal logic, AI, and physics while the user can modify and influence them with his input. Of course though, the user needs a way to know the state of the game world in order to sensibly plan and apply his input.
+
+Letting the user know the state of the game is done by drawing the entities to the screen; drawing is mostly done with textures or 3D models, but some notable (though not very common) exceptions simply write a text description of the current state of the game world to the screen which the user then reads. Such games, usually referred to as "text adventures", are not our main focus. This said, our work on Casanova could be adapted to them since they just require most of the game rendering to be done by writing text.
+
+Drawing is done in a manner that the screen of the PC (or the TV, or the phone screen, etc.) behaves as a window over the game world through which the user watches the game entities in real-time.
+
+We draw the game world after every update, so that each time the picture that appears on the screen reflects a slightly changed game world, where entities are moving and interacting, animations are progressing, and so on. The logical entities are usually mapped to visual entities that can either be pictures (also called \textit{textures}), fonts, or 3D models. There is a one-to-many mapping from logical entities to visual entities; for example, a logical entity may be drawn with a 3D model, plus some icons and text, but it may also be that an entity such as a collision entity which represents  a collision between physical objects does not require any rendering and fulfills its role only by storing and updating internal information.
+
+It is important to notice that most of the richness and complexity of a modern game does not come from having more kinds of drawable entities; drawables are almost always \footnote{With some rarely encountered exceptions such as voxels \cite{CHAPTER_2_VOXELS,CHAPTER_2_VOXELS_IN_GAMES}.} be either text, textures, or 3D models, but they are drawn with different special effects such as advanced lighting models and post-processing. These post-processing effects are mostly implemented in terms of shaders and render targets that store previously rendered scenes which are then fed back into the processing pipeline in order to create effects like motion blur, deferred shading, refractions, and many others \cite{GPU_GEMS_1, GPU_GEMS_2, GPU_GEMS_3}.
+
+\section{Summary}
+In the previous sections we have identified the core requirements that a game has, and we sum them in tabular form.
+
+\begin{tabular}{ | l | p{9cm} | }
+\hline
+1. & handling of the main loop \\
+\hline
+2. & handling input management \\
+\hline
+3. & supporting state-machines \\
+\hline
+4. & drawing the scene \\
+\hline
+\end{tabular} 
+
+It is important to notice that the highest-grade commercial games (often known as "AAA games") also have further needs. Large games have lots of assets produced by artists and designers, and so they need tools that support transferring those assets into the game engine. Designers also produce game scripts that customize some behaviors of the game entities, which require a data-centric engine architecture so that scripts may customize large parts of the game without direct access (a complex task) and re-compilation (a surprisingly lengthy task \cite{CHAPTER_2_COMPILATION_LENGTH}) of the main sources. Sometimes the effort of rebuilding all aspects of a game from scratch is deemed excessive, and pre-existing libraries and components may be leveraged from previous titles or other companies; integration of these libraries is not a trivial effort.
+
+In this thesis we will not focus on these details of AAA games, and instead we will focus only on those smaller games, such as indie games, research games, and serious games, where the requirements and the development effort are smaller, but still significant enough that optimizing it may yield tangible gains. This means that we will limit the discussion on how Casanova focuses on coding the game logic and the drawing of a game from scratch, including input management and AI.

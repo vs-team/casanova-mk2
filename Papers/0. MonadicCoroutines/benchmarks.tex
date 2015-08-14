@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% benchmarks.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We will focus our comparison mostly on LUA, since it is the most widely adopted scripting language, it fully supports coroutines and is considered among the state of the art. We will include some benchmarking data on Python and C\# for completeness, but their poor support for coroutines makes them unsuitable for large scale use as scripting languages. For a more detailed discussion of the mechanisms of coroutines in Lua, Python and C\# see \cite{PYTHON_COROUTINES,LUA_COROUTINES,CSHARP_YIELD}.
+
+LUA and F\# offer roughly the same ease of programming, given that:
+
+\begin{itemize}
+\item scripts are approximately as long and as complex
+\item there are no explicit types, thanks to dynamic typing in LUA and type inference in F\#
+\end{itemize}
+
+It is important to notice that, since F\# is a statically type language, it offers a relevant feature that LUA does not have: \textbf{static type safety}. This means that more errors will be catched at compile time and correct reuse of modules is made easier.
+
+To measure speed, we have run three benchmarks on a Core 2 Duo 1.86 GHz CPU with 4 GBs of RAM. The tests are two examples of scripts computing large Fibonacci numbers concurrently plus a synthetic game where each script animates a ship moving in a level and then dying. The tests have been made with Windows 7 Ultimate 64 bits. Lua is version 5.1, Python is version 3.2 and .Net is version 4.0.
+
+\begin{comment}
+The lines of code of each script are, respectively:
+\textit{(i)} F\#: 21, 21 and 35; \textit{(ii)} Python: 24, 29, 48; \textit{(iii)} LUA: 30, 39 and 52; and \textit{(iv)} C\#: 51, 58, 59.
+
+The number of yields per second (higher is better) are: \textit{(i)} F\#: 7.6, 5.8 and 4.0; \textit{(ii)} C\#: 7.1, 4.2, 4.1; \textit{(iii)} LUA: 1.5, 1.4 and 0.8; and \textit{(iv)} Python: 1.1, 1.1, 0.9. 
+\end{comment}
+
+\begin{table}[ht]
+\caption{Samples length}
+\centering
+\begin{tabular}{ l | c c c }
+   Language & Test 1 & Test 2 & Test 3\\
+   \hline
+   F\# & 21 & 21 & 35  \\
+   Python & 24 & 29 & 48 \\
+   LUA & 30 & 39 & 52 \\
+   C\# & 51 & 58 & 59 \\
+ \end{tabular}
+ \end{table}
+
+\begin{table}[ht]
+\caption{Samples speed}
+\centering
+\begin{tabular}{ l | c c c }
+   Language & Test 1 & Test 2 & Test 3\\
+   \hline
+   F\# & 7.6 & 5.8 & 4.0 \\
+   Python & 1.1 & 1.1 & 0.9 \\
+   LUA & 1.5 & 1.4 & 0.8 \\
+   C\# & 7.1 & 4.2 & 4.1\\
+ \end{tabular}
+\end{table}
+
+
+We have measured the total length of each script (Table 1) to give a (very partial) assessment of the expressiveness of each solution, plus the number of yields per second (Table 2) in order to assess the relative cost of the yielding architecture; more yields per second implies more scripts per second which in turn implies more scripted game entities and thus a more complex and compelling game-play.
+
+It is quite clear that F\# offers the best mix of performance and simplicity. Also, it must be noticed that Python and Lua suffer a noticeable performance hit when accessing the state, presumably due to lots of dynamic lookups; this problem can only become more accentuated in actual games, since they have large and complex states that scripts manipulate heavily.
+
+An additional note must be given about architectural convenience. For games where the \texttt{discrete simulation engine} is written in C\# (either because the entire game is written in C\# or because the game is written in C++ while only the game logic is in C\#) then using a language such as F\# can give a further productivity and runtime performance boost because scripts would be able to share the game logic type definitions given in C\#, thereby removing the need for binding tools such as SWIG or the DLR \cite{SWIG,DLR} (or many others) that enable interfacing C++ or C\# with Lua or Python.

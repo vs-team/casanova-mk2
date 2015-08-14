@@ -1,0 +1,102 @@
+In this chapter we describe the informal design of Casanova, that is how Casanova came to be in its current shape. We start by describing our realization of a fundamental design pattern that kept recurring in games, which we called \textit{rule-script-draw} (or RSD in short). We then state the reason why we decided to build a whole new language instead of trying to capture RSD in an object-oriented library, as is often down for design patterns. We then give our design goals, which is a statement of the overall objective that we prefix ourselves with for Casanova. We conclude the chapter with an informal presentation of the Casanova language.
+
+
+\section{The RSD pattern}
+RSD is a game development concept which captures the definition of a game completely. Through our direct experience in game development, and through a survey of the informal (such as blogs, websites, and discussion boards) and formal literature of game making, we have come to the realization that game development always touches upon some fundamental concepts. These are the three main components of games, and their interactions.
+
+The game is made up of its game logic, and its drawing. The game logic is, in turn, made up of \textit{regular} aspects of the game, such as physics equations and other continuous parts of the numerical integration of the game, and \textit{irregular} aspects of the game, such as timers, AI, state machines and other discrete parts of the numerical integration of the game. Finally, many aspects of the logic are \textit{drawn} to the screen for the user to see. These three aspects are the cornerstones of the RSD pattern:
+
+\begin{itemize}
+\item \textit{rules}, the regular aspects of the game logic
+\item \textit{scripts}, the irregular aspects of the game logic
+\item \textit{drawing}, the drawing of the game to screen
+\end{itemize}
+
+Unfortunately, most games are built without explicit awareness of these components. This means that efforts to capture these so that building new games in them requires less time and expenditure of resources are not well focused if they do not consider such aspects. For example, frameworks such as XNA or DirectX UT offer (limited) support to rules and drawing, but no support whatsoever to scripts. More advanced systems such as Unity, on the other hand, offer further support for scripts through coroutines. 
+
+Development of Casanova started as an effort towards capturing the RSD pattern. We started by trying to build a library in the usual spirit of design patterns, but ended realizing a language when we understood that a library would not be sufficiently pervasive to capture all we needed.
+ 
+We observe that some work has been made towards identifying recurring patterns in game development, for example \cite{bjork2005patterns, stoy2006components}, but these efforts often take for granted some underlying basic patterns (such as RSD) that they rely upon, and offer highly articulated (and often complex) solutions. These patterns require large amounts of focus on the part of the developer, who is required to perform the functions of a ``human compiler''. We believe that complex design patterns such as those cited above are often an indication of language issues \cite{Sullivan02advancedprogramming}, and they reinforce our belief in the need for a specific game development language.
+
+
+\section{Motivation for a new language}
+RSD is a very abstract design pattern that is hard to represent because of its high-granularity. Capturing it with mainstream tools such as an object-oriented library proved hard. For example, defining how to evaluate rules over fields of data-structures requires induction over the fields themselves, and access to their type. Such meta-programming constructs are not readily available in commonly used programming languages such as C\# or C++, and when they are their use is unfortunately quite awkward (see Appendix \ref{chap:casanova_in_haskell_and_cpp}). Moreover, using tools such as inheritance also gave us trouble because of an excessive number of virtual calls, which disrupts performance in a way that results incompatible with game development.
+
+For this reason, we decided to pursue the definition of a whole new language, in order to be free from the representation and performance constraints given by existing languages. We believe that such a language, in addition to faithfully representing the RSD pattern, must offer two fundamental features. On one hand, the language must be flexible enough so that a developer can use it effectively to build \textit{any} kind of game or simulation. The language should never lose expressive power, even when tackling scenarios that were not directly foreseen by its developers. On the other hand, the language must be optimized for the domain of games and simulations. It should not require the developer to specify too many details. Specifically, the language should require from the developer only the relevant details for the game. The language compiler and its run-time facilities should then fill in the blanks by adding all the additional boilerplate code that takes care of the various needs of the game. The developer should not focus his efforts on the game loop, reading input, hand-crafting state machines, and other menial tasks; this does not diminish the role of the developer at all: instead, it frees him to pursue other tasks that are more complex and interesting, such as building a better game logic, modeling AIs with stronger algorithms, applying procedural generation to levels and stories, and so on. There really are no boundaries to the complexity of a game or a simulation, so the more powerful the tools the more difficult goals may become achievable.
+
+
+\section{Design Goals}
+We sum up the targets that we have for the design of Casanova in the following table. These targets describe both the requirements of the RSD pattern, and also additional requirements about the expressive power and simplicity of the language.
+
+\begin{tabular}{ | l | p{9cm} | }
+\hline
+1. & Allow a developer to build games without explicit limitations in terms of genre or creativity \\
+\hline
+2. & Support common game development tasks of handling the game logic, game AIs, state machines, drawing, and input \\
+\hline
+3. & Be concise, in particular when compared with traditional programming languages used for the same games \\
+\hline
+4. & Be efficient, supporting fast runtime execution of the game and common optimizations such as multi-threading or query optimizations \\
+\hline
+5. & Be simple to read, supporting syntactic idioms that are grounded in logic and mathematics rather than aping the syntax of widespread programming languages \\
+\hline
+6. & Contain as few features as possible, that is the language should be built on top of few orthogonal \cite{CHAPTER_4_ORTHOGONALITY_PL} constructs that each serve a clear purpose and that mix well together \\
+\hline
+\end{tabular} 
+
+These goals, if fulfilled, will result in a simple, expressive, and efficient language that is suitable for creating games and simulations. We will refer to these goals in the final evaluation of the language.
+
+
+\section{Informal design}
+
+Casanova models a game by defining: \textit{(i)} the \textit{model of the world}, that is what entities and values we track to represent the game world; \textit{(ii)} the physical and logical \textit{rules} that the game entities obey; \textit{(iii)} the \textit{state machines} that handle irregular game logic that would be difficult to express in terms of game rules; \textit{(iv)} the \textit{visual appearance} of the game entities; and \textit{(v)} the \textit{initial state} of the world when the game is launched. 
+
+As an example, let us consider a very simple pseudo-game that simulates a bunch of bouncing balls. We will use a pseudo-Casanova language before diving into the proper syntax. The model for our game world will simply define the world as:
+
+\begin{lstlisting}
+World = a series of balls
+\end{lstlisting}
+
+A ball would then be defined as:
+
+\begin{lstlisting}
+Ball = 
+  current position of the ball
+  current velocity of the ball
+  a picture of a ball
+\end{lstlisting}
+
+We now define the logical and physical rules of the world and its entities, that is we specify how each entity updates its fields. The rules for the world state that:
+
+\begin{lstlisting}
+World rules = 
+  when a ball exits the screen then it is not considered anymore in the state
+\end{lstlisting}
+
+The rules for the ball are slightly more complex, since we have to simulate some simple bouncing physics and we also have to update the sprite data:
+
+\begin{lstlisting}
+Ball rules =
+  the position is the numerical integration of the velocity
+  the velocity is the numerical integration of gravity, but when the position touches the ground then the velocity is turned upside-down
+  the sprite position is the same as the ball position
+\end{lstlisting}
+
+With the information provided above we now have a simplistic simulation that runs by updating some bouncing balls which are then "forgotten" from the game state whenever they leave the screen. We wish the simulation to be made marginally more interesting, and to achieve this result we will spawn balls automatically so that there is an endless supply of moving things on the screen. We model this behavior with a script:
+
+\begin{lstlisting}
+wait between one and three seconds
+add to the world a random ball
+repeat
+\end{lstlisting}
+
+Finally, we define the initial state of the world, that is what happens when the world is first activated as the game is launched:
+
+\begin{lstlisting}
+Initial world = 
+  an empty collection of balls
+\end{lstlisting}
+
+As we can see, the above description of the balls game is clear and simple, but we are not leaving behind any important details about what the game will do. Compared with a traditional game development library, though, there is no mention of the game loop, neither for updating the world nor for rendering, and drawing is implicit in the presence of an appearance inside the ball definition; also, the creation of new balls is defined as a simple, sequential process where the various operations are expressed in a top-down sequence instead of a traditional state machine. Also notice that we are not assuming the presence of prefabricated entities to have physics or timed operations, that is we have described everything ourselves.
+
+In the following we will describe how the Casanova language is defined to make it possible to express the above logic in an equally simple and straightforward manner, and how this description is turned into an actual, executable specification for a fast-enough game.

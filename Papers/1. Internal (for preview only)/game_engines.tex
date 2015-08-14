@@ -1,0 +1,43 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GAME ENGINES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Games and their complex requirements.
+
+\subsection{Related Work}
+- Data driven games
+- Entity hierarchy
+- Components
+- Against OO in games
+- Handmade optimizations
+- Nightmare of concurrency
+- SGL
+- Dungeon Siege
+- The X3D/VRML Way (general but no performance)
+
+\subsection{A different approach}
+
+Game engines as world interpreters:
+- data driven = game data + scripts = an actual, complex, interpreter
+
+Rather than interpret, we build a language to compile the world rather than interpret it (less overhead).
+
+A general framework for games:
+- rules
+- behaviors
+Rules and behaviors in existing genres:
+- arcade
+- puzzle
+- racing
+- rts
+- fps
+- rpg
+
+We define a language around the idea of rules and behaviors, but with optimization firmly in mind.
+Also, with a language we can:
+- do syntactic abstraction, reducing boilerplate code (recycling memory efficiently, repetitive algorithmic optimizations, traversing the game state for updating, etc.)
+- encouraging a declarative style of programming which can yield to an increase in productivity by writing less code at a higher leve of abstraction, that is with lower maintenance costs
+- to simplify the approach to game programming and encouraging the emergence of a single idiom by providing only aspects essential to this domain, rather than using a very general purpose programming language with lots of paradigms (all somewhat acceptable but ultimately inadequate to the domain)
+- to enforce certain important properties at the semantics level, in order to allow the automation of important constructs such as complex cross-module optimizations
+
+Our language does not take care about graphics. Casanova is a language capable of building the simulation module which can then be linked with another program capable of performing the rendering.

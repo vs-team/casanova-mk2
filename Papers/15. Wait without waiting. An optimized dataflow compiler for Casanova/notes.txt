@@ -1,0 +1,12 @@
+MOGEMOGE:
+- Defining priorities requires to use the tokens as states (or labels).
+- Timer manually implemented.
+
+PROLOG:	
+- Defining priorities requires to define conditions to manage nested behaviours.
+
+SGL:
+- Time primitives missing.
+- Similarity with Casanova as Effect System.
+
+

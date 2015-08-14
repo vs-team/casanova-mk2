@@ -1,0 +1,105 @@
+%\documentclass{acm_proc_article-sp}
+
+%\documentclass{article}
+
+\documentclass{llncs}
+
+\usepackage{wrapfig}
+\usepackage{mathpartir}
+\usepackage{turnstile}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} 
+\usepackage[hyphens]{url}
+\lstset{language=ml}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{frame=single}
+\lstset{breaklines=true}
+\lstset{basicstyle=\scriptsize\ttfamily}
+
+\DeclareMathOperator{\wf}{wf}
+\DeclareMathOperator{\acyclic}{acyclic}
+\DeclareMathOperator{\Linear}{Linear}
+\DeclareMathOperator{\NonLinear}{NonLinear}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\FV}{FV}
+\DeclareMathOperator{\LFV}{LFV}
+\DeclareMathOperator{\rule-fun}{rule-fun}
+
+\begin{document}
+
+\title{Designing Casanova: a language for games}
+
+\author{
+G. Maggiore, \ A. Span\`o, \ R. Orsini, \ G. Costantini, \ M. Bugliesi, \ M. Abbadi \\[1mm]
+}
+
+\institute{Universit\`a Ca' Foscari Venezia \\[1mm]
+DAIS - Computer Science \\[1mm]
+\email{\{maggiore,spano,orsini,costantini,bugliesi,mabbadi\}@dais.unive.it}
+}       
+
+\date{}
+
+\maketitle
+
+\begin{abstract}
+Games are extremely complex pieces of software which give life to animated virtual worlds. Game developers carefully search the difficult balance between quality and efficiency in their games.
+
+In this paper we present the Casanova language. This language allows the building of games with three important advantages when compared to traditional approaches: simplicity, safety and performance. We will show how to rewrite an official sample of the XNA framework, resulting in a smaller source and higher performance.
+\end{abstract}
+
+\begin{comment}
+\category{D.1.1}{Programming Techniques}{Applicative (Functional) Programming} 
+\category{D.2.2}{Soft\-ware Engineering}{Software Libraries}[Design Tools and Techniques]
+\category{D.2.13}{Soft\-ware Engineering}{Reusable Software}[Domain engineering, Reusable libraries, Reuse models]
+\category{D.3.3}{Programming Languages}{Language Constructs and Features}
+\category{D.3.4}{Pro\-gramming Languages}{Processors}[Optimization, Run-time environments]
+\category{H.5.1}{Information Systems}{Information Interfaces and Presentation}[Multimedia Information Systems]
+
+\terms{Games,Performance,Languages}
+
+\keywords{games, optimization}
+\end{comment}
+
+\section{Introduction}
+\label{sec:introduction}
+\input{introduction} 
+
+\section{Background}
+\label{sec:background}
+\input{background} 
+
+\section{A Model for Games}
+\label{sec:model}
+\input{model} 
+
+\section{The Casanova language}
+\label{sec:casanova}
+\input{casanova_language}
+
+\section{Case Study}
+\label{sec:case_study}
+\input{case_study}
+
+\section{Conclusions}
+\label{sec:conclusions}
+\input{conclusions} 
+
+\bibliographystyle{plain}
+\bibliography{references} 
+
+%\cite{*}
+\nocite{}
+
+\end{document}

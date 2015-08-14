@@ -1,0 +1,12 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: typeinst.aux
+White space in argument---line 5 of file typeinst.aux
+ : \citation{bogost2007persuasive,
+ :                                 seriousgameslist}
+I'm skipping whatever remains of this command
+The style file: abbrv.bst
+Database file #1: Sections/References.bib
+Warning--string name "january" is undefined
+--line 111 of file Sections/References.bib
+Warning--to sort, need author or key in ESAreport
+Warning--there's a number but no series in marlin1980coroutines
+(There was 1 error message)

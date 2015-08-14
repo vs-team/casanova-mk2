@@ -1,0 +1,84 @@
+\documentclass[a4paper]{article}
+\usepackage{anysize}
+\marginsize{1cm}{1cm}{1cm}{1cm}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc} 
+\lstset{language=haskell}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{basicstyle=\ttfamily}
+%\linespread{2.0}
+
+\begin{document}
+
+\title{\bf Building games with high-level languages}
+
+\author{Giuseppe Maggiore \quad
+		  Renzo Orsini
+		  Michele Bugliesi
+ \\ Universit\`a Ca' Foscari Venezia
+ \\ Dipartimento di Informatica 
+ \\ \{maggiore,orsini,bugliesi\}@dsi.unive.it
+}
+
+\date{}
+\maketitle
+
+\begin{abstract}
+Video games are a fascinating and challenging niche of Computer Science. While games spark a strong fascination in many people, especially among the technical-savy folks, games also present a unique blend of complex challenges. Games require careful usage of the available hardware resources, since they must run quickly enough in order to provide a sufficiently interactive and fluid environment. Also, drawing a realistic scene and special effects in real-time is quite resource-intensive. On the opposite end of the spectrum, games have very complex logic: from physics simulations to animate the in-game-world to AI for the non-playing-characters to networking code for multiplayer games. In short, games are one of the most challenging areas of software development and software engineering, where a strong necessity for performance is more often than not at odds with a further need for the abstraction that only the most high-level languages and frameworks seem capable of offering. In this paper we make the case that high-level languages such as modern functional languages offer two distinct advantages:
+\begin{itemize}
+\item they allow us to split the logic and the renderind in two threads with no synchronization for greater performance
+\item they allow us to define the operations on sequences of data in a much more readable form, without 
+\item they allow us to define finite-state-machines (an extremely common case in games) with great ease
+\item they allow us to abstract complex patterns for implementing customizable logic in games (the so called ``scripting")
+\end{itemize}
+We will show various examples and benchmarks to document our claims that a very high-level language does not only make code more readable but also more easily parallelizable and thus faster.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\input{1.intro} 
+
+\section{Plain imperative implementation}
+\label{sec:imperative_implementation}
+\input{2.plain_imperative} 
+
+\section{Immutable implementation}
+\label{sec:immutable_implementation}
+\input{3.immutable} 
+
+\section{Monads refresher}
+\label{sec:monads_refresher}
+\input{4.monads_refresher} 
+
+\section{Functional implementation}
+\label{sec:functional_implementation}
+%%\input{5.optimized_execution} 
+
+\section{Unfolding animations and sequential operations}
+\label{sec:unfold_monad}
+%\input{conclusions} 
+
+\section{Benchmarks}
+\label{sec:benchmarks}
+%\input{conclusions} 
+
+\section{Conclusions and future work}
+\label{sec:conclusions}
+%\input{conclusions} 
+
+\bibliographystyle{plain}
+\bibliography{references} 
+\cite{*}
+\nocite{}
+
+\end{document}

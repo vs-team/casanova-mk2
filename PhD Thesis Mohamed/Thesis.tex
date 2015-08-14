@@ -1,0 +1,85 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Mohamed Abbadi}
+\title{Ph.D. Thesis}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\subsection{Games and video games}
+Games are an important human activity. They are a universal part of the human experience and present in all cultures from the earliest times. For example, recent discoveries showed that the game: Royal Game of Ur is oldest (3000BC.) complete set of gaming equipment ever found. Games are played by several kinds of people, ranging from children to adults. Games vary from competitive sport games (football game, Olympic games, volleyball, basketball, etc.) to board games (monopoly, mahjong, risk, guess who?, etc.).
+Among the common aspects of game, we find: all games have a goal, all games gave rules, all games have restrictions, and games require the acceptance of rules by players.
+
+\paragraph{Digital games}
+Around the concept of games, lately the concept of ``digital game" has been evolved. A digital game, or more commonly video game, is a game where a user is required, in order to play the game, to interact with a user interface presented and handled by a digital computer. Digital games have the same fundamental characteristics of their non-digital counterparts,but also some fundamental differences. In particular, digital games are more malleable, allows the absence of physical constraints (like a board, pawns, etc.). Through computer graphics and the computational power of modern machines, digital games are able to represent sophisticated games with high-fidelity visuals and effects, and to simulate very complex and automated rules (such as physics, and artificial intelligence agents). Thanks to the fact that a digital game acts as referee, players are often even able to understand the game rules and to start playing right away without a significant learning effort.
+
+Digital games (from now on games) have had a huge success. They are now a huge business, to the point that their sales are higher than those of music and films. Only for mobile games, in 2017 sales are predicted to exceed a hundred billions of dollars. The relevance of games as a social phenomenon is at an all-times high.
+
+\paragraph{Independent games}
+Even though this business is very visible, there is a deeply rooted underground of games outside the entertainment industry. These games are developed by small groups of independent developers. Independent developers are known for being highly innovative, and their games design are often not mainstream. Mainstream games are games that dominates sales chart for months or even a year and generally are easily accessible, pleasing to look at, and believable.
+
+\paragraph{Serious games}
+The potential of games (board and card games first and digital games later on) have been exploited in domains related to education/training. A good balance of training and learning is not always easy to achieve in traditional education/training, so games have become a field of research with the aim of making the learning experience more effective through
+the intrinsic pleasure of game plating. Through a less stressful environment (pleasant visuals and audio, etc.) and through a reward system, learning and teaching are achieved with fun and smaller effort on behalf of the learner.
+
+\paragraph{Research games}
+In researcher, testing and case studies are of much importance to validate experiments. Games (often in forms closer to real-time simulations) have been used for various kind of scientific research. They are commonly used in the context of: algorithmic research, AI research, social simulations, games as psychological and testing tools, various kind of simulation, etc.
+
+\subsection{Challenges in building games}
+Unfortunately, games are significantly expensive to build. The expense of building a game is tightly related to the complexity of the structure of the game itself. Such complexity can be divided into by three main groups: (\textit{i})
+technological complexity; (\textit{ii}) design complexity; and (\textit{iii}) visual complexity:
+\begin{enumerate}
+\item The logic of a game is a complex hybrid system. This means that at its core, the game features a state which describes the game world, plus (numerically approximated) differential equations that describe how the state changes over time. \textit{This thesis will focus on defining models to simplify the definition of game code}.
+\item Games are notoriously hard to define and frame. The process of designing the content and rules of a game is complex, since defining a game and its balancing is in itself an ambiguous task. It is a interesting research topic, but it is not covered by this thesis.
+\item Games are usually based on large virtual worlds with many distinct entities, most of which need to be visualized. Building such visual assets costs a lot, adding another layer of (commercial) difficulty to such games. As for the design complexity, we will not give solutions to the rising costs of visual asset creation in this thesis, even thought it is
+an interesting research topic.
+\end{enumerate}
+
+\paragraph{Technological complexities}
+Technological complexities stem from the \textbf{intrinsic difficulty of expressing real-time interactions}(and their visualization/output). Dealing with a real-time domain implies that we should keep into consideration: (\textit{i}) performance, (\textit{ii}) game structure and update, and (\textit{iii}) external components:
+
+\begin{enumerate}
+\item performance is crucial in order keep the system reactive and to keep the user experience pleasant.
+\item numerical differential equations for the solutions of the hybrid systems are difficult to express in code, especially in the presence of articulated behaviors.
+\item Rendering, audio, physics, etc. are all complex domains. To avoid duplication of substantial effort in these areas, the game industry uses engines (for example for graphics and physics) which are used by the game code as black boxes. As the number of components increases, complex interactions between the components need to be built. This yields additional difficulty, as these interactions are build with large concurrent programs.
+\end{enumerate}
+
+\paragraph{Current technology}
+Current technology for games building does not full address these issues. [TO BE EXPANDED].
+This means that lots of interesting, innovative projects without strong financial backing fail:
+\begin{enumerate}
+\item Independent developers, who are known to being innovative, are limited due to the cost of development. This has an immediate effect on the quality and features of their simulations, so good products may lack important but hard to build parts such as multiplayer.
+\item For researchers, the effort and the expense makes hard the progression of the research and makes it difficult to obtain results.
+\item Serious developers, specialized in simulations for different purposes such as educational, health care, city planning, etc., are known to have limited resources. This has an immediate consequence for their productivity.
+\end{enumerate}
+
+\paragraph{Problem statement}
+Our goal is to address the issues that arise from the analysis. We can state the general problem statement as follows: \textbf{To what extent can a tool be developed specifically for building video games that is also usable by non-experts}. We argue that by using specific tools and abstraction designed around games, rather than general purpose languages or tools, would reduce the efforts and costs of making games.
+
+\subsection{Research question and process}
+The research questions that we endeavor to answer in this thesis are:
+\begin{enumerate}
+\item Identify the requirements of a tool aimed towards making games
+\item Express these requirements in the form of a programming language for building games
+\end{enumerate}
+\subsection{Positive consequences}
+Games and in general simulations may have a substantial effect on our experience, and the virtual environment give us the opportunity to experiment new ways for research, education, training and entertainment. Making simulations have as trade-of efforts and costs that increases as the complexity increases and this puts much pressure on developers with limited resources.
+Our contribution is to reduce the effort and cost as well as supplying tools for building simulations in order to provide a vehicle for increased innovation.
+
+\section{Problem statement}
+Orchestration in games with Casanova 2
+\section{Language presentation - syntax and semantics}
+Orchestration in games with Casanova 2
+\section{Events optimization}
+\section{Query optimization}
+\section{Correctness and performance through static analysis}
+\section{Networking}
+\section{Final evaluation}
+Usability and comparison with existing work
+\section{Discussion and conclusion}
+
+
+\end{document}

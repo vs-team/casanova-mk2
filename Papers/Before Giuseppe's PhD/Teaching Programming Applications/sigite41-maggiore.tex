@@ -1,0 +1,93 @@
+\documentclass{sig-alternate}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc} 
+\usepackage[hyphens]{url}
+\lstset{language=ml}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{frame=single}
+\lstset{breaklines=true}
+\lstset{basicstyle=\ttfamily}
+
+\pdfpagewidth=8.5in
+\pdfpageheight=11in
+
+\begin{document}
+
+\conferenceinfo{SIGITE'11,} {October 20--22, 2011, West Point, New York, USA.} 
+\CopyrightYear{2011} 
+\crdata{978-1-4503-1017-8/11/10} 
+\clubpenalty=10000 
+\widowpenalty = 10000
+
+\title{Engaging High School Students in Computer Science via Challenging Applications}
+
+%\begin{comment}
+\numberofauthors{4}
+\author{
+Giuseppe Maggiore \and Andrea Torsello \and Flavio Sartoretto \and Agostino Cortesi \\
+       \affaddr{Universit\`a Ca' Foscari Venezia}\\
+       \affaddr{Dipartimento di Scienze Ambientali,}\\
+       \affaddr{Informatica e Statistica}\\
+       \email{\{maggiore, torsello, sartoretto, cortesi\}@dais.unive.it}
+}
+%\end{comment}
+
+\date{}
+
+\maketitle
+
+\begin{abstract}
+In this paper we describe a general framework for building short-courses designed to engage student while presenting a sub-field of computer science. We also describe two of these short-courses centered around computer graphics and physical simulations.
+
+We will discuss how even beginner students can participate in our short-courses; this is possible thanks to a careful choice of development environment, programming language and libraries that allow the students to focus on solving the problems and not thinking about low-level details.
+\end{abstract}
+
+\category{K.3.2}{Computers and Education}{Computer and Information Science Education}[Computer science education] 
+
+\terms{Human factors, languages}
+
+\keywords{education, computer science, games}
+
+\section{Introduction}
+\label{sec:intro}
+\input{intro} 
+
+\section{A general template}
+\label{sec:short-courses_template}
+\input{short-courses_template} 
+
+\section{Computer graphics}
+\label{sec:computer_graphics}
+\input{computer_graphics}
+
+\section{Physics simulation}
+\label{sec:physics_simulation}
+\input{physics_simulation}
+
+\section{Feedback and results}
+\label{sec:feedback_and_results}
+\input{feedback_and_results}
+
+\section{Conclusions and future work}
+\label{sec:conclusions}
+\input{conclusions} 
+
+\label{app:figures}
+\input{figures} 
+
+\bibliographystyle{plain}
+\bibliography{references} 
+
+\nocite{}
+
+\end{document}

@@ -1,0 +1,93 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% script_monad.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Monads can be used for many purposes \cite{MOGGI_MON,DECL_IMP,COMPR_MON,EFF_MON,CSHARP_ASYNC,CSHARP_LINQ}. Indeed, monads allow us to
+overload the bind operator, in order to define exactly what happens
+when we bind an expression to a name.  We will use this capability of monads to implement a DSL for coroutines that allows to chain coroutines together with the binding operator. The monad we define will \textit{suspend} itself at every bind and return its continuation as a lambda. The monad type is \texttt{Script}: 
+
+\begin{lstlisting}
+type Script<'a,'s> = 's -> Step<'a,'s>
+ and Step<'a,'s> = Done of 'a | Next of Script<'a,'s>
+\end{lstlisting}
+
+Notice that the signature is very similar to that of the regular
+state monad, but rather than returning a result of type $\alpha$
+it returns either \texttt{Done\ of} $\alpha$ or the continuation 
+\texttt{Next\ of\ Script<}$\alpha,\sigma$\texttt{>}. The continuation stores, in its closure, the local state of a suspended script. Our monad allows us to access the state which will be passed by the game engine; this way our scripts will be able to read, write or modify the main state of the game to interact with the processing performed by the game engine.
+
+Returning a result in this monad is simple: we just wrap it in the
+$\mathtt{Done}$ constructor since obtaining this value  requires no
+actual computation steps. Binding together two statements is more complex. 
+We try executing the first statement; if the result is
+$\mathtt{Done\ x}$, then we return
+$\mathtt{k\ x\ s}$, that is we perform the binding and we 
+continue with the rest of the program with the result of the first
+statement plugged in it. If the result is \texttt{Next\ p'}, then we cannot
+yet invoke $\mathtt{k}$. This means
+that we have to bind \texttt{p'} to \texttt{k}, so that at the next
+execution step we will continue the execution of \texttt{p} from where
+it stopped.
+
+\begin{lstlisting}
+type ScriptBuilder() = 
+  member this.Bind(p:Script<'a,'s>, k:'a->Script<'b,'s>) 
+    : Script<'b,'s> =
+    fun s ->
+      match p s with
+      | Done x -> k x s
+      | Next p' -> Next(this.Bind(p',k))
+
+  member this.Return(x:'a) : Script<'a,'s> = fun s -> Done x
+
+let script = ScriptBuilder()
+\end{lstlisting}
+
+We now define the \texttt{get\_state} coroutine that extracts the current state:
+
+\begin{lstlisting}
+let get_state : Script<'s,'s> = fun s -> Done s
+\end{lstlisting}
+
+We also define another coroutine that forces a suspension:
+
+\begin{lstlisting}
+let suspend :Script<Unit,'s> = fun s -> Next(fun s -> Done())
+\end{lstlisting}
+
+We assume the standard F\# convention that \texttt{let! x = script1 in script2} is translated into \texttt{Bind(script1, fun x -> script2)} and \texttt{return x} is translated into \texttt{Return(x)}.
+
+Let us now see a small, self-contained example of our scripting system in action. Coroutines can be used in many ways to achieve various results; what we are more interested in, is using coroutines as a means to perform long and complex computations asynchronously inside the main loop of an application. We wish to build an application that computes a very large Fibonacci number, but does so while continuously writing on the console that it is still alive and responsive. This application has no shared state, and so all our coroutines will have type \texttt{Script<'a,Unit>}.
+
+The coroutine version of the Fibonacci function is very similar to a regular implementation of the Fibonacci function, with the only difference that we use monadic binding to recursively invoke the function itself. Each time we recurse, the coroutine suspends:
+
+\begin{lstlisting}
+let rec fibonacci n : Script<int,Unit> = 
+  script{
+    match n with
+    | 0 -> return 0
+    | 1 -> return 1
+    | n -> 
+      do! suspend
+      let! n1 = fibonacci (n-1)
+      let! n2 = fibonacci (n-2)
+      return n1+n2 
+  }
+\end{lstlisting}
+
+Running the Fibonacci function now requires many steps of our scripting monad; for this reason we can safely invoke this function with the knowledge that it will run for a short time before returning either the final result with \texttt{Done} or its continuation with \texttt{Next}. We can define the main loop of our application as follows:
+
+\begin{lstlisting}
+let main_loop() =
+  let rec main_loop (f:Script<int,Unit>) = 
+    do printf "I am alive.\n"
+    match f () with
+    | Done result -> 
+      do printf "The result is %d\n" result
+    | Next f' ->
+      main_loop f'
+  do main_loop (fibonacci 1000000) 
+\end{lstlisting}
+
+The main loop above can be seen as a simplification of the game loop we have seen in Section \ref{sec:intro}. Of course in a game the state datatype would be more complex than just \texttt{Unit}, and the application would perform its full update and draw instead of just printing a string on the screen. This said, adding the above pattern matching to each iteration of the main loop of the game is all that is required to integrate our scripting system with an existing game engine.
+

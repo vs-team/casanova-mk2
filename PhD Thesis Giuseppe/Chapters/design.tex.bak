@@ -1,0 +1,380 @@
+\section{Motivation for a new language}
+%todo: rendi più chiaramente distinte le due cose: on the one hand linguaggio flessibile, etc.; \n on the other hand, niente boilerplate
+
+As discussed previously, the design goal that motivates the creation of a language, rather than a system, is the ability to provide a clean, succinct, easy to learn and easy to read language that can be used to efficiently make games. Such a language must be flexible enough so that a developer can use it effectively to build \textit{any} kind of game or simulation, and it should never lose expressive power, even when tackling scenarios that were not directly foreseen by its developers.
+The language should know the domain of games. It should be sufficiently smart in order to not require the developer to specify too many details; specifically, the language should make it possible to specify only the relevant details for one's game, and its run-time should fill in the blanks by adding all the additional boilerplate code that takes care of the various needs of the game. The developer should not focus his efforts on the game loop, reading input, hand-crafting state machines, and other menial tasks; this does not diminish the role of the developer at all: instead, it frees him to pursue other tasks that are more complex and interesting, such as building a better game logic, modeling AIs with stronger algorithms, applying procedural generation to levels and stories, and so on. There really are no boundaries to the complexity of a game or a simulation, especially considering how a game really represents a virtual world, and that current game worlds are very limited in scope and size.
+
+\section{Design Goals}
+Casanova is built with the following design goals:
+
+\begin{tabular}{ | l | p{9cm} | }
+\hline
+1. & Allow a developer to build games without explicit limitations in terms of genre or creativity \\
+\hline
+2. & Support common game development tasks of handling the game logic, game AIs, state machines, drawing, and input \\
+\hline
+3. & Be concise, in particular when compared with traditional programming languages used for the same games \\
+\hline
+4. & Be efficient, supporting fast runtime execution of the game and common optimizations such as multi-threading or query optimizations \\
+\hline
+5. & Be simple to read, supporting syntactic idioms that are grounded in logic and mathematics rather than aping the syntax of widespread programming languages \\
+\hline
+6. & Contain as little features as possible, that is the language should be built on top of few orthogonal \cite{CHAPTER_4_ORTHOGONALITY_PL} constructs that each serve a clear purpose and that mix well together \\
+\hline
+\end{tabular} 
+
+These goals, if fulfilled, will result in a simple, expressive, and efficient language that is suitable for creating games and simulations. We will refer to these goals in the final evaluation of the language.
+
+\section{Informal design}
+Casanova models a game by defining: \textit{(i)} the \textit{model of the world}, that is what entities and values we track to represent the game world; \textit{(ii)} the physical and logical \textit{rules} that the game entities obey to; \textit{(iii)} the \textit{state machines} that handle irregular game logic that would be difficult to express in terms of game rules; \textit{(iv)} the \textit{visual appearance} of the game entities; and \textit{(v)} the \textit{initial state} of the world when the game is launched. 
+
+We refer to this as to the \textit{Rule-Script-Draw} (RSD) design pattern, which can be implemented in many different languages outside Casanova and which identifies common, large parts that are found in games.
+
+As an example, let us consider a very simple pseudo-game that simulates a bunch of bouncing balls. We will use a pseudo-Casanova language before diving into the proper syntax. The model for our game world will simply define the world as:
+
+\begin{lstlisting}
+World = a series of balls
+\end{lstlisting}
+
+A ball would then be defined as:
+
+\begin{lstlisting}
+Ball = 
+  current position of the ball
+  current velocity of the ball
+  a picture of a ball
+\end{lstlisting}
+
+We now define the logical and physical rules of the world and its entities, that is we specify how each entity updates its fields. The rules for the world state that:
+
+\begin{lstlisting}
+World rules = 
+  when a ball exits the screen then it is not considered anymore in the state
+\end{lstlisting}
+
+The rules for the ball are slightly more complex, since we have to simulate some simple bouncing physics and we also have to update the sprite data:
+
+\begin{lstlisting}
+Ball rules =
+  the position is the numerical integration of the velocity
+  the velocity is the numerical integration of gravity, but when the position touches the ground then the velocity is turned upside-down
+  the sprite position is the same as the ball position
+\end{lstlisting}
+
+With the information provided above we now have a simplistic simulation that runs by updating some bouncing balls which are then "forgotten" from the game state whenever they leave the screen. We wish the simulation to be made marginally more interesting, and to achieve this result we will spawn balls automatically so that there is an endless supply of moving things on the screen. We model this behavior with a script:
+
+\begin{lstlisting}
+wait between one and three seconds
+add to the world a random ball
+repeat
+\end{lstlisting}
+
+Finally, we define the initial state of the world, that is what happens when the world is first activated as the game is launched:
+
+\begin{lstlisting}
+Initial world = 
+  an empty collection of balls
+\end{lstlisting}
+
+As we can see, the above description of the balls game is clear and simple, but we are not leaving behind any important details about what the game will do. Compared with a traditional game development library, though, there is no mention of the game loop, neither for updating the world nor for rendering, and drawing is implicit in the presence of an appearance inside the ball definition; also, the creation of new balls is defined as a simple, sequential process where the various operations are expressed in a top-down sequence instead of a traditional state machine. Also notice that we are not assuming the presence of prefabricated entities to have physics or timed operations, that is we have described everything ourselves.
+
+In the following we will describe how the Casanova language is defined to make it possible to express the above logic in an equally simple and straightforward manner, and how this description is turned into an actual, executable specification for a fast-enough game.
+
+\section{Formal Specification}
+Casanova is a member of the ML family of programming languages. In particular, it is related to the F\# variant of OCAML, given that the two languages are similar enough to each other, but F\# has access to a very large codebase of useful libraries for real-time rendering, audio playing, input management, and networking; among these, Casanova relies heavily on the MonoGame library. Casanova also takes advantage of F\# multi-platform support, and thus can run on anything that F\# can run on, thanks to the Mono run-time. F\# is a "pragmatic" functional programming language that belongs to the .Net framework. It is pragmatic in the sense that, together with functional idioms, it also allows inter-operation with all other .Net languages (most notably C\#) and their libraries, and it also allows mutation and imperative constructs with almost no limitations. F\# also supports some advanced meta-programming constructs that allow to extend it, for example monads (albeit renamed \textit{computational expressions} in the language documentation).
+
+\subsection{Grammar}
+The grammar of Casanova states that a valid program starts with a series of mutually recursive \textit{type definitions}; mutual recursion means that the definition of a type may use any other type defined in the program, regardless of the fact that the referenced type definition happens after the definition of the current type. 
+
+Type definitions also contain \textit{rules}, which are special methods that cannot be used by the developer explicitly, but only by the framework; rules are associated with exactly one attribute, and one attribute may be associated to at most one rule. Rules define declaratively what the value for an attribute will be at the next iteration of the game loop, and a rule can access the previous values of the game world and the entity of which it is performing a partial update. Rules cannot have side-effects beyond their implicit one, that is a rule is not allowed to write variables or modify anything. Its only side-effect comes from the fact that its result will become part of the game world at the next iteration of the game loop. 
+
+The program then contains a definition of the \textit{initial value} of the game world. 
+
+Finally, the program must have a \textit{main script} that defines the process that will handle the high-level game logic, plus a series of \textit{input scripts}. All scripts are defined through coroutines.
+
+The grammar that describes the syntax of a Casanova program then is:
+
+\begin{lstlisting}[texcl]
+<p>          ::= <type-decls> <initial-world> <scripts>
+<type-decls> ::= <type-decl> | <type-decl> <type-decls>
+<type-decl>  ::= `type' <id> `=' <type-body>
+<type-body>  ::= <record-body> | <union-body>
+
+<record-body> ::= `{' <labels> `}' <rules>
+<labels>      ::= <label> | <label>`;' <labels>
+<label>       ::= <id> `:' <type-expr>
+
+<type-expr>           ::= <id> | <tuple-type-expr> 
+                        | <intrinsic-type-expr>
+<tuple-type-expr>     ::= <type-expr> 
+                        | <type-expr> `*' <tuple-type-expr>
+<intrinsic-type-expr> ::= `Var<'<type-expr>`>' 
+                        | `Ref<'<type-expr>`>' 
+                        | `List<'<type-expr>`>' 
+                        | `Coroutine<'<type-expr>`>' 
+                        | float | int | Vector2 | ...
+<rules>               ::= empty | <rule> <rules>
+<rule>                ::= `rule' <rule-id> `=' <expr>
+<rule-id>             ::= <id> | <id>`.'<rule-id>
+<union-body>          ::= <id> | <id> `of' <type-expr> 
+                        | <id> `|' <union-body> 
+                        | <id> `of' <type-expr> `|' <union-body>
+
+<type-init>           ::= <tuple-init> | <list-init> 
+                        | <record-init> | <union-init> 
+                        | <intrinsic-type-init>
+<tuple-init>          ::= <expr> | <expr>, <tuple-init>
+<list-init>           ::= `[' <expr-list> `]' | `[' <list-compr> `]'
+<list-compr>          ::= `for' <id> `in' <expr> `do' <expr>
+<expr-list>           ::= `' | <expr> `;' <expr-list>
+<record-init>         ::= `{' <labels-init> `}'
+<labels-init>         ::= <id> `=' <expr> | <id> `=' <expr> `;' <labels-init>
+<union-init>          ::= <id> | <id> <tuple-init>
+<intrinsic-type-init> ::= `ref' <expr> | `var' <expr> 
+                        | `Vector2(' <expr> `,' <expr> `)' | ...
+<type-dest>           ::= `let' <ids> `=' <expr> | <match-case> 
+                        | <match-list> | <id> `.' <id>
+<ids>                 ::= <id> | <id> `,' <ids>
+<match-case>          ::= `match' <expr> `with' <patterns>
+<patterns>            ::= <pattern> | <pattern> `|' <patterns>
+<pattern>             ::= <id> | <ids> | <id> `(' <pattern-args> `)'
+<pattern-args>        ::= <pattern-arg> | <pattern-arg> `,' <pattern-args>
+<pattern-arg>         ::= <id> | <const>
+<match-list>          ::= `[]' | <id> `::' <id>
+
+<id-decl> ::= <id> | <id> `:' <type-expr>
+<expr>    ::= <id> | <const> 
+            | `let' <id> `=' <expr> `in' <expr> 
+            | `if' <expr> `then' <expr> `else' <expr> 
+            | <type-init> | <type-dest> 
+            | <co-expr> | ...
+<co-expr> ::= `co{' <co-expr> `}' | <expr> | `return' <expr> 
+            | `let!' <id> `=' <expr> `in' <expr> 
+            | `do!' <expr> `;' <expr> 
+            | <expr> `||' <expr> | <expr> `&&' <expr> 
+            | <expr> `=>' <expr> | `repeat' <expr> 
+            | `yield'
+<id>      ::= ... (* an alphanumeric string *)
+<const>   ::= ... (* a constant value *)
+
+<initial-world> ::= `let world =' <expr>
+<scripts>       ::= <main-script> <input-script> 
+<main-script>   ::= `let main =' <expr>
+<input-script>  ::= `let input =' <expr>
+\end{lstlisting}
+
+We have omitted some of the most obvious grammatical details: \textit{(i)} the full list of supported intrinsic types (strings, matrices, 3D and 4D vectors, etc.); \textit{(ii)} the initialization syntax for the intrinsic types; and \textit{(iii)} expressions may assume a very large number of shapes, from arithmetic operations such as \textit{expr + expr}, to function calls, function definitions, library functions such as \texttt{List.length}, etc.
+
+\subsection{Type System}
+The type system for Casanova contains the standard functional type system of F\#; this means that we have the usual rules such as:
+
+\begin{mathpar}
+
+\inferrule
+{\Gamma \vdash t_1:\texttt{U,}\ \Gamma,x:\texttt{U} \vdash t_2:\texttt{V}}
+{\Gamma \vdash \texttt{let }x \texttt{=} t_1 \texttt{ in } t_2:V}
+
+\inferrule
+{\Gamma \vdash cond:\texttt{bool}, t_1:\texttt{U}, t_2:\texttt{U}}
+{\Gamma \vdash \texttt{if }cond\texttt{ then }t_1\texttt{ else } t_2:U}
+
+\inferrule
+{\Gamma \vdash f:U \rightarrow V, t:U}
+{\Gamma \vdash f t:V}
+
+\inferrule
+{\Gamma \vdash t:\{l_1:T_1;l_2:T_2;...l_n:T_n\}}
+{\Gamma \vdash t.l_i:T_i}
+\end{mathpar}
+
+and so on. For a complete treatment of the rules of a programming language with this kind of this type system, there are many excellent sources such as \cite{CHAPTER_1_PL_INFLUENCE_ON_PL}.
+
+% todo: rendere ancora più esplicito per far capire subito come scorre il resto del paragrafo: per es. The most ... type system are two: rules and coroutines. We are now going to explain them in detail.\n. A CAPO Rules (grassetto) ...
+The most unusual and novel aspects of Casanova's type system are those that govern rules and effectful computations. Rules are typed as functions that take as input the game world, the current entity the rule belongs to, and the delta time since the last evaluation of this rule; the rule type has range equal to the type identified by its name, treated as a record label. A rule is well-defined if the following holds for all rules:
+
+\begin{lstlisting}
+type ID = { l1:T1; l2:T2; ... ln:Tn } 
+  rule li = (ei:World * ID * float<s> -> Ti)
+\end{lstlisting}
+
+For example we could write:
+
+\begin{lstlisting}
+type Ball = { P:Vector2<m>; V:Vector2<m/s> } 
+  rule P(world:World,self:Ball,dt:float<s>) =
+    self.P + self.V * dt
+\end{lstlisting}
+
+We could also write the very same definition where the method body is defined as a function value as:
+
+\begin{lstlisting}
+type Ball = { P:Vector2<m>; V:Vector2<m/s> } 
+  rule P = fun (world:World,self:Ball,dt:float<s>) ->
+    self.P + self.V * dt
+\end{lstlisting}
+
+Rules may also refer to the fields inside the value of an attribute. For example, a rule may define how attribute \texttt{kj} of attribute \texttt{li} is updated as in the following:
+
+\begin{lstlisting}
+type ID = { l1:T1; ...; li:{k1:V1; k2:V2; ... km:Vm} ln:Tn } 
+  rule li.kj = (eij:World * ID * float<s> -> Vj)
+\end{lstlisting}
+
+For example we could only update the \texttt{Y} field of the ball position as:
+
+\begin{lstlisting}
+type Ball = { P:Vector2<m>; VelY:float<m/s> } 
+  rule P.Y(world:World,self:Ball,dt:float<s>) =
+    self.P.Y + self.VelY * dt
+\end{lstlisting}
+
+
+And similarly for further chain lengths. 
+
+% todo: rispetto alla nota precedente, qui si dovrebbe indicare che "the second novel aspect of Casanova is ..." e mettere in grassetto la prima menzione delle coroutines
+Another novel aspect of Casanova is that it uses a rare \footnote{rare in applied work on programming languages as compared to theoretical research} feature of type systems that assigns a type to mutable computations. For example, in a traditional imperative language such as C, Java or others, assigning a variable is a statement (that is, it has type \texttt{void}). The same holds true for F\# as well, which types these effectful computations as \texttt{Unit}, which behaves essentially like \texttt{void}. In Casanova, on the other hand, effectful computations are all typed in terms of \textit{coroutines}. For example, assignment has type:
+
+\begin{mathpar}
+\inferrule
+{\Gamma \vdash t_1:\texttt{var<T>},t_2:\texttt{T}}
+{\Gamma \vdash t_1:=t_2:\texttt{Co<Unit>}}
+\end{mathpar}
+
+where we used the \texttt{Co} abbreviation for \texttt{Coroutine}. Reading a variable, on the other hand, does not cause any side-effects and so it is not typed in terms of coroutines:
+
+\begin{mathpar}
+\inferrule
+{\Gamma \vdash t:\texttt{Var<T>}}
+{\Gamma \vdash !t:\texttt{T}}
+\end{mathpar}
+
+The main point of coroutines is that they are the only place where the developer can put all the side-effects he needs, in a "safe place" where those side effects will not interact in undesired ways between each other. Containing side-effects enables us to safely perform optimizations that would otherwise be impossible because side-effects would break the invariants needed for such optimizations. Coroutines may only be invoked by other coroutines, excluding the \texttt{main} coroutine and the \texttt{input} coroutines which are run as appropriate by the Casanova runtime. Coroutines prevent a developer from performing dangerous mutation operations from inside the body of rules, and they force all imperative operations to happen either inside the main script or inside the input scripts (or else there will be a compiler error!).
+
+Coroutines are not just ways to encapsulate stateful computations: coroutines are also, and mainly, a tool for controlling how the (possibly imperative) operations of a sequential process are mixed with the game loop. The simplest coroutine possible is the one which finishes its job by invoking \texttt{return} on its result. We sequentialize coroutines together with the \texttt{let!} and \texttt{do!} operators. Coroutines may also be combined together according to a series of operators which mirror the fact that coroutines can be seen as threads that can: be run in parallel together until they both finish ($\wedge$); be run concurrently until the first terminates, discarding the other ($\vee$); be run in cascade but only when the first terminates with a certain positive result ($\Rightarrow$); be repeated indefinitely ($\Uparrow$). A coroutine may also wait for a certain amount of seconds, or it may wait for a single tick of the simulation (also known as \textit{yield}-ing).
+The typing rules that govern how coroutines may be combined together are:
+
+\begin{mathpar}
+\inferrule
+{\Gamma \vdash x:\texttt{T}}
+{\Gamma \vdash \texttt{return } x:\texttt{Co<T>}}
+
+\inferrule
+{\Gamma \vdash t1:\texttt{Co<U>} \Gamma,x:\texttt{U} \vdash t2:\texttt{Co<V>}}
+{\Gamma \vdash \texttt{let! } x \texttt{=} t1 \texttt{ in } t2:\texttt{Co<V>}}
+
+\inferrule
+{\Gamma \vdash t1:\texttt{Co<Unit>},t2:\texttt{Co<V>}}
+{\Gamma \vdash \texttt{do! } t1\texttt{; }t2:\texttt{Co<V>}}
+
+\inferrule
+{}
+{\vdash \texttt{yield}:\texttt{Co<Unit>}}
+
+\inferrule
+{\Gamma \vdash t:\texttt{float<s>}}
+{\Gamma \vdash \texttt{wait }t:\texttt{Co<Unit>}}
+
+\inferrule
+{\Gamma \vdash t_1:\texttt{Co<U>},t_2:\texttt{Co<V>}}
+{\Gamma \vdash t_1\texttt{ \&\& }t_2:\texttt{Co<U*V>}}
+
+\inferrule
+{\Gamma \vdash t_1:\texttt{Co<U>},t_2:\texttt{Co<V>}}
+{\Gamma \vdash t_1 \texttt{ || } t_2:\texttt{Co<Either<U,V>>}}
+
+\inferrule
+{\Gamma \vdash t_1:\texttt{Co<bool>},t_2:\texttt{Co<V>}}
+{\Gamma \vdash t_1 \texttt{ => } t_2:\texttt{Co<V>}}
+
+\inferrule
+{\Gamma \vdash t_1:\texttt{Co<Option<U>>},t_2:\texttt{U}\rightarrow\texttt{Co<V>}}
+{\Gamma \vdash t_1\texttt{ => }t_2:\texttt{Co<V>}}
+
+\inferrule
+{\Gamma \vdash t:\texttt{Co<Unit>}}
+{\Gamma \vdash \texttt{repeat }t:\texttt{Co<Unit>}}
+
+\inferrule
+{\Gamma \vdash t_1:\texttt{Var<T>},t_2:\texttt{T}}
+{\Gamma \vdash t_1:=t_2:\texttt{Co<Unit>}}
+\end{mathpar}
+
+\begin{comment}
+% todo: fix or keep as comment
+
+[[[THIS SHOULD NOT APPEAR]]]
+
+Designing a type system allows for more than simply defining how the various syntactic pieces fit correctly together in order to forbid meaningless programs. Type systems may also be used to validate more advanced correctness properties, such as correct use of system resources, security, and more. In our case, we wish to define an (optional) extension to the language that allows the language to reject all those scripts which may not terminate correctly. This extension is defined as optional for two reasons: the first is that it may turn out to be too restrictive, that is it may reject programs that in reality do terminate, and so the language must not rely on it and it must be switchable off; the second is that this extension to the type system does not in any way modify the way data is represented at run-time, and so it is very easy to erase the data used by this extension after program compilation.
+
+This extension is built in order to forbid a certain scenario: that of a coroutine which loops forever without ever yielding. This means that we need to represent additional information inside the type of a coroutine, and that this information will trace whether or not a coroutine is a risky one (loops without yielding) or not. 
+
+[[[DO JUST TWO COMBINATORS SUFFICE? WOULD IT NOT BE CLEANER WITH THREE?]]]
+
+We start by defining two empty types, \texttt{NT} and \texttt{T}, which respectively represent scripts that may not terminate in a single tick of the update function and scripts that certainly terminate in a single tick of the update function. This means that \texttt{Co<T,U>} will certainly \texttt{yield} at some point, even if it may take a long time in doing so, while \texttt{Co<NT,U>} may keep performing computations indefinitely, thereby blocking the game loop. Notice that we are not tracking termination of the script, so we do not really know if a script will return a final value; we are only interested in coroutines that suspend themselves, even if they never return a result.
+
+In the following we ignore the second parameter of coroutines and only focus on how the termination parameter is combined across different coroutines. So we will only write \texttt{Co<T>} or \texttt{Co<NT>}, and we will assume the previously seen typing rules for the other type parameters.
+
+All the sequentialization or parallelization operators simply propagate uncertainty in termination, that is binding or running in parallel a coroutine that does not terminate with another that terminates will result in a coroutine that does not terminate:
+
+\begin{lstlisting}
+Bind:Co<NT> * Co<_> -> Co<NT>
+Bind:Co<_> * Co<NT> -> Co<NT>
+Bind:Co<T> * Co<T> -> Co<T>
+
+yield:Co<T>
+return:Co<T>
+
+parallel:Co<NT> * Co<_> -> Co<NT>
+parallel:Co<_> * Co<NT> -> Co<NT>
+parallel:Co<T> * Co<T> -> Co<T>
+
+concurrent:Co<NT> * Co<_> -> Co<NT>
+concurrent :Co<_> * Co<NT> -> Co<NT>
+concurrent :Co<T> * Co<T> -> Co<T>
+
+guard:Co<T> -> Co<T>
+
+repeat:Co<T> -> Co<T>
+repeat:Co<NT> -> Co<NT>
+\end{lstlisting}
+
+The crux of the matter, on the other hand, lies in the typing rules for conditionals: conditionals, regardless of their condition, are assumed to not terminate if one of their branches does not; only if both branches certainly terminate do we allow them:
+
+\begin{lstlisting}
+if : bool -> Co<NT> -> Co<_> -> Co<NT>
+if : bool -> Co<_> -> Co<NT> -> Co<NT>
+if : bool -> Co<T> -> Co<T> -> Co<T>
+\end{lstlisting}
+
+Finally, we define how we may introduce a coroutine that does not terminate. This is actually simple: a coroutine that only contains a series of regular let-bindings and is followed by a \texttt{return} operation has type \texttt{Co<NT>}. The final result is that:
+
+\begin{lstlisting}
+repeat
+  co{
+    return ()
+  }
+\end{lstlisting}
+
+will have type \texttt{Co<Unit, NT>}, while 
+
+\begin{lstlisting}
+repeat
+  co{
+    do! yield
+    return ()
+  }
+\end{lstlisting}
+
+will have type \texttt{Co<Unit, T>}. The possible extension to the Casanova compiler would then reject all coroutines of type \texttt<NT>, which represent a liability since they would put the game at risk of staying locked forever into a single iteration of the game loop.
+
+The reason why this extension will either be optional or will just generate warnings rather than unrecoverable errors is that acceptable code such as:
+
+\begin{lstlisting}
+if false then 
+ repeat co{ return () }
+else
+ repeat yield
+\end{lstlisting} 
+
+would still be rejected by the compiler, which does not check the conditions on \texttt{if} statements and instead assumes that both branches may be executed. Since acceptable code may be ruled out by the compiler, we still wish to leave the final choice to the developer.
+\end{comment}

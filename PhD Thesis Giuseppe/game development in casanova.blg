@@ -1,0 +1,71 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: game development in casanova.aux
+The style file: plain.bst
+Database file #1: Chapters/references.bib
+Warning--string name "july" is undefined
+--line 480 of file Chapters/references.bib
+I was expecting a `,' or a `}'---line 721 of file Chapters/references.bib
+ : 
+ : @misc{CHAPTER_3_PINBALL_CONSTRUCTION_SET,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--string name "august" is undefined
+--line 996 of file Chapters/references.bib
+Repeated entry---line 1518 of file Chapters/references.bib
+ : @book{APPENDIX_G_CATEGORY_THEORY
+ :                                 ,
+I'm skipping whatever remains of this entry
+A bad cross reference---entry "CASANOVA_ACG"
+refers to entry "conf/acg/2011", which doesn't exist
+A bad cross reference---entry "CASANOVA_ICEC"
+refers to entry "DBLP:conf/iwec/2012", which doesn't exist
+A bad cross reference---entry "CASANOVA_SEBD"
+refers to entry "conf/sebd/2012", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/iwec/2012"
+Warning--I didn't find a database entry for "conf/acg/2011"
+Warning--I didn't find a database entry for "conf/sebd/2012"
+Warning--to sort, need author or key in CHAPTER_1_MOVIES_AND_MUSIC
+Warning--to sort, need author or key in CHAPTER_1_INDIE_GAMES_ON_SMARTPHONES_AND_TABLETS
+Warning--to sort, need author or key in CHAPTER_1_OLD_EDUCATIONAL_VIDEOGAMES
+Warning--to sort, need author or key in CHAPTER_1_GAME_ENGINES_MUST_BE_REBUILT_OFTEN
+Warning--to sort, need author or key in GALAXY_WARS
+Warning--to sort, need author or key in CHAPTER_2_LOCKLESS_THREADING
+Warning--to sort, need author or key in CHAPTER_3_PINBALL_CONSTRUCTION_SET
+Warning--to sort, need author or key in CHAPTER_3_ADVENTURE_CONSTRUCTION_SET
+Warning--to sort, need author or key in CHAPTER_3_GARRY_KITCHENS_GAME_MAKER
+Warning--to sort, need author or key in CHAPTER_3_WARGAME_CONSTRUCTION_SET
+Warning--to sort, need author or key in CHAPTER_3_SHOOT_EM_UP_CONSTRUCTION_KIT
+Warning--to sort, need author or key in CHAPTER_3_ARCADE_GAME_CONSTRUCTION_KIT
+Warning--to sort, need author or key in CHAPTER_3_RPG_MAKER
+Warning--to sort, need author or key in CHAPTER_3_BRENDER
+Warning--to sort, need author or key in CHAPTER_3_REALITY_LAB
+Warning--to sort, need author or key in CHAPTER_3_REALITY_LAB_INTO_DIRECT3D
+Warning--to sort, need author or key in CHAPTER_3_ID_TECH
+Warning--to sort, need author or key in CHAPTER_3_UNREAL_ENGINES
+Warning--to sort, need author or key in CHAPTER_1_PL_RESEARCH
+Warning--to sort, need author or key in CASANOVA_CODEPLEX
+Warning--to sort, need author or key in APPENDIX_F_FSHARP_MSDN
+Warning--to sort, need author or key in CHAPTER_8_CSHARP_SPECIFICATION
+Warning--to sort, need author or key in CHAPTER_8_UNITY_REFERENCE_MANUAL
+Warning--to sort, need author or key in CHAPTER_8_GAME_MAKER_MANUAL
+Warning--to sort, need author or key in CHAPTER_8_XNA_REFERENCE
+Warning--to sort, need author or key in CHAPTER_8_GMOGRE
+Warning--to sort, need author or key in CHAPTER_9_CSHARP_YIELD
+Warning--to sort, need author or key in CHAPTER_9_SCRIPTING_LUA
+Warning--to sort, need author or key in CHAPTER_9_UNITY_YIELD
+Warning--to sort, need author or key in APPENDIX_B_LIDGREN
+Warning--to sort, need author or key in APPENDIX_D_7
+Warning--there's a number but no volume in APPENDIX_C_HIERARCHICAL_PATHFINDING
+Warning--empty journal in CHAPTER_1_GROWING_DIFFUSION
+Warning--empty year in CHAPTER_1_GROWING_DIFFUSION
+Warning--empty booktitle in CHAPTER_1_TESTING_DOES_NOT_WORK
+Warning--empty year in APPENDIX_C_BDI
+Warning--there's a number but no volume in APPENDIX_C_STATISTICAL_PATTERN_RECOGNITION
+Warning--there's a number but no volume in APPENDIX_C_CLIPMAPS
+Warning--empty year in APPENDIX_C_CLIPMAPS
+Warning--empty publisher in CASANOVA_FSHARP
+Warning--empty year in CASANOVA_FSHARP
+Warning--there's a number but no volume in CHAPTER_1_PL_HOF
+Warning--empty booktitle in CHAPTER_1_CODE_MANAGEMENT
+Warning--empty institution in APPENDIX_E_TEMPLATES_TURING_EQUIVALENCE
+Warning--there's a number but no volume in CHAPTER_1_INDIE_GAMES_SIZE
+(There were 5 error messages)

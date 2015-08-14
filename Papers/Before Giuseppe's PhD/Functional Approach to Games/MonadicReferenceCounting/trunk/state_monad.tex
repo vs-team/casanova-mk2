@@ -1,0 +1,26 @@
+%----------------------------------------------------------------------------
+%  state_monad.tex 
+%----------------------------------------------------------------------------
+The state monad \cite{1_1,1_2,1_3,1_4,1_5} is a monad which allows us to write stateful, imperative computations in a pure language without sacrificing purity. A value of state monad type represents a statement, and its type requires that a value of type \emph{state} is passed as a parameter to the statement in order for it to evaluate to its result. Evaluating a statement not only returns the result of the evaluation, but also the new value of the state: the input state may have been modified, that is the evaluation of any statement may produce side-effects.
+
+The type of the state monad reminds the type of the denotational semantics of an imperative statement. This is interesting, in that we could consider values of the state monad as the denotation of statements:
+
+\begin{lstlisting}
+type St s a = s -> (a,s)
+\end{lstlisting}
+
+We can bind statements together into composite statements and return values inside statements. When binding, we concatenate the two statements by evaluating the first and then plugging its result into the second and then evaluating it:
+
+\begin{lstlisting}
+(>>=) :: St s a -> (a -> St s b) -> St s b
+p >>= k = \s ->
+  let y,s' = p s
+  in k y s'
+\end{lstlisting}
+
+When we wish to pack a value x inside a monad we return it:
+
+\begin{lstlisting}
+return :: a -> St s a
+return x = \s -> x,s
+\end{lstlisting}

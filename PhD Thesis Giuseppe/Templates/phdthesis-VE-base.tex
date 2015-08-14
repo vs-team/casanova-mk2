@@ -1,0 +1,82 @@
+%&PDFLaTeX
+\documentclass[12pt,american,VeneziaPhdThesis]{PhdThesis}[2004/02/17]%,draft
+\usepackage{babel}
+
+% here more packages
+
+%this only if you like to use some of its features (like smartrefs)
+% \usepackage{theorems}[2003/12/05]
+
+% consider to use hyperref
+\usepackage[bookmarks=true,bookmarksopen=true,pdfhighlight=/I,pdfpagemode=UseOutlines]{hyperref}%if you use pdflatex
+% \usepackage[hypertex, colorlinks=true, backref]{hyperref}%if you use latex
+
+% learn to use includes! 
+% \includeonly{introduction,preliminaries}
+
+% here macros
+
+\author{Author's name}
+\email{author's email}
+\homepage{author's home page}
+% use \and in case of two supervisors
+\supervisor{supervisor(s) name(s)}
+\phdcoord{PhD coordinator's name}
+\title{title}
+\date{January, 2006}
+\phdnumber{number}
+
+\makeindex
+
+\begin{document}
+\pagestyle{empty}
+\maketitle
+\begin{dedication}
+Here the dedication
+\end{dedication}
+\begin{abstract}
+    Here the abstract
+\end{abstract}
+\begin{acknowledgments}
+Here the acknowledgments
+\end{acknowledgments}
+
+\frontmatter
+\partstyle{serifbig}
+\chaptertitlestyle{serifbig}
+\pagestyle{serif}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\begin{preface}
+    Here the preface
+\end{preface}
+
+%if you use only (sub)section* in introduction
+\include{introduction}
+
+\mainmatter
+%otherwise use
+% \mainmatter
+% \include{introduction}%with \chapter{\introductionname} instead of \introduction
+
+% \part{First Part}
+\include{preliminaries}
+
+% others chapters(trough include) and/or parts
+% \include{...}
+% \part{...}
+% ...
+
+\backmatter
+\include{conclusions}
+% if you don't have an appendix just delete (comment) the following 3 lines
+\appendix
+\include{appendix}
+\backmatter
+
+\bibliography{biblio}
+\bibliographystyle{plain}
+\printindex%use makeindex to generate the index
+\end{document}

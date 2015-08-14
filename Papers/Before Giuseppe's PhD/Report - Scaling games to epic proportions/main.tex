@@ -1,0 +1,68 @@
+\documentclass{article}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc} 
+\usepackage[hyphens]{url}
+\usepackage{stmaryrd}
+\lstset{language=ml}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{frame=single}
+\lstset{breaklines=true}
+\lstset{basicstyle=\ttfamily}
+
+\begin{document}
+
+\title{Query languages applied to game development}
+
+\author{
+\textbf{Giuseppe Maggiore} \and \textbf{Giulia Costantini} \\
+       Universit\`a Ca' Foscari Venezia\\
+       Dipartimento di Scienze Ambientali,\\
+       Informatica e Statistica\\
+       \texttt{\{maggiore,costantini\}@dais.unive.it}
+}
+
+\date{\today}
+\maketitle
+
+\begin{abstract}
+In this report we summarize the application of declarative query languages to game development. Thanks to the use of a language that is very similar to SQL the authors have been able to build games with complex logic, fast runtime and very little and easily readable code.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\input{intro} 
+
+\section{Data-driven games}
+\label{sec:ddg}
+\input{ddg}
+
+\section{Real-time strategy games}
+\label{sec:rts}
+\input{rts}
+
+% syntax, semantics (informal), optimization (informal)
+\section{SGL}
+\label{sec:sgl}
+\input{sgl}
+
+\section{Conclusions}
+\label{sec:conclusions}
+\input{conclusions}
+
+\bibliographystyle{plain}
+\bibliography{references} 
+
+%\cite{*}
+\nocite{}
+
+\end{document}

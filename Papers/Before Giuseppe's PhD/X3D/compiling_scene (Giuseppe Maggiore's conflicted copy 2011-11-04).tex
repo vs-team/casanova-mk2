@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% compiling_scene.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The first step our compiler performs is deserializing the xml definition of our X3D scene.
+
+The scene is then processed and turned into a record, a type definition that describeds the static structure of our scene. The record contains:
+
+\begin{itemize}
+\item a field for each static node of the scene; each field has the name of the node if the node has a \texttt{DEF} attribute
+\item a field for a list of dynamic nodes
+\item a field for a list of active scripts
+\end{itemize}
+
+A sample state for a scene with a timer and a box could be:
+
+\begin{lstlisting}
+type SceneState =
+  {
+    myClock       : Timer 
+    box           : Box
+    dynamic_nodes : List<Node>
+    script        : Script
+  }
+\end{lstlisting}
+
+Where \texttt{Timer} and \texttt{Box} are the concrete classes for a timer and a box respectively, and they both inherit from the \texttt{Node} class.
+A list of nodes is needed to represent the dynamic portions of the scene, and a list of scripts maintains the sequence of currently running scripts.
+
+This state definition is quite important, since it represents the interface between our scene and our scripts, and since it allows us fast lookups of specific nodes. Finding a node now just requires reading from a field in the state, an operation which is both fast and certain not to fail. For example, looking for the \texttt{time} field of the \texttt{"myClock"} node would simply require writing:
+
+\begin{lstlisting}
+state.myClock.time
+\end{lstlisting}
+
+We then proceed to the initialization of the state. This amounts to creating instances of each node, and then assigning these instances to the fields of the \texttt{state} variable.
+
+An \texttt{update} function is then constructed that performs the update of all the statically known fields of the state, and which also executes the various routes of the scene. Also, the \texttt{update} function invokes the (dynamically dispatched) \texttt{update} function of each dynamic node; this is necessary because it would be unrealistic to hope that a complex virtual world can exclusively rely on statically known nodes, and a balance must be struck between optimizing static nodes and supporting dynamic ones.
+
+The \texttt{update} function also performs a tick for all currently running scripts.
+
+The update function that updates the state seen above would simply become:
+
+\begin{lstlisting}
+let update (dt:float32) =
+  state.myClock.update dt
+  state.box.update dt
+  for node in state.dynamic_nodes do
+    node.update dt
+  script.update dt
+\end{lstlisting}

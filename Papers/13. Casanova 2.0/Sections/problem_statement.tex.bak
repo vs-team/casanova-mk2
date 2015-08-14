@@ -1,0 +1,79 @@
+In this section we discuss games and their complexity through a case study. We consider a sample which fits within the space constraints of a paper, which at the same time shows the complex interactions that are typical for games.
+
+\subsection{Running example}
+The running example we use is a patrol moving through checkpoints. The state of the patrol is made up by the position of the patrol \texttt{P}, and its velocity \texttt{V}.
+\begin{lstlisting}
+P is a 2D Vector
+V is a 2D Vector
+Checkpoints is a list of 2D Vectors
+\end{lstlisting}
+The logic of the game is given using a pseudo language:
+\begin{lstlisting}
+P is integrated by V over dt
+V points towards the next checkpoint until
+  the checkpoint is reached, then becomes
+  zero for ten seconds (the patrol is idle)
+\end{lstlisting}
+
+A game is said to run as a sequence of time slices, called ``frames.'' A typical game runs at 30 to 60 frames per second. The pseudo code above describes the logic of the patrol, which runs every frame. The logic shows a typical dynamic present in any game, which is made up by continuous components (the update of \texttt{P} in our case) and discrete components (the update of \texttt{V}). As a result, \texttt{P} changes every frame, while \texttt{V} only changes upon reaching a checkpoint.
+
+\subsection{Common issues}
+Dynamics such as the one described above are built in games either with engines or by hand.
+\paragraph{Engines} An engine is a library built to offer solutions for specific tasks (such as graphics and physics control) in order to speed up the development process, by promoting code reuse and reducing mistakes. By hiding complexity inside libraries and editors, developers only need to adapt their design to the engine. While popular, engines tend to have significant issues:
+\begin{itemize}
+\item Engines are often difficult, or even impossible, to expand and to adapt to the needs of the developer using them; this limits developers because some aspects of design might need to be adapted or left out due to of lack of specific support by the engine;
+\item Engines are very often closed libraries. Even though engines are internally optimized, the possibilities for global optimization that takes into account the game structure are very limited;
+\item Expertise is needed to master an engine. Since most (if not all) engines are highly complex to use, a significant effort of the developers is spent on learning the intricacies of the engine.
+\end{itemize}
+In general, a good engine offers good performance and a reduced possibility to make mistakes, while at the same time limiting developers to the engine features and asking them to master most features before using the full capabilities of the engine.
+
+\paragraph{Hand made implementations} A hand made implementation is used when developers are looking for specific behaviors, want to have more control on the game implementation, or when the support of the underlying platform is poor.
+Hand made implementations raise important issues to be considered before starting a new project:
+\begin{itemize}
+\item Games tend to be very large applications. As size increases, the number of interactions increases as well, together with the possibility to make mistakes;
+\item Optimization (when done by hand) adds complexity, because it requires supplementary data structures and may change the implementation of the game interaction. Optimization may also lead to (\textit{i}) implementation issues (for instance some optimization may work only on specific architectures), and (\textit{ii}) maintainability issues (any change in the game design should keep into account its repercussions on the implementation).
+\end{itemize}
+
+
+We now present an example of hand-made implementation of the patrolling dynamics following the style of \cite{millington2009artificial}:
+\begin{lstlisting}
+class Patrol:
+  enum State:
+   MOVING
+   STOP
+
+  public P, V, Checkpoints
+  private myState, currentCheckpoint, timeLeft
+
+  def loop(dt):
+   P = P + V * dt
+   if myState == MOVING:
+     if P == Checkpoints[currentCheckpoint]:
+       myState = STOP
+       V = Vector2.Zero
+       timeLeft = 10
+   elif myState == STOP:
+     if timeLeft < 0:
+       currentCheckpoint += 1
+       currentCheckpoint %= Checkpoints.length
+       myState = MOVING
+       V = Normalize(
+            Checkpoints[currentCheckpoint] - P))
+     else
+       timeLeft -= dt
+\end{lstlisting}
+The \texttt{loop} function implements the patrolling behavior. It takes one argument \texttt{dt} which represents the delta time elapsed since the last frame. The very first line of the \texttt{loop} body implements the position update behavior. The velocity behavior depends on whether the patrol is moving or idle. While moving, we stop the patrol as soon as he reaches the checkpoint, and set the wait timer to 10 seconds. If the patrol is idle and the countdown is elapsed, the next checkpoint is selected. At this point the patrol points toward the new checkpoint and starts moving again.
+
+
+% In general, solutions made by hand are desirable when building anything that is not readily supported by existing libraries or engines.
+
+\subsection{Discussion}
+The patrolling sample illustrates a common division between design and implementation in games. Deceptively simple problem descriptions turn out to require surprisingly articulated implementations. Complexity mainly originates from the explicit definition and management of a series of \textit{spurious variables} that are needed to program the logical flow of the problem but which do not come up in the design. In our case study, the spurious variables are \texttt{myState} (together with the definition of the state structure) and \texttt{timeLeft}.
+
+A language suited for game development by persons for whom game development is not their main job, has two main requirements:
+\begin{itemize}
+\item \textit{Performance}: Games are highly interactive applications which tend to be filled with many dynamic elements; if the language in which they are built does not guarantee high performance, the player experience will suffer;
+\item \textit{Simplicity}: The language should be easy to understand and easy to express game functionality in; if the language is not simple in these respects, it requires an amount of training that is not within reach of those who are not game developers by profession.
+\end{itemize}
+
+Below we introduce a game-centered programming language and show how to rebuild the sample above with fewer spurious constructs, in a way that is closer to a higher-level, readable description. 

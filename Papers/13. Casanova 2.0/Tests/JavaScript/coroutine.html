@@ -1,0 +1,61 @@
+<html>
+ <head>
+ <title>My Javascript Page</title>
+ </head>
+
+ <body>
+<script type="text/javascript;version=1.7">
+
+function Vector2(x, y){
+   this.x = x;
+   this.y = y;
+}
+
+function Ball(){
+	this.P = new Vector2(0.0,0.0);
+	this.V = new Vector2(0.1,0.0);
+	this.P_rule_iterator = P_rule(this);
+	this.V_rule_iterator = V_rule(this);
+};
+
+function* P_rule(elem) {
+		while(true){
+				yield 0;
+				elem.P = new Vector2(elem.P.x + elem.V.x, elem.P.y + elem.V.y);			
+			}
+	}
+	
+function* V_rule(elem) {
+		while (true) {
+			yield 0;
+			if(elem.P.x > 500.0){				
+				elem.P = new Vector2(500, elem.P.y);
+				elem.V = new Vector2(-0.1,0.0);
+			}
+			if(elem.P.x < -500){				
+				elem.P = new Vector2(-500, elem.P.y);
+				elem.V = new Vector2(0.1,0.0);
+			}
+		}
+	}
+
+var balls = new Array ();
+var balls_number = 10000;
+var iterations = 10000;
+for (var i = 0; i < balls_number; i++) {
+	var b = new Ball();
+	balls.push(b);
+}
+
+console.time('Ball game');
+
+for (var i = 0; i < iterations; i++) {
+	for (var bi = 0; bi < balls_number; bi++) {
+		balls[bi].P_rule_iterator.next();
+		balls[bi].V_rule_iterator.next();
+	}
+}
+console.timeEnd('Ball game');
+ </script>
+ </body>
+ </html> 

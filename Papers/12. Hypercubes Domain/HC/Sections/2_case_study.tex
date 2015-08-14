@@ -1,0 +1,55 @@
+\begin{figure}[b]
+\vspace{-15pt}
+\begin{lstlisting}
+let px = rand(0.0, 10.0), py = rand(0.0, 50.0)
+let vx = rand(0.0, 60.0), vy = rand(-30.0, -25.0)
+let dt = 0.05, g = -9.8, k = 0.8
+
+while (true) do
+   if( py >= 0.0 ) then 
+     (px, py) = (px + vx * dt, py + vy * dt)
+     (vx, vy) = (vx, vy + g * dt)
+   else
+     (px, py) = (px + vx * dt, 0.0)
+     (vx, vy) = (vx, -vy) * k
+\end{lstlisting}
+\caption{Case study: bouncing-ball code}
+\label{lst:casestudy}
+\end{figure}
+
+Consider the program in Figure \ref{lst:casestudy}. It generates a bouncing ball that starts at the left side of the screen (even though the exact initial position is not fixed), and it has a random initial velocity. The horizontal direction of the ball is always towards the right of the screen, since $\statement{vx} \geq 0$.%the horizontal component of the velocity is always positive.
+Whenever the ball reaches the bottom of the screen, it bounces (i.e., its vertical velocity is inverted). When the ball reaches the right border of the screen, it disappears. We want to verify that $T$ seconds after the generation of the ball, such ball has already exited from the screen (we call this \emph{Property 1}). 
+
+The structure of this program respects the generic structure of a physics simulation, as explained in Section \ref{sec:introduction}. The meanings of the variables are as follows. \statement{(px,py)} represents the current position of the ball in the screen, and its initial values are generated randomly. \statement{(vx,vy)} represents the current velocity of the ball, and its initial values are generated randomly as well. \statement{dt} represents the time interval between iterations of the loop. This value is constant and known at compile time ($\statement{dt}=1/20=0.05$ considering a simulation running at 20 frames per second). \statement{g} represents the force of gravity ($-9.8$). \statement{k} represents how much the impact with the ground decreases the velocity of the ball.
+
+The \statement{while} loop updates the ball position and velocity. 
+%In particular, if the ball is in the air (i.e., its vertical position is greater or equal to $0.0$), its position is updated according to the rule of uniform linear motion. The vertical velocity is also updated to take into account the force of gravity, while the horizontal one remains unmodified. Otherwise, the ball touches the ground\footnote{We must wait for the position of the ball to be \emph{lower} than zero before making it bounce, otherwise a ball could bounce before having actually touched the ground. The ball could disappear from the screen for a bit, but, considering the frame-rate of modern games, this artifact is almost not perceived by the user.} and it bounces. 
+To simulate the bouncing, we update the horizontal position according to the rule of uniform linear motion, while we force the vertical position to zero when the ball touches the ground and we invert the vertical velocity. In addition, we decrease both the horizontal and vertical velocity through the constant factor \statement{k}, to consider the force which is lost in the impact with the ground.
+
+\begin{figure}
+\vspace{-15pt}
+\begin{lstlisting}
+let balls = Set.empty
+let dt = 0.05, creationInterval = 3.0, timeFromLastCreation = 0.0
+while (true) do
+	foreach ball in balls
+		updateBall(ball)	
+	if(timeFromLastCreation >= creationInterval)
+		generateNewBall()
+		timeFromLastCreation = 0.0
+	else
+		timeFromLastCreation += dt
+\end{lstlisting}
+\caption{Bouncing ball generation}
+\label{lst:casestudyExternal}
+\end{figure}
+\vspace{-15pt}
+
+Verifying Property 1 on this program has a significant practical interest, since it is a basic physics simulation which can be used in many contexts \cite{E10}. For instance, consider the program in Figure \ref{lst:casestudyExternal}, where \statement{updateBall(b)} moves the ball \statement{b} (through the body of the while loop of Figure \ref{lst:casestudy}) and \statement{generateNewBall()} creates a new ball (with the values of the initialization of Figure \ref{lst:casestudy}). It discreetly generates bouncing balls on the screen. The interval between the creation of two balls (\statement{creationInterval}) is constant and known at compile time.
+
+Proving \emph{Property 1} on the program in Figure \ref{lst:casestudy} means that a single ball will have exited the screen after $T$ seconds. In addition, in the program of Figure \ref{lst:casestudyExternal}, we generate one ball each $\statement{creationInterval}$ seconds. This means that, having verified \emph{Property 1}, we can guarantee that \emph{a maximum of $\lceil \frac{T}{\statement{creationInterval}} \rceil$ balls will be on the screen at the same time}. Such information may be useful for performance reasons (crucial in a game), since each ball requires computations for its rendering and updating. 
+
+%Thus, what we would like to prove is that \emph{there never are more than $N$ balls on the screen at the same time}. Since we know that we generate a ball at each \statement{creationInterval} seconds, this property is equivalent to verify that, $N \times \statement{creationInterval}$ seconds after the generation of a ball, such ball has already exited from the screen. In fact, we know that after such time ($N \times \statement{creationInterval}$ seconds), other $N$ balls will have been generated, so the first ball must have already exited. \footnote{This property is more restrictive than the original one, since the balls do not necessarily exit the screen in the same order they were created, depending on their random initial velocity. Anyway, the increased strictness means that, if we prove this property, we have also proven the original one.}
+
+Non-disjunctive or non-relational static analyses are not properly suited to verify \emph{Property 1}. Consider for example the Interval domain where every variable of the program is associated to a single interval. After a few iterations, when the vertical position possibly goes to zero, the analysis is not able to distinguish which branch of the \statement{if-then-else} to take anymore. In this case, the lub operator makes the vertical velocity interval quite wide, since it will contain both positive and negative values. After that, the precision gets completely lost, since the velocity variable affects the position and vice-versa. On the other hand, the accuracy that would be ensured by using existing disjunctive domains has a computational cost that makes this approach unfeasible for practical use.
+

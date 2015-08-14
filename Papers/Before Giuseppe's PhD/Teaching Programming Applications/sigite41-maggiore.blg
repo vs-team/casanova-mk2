@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2010)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: sigite41-maggiore.aux
+The style file: plain.bst
+Database file #1: references.bib
+Warning--to sort, need author or key in VISUAL_STUDIO
+Warning--to sort, need author or key in F_SHARP
+Warning--to sort, need author or key in XNA
+Warning--empty year in GAMES_FRESHMEN
+Warning--empty year in TEACHING_CS_THROUGH_GAMES
+You've used 15 entries,
+            2118 wiz_defined-function locations,
+            596 strings with 6584 characters,
+and the built_in function-call counts, 5115 in all, are:
+= -- 526
+> -- 205
+< -- 5
++ -- 86
+- -- 66
+* -- 338
+:= -- 798
+add.period$ -- 47
+call.type$ -- 15
+change.case$ -- 77
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 207
+empty$ -- 420
+format.name$ -- 66
+if$ -- 1117
+int.to.chr$ -- 0
+int.to.str$ -- 15
+missing$ -- 12
+newline$ -- 75
+num.names$ -- 26
+pop$ -- 88
+preamble$ -- 1
+purify$ -- 62
+quote$ -- 0
+skip$ -- 164
+stack$ -- 0
+substring$ -- 323
+swap$ -- 56
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 60
+warning$ -- 5
+while$ -- 48
+width$ -- 17
+write$ -- 165
+(There were 5 warnings)

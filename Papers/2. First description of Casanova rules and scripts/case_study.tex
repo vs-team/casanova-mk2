@@ -1,0 +1,178 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% case_study.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section we show the implementation of the XNA Spacewar starter kit in Casanova.
+
+The state definition requires defining the game state and the game entities; the entities are the two players (who both are represented with ships), a series of asteroids, a series of projectiles and the sun in the middle of the playing field.
+
+Each entity contains (or is outright) a value of type \texttt{Entity}. \texttt{Entity} contains a position, a velocity and performs collision detection with the other entities of the state. If a collision happens, then the entity's life is decreased. When an entity has life smaller or equal to zero, then it is removed. Projectiles are an exception in that they are removed when their age exceeds 3 seconds, even if no collisions take place.
+
+The state definition, together with its rules, is the following:
+
+\begin{lstlisting}
+type GameState =
+  {
+    Player1 : Player
+    Player2 : Player
+
+    Ships 
+      : Rule<Table<Ref<Ship>>>
+      :: fun state -> [state.Player1.Ship; state.Player2.Ship]    
+    Asteroids
+      : Rule<Table<Asteroid>>
+      :: fun state -> [a | a <- state.Asteroids, a.Life > 0.0f]
+    Projectiles (* table of projectiles with life > 0 and age < 3 *)
+    Sun     : Star
+
+    GameStatus          
+      : Rule<GameStatus>
+      (* check if a ship has life < 0, and assign winner;
+         in case of tie assign GameOver(None) *)
+  }
+
+type GameStatus = Playing | GameOver of Option<Player>
+\end{lstlisting}
+
+A generic entity is then defined as:
+
+\begin{lstlisting}
+type Entity = 
+  {
+    Position
+      : Rule<Vector2>
+      (* increment by velocity * dt, unless a collision is happening *)
+    PrevPosition
+      : Rule<Vector2>
+      (* store position, to backtrack in case of collision *)
+    Velocity
+      : Rule<Vector2>
+      (* invert in case of collision, otherwise accelerate towards sun *)
+
+    Radius : float32
+    Life
+      : Rule<float32>
+      :: fun self -> !self.Life - !self.ColliderAsteroids.Count * 10.0f
+                             - !self.ColliderProjectiles.Count * 5.0f
+                             - !self.ColliderShips.Count * 10.0f
+                             - !self.ColliderSun.Count * 100.0f
+
+    ColliderAsteroids
+      : Rule<Table<Asteroid>>
+      :: fun (state,self) -> [a | a <- state.Asteroids, collides a self]
+
+    ColliderShips
+      : Rule<Table<Ship>>
+      :: fun (state,self) -> [s | s <- state.Ships, collides s self]
+
+    ColliderProjectiles
+      : Rule<Table<Projectile>>
+      :: fun (state,self) -> [p | p <- state.Projectiles, p.Shooter <> self, collides p.Entity self]
+
+    ColliderSun
+      : Rule<Table<Star>>
+      :: fun (state,self) -> if collides state.Sun self then [state.Sun] else []
+
+    Colliding
+      : Rule<bool>
+      :: fun self -> !self.ColliderAsteroids.Count + !self.ColliderShips.Count + ... > 0
+  }
+\end{lstlisting}
+
+The concrete game entities are:
+
+\begin{lstlisting}
+type Ship = Entity
+type Asteroid = Entity
+type Projectile = 
+  {
+    Entity      : Entity
+    Shooter     : Ref<Entity>
+      : Rule<float32>
+      :: fun (self,dt) -> !self.Age + dt
+  }
+type Star =
+  {
+    Position : Vector2
+    Radius   : float32
+  }
+type Player = 
+  {
+    Ship  : Ship    
+    Score 
+      : Rule<int>
+      :: fun (state,self) -> !self.Score + !self.Hits.Count
+
+    Hits
+      : Rule<Table<Projectile>>
+      :: fun (state,self) -> [p | p <- state.Projectiles, p.Shooter =   }
+\end{lstlisting}
+
+The initial state sets up the two players, a set of 12 asteroids, the sun and the current gameplay status (which indicates whether the game is running or is over). We simplify initialization of an entity with the \texttt{mk\_entity} function, which initializes the various collider fields to an appropriate default value. The initial state is defined as:
+
+\begin{lstlisting}
+let state0 = 
+  let mk_entity position velocity size life = (* ... *)
+
+  let player1 = 
+    {
+      Ship          = mk_entity (Vector2(200.0f, 240.0f)) (Vector2.UnitY * 50.0f) 10.0f 100.0f
+      Score         = mk_cell 0
+      Hits          = mk_cell Table(50)
+    }
+  let player2 = 
+    {
+      Ship          = mk_entity (Vector2(600.0f, 240.0f)) (-Vector2.UnitY * 20.0f) 10.0f 100.0f
+      Score         = mk_cell 0
+      Hits          = mk_cell Table(50)
+    }
+
+  let asteroids() =
+    Table(
+      seq{
+        for i = 1 to 12 do
+          let x = (float32 i) * 70.0f + 10.0f
+          let a = mk_entity (Vector2(x,480.0f)) (rand.NextVector2 * 50.0f) 10.0f 100.0f
+          yield a
+      })
+
+  let state = 
+    {
+      Player1             = player1
+      Player2             = player2
+
+      Ships               = mk_cell Table(2)
+      Asteroids           = mk_cell asteroids
+      Projectiles         = mk_cell Table(1000)
+      Sun                 = 
+        {
+          Position = Vector2(400.0f,240.0f)
+          Radius   = 20.0f
+        }
+
+      GameStatus          = mk_cell Playing
+    }
+  state
+\end{lstlisting}
+
+The main behavior of the program is defined as a loop that iterates until the game state is \texttt{Playing}. While that is not the case, the loop continuously instantiates projectiles and asteroids according to user input and to maintain the initial number of asteroids even when existing ones are destroyed. The main behavior is defined as:
+
+\begin{lstlisting}
+let behavior0 (state:GameState) : Behavior<Unit,Unit> =
+  let rec behavior() = 
+  {
+    do! begin_
+    if state.Projectiles.Value.Count < 200 then
+      let shooter = state.Player1.Ship
+      do state.Projectiles.Value.Add (* create new projectile *)
+      let shooter = state.Player2.Ship
+      do state.Projectiles.Value.Add (* create new projectile *)
+      do! wait 0.1f
+    if state.Asteroids.Value.Count < 12 then
+      do state.Asteroids.Value.Add (* create new random projectile *)
+      do! wait 0.05f
+    do! yield_
+    if state.GameStatus = Playing then
+      do! behavior()
+  }
+\end{lstlisting}

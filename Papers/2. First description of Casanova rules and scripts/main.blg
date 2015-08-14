@@ -1,0 +1,79 @@
+This is BibTeX, Version 0.99d (TeX Live 2010)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: plain.bst
+Database file #1: references.bib
+I was expecting a `,' or a `}'---line 66 of file references.bib
+ : 
+ : @misc{SCRIPTING_LUA,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--string name "august" is undefined
+--line 77 of file references.bib
+Warning--string name "august" is undefined
+--line 85 of file references.bib
+Warning--string name "august" is undefined
+--line 127 of file references.bib
+I was expecting a `,' or a `}'---line 254 of file references.bib
+ :  
+ :  Title = {A Data-Driven Game Object System}}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--to sort, need author or key in XBOX_GC
+Warning--to sort, need author or key in XNA
+Warning--to sort, need author or key in ESA
+Warning--to sort, need author or key in SCRIPTING_LUA
+Warning--to sort, need author or key in UNITY_YIELD
+Warning--to sort, need author or key in UNREALSCRIPT_LATENT_FUNCTIONS
+Warning--to sort, need author or key in Irrlicht
+Warning--to sort, need author or key in Ogre
+Warning--to sort, need author or key in UNREAL_ENGINE
+Warning--to sort, need author or key in X3D_TR
+Warning--to sort, need author or key in XNA_SAMPLES
+Warning--to sort, need author or key in HASKELL_COMPREHENSIONS
+Warning--to sort, need author or key in EVOLVE_HIERARCHY
+Warning--to sort, need author or key in GAMEOBJECTS
+Warning--to sort, need author or key in CASANOVA_CODEPLEX
+Warning--empty publisher in QUERY_OPT
+You've used 43 entries,
+            2118 wiz_defined-function locations,
+            740 strings with 9715 characters,
+and the built_in function-call counts, 11349 in all, are:
+= -- 1123
+> -- 364
+< -- 8
++ -- 161
+- -- 112
+* -- 592
+:= -- 1692
+add.period$ -- 120
+call.type$ -- 43
+change.case$ -- 178
+chr.to.int$ -- 0
+cite$ -- 59
+duplicate$ -- 490
+empty$ -- 1127
+format.name$ -- 112
+if$ -- 2558
+int.to.chr$ -- 0
+int.to.str$ -- 43
+missing$ -- 29
+newline$ -- 203
+num.names$ -- 56
+pop$ -- 315
+preamble$ -- 1
+purify$ -- 142
+quote$ -- 0
+skip$ -- 399
+stack$ -- 0
+substring$ -- 576
+swap$ -- 112
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 158
+warning$ -- 16
+while$ -- 90
+width$ -- 45
+write$ -- 417
+(There were 2 error messages)

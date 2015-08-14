@@ -1,0 +1,131 @@
+\BOOKMARK [0][]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][]{section.1.1}{Games, board games, and video games}{chapter.1}% 2
+\BOOKMARK [1][]{section.1.2}{The challenge of game development}{chapter.1}% 3
+\BOOKMARK [1][]{section.1.3}{Problem statement}{chapter.1}% 4
+\BOOKMARK [1][]{section.1.4}{Research questions and process}{chapter.1}% 5
+\BOOKMARK [2][]{subsection.1.4.1}{A new programming language}{section.1.4}% 6
+\BOOKMARK [1][]{section.1.5}{Structure of This Work}{chapter.1}% 7
+\BOOKMARK [0][]{chapter.2}{Requirements of a game}{}% 8
+\BOOKMARK [1][]{section.2.1}{The game loop}{chapter.2}% 9
+\BOOKMARK [1][]{section.2.2}{State machines}{chapter.2}% 10
+\BOOKMARK [1][]{section.2.3}{Drawing}{chapter.2}% 11
+\BOOKMARK [1][]{section.2.4}{Summary}{chapter.2}% 12
+\BOOKMARK [0][]{chapter.3}{Available game development systems and languages}{}% 13
+\BOOKMARK [1][]{section.3.1}{Systems vs languages}{chapter.3}% 14
+\BOOKMARK [1][]{section.3.2}{Systems for making games}{chapter.3}% 15
+\BOOKMARK [2][]{subsection.3.2.1}{Relevant game systems}{section.3.2}% 16
+\BOOKMARK [2][]{subsection.3.2.2}{Our choice of systems}{section.3.2}% 17
+\BOOKMARK [2][]{subsection.3.2.3}{Game Maker}{section.3.2}% 18
+\BOOKMARK [1][]{section.3.3}{Languages for making games}{chapter.3}% 19
+\BOOKMARK [2][]{subsection.3.3.1}{Simula 67}{section.3.3}% 20
+\BOOKMARK [2][]{subsection.3.3.2}{Inform}{section.3.3}% 21
+\BOOKMARK [2][]{subsection.3.3.3}{SGL}{section.3.3}% 22
+\BOOKMARK [1][]{section.3.4}{Motivating a new programming language}{chapter.3}% 23
+\BOOKMARK [2][]{subsection.3.4.1}{Flexibility}{section.3.4}% 24
+\BOOKMARK [2][]{subsection.3.4.2}{Correctness}{section.3.4}% 25
+\BOOKMARK [2][]{subsection.3.4.3}{Efficiency}{section.3.4}% 26
+\BOOKMARK [1][]{section.3.5}{Creating new languages for making games}{chapter.3}% 27
+\BOOKMARK [0][]{chapter.4}{Design of Casanova}{}% 28
+\BOOKMARK [1][]{section.4.1}{The RSD pattern}{chapter.4}% 29
+\BOOKMARK [1][]{section.4.2}{Motivation for a new language}{chapter.4}% 30
+\BOOKMARK [1][]{section.4.3}{Design Goals}{chapter.4}% 31
+\BOOKMARK [1][]{section.4.4}{Informal design}{chapter.4}% 32
+\BOOKMARK [0][]{chapter.5}{Syntax of Casanova}{}% 33
+\BOOKMARK [1][]{section.5.1}{Grammar}{chapter.5}% 34
+\BOOKMARK [1][]{section.5.2}{Type System}{chapter.5}% 35
+\BOOKMARK [2][]{subsection.5.2.1}{Rules}{section.5.2}% 36
+\BOOKMARK [2][]{subsection.5.2.2}{Coroutines}{section.5.2}% 37
+\BOOKMARK [0][]{chapter.6}{Semantics of Casanova}{}% 38
+\BOOKMARK [1][]{section.6.1}{Informal Semantics}{chapter.6}% 39
+\BOOKMARK [2][]{subsection.6.1.1}{Performance}{section.6.1}% 40
+\BOOKMARK [2][]{subsection.6.1.2}{Correctness}{section.6.1}% 41
+\BOOKMARK [2][]{subsection.6.1.3}{Bouncing Balls}{section.6.1}% 42
+\BOOKMARK [1][]{section.6.2}{Formal Semantics}{chapter.6}% 43
+\BOOKMARK [2][]{subsection.6.2.1}{Types Translation}{section.6.2}% 44
+\BOOKMARK [2][]{subsection.6.2.2}{Rules}{section.6.2}% 45
+\BOOKMARK [2][]{subsection.6.2.3}{Scripts}{section.6.2}% 46
+\BOOKMARK [2][]{subsection.6.2.4}{Draw}{section.6.2}% 47
+\BOOKMARK [0][]{chapter.7}{Implementation of Casanova}{}% 48
+\BOOKMARK [1][]{section.7.1}{Rule Containers}{chapter.7}% 49
+\BOOKMARK [1][]{section.7.2}{Generating the Update and Draw Functions}{chapter.7}% 50
+\BOOKMARK [2][]{subsection.7.2.1}{Na\357ve traversal}{section.7.2}% 51
+\BOOKMARK [2][]{subsection.7.2.2}{Traversal with CPS caching}{section.7.2}% 52
+\BOOKMARK [1][]{section.7.3}{Scripts and coroutines}{chapter.7}% 53
+\BOOKMARK [2][]{subsection.7.3.1}{A DSL for Scripting}{section.7.3}% 54
+\BOOKMARK [2][]{subsection.7.3.2}{Scripting in Games}{section.7.3}% 55
+\BOOKMARK [0][]{chapter.8}{Making games in Casanova}{}% 56
+\BOOKMARK [1][]{section.8.1}{Game of Life}{chapter.8}% 57
+\BOOKMARK [1][]{section.8.2}{Making games with Casanova}{chapter.8}% 58
+\BOOKMARK [1][]{section.8.3}{Player avatar and shooting stuff}{chapter.8}% 59
+\BOOKMARK [1][]{section.8.4}{Game map and monsters with AI}{chapter.8}% 60
+\BOOKMARK [1][]{section.8.5}{Active map entities and selection-based input}{chapter.8}% 61
+\BOOKMARK [1][]{section.8.6}{Recombining the samples}{chapter.8}% 62
+\BOOKMARK [1][]{section.8.7}{Hand written optimizations}{chapter.8}% 63
+\BOOKMARK [0][]{chapter.9}{Evaluation of Casanova}{}% 64
+\BOOKMARK [1][]{section.9.1}{Supported Features}{chapter.9}% 65
+\BOOKMARK [1][]{section.9.2}{Features to Learn}{chapter.9}% 66
+\BOOKMARK [2][]{subsection.9.2.1}{Remarks}{section.9.2}% 67
+\BOOKMARK [1][]{section.9.3}{Quantitative assessment}{chapter.9}% 68
+\BOOKMARK [2][]{subsection.9.3.1}{Coroutines in games}{section.9.3}% 69
+\BOOKMARK [1][]{section.9.4}{Casanova in education}{chapter.9}% 70
+\BOOKMARK [2][]{subsection.9.4.1}{High school students}{section.9.4}% 71
+\BOOKMARK [2][]{subsection.9.4.2}{Master students}{section.9.4}% 72
+\BOOKMARK [0][]{chapter.10}{Discussion}{}% 73
+\BOOKMARK [1][]{section.10.1}{Original research questions}{chapter.10}% 74
+\BOOKMARK [1][]{section.10.2}{Extension opportunities for Casanova}{chapter.10}% 75
+\BOOKMARK [2][]{subsection.10.2.1}{Rendering}{section.10.2}% 76
+\BOOKMARK [2][]{subsection.10.2.2}{Standard library}{section.10.2}% 77
+\BOOKMARK [2][]{subsection.10.2.3}{IDE}{section.10.2}% 78
+\BOOKMARK [2][]{subsection.10.2.4}{Networking}{section.10.2}% 79
+\BOOKMARK [2][]{subsection.10.2.5}{AI}{section.10.2}% 80
+\BOOKMARK [2][]{subsection.10.2.6}{AAA games}{section.10.2}% 81
+\BOOKMARK [1][]{section.10.3}{Shortcomings of Casanova}{chapter.10}% 82
+\BOOKMARK [2][]{subsection.10.3.1}{Low-level optimizations}{section.10.3}% 83
+\BOOKMARK [2][]{subsection.10.3.2}{Imperative mindset shift}{section.10.3}% 84
+\BOOKMARK [2][]{subsection.10.3.3}{Unusual syntax}{section.10.3}% 85
+\BOOKMARK [2][]{subsection.10.3.4}{Advanced rendering}{section.10.3}% 86
+\BOOKMARK [2][]{subsection.10.3.5}{Other languages}{section.10.3}% 87
+\BOOKMARK [0][]{chapter.11}{Conclusions}{}% 88
+\BOOKMARK [0][]{chapter*.15}{Bibliography}{}% 89
+\BOOKMARK [0][]{appendix.A}{Building a Menu System}{}% 90
+\BOOKMARK [0][]{appendix.B}{Networking in Casanova}{}% 91
+\BOOKMARK [1][]{section.B.1}{Networking and games}{appendix.B}% 92
+\BOOKMARK [1][]{section.B.2}{Common solutions}{appendix.B}% 93
+\BOOKMARK [1][]{section.B.3}{Networking in Casanova}{appendix.B}% 94
+\BOOKMARK [1][]{section.B.4}{Future work}{appendix.B}% 95
+\BOOKMARK [0][]{appendix.C}{A General-purpose AI for Casanova}{}% 96
+\BOOKMARK [1][]{section.C.1}{Activities}{appendix.C}% 97
+\BOOKMARK [1][]{section.C.2}{Agent stats}{appendix.C}% 98
+\BOOKMARK [1][]{section.C.3}{Na\357ve GOAP}{appendix.C}% 99
+\BOOKMARK [1][]{section.C.4}{Heuristic pruning}{appendix.C}% 100
+\BOOKMARK [1][]{section.C.5}{Acting out plans}{appendix.C}% 101
+\BOOKMARK [1][]{section.C.6}{Layered GOAP}{appendix.C}% 102
+\BOOKMARK [1][]{section.C.7}{Learning Expected Costs and Benefits}{appendix.C}% 103
+\BOOKMARK [2][]{subsection.C.7.1}{Learning Whole Plans}{section.C.7}% 104
+\BOOKMARK [2][]{subsection.C.7.2}{Learning and Layers}{section.C.7}% 105
+\BOOKMARK [2][]{subsection.C.7.3}{Implicit Social Interactions}{section.C.7}% 106
+\BOOKMARK [2][]{subsection.C.7.4}{Explicit Social Interactions}{section.C.7}% 107
+\BOOKMARK [1][]{section.C.8}{Assessment}{appendix.C}% 108
+\BOOKMARK [1][]{section.C.9}{Missing and implemented}{appendix.C}% 109
+\BOOKMARK [0][]{appendix.D}{Casanova and Data-bases}{}% 110
+\BOOKMARK [1][]{section.D.1}{The Game World}{appendix.D}% 111
+\BOOKMARK [1][]{section.D.2}{Persistency, Saving Games \040and Multiplayer Games}{appendix.D}% 112
+\BOOKMARK [0][]{appendix.E}{Casanova in Other Languages}{}% 113
+\BOOKMARK [1][]{section.E.1}{Haskell and type classes}{appendix.E}% 114
+\BOOKMARK [2][]{subsection.E.1.1}{Overview}{section.E.1}% 115
+\BOOKMARK [2][]{subsection.E.1.2}{Advanced uses}{section.E.1}% 116
+\BOOKMARK [2][]{subsection.E.1.3}{Casanova in Haskell, a sketch}{section.E.1}% 117
+\BOOKMARK [1][]{section.E.2}{C++ and partial template specialization}{appendix.E}% 118
+\BOOKMARK [2][]{subsection.E.2.1}{Casanova rules}{section.E.2}% 119
+\BOOKMARK [2][]{subsection.E.2.2}{Casanova scripts}{section.E.2}% 120
+\BOOKMARK [2][]{subsection.E.2.3}{Asteroids game}{section.E.2}% 121
+\BOOKMARK [2][]{subsection.E.2.4}{Remarks}{section.E.2}% 122
+\BOOKMARK [0][]{appendix.F}{A Brief Introduction to F\043}{}% 123
+\BOOKMARK [1][]{section.F.1}{let and fun}{appendix.F}% 124
+\BOOKMARK [1][]{section.F.2}{Lists and sequences}{appendix.F}% 125
+\BOOKMARK [1][]{section.F.3}{Basic type definitions}{appendix.F}% 126
+\BOOKMARK [1][]{section.F.4}{Variables}{appendix.F}% 127
+\BOOKMARK [1][]{section.F.5}{Units of measure}{appendix.F}% 128
+\BOOKMARK [0][]{appendix.G}{A Brief Introduction to Monads}{}% 129
+\BOOKMARK [0][]{appendix*.19}{Summary}{}% 130
+\BOOKMARK [0][]{appendix*.20}{About the author}{}% 131

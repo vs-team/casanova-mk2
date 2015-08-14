@@ -1,0 +1,398 @@
+\documentclass{beamer}
+\usetheme{Warsaw}
+\usepackage{nhtvslides}
+\usepackage{graphicx}
+\usepackage{listings}
+\lstset{language=CAML,
+basicstyle=\ttfamily\footnotesize,
+frame=shadowbox,
+breaklines=true}
+\usepackage[utf8]{inputenc}
+
+\title{Game development in Casanova}
+
+\author{Giuseppe Maggiore}
+
+\institute{Università Ca' Foscari - Venezia, Italy \\ NHTV University - Breda, Netherlands}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{frame}{Table of contents}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{slide}{Motivation}{Game development}{
+\item A huge entertainment industry (recently surpassed movies and music)
+\item A social innovator (media and interaction at the same time)
+\item A driver for artistic and technological innovation
+%[[ game playing, industry size ]]
+}\end{slide}
+
+\begin{slide}{Motivation}{Pressure on game developers}{
+\item Making a single game costs between thousands and millions of Euro's
+\item Tens of artists, programmers, designers, and managers
+%[[ game costs ]]
+}\end{slide}
+
+\begin{slide}{Motivation}{Pressure on big game developers}{
+\item AAA games, the biggest titles, cost a lot to develop
+\item Many games do not turn a profit
+\item When a formula works, it gets repeated a lot
+\item Less innovation and experimentation
+}\end{slide}
+
+\begin{slide}{Motivation}{An example AAA game}{
+\item GTA IV
+\item 100,000,000 \$
+\item 1000 people
+\item 3.5 years
+%[[ GTA IV ]]
+}\end{slide}
+
+\begin{slide}{Motivation}{Smaller developers}{
+\item There are smaller game developers
+\item Indie, Research, and Serious
+%[[ i, r, s games ]]
+}\end{slide}
+
+\begin{slide}{Motivation}{Pressure on smaller developers}{
+\item These have far less resources...
+\item ...but they innovate and have the potential for significant impact
+}\end{slide}
+
+\begin{slide}{Motivation}{An example AA game}{
+\item Journey
+\item A few million dollars
+\item Around twenty between developers, artists, designers, etc.
+%[[ Journey ]]
+}\end{slide}
+
+\begin{slide}{Motivation}{Motivation of our research}{
+\item The significance of games, especially smaller ones
+\item The financial pressure on smaller developers
+\item A study of disciplined game development to reduce costs and effort, and hopefully help the industry reach another level of creativity and experimentation
+%[[ Some motivational futuristic image on research ]]
+}\end{slide}
+
+\section{Technical introduction}
+\begin{slide}{Technical introduction}{How games are made}{
+\item We start by studying the structure of games
+\item We will then find general models for game architectures
+\item There are many patterns that can be found, but we start with the basics
+}\end{slide}
+
+\begin{slide}{Technical introduction}{High level model of a game}{
+\item A game is a \textit{hybrid dynamic system}
+\item A ``state'' that stores information about the system
+\item Differential equations that model ``flow''
+\item Control graphs that model ``jumps''
+\item A numerical method to approximate DE and CG
+%[[ HYBRID SYSTEM ]]
+}\end{slide}
+
+\begin{slide}{Technical introduction}{Typical architecture of a game}{
+\item Data structures to model the state
+\item A game loop that:
+\begin{itemize}
+\item applies the numerical integrator (to a small $\delta t$)
+\item applies the transitions of the control graph
+\item invokes the draw function
+\end{itemize}
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Traditional solutions and their shortcomings}{
+\item there are two traditional solutions that the game development industry uses
+\begin{itemize}
+\item libraries that collect many common data-types and operations such as vectors, matrices, scene graphs, timers, etc.
+\item systems (engines) that are essentially heavily parametrized games where appearance and parts of the game logic may be modified
+\end{itemize}
+\item unfortunately, both represent a trade-off between expressive power and development speed and ease
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Shortcomings of libraries}{
+\item DirectX, OpenGL, XNA, etc.
+\item emphasize small pieces
+\item high expressive power: you write your whole game and can rebuild whole parts of the library
+\item much slower development, more bugs
+\item games need something more pervasive than just a series of handy bits
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Shortcomings of libraries}{
+\item games need something more pervasive than just a series of handy bits
+\begin{itemize}
+\item this pervasiveness is also at odds with hierarchies of virtual classes
+\item having to access every game entity through a collection of virtual methods is too slow
+\item up to 30\% penalty measured by Sony PS3 developers against a data-oriented approach
+\item this makes interactivity harder to reach
+\end{itemize}
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Shortcomings of systems}{
+\item Unity, Game Maker, Unreal Engine
+\item emphasize a whole game
+\item leave as much as possible pluggable
+\item visual interfaces plus scripting
+\item very fast development
+\item limited expressive power: if something is not left open to change, your game must work around it or just use it
+%[[ UNITY, UNREAL ENGINE ]]
+}\end{slide}
+
+\begin{slide}{Technical introduction}{Advantages of designing a DSL}{
+\item Inform, Simula
+\item search for the ``ideal'' tension between brevity, clarity, and expressive power
+\item good syntax: short and clear programs
+\item good and expressive static analysis tools: less debugging
+\item good semantics: high expressive power
+\item automated optimization: higher performance
+}\end{slide}
+
+
+\section{Casanova}
+\begin{slide}{Technical introduction}{Design directions for the Casanova language}{
+\item declarative when possible (rules, drawing)
+\item imperative when needed (coroutines)
+\item cheap granular concurrency (coroutines)
+\item fast (automated optimizations: multi-threading, query optimization, batching, update frequencies)
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Structure of a Casanova game}{
+\item world as a series of entities
+\item rules define the transformation of a field of an entity as time progresses (integration step)
+\item drawable entities found in the world are drawn automatically
+\item coroutines are stepped over right after every update
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Semantics of Casanova}{
+\item types and rules are straightforwardly translated into F\# with double buffering
+\item drawing is translated into a series of calls to MonoGame primitives
+\item scripts are translated into a custom monad for soft-threads
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Three implementations}{
+\item naïve reflection
+\item cached reflection
+\item full-blown assembly generator
+}\end{slide}
+
+
+\begin{slide}{Technical introduction}{Naïve reflection}{
+\item very straightforward way to test the language
+\item excessively slow: impossible to use
+\item reflection operations are the most expensive: \texttt{GetType}, \texttt{GetMethod}, etc.
+}\end{slide}
+
+
+\begin{frame}[fragile]{Naïve reflection}
+\begin{lstlisting}
+let traverse (e:obj) =
+  let e_t = e.GetType()
+  match e_t with
+  | Record(fields) ->
+    apply_rules e
+    for f in fields do
+      let e_f = f.GetGetMethod().Invoke(e)
+      do traverse e_f
+  | Array ->
+    let get_length = e_t.GetMethod("get_Length")
+    let get_item   = e_t.GetMethod("get_Item")
+    for i = 0 to get_length.Invoke(e) - 1 do
+      do traverse(get_item(e,i))
+  | ...
+\end{lstlisting}
+\end{frame}
+
+\begin{slide}{Technical introduction}{Cached reflection}{
+\item uses continuation passing style to cache the reflection calls
+\item much faster: has been the reference implementation for a long time
+\item continuation operators are the most expensive: \texttt{cont.Bind}, \texttt{cont.Return}
+}\end{slide}
+
+
+\begin{frame}[fragile]{Cached reflection}
+\begin{lstlisting}
+let traverse (e_t:Type) (get_e:obj->obj) =
+  cont{
+    match e_t with
+    | Record(fields) ->
+      do! apply_rules(get_e,e_t)
+      for f in fields do
+        let e_f = f.GetGetMethod()
+        do! traverse f.Type (get_e >> e_f)
+    | Array(a) ->
+      let get_length = e_t.GetMethod("get_Length")
+      let get_item   = e_t.GetMethod("get_Item")
+      do! for_cont (fun () -> get_e >> get_length)
+                   (fun i -> traverse(get_e >> get_item(e,i))
+    | ...
+  }
+\end{lstlisting}
+\end{frame}
+
+\begin{slide}{Technical introduction}{Emit}{
+\item generate the actual assembly operations needed to traverse the world
+\item the actual compiler for Casanova
+\item no traversal overhead, no casts from object, no reflection at runtime
+\item aggressive inlining
+\item sequence iterators are now the most expensive: \texttt{seq.Bind}, \texttt{seq.Concat}
+}\end{slide}
+
+
+\begin{frame}[fragile]{Emit}
+\begin{lstlisting}
+let traverse (e_t:Type) =
+    match e_t with
+    | Array(a) ->
+      let i = il.DeclareLocal(typeof<int>)
+      let get_length = e_t.GetMethod("get_Length")
+      let get_item   = e_t.GetMethod("get_Item")
+      do il.Emit(DUP)
+      do il.Emit(CALL, get_length)
+      do il.Emit(SET_LOC, i)
+      let loop = il.MarkLabel()
+      let end  = il.DeclareLabel()
+      // decr i by one
+      // jump to end if negative index
+      // load i-th element
+      do traverse a
+      do il.Emit(JMP, loop)
+    | ...
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Technical introduction}
+\begin{block}{Performance}
+\begin{table}
+\center
+\begin{tabular}{| c | c | c |}
+\hline
+City no CPS & City CPS & City Emit \\
+\hline
+0.2 & 30 & 120 \\
+\hline
+\end{tabular}
+\caption{Samples speed}
+\end{table}
+\end{block}
+\end{frame}
+
+\section{Closing}
+\begin{slide}{Closing}{Evaluation}{
+\item We evaluated Casanova across three dimensions:
+\begin{itemize}
+\item The central analytical evaluation is: ``Can games be built with it?''
+\item Usability evaluations: can students or others make games with it?
+\item Implicit performance evaluations: these games run interactively on COTS hardware
+\item Explicit performance and LOC evaluations: Casanova vs other languages
+\end{itemize}
+}\end{slide}
+
+
+\begin{slide}{Closing}{Can games be built with it?}{
+\item Most certainly:
+\begin{itemize}
+\item Asteroid shooter
+\item Small RTS
+\item Bigger RTS
+\item and more...
+\end{itemize}
+\item DEMO
+}\end{slide}
+
+
+\begin{slide}{Closing}{Can students or others make games with it?}{
+\item Yes
+\begin{itemize}
+\item Longer exposure, previous knowledge of F\#: Tetris, Pac-Man
+\item Very short exposure, previous knowledge of C++: Rocket, Platformer
+\end{itemize}
+\item DEMO
+}\end{slide}
+
+
+\begin{slide}{Motivation}{Galaxy Wars}{
+\item An actual commercial game made in Casanova
+\item Published this week
+\item DEMO
+}\end{slide}
+
+
+\begin{slide}{Motivation}{Casanova vs other languages}{
+\item We compared implementations of small game snippets
+\item Mostly centred on the heaviest aspect of computation: scripts
+}\end{slide}
+
+
+\begin{frame}[fragile]{Casanova vs other languages}
+\begin{table}
+\center
+\begin{tabular}{| l | c | c | c |}
+\hline
+Language & Test 1 & Test 2 & Test 3 \\
+\hline
+Casanova & 21 & 21 & 35 \\
+Python & 24 & 29 & 48 \\
+LUA & 30 & 39 & 52 \\
+C\# & 51 & 58 & 59 \\
+\hline
+\end{tabular}
+\caption{Samples length}
+\end{table}
+\end{frame}
+
+\begin{frame}{Casanova vs other languages}
+\begin{table}
+\center
+\begin{tabular}{| l | c | c | c |}
+\hline
+Language & Test 1 & Test 2 & Test 3 \\
+\hline
+Casanova & 7.6 & 5.8 & 4.0 \\
+Python & 1.1 & 1.1 & 0.9 \\
+LUA & 1.5 & 1.4 & 0.8 \\
+C\# & 7.1 & 4.2 & 4.1 \\
+\hline
+\end{tabular}
+\caption{Samples speed}
+\end{table}
+\end{frame}
+
+\section{Extensions \& Conclusions}
+\begin{slide}{Motivation}{Extensions}{
+\item Declarative actions and their optimization
+\item Menus and nesting of visuals for complex layouts
+}\end{slide}
+
+
+\begin{slide}{Motivation}{Future developments}{
+\item Audio support
+\item Integration with a better back-end (Unity 3D)
+\item Mobile support (Android, iOS, Win RT)
+}\end{slide}
+
+
+\begin{slide}{Motivation}{Conclusions}{
+\item Game development is big, but expensive; this limits its impact on society by reducing creativity and less obvious applications
+\item Traditional systems for making games fall short of the mark in either expressive power or development time
+\item Casanova was created to look for the ``sweet spot'' between expression and effort
+\item The results so far are very encouraging; we are using it heavily in-house and have just started promoting it
+}\end{slide}
+
+
+\begin{frame}{This is it}
+\begin{block}{Thank you!}
+Questions?
+\end{block}
+\end{frame}
+
+\end{document}

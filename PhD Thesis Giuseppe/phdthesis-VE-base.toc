@@ -1,0 +1,8 @@
+\select@language {american}
+\contentsline {chapter}{\numberline {}Preface}{vii}{chapter*.6}
+\contentsline {chapter}{\numberline {}Introduction}{ix}{chapter*.7}
+\contentsline {chapter}{\numberline {1}Preliminaries}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}a preliminaries section}{1}{section.1.1}
+\contentsline {chapter}{\numberline {}Conclusions}{3}{chapter*.9}
+\contentsline {chapter}{\numberline {A}Some technicalities}{5}{appendix.A}
+\contentsline {section}{\numberline {A.1}a section}{5}{section.A.1}

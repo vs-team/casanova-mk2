@@ -1,0 +1,599 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter 1.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@book{CHAPTER_1_PL_SUBROUTINES,
+  added-at = {2009-10-14T21:30:02.000+0200},
+  author = {Wilkes, Maurice V. and Wheeler, David J. and Gill, Stanley},
+  biburl = {http://www.bibsonomy.org/bibtex/29fe8ff438da0508a053e0793695abc69/magsilva},
+  interhash = {9d84ac6c69ab8c5152b336cf7d4c42e6},
+  intrahash = {9fe8ff438da0508a053e0793695abc69},
+  isbn = {0262231182},
+  keywords = {imported},
+  owner = {magsilva},
+  publisher = {Addison-Wesley},
+  timestamp = {2009-10-14T21:30:02.000+0200},
+  title = {The Preparation of Programs for an Electronic Digital Computer, with
+	Special Reference to the EDSAC and the Use of a Library of Subroutines},
+  year = 1951
+}
+
+@book{CHAPTER_1_PL_DATASTRUCTURES,
+  title={A practical introduction to data structures and algorithm analysis},
+  author={Shaffer, C.A.},
+  isbn={9780131907522},
+  lccn={96027210},
+  url={http://books.google.nl/books?id=a2s\_AQAAIAAJ},
+  year={1997},
+  publisher={Prentice Hall}
+}
+
+@book{CHAPTER_1_PL_OBJECTS,
+ author = {Abadi, Martin and Cardelli, Luca},
+ title = {A  Theory of Objects},
+ year = {1996},
+ isbn = {0387947752},
+ edition = {1st},
+ publisher = {Springer-Verlag New York, Inc.},
+ address = {Secaucus, NJ, USA},
+} 
+
+@article{CHAPTER_1_PL_HOF,
+ author = {Moses, Joel},
+ title = {The function of FUNCTION in LISP or why the FUNARG problem should be called the environment problem},
+ journal = {SIGSAM Bull.},
+ issue_date = {July 1970},
+ number = {15},
+ month = jul,
+ year = {1970},
+ issn = {0163-5824},
+ pages = {13--27},
+ numpages = {15},
+ url = {http://doi.acm.org/10.1145/1093410.1093411},
+ doi = {10.1145/1093410.1093411},
+ acmid = {1093411},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@inproceedings{CHAPTER_1_PL_GENERIC_PROGRAMMING,
+ author = {Wadler, P. and Blott, S.},
+ title = {How to make ad-hoc polymorphism less ad hoc},
+ booktitle = {Proceedings of the 16th ACM SIGPLAN-SIGACT symposium on Principles of programming languages},
+ series = {POPL '89},
+ year = {1989},
+ isbn = {0-89791-294-2},
+ location = {Austin, Texas, United States},
+ pages = {60--76},
+ numpages = {17},
+ url = {http://doi.acm.org/10.1145/75277.75283},
+ doi = {10.1145/75277.75283},
+ acmid = {75283},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@article{CHAPTER_1_PL_GARBAGE_COLLECTION,
+ author = {McCarthy, John},
+ title = {Recursive functions of symbolic expressions and their computation by machine, Part I},
+ journal = {Commun. ACM},
+ issue_date = {April 1960},
+ volume = {3},
+ number = {4},
+ month = apr,
+ year = {1960},
+ issn = {0001-0782},
+ pages = {184--195},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/367177.367199},
+ doi = {10.1145/367177.367199},
+ acmid = {367199},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@book{CHAPTER_1_PATCHING_CYCLES,
+  title={Game Testing All in One},
+  author={Schultz, C.P. and Bryant, R. and Langdell, T.},
+  isbn={9781592003730},
+  lccn={2004090735},
+  series={Game Development Series},
+  url={http://books.google.nl/books?id=mttSPgAACAAJ},
+  year={2005},
+  publisher={Thomson/Course Technology}
+}
+
+@incollection{CHAPTER_1_CODE_MANAGEMENT,
+ author = {Stevens, W. and Myers, G. and Constantine, L.},
+ chapter = {Structured design},
+ title = {Classics in software engineering},
+ editor = {Yourdon, Edward Nash},
+ year = {1979},
+ isbn = {0-917072-14-6},
+ pages = {205--232},
+ numpages = {28},
+ url = {http://dl.acm.org/citation.cfm?id=1241515.1241533},
+ acmid = {1241533},
+ publisher = {Yourdon Press},
+ address = {Upper Saddle River, NJ, USA},
+} 
+
+@book{CHAPTER_1_DEFINITION_OF_GAME,
+  added-at = {2010-08-12T21:06:49.000+0200},
+  address = {Oxford},
+  author = {Wittgenstein, L.},
+  biburl = {http://www.bibsonomy.org/bibtex/2aa9513c290e010f5f55525b9e66026d7/referrator},
+  interhash = {ff9819fd63cca58a28b07e6c46e83050},
+  intrahash = {aa9513c290e010f5f55525b9e66026d7},
+  keywords = {myown},
+  publisher = {Basil Blackwell},
+  timestamp = {2010-08-12T21:06:49.000+0200},
+  title = {Philosophical Investigations},
+  year = 1953
+}
+
+@article{CHAPTER_1_EDUCATIONAL_GAMES_1900,
+    author = {Rice, John},
+    citeulike-article-id = {4783486},
+    journal = {Journal of Technology and Teacher Education},
+    keywords = {cognitive-processes, educational-games, educational-technology, evaluation, gaming-cognition, video-games, visual-aids},
+    month = jan,
+    number = {1},
+    pages = {87--100},
+    posted-at = {2009-06-09 02:41:56},
+    priority = {0},
+    title = {{Assessing Higher Order Thinking in Video Games}},
+    volume = {15},
+    year = {2007}
+}
+
+@article{CHAPTER_1_GROWING_DIFFUSION,
+    author = {Crandall, R. W. and Sidak, J. G.},
+    citeulike-article-id = {3255576},
+    citeulike-linkout-0 = {http://papers.ssrn.com/sol3/papers.cfm?abstract\_id=969728},
+    keywords = {file-import-08-09-15},
+    posted-at = {2008-09-15 01:35:28},
+    priority = {0},
+    title = {{Video Games: Serious Business for America's Economy}},
+    url = {http://papers.ssrn.com/sol3/papers.cfm?abstract\_id=969728}
+}
+
+%@misc{, Title = {ESA, or Elmer-Dewitt, P. (1993, September 27). The amazing video game boom. Time, 66–73}}
+
+@article{CHAPTER_1_APPLICATIONS_OF_SERIOUS_GAMES,
+ author = {Shea, Peter},
+ title = {Review of 'The Complete Guide to Simulations \& Serious Games' by Clark Aldrich},
+ journal = {eLearn},
+ issue_date = {November 2009},
+ volume = {2009},
+ number = {11},
+ month = nov,
+ year = {2009},
+ issn = {1535-394X},
+ articleno = {7},
+ url = {http://doi.acm.org/10.1145/1644136.1658938},
+ doi = {10.1145/1644136.1658938},
+ acmid = {1658938},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@misc{CHAPTER_1_MOVIES_AND_MUSIC,
+	Howpublished = {http://www.theesa.com},
+	Title = {Entertainment Software Association}
+
+@book{CHAPTER_1_PL_INFLUENCE_ON_PL,
+ author = {Pierce, Benjamin C.},
+ title = {Types and programming languages},
+ year = {2002},
+ isbn = {0-262-16209-1},
+ publisher = {MIT Press},
+ address = {Cambridge, MA, USA},
+} 
+
+@article{CHAPTER_1_SIZE_OF_GAMES,
+ author = {Blow, Jonathan},
+ title = {Game Development: Harder Than You Think},
+ journal = {Queue},
+ issue_date = {February 2004},
+ volume = {1},
+ number = {10},
+ month = feb,
+ year = {2004},
+ issn = {1542-7730},
+ pages = {28--37},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/971564.971590},
+ doi = {10.1145/971564.971590},
+ acmid = {971590},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@ARTICLE{CHAPTER_1_PL_TYPE_SYSTEMS_AND_MEMORY_ALIGNMENT,
+    author = {Robin Milner},
+    title = {A theory of type polymorphism in programming},
+    journal = {Journal of Computer and System Sciences},
+    year = {1978},
+    volume = {17},
+    pages = {348--375}
+}
+
+@book{CHAPTER_1_PL_STATIC_ANALYSIS,
+ author = {Nielson, Flemming and Nielson, Hanne R. and Hankin, Chris},
+ title = {Principles of Program Analysis},
+ year = {1999},
+ isbn = {3540654100},
+ publisher = {Springer-Verlag New York, Inc.},
+ address = {Secaucus, NJ, USA},
+} 
+
+@misc{CHAPTER_1_DESIGNERS_TOUCH_THE_GAME, Title = {"Finite-State Machine Scripting Language for Designers," in AI Game Programming Wisdom 2}}
+
+@misc{CHAPTER_1_GAME_ENGINES, Title = {Game engine architecture, J. Lander}}
+
+@misc{CHAPTER_1_ISSUES_WITH_INDIE_GAMES, Title = {In the Trenches - Game Developers and the Quest for Innovation}}
+
+@misc{CHAPTER_1_OLD_EDUCATIONAL_VIDEOGAMES, Title = {Oregon Trail, Math Blaster, and Number Munchers}}
+
+@misc{CHAPTER1_SIMS_GAMES, Title = {The Sims official website}}
+
+@misc{CHAPTER_1_INDIE_GAMES_ON_SMARTPHONES_AND_TABLETS, Title = {The Smartphone \& Tablet Games Summit at GDC 2013}}
+
+@misc{CHAPTER_1_INDIE_GAMES_SIZE, Title = {Indie Rocks! Mapping Independent Video Game Design}}
+
+@misc{CHAPTER_1_EXPONENTIAL_COST_OF_GAMEDEV, Title = {Cross-platform game development and the next generation of consoles}}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+@misc{CHAPTER_1_EARLY_MODELS_OF_COMPUTATION, Title = {Boolos, George; John Burgess, Richard Jeffrey, (2002). Computability and Logic}}
+
+@misc{CHAPTER_1_GAME_ENGINES_MUST_BE_REBUILT_OFTEN, Title = {History of most game engines, from ID Tech to most others}}
+
+@misc{CHAPTER_1_PL_RESEARCH, Title = {Selected Papers on Computer Languages by Donald E. Knuth}}
+
+@misc{CHAPTER_1_PL_INFLUENCE_ON_SWENG, Title = {Software Engineering and Programming Languages at University of Minnesota, or The impact of software engineering research on modern progamming languages}}
+
+@misc{CHAPTER_1_PL_INFLUENCE_ON_CURRENT_LANGUAGES, Title = {PL influence on current languages and DBMS}}
+
+@misc{CHAPTER_1_POINTER_ARITHMETICS_IN_GAME, Title = {Pointer arithmetics in games}}
+
+@misc{CHAPTER_1_TESTING_DOES_NOT_WORK, Title = {Testing only ensures the presence of bugs}}
+
+@misc{CHAPTER_1_GAMES_ARE_CONCURRENT, Title = {Games are concurrent}}
+
+@misc{CHAPTER_1_PL_AND_RESOURCE_SHARING, Title = {PL and transactions for shared resource access}}
+
+@misc{CHAPTER_1_TESTING_MORE_THAN_WRITING, Title = {More time is spent on testing than on writing code}}
+
+@misc{CHAPTER_1_TESTING_WITHOUT_SIDE_EFFECTS, Title = {Bottom-up testing without side-effects}}
+
+@misc{CHAPTER_1_TESTING_WITH_SIDE_EFFECTS, Title = {Tests invalidated by side-effects}}
+
+@misc{CHAPTER_1_COMPILER_OPTIMIZATIONS, Title = {Compiler optimizations}}
+
+@misc{CHAPTER_1_SQL_OPTIMIZATIONS, Title = {SQL automated optimizations}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter 2.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@book{GPU_GEMS_1,
+ author = {Fernando, Randima},
+ title = {GPU Gems: Programming Techniques, Tips and Tricks for Real-Time Graphics},
+ year = {2004},
+ isbn = {0321228324},
+ publisher = {Pearson Higher Education},
+} 
+
+@book{GPU_GEMS_2,
+ author = {Pharr, Matt and Fernando, Randima},
+ title = {GPU Gems 2: Programming Techniques for High-Performance Graphics and General-Purpose Computation (Gpu Gems)},
+ year = {2005},
+ isbn = {0321335597},
+ publisher = {Addison-Wesley Professional},
+} 
+
+@book{GPU_GEMS_3,
+ author = {Nguyen, Hubert},
+ title = {Gpu gems 3},
+ year = {2007},
+ isbn = {9780321545428},
+ edition = {First},
+ publisher = {Addison-Wesley Professional},
+} 
+
+@book{CHAPTER_2_VISITOR_PATTERN,
+ author = {Gamma, Erich and Helm, Richard and Johnson, Ralph and Vlissides, John},
+ title = {Design patterns: elements of reusable object-oriented software},
+ year = {1995},
+ isbn = {0-201-63361-2},
+ publisher = {Addison-Wesley Longman Publishing Co., Inc.},
+ address = {Boston, MA, USA},
+} 
+
+@misc{CHAPTER_2_LOCKLESS_THREADING, Title = {Coding for Multiple Cores on Xbox 360 and Microsoft Windows, GDC 2006}}
+
+@misc{CHAPTER_2_STATE_MACHINES1, Title = {Jacobs, S. Visual Design of State Machines, Game
+Programming Gems 5.}}
+
+@misc{CHAPTER_2_STATE_MACHINES2, Title = {Visual Finite State Machine AI Systems, gamasutra}}
+
+@misc{CHAPTER_2_STATE_MACHINES3, Title = {AI for Game Developers: Creating Intelligent Behavior in Games}}
+
+@misc{CHAPTER_2_STATE_MACHINES4, Title = {Artificial Intelligence for Games}}
+
+@misc{CHAPTER_2_VOXELS, Title = {3D scan-conversion algorithms for voxel-based graphics}}
+
+@misc{CHAPTER_2_VOXELS_IN_GAMES, Title = {wiki Voxels in games}}
+
+@misc{CHAPTER_2_COMPILATION_LENGTH, Title = {Compiling a game is significantly long []}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter 3.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@misc{CHAPTER_3_BOO, Title = {Boo programming language}}
+
+@misc{CHAPTER_3_PINBALL_CONSTRUCTION_SET, Title = {Pinball construction set from wiki}}
+
+@misc{CHAPTER_3_ADVENTURE_CONSTRUCTION_SET, Title = {Adventure construction set from wiki}}
+
+@misc{CHAPTER_3_GARRY_KITCHENS_GAME_MAKER, Title = {Garry kitchen's game maker from wiki}}
+
+@misc{CHAPTER_3_WARGAME_CONSTRUCTION_SET, Title = {Wargame construction set from wiki}}
+
+@misc{CHAPTER_3_SHOOT_EM_UP_CONSTRUCTION_KIT, Title = {Shoot 'em-up construction kit from wiki}}
+
+@misc{CHAPTER_3_ARCADE_GAME_CONSTRUCTION_KIT, Title = {Arcade game construction kit from wiki}}
+
+@misc{CHAPTER_3_RPG_MAKER, Title = {RPG maker}}
+
+@misc{CHAPTER_3_BRENDER, Title = {Brender []}}
+
+@misc{CHAPTER_3_RENDERWARE, Title = {Renderware []}}
+
+@misc{CHAPTER_3_REALITY_LAB, Title = {Reality lab []}}
+
+@misc{CHAPTER_3_REALITY_LAB_INTO_DIRECT3D, Title = {Reality lab into D3D []}}
+
+@misc{CHAPTER_3_GAMEBRYO, Title = {Gamebryo engine, morrowind and DAOC []}}
+
+@misc{CHAPTER_3_ID_TECH, Title = {Id tech engines []}}
+
+@misc{CHAPTER_3_UNREAL_ENGINES, Title = {Unreal engines []}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter 4.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@book{CHAPTER_4_ORTHOGONALITY_PL,
+ author = {Hunt, Andrew and Thomas, David},
+ title = {The pragmatic programmer: from journeyman to master},
+ year = {1999},
+ isbn = {0-201-61622-X},
+ publisher = {Addison-Wesley Longman Publishing Co., Inc.},
+ address = {Boston, MA, USA},
+} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter 5.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@misc{CHAPTER_5_FORMAL_SEMANTICS, Title = {Formal semantics []}}
+
+@misc{CHAPTER_5_HLSL_TECHNIQUE, Title = {Hlsl technique in effects []}}
+
+@misc{CHAPTER_5_HLSL_CONSTANT_BUFFER, Title = {Hlsl constant buffer in DX 11 []}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter 7.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@misc{CASANOVA_CODEPLEX, Title = {Casanova on codeplex []}}
+
+@misc{GALAXY_WARS, Title = {Galaxy Wars on codeplex []}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APPENDIX B
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% description of the problem, but also host/client architecture, lag compensation, compression
+@misc{APPENDIX_B_NETWORKING_DIFFICULTIES, Title = {Difficulties in making games networked []}}
+
+@article{APPENDIX_B_EVENTUAL_CONSISTENCY,
+ author = {Vogels, Werner},
+ title = {Eventually consistent},
+ journal = {Commun. ACM},
+ issue_date = {January 2009},
+ volume = {52},
+ number = {1},
+ month = jan,
+ year = {2009},
+ issn = {0001-0782},
+ pages = {40--44},
+ numpages = {5},
+ url = {http://doi.acm.org/10.1145/1435417.1435432},
+ doi = {10.1145/1435417.1435432},
+ acmid = {1435432},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@misc{APPENDIX_B_SERIALIZATION, Title = {Serialization techniques, RDP []}}
+
+@misc{APPENDIX_B_VIDEO_CODEC, Title = {Video codification and compression techniques []}}
+
+@misc{APPENDIX_B_LIDGREN, Title = {Lidgren networking library []}}
+
+@misc{APPENDIX_B_LATENCY_COMPENSATION, Title = {Bernier, Y.: Latency Compensating Methods in Client/Server In-game Protocol Design and Optimization. From dev. Valve website.}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APPENDIX C
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@article{APPENDIX_C_GOAP_FEAR,
+author = {J.Orkin},
+journal = {Proceedings of the Game Developer's Conference (GDC)},
+title = {Three States and a Plan: The AI of F.E.A.R.},
+year = {2006}
+}
+
+@article{APPENDIX_C_GOAP_BOOK,
+author = {Orkin, J.},
+journal = {Artificial Intelligence},
+number = {4},
+pages = {105--110},
+title = {Agent Architecture Considerations for Real-Time Planning in Games},
+volume = {38},
+year = {2005}
+}
+
+@article{APPENDIX_C_STRIPS,
+    author = {Fikes, Richard E. and Nilsson, Nils J.},
+    doi = {10.1016/0004-3702(71)90010-5},
+    journal = {Artificial Intelligence},
+    keywords = {da, planning, project-planning, strips},
+    month = {},
+    number = {3-4},
+    pages = {189--208},
+    posted-at = {2008-06-27 10:07:52},
+    priority = {2},
+    title = {{Strips: A new approach to the application of theorem proving to problem solving}},
+    url = {http://dx.doi.org/10.1016/0004-3702(71)90010-5},
+    volume = {2},
+    year = {1971}
+}
+
+@INPROCEEDINGS{APPENDIX_C_BDI,
+	author = {Michael P Georgeff and Barney Pell and Martha E Pollack and Milind Tambe and Michael Wooldridge},
+	title = {The belief-desire-intention model of agency},
+	booktitle = {Intelligent Agents V, Agent Theories, Architectures, and Languages, 5th International Workshop, (ATAL'98},
+	year = {},
+	pages = {4--7},
+	publisher = {Springer}
+}
+
+@ARTICLE{APPENDIX_C_CLIPMAPS,
+	author = {Frank Losasso and Hugues Hoppe},
+	title = {Geometry clipmaps: terrain rendering using nested regular grids},
+	journal = {ACM Trans. on Graphics},
+	year = {},
+	number = {23},
+	pages = {2004}
+}
+
+@INPROCEEDINGS{APPENDIX_C_SOAR_QUAKEBOT,
+	author = {J E Laird and J C Duchi},
+	title = {Creating human-like synthetic characters with multiple skill-levels : A case study using the Soar quakebot},
+	booktitle = {in: AAAI Fall Symposium Technical Report},
+	year = {2000}
+}
+
+@article{APPENDIX_C_AI,
+    author = {Hunicke, Robin and Chapman, Vernell},
+    booktitle = {Proceedings of AIIDE 2004},
+    citeulike-article-id = {5133643},
+    citeulike-linkout-0 = {http://www.cs.northwestern.edu/\~{}hunicke/pubs/Hamlet.pdf},
+    keywords = {difficulty, game\_metrics, gamelog, monitoring},
+    posted-at = {2009-07-13 08:19:28},
+    priority = {2},
+    title = {{AI for Dynamic Difficulty Adjustment in Games}},
+    url = {http://www.cs.northwestern.edu/\~{}hunicke/pubs/Hamlet.pdf},
+    year = {2004}
+}
+
+
+@INPROCEEDINGS{APPENDIX_C_HIERARCHICAL_AI,
+	author = {H Hoang and S Lee-Urban and Muñoz-Avila},
+	title = {H.: Hierarchical plan representations for encoding strategic game AI},
+	booktitle = {Marina del Ray, CA},
+	year = {2005}
+}
+
+@MISC{APPENDIX_C_REINFORCEMENT_LEARNING,
+	author = {R S Sutton and A G Barto},
+	title = {Reinforcement Learning: An Introduction},
+	year = {1998}
+}
+
+@ARTICLE{APPENDIX_C_HIERARCHICAL_PATHFINDING,
+	author = {A Botea and M Müller and J Schaeffer},
+	title = {Near optimal hierarchical path-finding},
+	journal = {Journal of Game Development},
+	year = {2004},
+	number = {1},
+	pages = {7--28}
+}
+
+@ARTICLE{APPENDIX_C_STATISTICAL_PATTERN_RECOGNITION,
+	author = {A K Jain and R Duin and J Mao},
+	title = {Statistical Pattern Recognition: A Review},
+	journal = {IEEE Transactions on Pattern Analysis and Machine Intellgence},
+	year = {2000},
+	number = {22},
+	pages = {4--37}
+}
+
+@INPROCEEDINGS{APPENDIX_C_HUMAN_LEVEL_AI,
+	author = {J E Laird and M Van Lent},
+	title = {Human-level AI's killer application : Interactive computer games},
+	booktitle = {in: AAAI Fall Symposium Technical Report},
+	year = {2000}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APPENDIX D
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@misc{SGL, Title = {The SGL language []}}
+
+@misc{APPENDIX_D_10}, Title = {Garcia-molina, H., Ullman, J., Widom, J.: Database System Implementation.}} (1999)
+
+@misc{APPENDIX_D_HANDMADE_OPTIMIZATION_IN_GAMES, Title = {Handmade algorithmic optimization in games []}}
+
+@misc{APPENDIX_D_WOW_CONCURRENT_PLAYERS, Title = {Large number of concurrent players in WoW}}
+
+@misc{APPENDIX_D_EVE_ONLINE_SERVERS_STRUCTURE, Title = {Hierarchical structure of EVE online servers}}
+
+@misc{APPENDIX_D_11, Title = {Weikum, G., Vossen, G.: Transactional information systems: theory, algorithms, and the practice of concurrency control and recovery. (2001)}}
+
+@misc{APPENDIX_D_7, Title = {Maggiore, G., Bugliesi, M., Orsini, R.: Casanova Papers.}}
+
+@misc{APPENDIX_D_13, Title = {Match-making techniques, TrueSkill}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APPENDIX D
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@misc{APPENDIX_E_HASKELL_TYPE_CLASSES, Title = {Haskell type classes}}
+
+@misc{APPENDIX_E_PARTIAL_TEMPLATE_SPECIALIZATION, Title = {Partial template specialization in C++}}
+
+@misc{APPENDIX_E_TYPE_CLASSES_VS_TEMPLATES, Title = {Type classes vs templates}}
+
+@misc{APPENDIX_E_CONCEPTS, Title = {Concepts}}
+
+@misc{APPENDIX_E_HLISTS, Title = {HLists paper}}
+
+@misc{APPENDIX_E_AD_HOC_POLYMORPHISM, Title = {Ad hoc polymorphism}}
+
+@misc{APPENDIX_E_USES_OF_TYPE_CLASSES, Title = {Example uses of type classes}}
+
+@misc{APPENDIX_E_KIND, Title = {Kind in type theory}}
+
+@misc{APPENDIX_E_TYPE_FAMILIES, Title = {Type families}}
+
+@misc{APPENDIX_E_STRUCTURE_REPRESENTATION, Title = {Structure representation of data-types (Generic Haskell)}}
+
+@misc{APPENDIX_E_GENERIC_HASKELL, Title = {Generic Haskell}}
+
+@misc{APPENDIX_E_TEMPLATES_TURING_EQUIVALENCE, Title = {C++ templates are turing equivalent}}
+
+@misc{APPENDIX_E_TEMPLATES_ARE_PURE_FUNCTIONS, Title = {C++ templates are a form of ULC}}

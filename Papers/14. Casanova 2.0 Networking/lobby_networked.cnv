@@ -1,0 +1,189 @@
+﻿// compiler-generated
+entity InMessageLobbyPlayer = {
+  inherit InMessage
+  Value : LobbyPlayer
+
+  Create(msg : InMessage) =
+    let name        = msg.ReadString()
+    let ready       = msg.ReadBool()
+    let start_pos   = Vector2(msg.ReadFloat(), msg.ReadFloat())
+    let id          = msg.EntityId
+    let ownership   = Slave(msg.Sender)
+    {
+      InMessage = msg
+      Value =
+        {
+          Name           = name
+          Ready          = ready
+          StartPosition  = start_pos
+          Id             = id
+          InboxBool      = []
+          Outbox         = []
+          Ownership      = ownership
+        }
+    }
+}
+entity ReliableOutMessageLobbyPlayer = {
+  inherit ReliableOutMessage
+
+  Create(value : LobbyPlayer, targets : List<Peer>, sender : ConnectionId, owner_entity : EntityId) =
+    let m = new ReliableOutMessage(sender, LobbyPlayerTypeId, owner_entity, targets)
+    do m.WriteString(value.Name)
+    do m.WriteBool(value.Ready)
+    do m.WriteFloat(value.StartPosition.X)
+    do m.WriteFloat(value.StartPosition.Y)
+    {
+      ReliableOutMessage = m
+    }
+}
+
+entity InMessageBool = {
+  inherit InMessage
+  Value : bool
+
+  Create(msg : InMessage) =
+    let value = msg.ReadBool()
+    {
+      InMessage = msg
+      Value     = value
+    }
+}
+entity ReliableOutMessageBool = {
+  inherit ReliableOutMessage
+
+  Create(value : bool, targets : List<Peer>, sender : ConnectionId, owner_entity : EntityId) =
+    let m = new ReliableOutMessage(sender, BoolTypeId, owner_entity, targets)
+    do m.WriteBool(m)
+    {
+      ReliableOutMessage = m
+    }
+}
+
+
+world Lobby = {
+  Self                  : LobbyPlayer
+  Others                : List<LobbyPlayer>
+  Network               : NetManager
+  Id                    : int
+  InboxLobbyPlayer      : List<InMessageLobbyPlayer>
+  InboxListLobbyPlayer  : List<InMessageLobbyPlayer>
+  Outbox                : List<ReliableOutMessage>
+
+  rule Outbox = yield []
+  rule InboxListLobbyPlayer = 
+    yield InboxListLobbyPlayer +
+          from c in Network.Peers
+          from m in c.ReceivedMessages
+          where m.ContentType = LobbyPlayerTypeId &&
+                m.OwnerEntity = Id
+          select InMessageLobbyPlayer.Create(m.Value)
+  rule InboxLobbyPlayer = 
+    yield InboxLobbyPlayer +
+          from c in Network.Peers
+          from m in c.ReceivedMessages
+          where m.ContentType = LobbyPlayerTypeIdTypeId &&
+                m.OwnerEntity = Id
+          select InMessageLobbyPlayer.Create(m.Value)
+
+  rule Self, Others, InboxListLobbyPlayer, Outbox, Network.MasterConnect =
+    wait_until(Network.MasterConnect = true)
+    wait_until(from m in InboxListLobbyPlayer
+               select m
+               group_by m.Sender
+               count = Network.Peers.Length)
+    let others = // take one item per peer
+      from m in InboxListLobbyPlayer
+      select m
+      group_by m.Sender as g
+      select g.Elements.Head.Value
+    yield InboxListLobbyPlayer <- []
+    let max_x = 
+      maxby p in others
+      select p.StartPosition.X
+    let start_position = Vector2(max_x + 5.0f<pixel>, 0.0f<pixel>)
+    let self = { Self with Position = start_position }
+    let msg = ReliableOutMessageLobbyPlayer.Create(Self, [], Network.Id, Id).ReliableOutMessage
+    yield Outbox <- Outbox + msg
+    wait_until(msg.Received)
+    yield Self <- self, Others <- others, Network.MasterConnect <- false
+
+  rule Others, InboxLobbyPlayer, Outbox, Network.SlaveConnect =
+    wait_until(Network.SlaveConnect = true)
+    let msg = ReliableOutMessageLobbyPlayer.Create(Self, [], Network.Id, Id).ReliableOutMessage
+    yield Outbox <- Outbox + msg
+    wait_until(msg.Received)
+    wait_until(InboxLobbyPlayer.Length > 1)
+    let others = InboxLobbyPlayer.Head.Value
+    yield InboxLobbyPlayer <- InboxLobbyPlayer.Tail
+    yield Others <- Others + new_player, Network.SlaveConnect <- false
+
+  rule CurrentWorld = 
+    wait_until(Self.Ready &&
+               from p in Others
+               select p.Ready)
+    yield Arena.Create(Self)
+
+  Create(own_name) = 
+    let network = NetManager.Create()
+    let id = network.NextId
+    {
+      Self                  = LobbyPlayer.Create(own_name, Vector2.Zero)
+      Others                = []
+      Network               = network
+      Id                    = id
+      InboxLobbyPlayer      = []
+      InboxListLobbyPlayer  = []
+      Outbox                = []
+    }
+}
+
+entity LobbyPlayer = {
+  Name                  : string
+  Ready                 : bool
+  StartPosition         : Vector2<pixel>
+  Id                    : int
+  InboxBool             : List<InMessageBool>
+  Outbox                : List<ReliableOutMessage>
+  Ownership             : NetOwnership
+
+  rule Outbox = yield []
+  rule InboxBool = 
+    yield InboxBool +
+          from c in Network.Peers
+          from m in c.ReceivedMessages
+          where m.ContentType = BoolTypeId &&
+                m.OwnerEntity = Id
+          select InMessageBool.Create(m.Value)
+
+  rule Ready, Outbox = 
+    wait_until(Ownership = Master)
+    wait_until(IsKeyDown(Enter))
+    let msg = ReliableOutMessageBool.Create(true, [], world.Network.Id, Id).ReliableOutMessage
+    yield Outbox <- Outbox + msg
+    wait_until(msg.Received)
+    yield Ready <- true
+
+  rule Ready, Outbox = 
+    wait_until(Ownership = Master)
+    wait(30.0f<s>)
+    let msg = ReliableOutMessageBool.Create(true, [], world.Network.Id, Id).ReliableOutMessage
+    yield Outbox <- Outbox + msg
+    wait_until(msg.Received)
+    yield Ready <- true
+
+  rule Ready, InboxBool = 
+    wait_until(Ownership <> Master)
+    wait_until(InboxBool.Length > 1)
+    yield InboxBool.Head, InboxBool.Tail
+
+  Create(name, p) = 
+    {
+      Name          = name
+      Ready         = false
+      StartPosition = p
+      Id            = world.Network.NextId
+      InboxBool     = []
+      Outbox        = []
+      Ownership     = Master
+    }
+}

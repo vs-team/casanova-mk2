@@ -1,0 +1,65 @@
+\documentclass[a4paper]{article}
+\usepackage{anysize}
+\marginsize{1cm}{1cm}{1cm}{1cm}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[pdftex]{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{natbib}
+\lstset{language=haskell}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{basicstyle=\ttfamily}
+%\linespread{2.0}
+
+\begin{document}
+
+\title{\bf The Power of Types for Extending Compilers}
+
+\author{Giuseppe Maggiore \quad Michele Bugliesi
+ \\ Universit\`a Ca' Foscari Venezia
+ \\ Dipartimento di Informatica 
+ \\ \{maggiore,bugliesi\}@dsi.unive.it
+}
+
+\date{}
+\maketitle
+
+\begin{abstract}
+In this presentation we discuss a series of techniques for 
+static analysis and program optimization. These techniques
+are usually applied in a cumbersome manner, by either
+defining new, specialized languages or by creating full-blown
+analysis and verification tools.
+
+We show how all these techniques can be implemented inside a
+modern functional language such as Haskell or OCaML, and even 
+more how these techniques can all be defined in terms of a
+relatively simple framework of type functions and monads.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\input{1.intro} 
+
+\section{Applications}
+\label{sec:apps}
+\input{2.applications} 
+
+\section{Generalization}
+\label{sec:gen}
+\input{3.generalization} 
+
+\section{Additional Applications}
+\label{sec:apps}
+\input{4.additional_applications} 
+
+\bibliographystyle{plain}
+\bibliography{references} 
+\nocite{}
+
+\end{document}

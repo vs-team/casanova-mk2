@@ -1,0 +1,123 @@
+\documentclass[orivec]{llncs}
+
+\usepackage{algorithm, algpseudocode}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+%\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{stmaryrd}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} 
+\usepackage[hyphens]{url}
+\usepackage[caption=false]{subfig}
+\usepackage{wrapfig}
+
+\lstset{
+numbers=left,
+numberstyle=\tiny,
+language={Java},
+mathescape=true,
+flexiblecolumns=true,
+morekeywords={call,method,var,assert,share,unshare,acquire,release,fork,join,free,invariant,requires,ensures,acc,rd,old},
+basicstyle=\sffamily\scriptsize,
+moredelim=[is][\itshape]{@}{@},
+stepnumber=1,
+numbersep=2pt,
+numbers=none}
+
+\urldef{\mailpietro}\path|pietro.ferrara@inf.ethz.ch|   
+\urldef{\mailgiuseppe}\path|maggiore.g@nhtv.nl|   
+\urldef{\mailgiuliatino}\path|{costantini, cortesi}@dsi.unive.it|    
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\makeatletter 
+\newcommand*\sbigtimes{\mathop{\mathpalette\@sbigtimes\relax}\displaylimits} 
+\newcommand*\@sbigtimes[2]{% 
+  \vcenter{\hbox{\sffamily\@nameuse{\string#1bt}X}}\vphantom{\prod}} 
+\@namedef{\string\displaystyle bt}{\huge} 
+\@namedef{\string\textstyle bt}{\Large} 
+\@namedef{\string\scriptstyle bt}{\small} 
+\@namedef{\string\scriptscriptstyle bt}{\footnotesize} 
+\makeatother
+
+\pagestyle{plain}
+
+\input{pietromacro}
+
+\title{The Domain of Parametric Hypercubes for Static Analysis of Computer Games Software}
+%\subtitle{An efficient and disjunctive static analysis of physics simulations}
+
+\author{Giulia Costantini\inst{1} \and Pietro Ferrara\inst{2} \and Giuseppe Maggiore \inst{3} \and Agostino Cortesi\inst{1}}
+
+\institute{University Ca' Foscari of Venice, Italy\\\mailgiuliatino \and ETH Zurich, Switzerland\\\mailpietro \and IGAD, NHTV University of Breda, The Netherlands\\\mailgiuseppe}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{Sections/0_abstract}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+\input{Sections/1_introduction}
+
+\section{Language syntax} \label{sec:syntax}
+Let $\mathcal{V}$ be a finite set of variables, and $\mathcal{I}$ the set of all real-valued intervals. Figure \ref{fig:syntax} defines the language.
+We focus on programs dealing with mathematical computations over real-valued variables. Therefore, we consider expressions built through the most common mathematical operators (sum, subtraction, multiplication, and division). An arithmetic expression can be a constant value ($c \in \real$), a non-deterministic value in an interval ($I \in \mathcal{I}$), or a variable ($V \in \mathcal{V}$). We also consider boolean conditions built through the comparison of two arithmetic expressions. Boolean conditions can be combined as usual with logical operators (and, or, not). As for statements, we support the assignment of an expression to a variable, \statement{if-then-else}, \statement{while} loops, and concatenation. 
+Even though this syntax is simple and limited, many physical simulations can be built through it \cite{B12}, since their complexity lies mostly in their logic and not in the used constructs.
+
+\begin{figure}
+\vspace{-15pt}
+$$V \in \mathcal{V}, I \in \mathcal{I}, c \in \real$$
+$$E :=  c | I | V | E\ <aop>\ E \textrm{ where }<aop> \in \{+, -, \times, \div \}$$
+$$B := E <bop> E | B\ and\ B | not\ B | B\ or\ B \textrm{ where } <bop> \in \{\geq, >, \leq, <, \neq \}$$
+$$P := V = E | \statement{if}(B)\ \statement{then}\ P\ \statement{else}\ P | \statement{while}(B)\ P | P;P $$
+\caption{Syntax}
+\label{fig:syntax}
+\end{figure}
+\vspace{-20pt}
+
+\section{The case study of bouncing balls}
+\label{sec:case_study}
+\input{Sections/2_case_study}
+
+\section{The Parametric Hypercubes domain}
+\label{sec:hyper_cubes_domain}
+\input{Sections/3a_hypercubes_domain}
+
+\vspace{-10pt}
+\section{Abstract semantics}
+\vspace{-5pt}
+\label{sec:semantics}
+\input{Sections/3b_abstract_semantics}
+
+\vspace{-10pt}
+\section{Experimental results}
+\vspace{-5pt}
+\label{sec:experimental}
+\input{Sections/5_experimental_results}
+
+\vspace{-10pt}
+\section{Related work}
+\vspace{-5pt}
+\label{sec:related}
+\input{Sections/7_related_work}
+
+\vspace{-10pt}
+\section{Conclusions and future work}
+\vspace{-5pt}
+\label{sec:conclusions}
+\input{Sections/8_conclusions}
+
+\bibliographystyle{plain}
+\bibliography{Sections/10_references}
+
+%\cite{}
+
+\end{document}

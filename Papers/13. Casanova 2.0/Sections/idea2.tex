@@ -1,0 +1,153 @@
+Languages, in general, offer more expressive power than engines, because of the possibility to combine and nest the constructs. A language specifically designed and built with game programming in mind can help with common aspects of game development (such as time, concurrency, and state updates) that regular languages do not encompass.
+In this regard, we present the language Casanova 2, based on \cite{maggiore2012designing}, which takes its inspiration from the orchestration model of \cite{misra2007computation}. We show how Casanova 2 is designed in particular to express the typical dynamics present in games.
+
+\subsection{The basic idea behind Casanova 2}
+An abstraction of a game should be able to represent its main elements, i.e., its state variables and their (discrete and dynamic) interactions.
+For this purpose, we built an (intentionally) small programming language of which the main features are \textit{state} and \textit{rules}:
+\begin{enumerate}[\itshape(i)]
+\item The \textit{state} of a game is represented by a hierarchical type definition. Each node of the hierarchy is called an \textit{entity} (besides the root, which is called \textit{world}). Each entity contains a series of fields that represent primitive types, collections, or even references to other entities. Through access to shared data entities we achieve concurrent coordination.
+\item The logic of each entity is defined as a series of implicitly parallel looping code blocks. Each implicit block, called a \textit{rule}, represents a specific dynamic of the entity. A rule represents a dynamic, which can be continuous (simple and effect-free) or discrete (with side-effect, the most important of which is \textit{wait}).
+\end{enumerate}
+\subsection{Casanova patrol}
+We now show how we rewrite the patrol program presented in Section \ref{sec:problem statement} using Casanova 2.
+\begin{lstlisting}[caption=Patrol in Casanova 2]
+world Patrol = {
+   V : Vector2
+   P : Vector2
+   Checkpoints : [Vector2]
+
+   rule P = P + V * dt
+
+   rule V =
+    for checkpoint in Checkpoints do
+      yield $\norm{\texttt{checkpoint - P}}$
+      wait P = checkpoint
+      yield Vector2.Zero
+      wait 10<s>
+}
+\end{lstlisting}
+
+The first three lines within the definition of Patrol describe the game state, containing three variables: the velocity \texttt{V}, the position \texttt{P}, and a checkpoint list \texttt{Checkpoints}. The next line gives the continuous dynamic, namely the rule P which runs once per frame, i.e., at every frame the position \texttt{P} is integrated by the velocity \texttt{V} over \texttt{dt} (a global value supplied by the system that represents the time difference between the current and the previous frame). The remainder of the definition gives the discrete dynamic, namely the rule V, which represents the movement between checkpoints. The checkpoints are traversed in order, and for each selected checkpoint \texttt{checkpoint} we change the value of the velocity in order to move the patrol towards it (\texttt{yield checkpoint - P}). Then, we wait until the patrol reaches the checkpoint (\texttt{wait P = checkpoint}), and once the checkpoint is reached we stop the patrol, by setting its velocity to 0 (\texttt{yield Vector2.Zero}) for 10 seconds (\texttt{wait 10<s>}). At this point the loop continues and a new checkpoint is selected. We reiterate the list again once we have traversed all the checkpoints.
+
+Note that, in general, a game can be considered a series of entities that run in synchronization in order to achieve a specific goal. In Casanova 2 every entity in the state (as well as every rule in an entity) is in essence an \textit{independent} concurrent program \cite{schneider1997concurrent}. Coordination between these programs happens through a shared state.
+
+
+%Consider the following, based on the Boids algorithm \cite{reynolds1987flocks}, where a group of subordinates are synchronized in order to follow a leader (whose behavior is the same as the patrol presented above).
+%\begin{lstlisting} [caption=Boids in Casanova 2]
+%entity Subordinate = {
+%   Leader   : Patrol
+%   Group    : [Subordinate]
+%   MaxSpeed : Vector2
+%   P : Vector2
+%   V : Vector2
+%   rule P = P + V * dt
+%   rule V =
+%    let repulsion =
+%       [for p in Group do
+%        sumBy Normalize$(\texttt{P} - \texttt{p.P}) * (1 - \sigma(d(\texttt{P}, \texttt{p.P})))$]
+%    yield (Normalize$(\texttt{Leader.P} - \texttt{P})$ +
+%           Normalize$(\texttt{repulsion})) * \texttt{MaxSpeed}$
+%}
+%\end{lstlisting}\footnote{$\sigma$ is a sigmoid function, $d$ represents a distance function}
+
+%During execution each subordinate follows the leader, avoiding at the same time collisions with his team-mates.
+%This behavior requires synchronization, which is achieved by the rule on the velocity \texttt{V}. We distinguish the leader (\texttt{Leader} of type \texttt{Patrol}) from the group (\texttt{Group} of type \texttt{[Subordinate]}): their behaviors are different, so their rules must be different as well. Given a subordinate, at every iteration we update its position \texttt{P} (by integrating \texttt{P} by \texttt{V} over \texttt{dt}) and its velocity \texttt{V} (computing a repulsion value to try to avoid collisions with other members of the group, and then reducing the gap between the selected subordinate and the leader).
+
+% PS: I do not really understand what this subsubsection is trying to argue. Please make that clear.
+
+
+\subsection{Syntax}
+The syntax of the language (here presented in Backus-Naur form \cite{strings2010backus}) is rather brief. It allows the declaration of entities as simple functional types (records, tuples, lists, or unions). Records may have fields. Rules contain expressions which have the typical shape of functional expressions, augmented with \texttt{wait}, \texttt{yield}, and queries on lists:
+\begin{lstlisting}[caption=Casanova 2 syntax]
+<Program> ::=
+    <moduleStatement> {<openStatement>}
+    <worldDecl> {<entityDecl>}
+
+<moduleStatement> ::= module id
+<openStatemnt>    ::= open id
+<worldDecl>    ::= world id ["("<formals>")"] =
+                   <worldOrEntityDecl>
+<entityDecl>   ::= entity id ["("<formals>")"] =
+                   <worldOrEntityDecl>
+<worldOrEntityDecl> ::= "{" <entityBlock> "}"
+<entityBlock>  ::= {<fieldDecl>} {<ruleDecl>}
+                   <create>
+<create> ::= Create "(" {<formals>} ") = <expr>
+<formals>   ::= id [":" <type>] {"," <formals>}
+<fieldDecl> ::= id [":" <type>]
+<ruleDecl>  ::= rule id {"," id} "=" <expr>
+<type>      ::= int |boolean  |float |Vector2
+                |Vector3 |string |char
+                |list "<" <type> ">" |<generic>
+                |<type> "[" "]" |id
+<generic>     ::= "'" id
+<expr> ::= ...(* typical expressions : let, if,
+                 for , while , new, etc. *)
+           | wait (<arithExpr> | <boolExpr>)
+           | yield | <arithExpr> | <boolExpr>
+           | <literal> | <queryExpr> | <seq>
+<seq>        ::= <expr> <expr>
+<arithExpr>  ::= ...//arithmetic expressions
+<boolExpr>   ::= ...//boolean expressions
+<literal>    ::= ...//strings , numbers
+<queryExpr>  ::= ...//query expressions
+\end{lstlisting}
+
+
+\subsection{Semantics}
+The semantics of Casanova 2 is \textit{rewrite-based} \cite{klop1990term}, meaning that the current game world is transformed into another one with different values for its fields and different expressions for its rules.
+Given a game world $\omega$, the world is structured as a tree of entities. Each entity $E$ has some fields $f_1 \dots f_n$ and some rules $r_1 \dots r_m$.
+\begin{lstlisting}[mathescape]
+E = { Field$_1$ = f$_1$; $\dots$; Field$_n$ = f$_n$;
+      Rule$_1$ = r$_1$; $\dots$; Rule$_m$ = r$_m$ }
+\end{lstlisting}
+Each rule acts on a subset of the fields of the entity by defining their new value after one (or more) ticks of the simulation. For simplicity, in the following we assume that each rule updates all fields simultaneously.
+
+
+An entity is updated by evaluating, in order, all the rules for the fields:
+\begin{lstlisting}[mathescape]
+tick(e:E, dt) =
+ { Field$_1$=tick(f$_1^m$, dt); $\dots$; Field$_n$=tick(f$_n^m$, dt);
+   Rule$_1$=r$_1'$; $\dots$; Rule$_m$=r$_m'$ }
+where
+  f$_1^m$, $\dots$, f$_n^m$, r$_m'$ = step(f$_1^{m-1}$, $\dots$, f$_n^{m-1}$, r$_m$)
+  .
+  .
+  f$_1^1$, $\dots$, f$_n^1$, r$_1'$ = step(f$_1$, $\dots$, f$_n$, r$_1$)
+\end{lstlisting}
+We define the \texttt{step} function as a function that recursively evaluates the body of a rule. The function evaluates expressions in sequential order until it encounters either a \texttt{wait} or a \texttt{yield} statement. It also returns \textit{the remainder of the rule body}, so that the rule will effectively be resumed where it left off at the next evaluation of \texttt{step}:
+\begin{lstlisting}[mathescape]
+step(f$_1$, $\dots$, f$_n$, {let x = y in r$'$}) =
+  step(f$_1$, $\dots$, f$_n$, r$'$[x:=y])
+
+step(f$_1$, $\dots$, f$_n$, {if x then r$'$ else r$''$; r$'''$})
+  when (x = true) = step(f$_1$, $\dots$, f$_n$, {r$'$; r$'''$})
+
+step(f$_1$, $\dots$, f$_n$, {if x then r$'$ else r$''$; r$'''$})
+  when (x = false) = step(f$_1$, $\dots$, f$_n$, {r$''$; r$'''$})
+
+step(f$_1$, $\dots$, f$_n$, {yield x; r$'$}) = x, r$'$
+
+step(f$_1$, $\dots$, f$_n$, {wait n; r$'$})
+  when (n > 0.0) = f$_1$, $\dots$, f$_n$, {wait (n-dt); r$'$}
+
+step(f$_1$, $\dots$, f$_n$, {wait n; r$'$})
+  when (n = 0.0) = step(f$_1$, $\dots$, f$_n$, r$'$)
+
+step(f$_1$, $\dots$, f$_n$, {for x in y:ys do r$'$; r$''$})
+  step(f$_1$, $\dots$, f$_n$,
+       {r$'$[x:=y];
+        for x in ys do r$'$; r$''$})
+
+step(f$_1$, $\dots$, f$_n$, {for x in [] do r$'$; r$''$})
+  step(f$_1$, $\dots$, f$_n$, r$''$)
+\end{lstlisting}
+
+\subsection{Compiler description}
+Specific syntax built around the concept of altering the execution flow of a Casanova program allows the Casanova compiler to translate a Casanova program into an equivalent and high performance low-level program with the same semantics. The result is a high performance program made by a single switch structure, without nesting.
+A big advantage of this solution is that we may ignore typical software engineering rules, such as readability and code maintainability (as readability and maintainability are only needed for the Casanova specification of the game).
+
+Usually, software engineering implementations are based on a series of nested state machines, but nesting yields a low performance because of the state selection. In contrast, the Casanova compiler produces an inlining of all the nested state machines into a single sound and fast state machine (which code is pretty much unreadable).
+% The correct choice of constructs in a Casanova program is fundamental in order to allow the compiler to apply the appropriate transformations. Coding the state machines into Casanova is possible by hand, although difficult as the game increases in terms of dynamics (a series of nested \texttt{if} that mimic the decisions), but no guarantees about correctness and performance can be provided by our tool.
+
+

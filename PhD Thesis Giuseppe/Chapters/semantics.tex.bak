@@ -1,0 +1,385 @@
+\section{Informal Semantics}
+Informally, the semantics of Casanova can be described in terms of how the world is updated during a tick of the game loop. The main difference between the semantics of Casanova and the way a game is traditionally built is that in Casanova there is no world that is updated in-place as we would get in an imperative system; rather, Casanova behaves as if an infinite stream of game worlds was created, one per frame, by applying all rules in parallel and then by running all active scripts in sequence until they all reach either a \texttt{yield} or \texttt{wait} statement. After updating the world, Casanova draws all drawable entities. In pseudo-code, we could say:
+\begin{lstlisting}
+let update world =
+  let world'  = apply_rules world
+  let world'' = tick_scripts world'
+  do draw world''
+  update world''
+\end{lstlisting}
+
+The \texttt{apply\_rules} function would recursively explore all entities and, for each rule, evaluate that rule and insert it into the next value of the world, which is then populated. Non-rule values would simply be copied over \footnote{notice though that \textit{copying} here may also refer to the much cheaper copy of references, and not values; also, if we have the guarantee of immutability on the various data structures of the game world, we can reuse old entities when possible since they are immutable and thus do not change}. The \texttt{tick\_scripts} function would run all active scripts, which form a complex dependency graph thanks to the \texttt{and}, \texttt{or}, \texttt{guard}, and \texttt{let!} operators which chain them together. Each script is run, and it performs a mixture of control flow operations and assignments before pausing itself. Each variable assignment \texttt{:=} is set in a new instance of the game world where all rules have been applied already; this new instance of the game world then becomes the current game world for subsequent scripting operations. Finally, the world is traversed one last time and all its drawable entities are grouped together according to their drawing layer, and the layers in the game world are rendered in the order they are found in the world.
+
+When an entity is stored in the game world twice, for example because it is stored both in the world directly and inside another entity that uses it for reference purposes, then it risks being updated twice. If entities reference each other circularly, then they may trigger an infinite loop of updates. To stop these updates, Casanova offers the \texttt{Ref} generic data-type, to signal that one of two instances is just a pointer to something that is updated elsewhere in the game world. The update of the game world will then not update references. References in Casanova can be seen in the same light as foreign keys in relational databases.
+
+Drawing in Casanova simply requires an underlying layer of computation that understands 2D and 3D vectors; upon satisfying these very light requirements, any rendering engine or technology can be employed. For this reason the precise semantics of rendering are left nebulous in our work: they are highly interchangeable, there is no restriction on the library that is used for rendering, and this allows us to easily support multiple platforms.
+
+The semantics of Casanova are defined this way to ensure correctness (by stopping certain bugs from happening altogether) and fast run-time speed.
+
+\textit{Correctness} in Casanova depends from the way rules are evaluated and how their result is then written into the game world. If the game world were modified in-place after the evaluation of each rule, then it would represent a "dirty" game state that is neither in the previous time-step, nor in the next. Such a game world would risk breaking some of the logical invariants that the developer may give for granted when designing some rules or scripts. As a simple example, consider the case of collision detection between asteroids and projectiles in a shooter game where the game world is updated as soon as we find a collision between an asteroid and a projectile; in an imperative style we could write:
+
+\begin{lstlisting}
+for a in asteroids do
+  if $\exists$ p $\in$ projectiles : p collides with a then
+    remove a from asteroids
+    add asteroid explosion a
+    increment score by 1
+for p in projectiles do
+  if $\exists$ a $\in$ asteroids : p collides with a then
+    remove p from projectiles
+\end{lstlisting}
+
+Let us say that we have three asteroids and two projectiles. An asteroid collides with a projectile. We would get the following evaluation steps:
+
+\begin{lstlisting}
+[a1;a2;a3], [p1;p2]
+[a1;a3], [p1;p2] // remove a2 as it collides with p1
+[a1;a3], [p1;p2] // p1 is not removed because a2 was removed
+\end{lstlisting}
+
+While this particular bug is simple to find, it is a particular instance of the following general problem: \textsl{updates that assume they are acting on a world with invariants temporarily broken by the evaluation of other local updates}.
+
+Casanova deals with this problem by storing the result of all updates in temporary locations, in a manner that is similar to a big transaction. After all rules have been evaluated on the current value of the game world, then their results are all applied simultaneously.
+
+\textit{Run-time performance} is the other big concern addressed by Casanova. Rules offer us two important optimization opportunities: \textit{(i)} evaluating rules in parallel, in different threads; and \textit{(ii)} optimizing queries on lists that perform Cartesian products with some condition. While we will discuss the details of such optimizations in the following, for now it will suffice to say that, without forbidding unrestricted mutation of the game world, neither of these optimizations could be done safely, and implementing them automatically would risk side-effects or outright wrong results. Other optimizations include the frequency of updates of the rules and the scripts of the game world. For example, the frequency at which rules and scripts are updated can be customized; this means that certain operations that do not need to be performed at every frame, such as AI decisions, may be computed with lower frequency, while rules and scripts which govern visible animations must be updated at every frame in order to maintain the visual appearance of smoothness.
+
+Forbidding mutation and the high-level at which Casanova games are implemented have downsides as well. The two most evident downsides are data-types that reference themselves, and cooperative update operations that span multiple entities.
+
+Recursive instances of recursive data-structures, such as a circular chain of entities or a cyclic graph of entities, cannot be represented directly. For example, consider the case where we wish to represent a (cyclic) graph of vertices; we cannot represent a vertex as:
+
+\begin{lstlisting}
+type Graph = { Vertices : List<Vertex> }
+type Vertex = 
+  { Content : T; 
+    Neighbors : List<Ref<Vertex>> }
+\end{lstlisting}
+
+because vertices are immutable, and thus a vertex needs to be initialized \textit{after} all its neighbors have been created, but if there are cyclic relationships there is no initialization order that respects this requirement. The alternative lies in using maps that connect entities, thereby breaking the recursive relationship:
+
+\begin{lstlisting}
+type Graph = 
+  { Vertices : List<Vertex>; 
+    Edges : Map<Ref<Vertex>,List<Ref<Vertex>>> }
+type Vertex = { Content : T }
+\end{lstlisting}
+
+Similar, we have to re-think (with respect to their imperative implementation) certain cooperative update operations such as collision detection or battles. For example, consider the case of balls bouncing on the screen and with each other. When two or more balls collide together, then they need to be updated together and not separately; this means that the following world structure is not sufficient because a single ball may only update itself:
+
+\begin{lstlisting}
+type World = { Balls : List<Ball> }
+\end{lstlisting}
+
+The developer could, for example, represent balls as two separate kinds of balls: those that are flying, and those that are in a collision block:
+
+\begin{lstlisting}
+type World = { Balls : List<Ball>; CollisionBlocks : List<CollisionBlock> }
+type CollisionBlock = { Balls : List<CollidingBall> }
+\end{lstlisting}
+
+Note that a collision block updates all of its list at the same time, and the single \texttt{CollidingBall} performs no physical update since it would be unable to modify itself correctly without knowing the other balls colliding with it.
+
+
+\subsection{Bouncing Balls}
+Now that the a first description of the language has been given, we can show a first example so that the remaining discussion may be reinforced by having seen Casanova in action. We go back to considering the bouncing ball games, but with a twist: when the user presses the space bar, then a ball is created. This way we can see user input in action as well.
+
+The game entities and their rules implement removal of balls that exit the screen, update of each ball position and velocity according to a simple Euler integrator, and finally update of the sprite position with the current ball position, converting the units of measure to pixels:
+
+\begin{lstlisting}
+type World = { Balls : Var<List<Ball>> }
+rule Balls(world:World,dt:float<s>) = 
+  [for b in world.Balls do 
+     if b.Position.X <= ScreenSize.X then 
+       yield b]
+
+type Ball = { Position : Vector2<m>; Velocity : Vector2<m/s>; Sprite : DrawableSprite }
+rule Position(self:Ball,dt:float<s>) =
+  if self.Position.Y >= 0.0<m> then 
+    self.Position + self.Velocity * dt
+  else 
+    self.Position * Vector2(1.0,0.0)
+rule Velocity(self:Ball,dt:float<s>) =
+  if self.Position.Y >= 0.0<m> then 
+    self.Velocity + Vector2<m/s^2>.UnitY * 9.81 * dt
+  else 
+    self.Velocity * Vector2(1.0,-0.8)
+rule Sprite.Position(self:Ball) = 
+  self.Position * Vector2<pixel/m>.One
+\end{lstlisting}
+
+The initial state of the game is then a simple empty world with no balls:
+
+\begin{lstlisting}
+let world = { Balls = [] }
+\end{lstlisting}
+
+The main script which creates new random balls is a simple repetition of waiting before creating a new ball:
+
+\begin{lstlisting}
+let create_random_ball() = { ... }
+
+let main = 
+  repeat
+    co{
+      do! wait (random 1.0<s> 3.0<s>)
+      do! world.Balls := create_random_ball() :: world.Balls
+    }
+\end{lstlisting}
+
+The input scripts are only two: one that waits for pressure (and then timed release) of the space bar, and another that waits for pressure of the escape key. Pressing space creates a new ball, while pressing escape closes the game:
+
+\begin{lstlisting}
+let input =
+  [
+    co{ return is_key_down(Keys.Escape) } => 
+      co{ do! exit() }
+    co{
+      do! wait_condition(is_key_down(Keys.Space))
+      do! wait_condition(is_key_up(Keys.Space))
+            || wait 0.2<s>
+      return true } =>
+      world.Balls := create_random_ball() :: world.Balls
+  ]
+\end{lstlisting}
+
+The scripts above are used to implement detection of key pressure. Key pressure is detected when the user presses a key, and then either releases it or holds it for more than a certain amount of time. Key pressure is needed to avoid firing an event all the frames of the game during which the key is held. The code that implements this is the following:
+
+\begin{lstlisting}
+do! wait_condition(is_key_down(Keys.Space))
+do! wait_condition(not(is_key_down(Keys.Space))) || wait 0.2<s>
+\end{lstlisting}
+
+It is important to notice that to support this event with a traditional game development system, the developer would need to build by hand a state machine such as:
+
+\begin{lstlisting}
+type KeyPress = WaitPress | WaitRelease of float | Finished
+
+let transition key_press dt =
+  match key_press with
+  | WaitPress -> 
+    if is_key_down(Keys.Space) then 
+      WaitRelease 0.0
+    else
+      WaitPress
+  | WaitRelease t ->
+    if is_key_up(Keys.Space) || t >= 0.2 then 
+      Finished
+    else
+      WaitRelease (t+dt)
+\end{lstlisting}
+
+\section{Formal Semantics}
+We now formalize the actual behavior of a Casanova program, so that we know exactly what to expect from a game written with the language. The formalization of the semantics of a language is one of its most important aspects, since it lays the foundations upon which the actual implementation is built. 
+
+The formal semantics of a language can be described in many ways \cite{CHAPTER_5_FORMAL_SEMANTICS}. The simplest way to define a language semantics is in terms of a translation in a simpler language. Indeed, in the following we give a translation semantics from Casanova in terms of F\#. The advantage of this approach is that we do not have to worry about generating assembly code nor building a virtual machine, and we may take advantage of most of the readily available capabilities of the F\# compiler, such as optimizations, tail recursion, and portability through Mono.
+
+We will give the semantics for: \textit{(i)} translating Casanova type definitions into F\# equivalent definitions; \textit{(ii)} defining the update function; \textit{(iii)} defining the draw function; and \textit{(iv)} translating coroutines into F\# monads.
+
+Even though the present discussion is heavily focused on translating semantics into F\#, it should be noted that the shape of the solution is the same that we used in alternative, experimental implementations into both the C++ and Haskell languages (see Appendix \ref{chap:casanova_in_haskell_and_cpp}). This possibility is what makes Casanova more a design pattern than just a language, since (parts of) its functionality can be replicated in other systems, retaining the original benefits.
+
+\subsection{Types Translation}
+Types are translated from Casanova into F\# in a straightforward fashion. We recursively traverse the type definitions that make up the world and its entities, and we encode them into a series of mutually recursive F\# type definitions with the same exact shape. The only difference is for the treatment of rules for records, which are encoded with two special data-types, which are \texttt{Rule<T>} for single values and \texttt{RuleList<T>} for list values.
+
+The translation function is the following, and it is given in a syntax that is reminiscent of pattern Matching in Haskell. The matching on types, though, is intended at compile-time, while the dynamic portion of the code (that which operates on values and not types) is executed at run-time:
+
+\begin{lstlisting}
+translate_types [] = ()
+translate_types type::types = 
+  translate_type type
+  translate_types types
+
+translate_type Primitive(type) = type
+translate_type Var<type> = Var<translate_type type>
+translate_type List<type> = List<translate_type type>
+translate_type Union(cases) = Union([translate_case case | case in cases])
+translate_type Tuple(types) = Tuple([translate_type type | type in types])
+translate_type Record(labels,rules) = Record([translate_label label rules | label in labels])
+
+translate_case UnionCase(case,types) = UnionCase(case, [translate_type type | type in types])
+translate_label Label(name,type) rules = 
+  if exists(rule.Name = name) in rules then
+    if type = List<type'> then
+      Label(name,RuleList<translate_type type'>)
+    else
+      Label(name,Rule<translate_type type'>)
+\end{lstlisting}
+
+Basically, translating types recursively turns all types into their F\# equivalent (primitive types in primitive types, tuples in tuples, and so on). Records, which can have rules, are turned into almost identical records, but all the fields with an associated rule are turned into the \texttt{Rule} or \texttt{RuleList} data type. For example, the following type:
+
+\begin{lstlisting}
+type MyEntity = { P : Vector2<m>; V : Vector2<m/s> }
+  rule P(self,dt) = self.P + self.V * dt
+\end{lstlisting}
+
+would be transformed into a similar data-type that uses the \texttt{Rule} container for the position (since it has a rule associated with it), and where the position is now looked up explicitly with the \texttt{(!)} operator. Also, the rule is now transformed into a static member:
+
+\begin{lstlisting}
+type MyEntity = { P : Rule<Vector2<m>>; V : Vector2<m/s> }
+  static member P(self,dt) = !self.P + self.V * dt
+\end{lstlisting}
+
+Notice that we are slightly abusing our notation, assuming that, when the translation function is invoked on a type declaration (the name of a type), then this is automatically looked up and replaced with the body of the type.
+
+The rule data types are double-buffered containers. This means that each rule data is stored twice: one for the current value, and the other for the next value. During the update function, the current value is read-only, and the next value is write-only. The \texttt{Rule} data-type is defined as follows:
+
+\begin{lstlisting}
+
+type Rule<'T> = { 
+  mutable current : 'T; 
+  mutable next : 'T }
+
+let (!) r = r.current
+let (:=) r v' = r.next <- v'
+\end{lstlisting}
+
+
+\subsection{Update Function}
+The update function is defined, similarly to the type translation functions just presented, as a function that takes as input some types and which returns the corresponding F\# operations to perform in accordance to the type to be processed. Intuitively, it may be seen as a large \texttt{switch} operation that checks the input type and which then runs some operations on that type. This function is called \textit{polytypic}, that is its actual behavior changes depending on the type of its input. Since F\# lacks polytypic abilities (at least the compiler does, but we will emulate such behavior through reflection) we use an intermediate notation; we denote the type parameters that the function switches on by surrounding them with square brackets, and regular F\# parameters will always be the last ones (that is, we lay the groundwork for removing the polytypic behavior without needing the actual parameters, at compile time, through Currying \footnote{Currying is the process by which, given a function that takes two parameters, for example \texttt{fun x y -> x + y}, we can pass it one parameter but not the other; passing the parameter yields us a function where that parameter is set already, for example passing 10 to the function described before gives us back \texttt{fun y -> 10 + y}. In some sense, Currying is a form of specialization reminiscent of inheritance.}).
+
+The update function will explore the game world, one field at a time: whenever a rule is encountered, it is evaluated; after all rules are evaluated, the frame counter is incremented so that rules all are committed to the game world at the same time. This way rules that are evaluated do not affect the evaluation of other rules in the same frame:
+
+\begin{lstlisting}
+update_world [World] (world:World) (dt:float<s>) = 
+  update_entity [World] [World] world world dt
+  frame_index <- frame_index + 1
+
+update_entity [World] [Primitive(T)] 
+              (world:World) (v:T) dt = ()
+update_entity [World] [T1 * T2 * ... * Tn] 
+              (world:World) (x1:T1, x2:T2, ..., xn:Tn) dt =
+  update_entity [World] [T1] world x1 dt 
+  update_entity [World] [T2] world x2 dt
+  ...
+  update_entity [World] [Tn] world xn dt
+update_entity [World] [Var<T>] 
+              (world:World) (v:Var<T>) dt = 
+  update_entity [World] [T] (world:World) !v dt
+update_entity [World] [Ref<T>] 
+              (world:World) (v:Ref<T>) dt = ()
+update_entity [World] [List<T>] 
+              (world:World) (l:List<T>) dt =
+  for x in l do update_entity [World] [T] world x dt
+update_entity [World] [T=UnionCase(C1(T11 * ... * T1n1), 
+                                   C2(T21 * ... * T2n2), ..., 
+                                   Cn(Tn1 * ... * Tnnn)))] 
+              (world:World) (c:T) dt =
+  match c with
+  | C1(x1,...,xn1) ->
+    update_entity [World] [T11] world x1 dt
+    update_entity [World] [T12] world x2 dt
+    ...
+    update_entity [World] [T1n1] world xn1 dt
+  | C2(x1,...,xn2) ->
+    update_entity [World] [T21] world x1 dt
+    update_entity [World] [T22] world x2 dt
+    ...
+    update_entity [World] [T2n1] world xn2 dt
+  ...
+  | Cn(x1,...,xnn) ->
+    update_entity [World] [Tn1] world x1 dt
+    update_entity [World] [Tn2] world x2 dt
+    ...
+    update_entity [World] [Tnnn] world xnn dt
+update_entity [World] [T=Record(l1:T1,l2:T2,...,ln:Tn,
+                                r1=rb1,r2=rb2,...,rm=rbm)] 
+              (world:World) (r:T) dt =
+  update_entity [World] [T1] world r.l1 dt
+  update_entity [World] [T2] world r.l2 dt
+  ...
+  update_entity [World] [Tn] world r.ln dt
+  r.r1 := rb1(world, r, dt)
+  r.r2 := rb2(world, r, dt)
+  ...
+  r.rm := rbm(world, r, dt)
+\end{lstlisting}
+
+The essence of the update function is thus to traverse the game state inductively, and then to apply all rules to their fields. After traversal is done, rule updates are committed. Notice a peculiarity about Casanova semantics: whenever the update function encounters a reference to a value, this reference is not explored further. References are used to break recursive relationships inside the game world, in order to avoid infinite loops during traversal. Also notice that rules with names such as \texttt{Label1.Label2. ... Labeln} may be defined. This allows for polymorphism in rules, because an entity may define (and override) rules for data-types it contains. For example, suppose we have an entity and that we wish to build other entities that contain the original one but which also modify the way it updates; we could then use nested rules to write:
+
+\begin{lstlisting}
+type E = { f : F; ... }
+
+type E' = { e : E; ... }
+rule e.f = ...
+
+type E'' = { e : E; ... }
+rule e.f = ...
+\end{lstlisting}
+
+This technique allows for rules that behave similarly to abstract methods in object-oriented programming, thereby having entities whose behavior varies depending on how the entity is extended. A common application of this system is to define how the attributes of drawable entities are updated. For example, consider a moving spaceship that must update its sprite position depending on its current physical position and the current camera settings:
+
+\begin{lstlisting}
+type Ship {
+  Position : Vector2<m>
+  ...
+  Sprite   : DrawableSprite
+}
+...
+rule Sprite.Position(world,self,dt) = world.Camera.Transform(self.Position)
+\end{lstlisting}
+
+\subsection{Draw}
+The draw function is defined in a very similar manner to the update function. Like the update function, the draw function explores the game state (stopping at primitive types and references) and draws all drawable entities found during the traversal. Drawing is not completely straightforward though: drawable entities are grouped into \textit{layers} which act as containers and which specify a set of rendering options such as the current shader, alpha blending, and so on. Layers are then rendered in the order they are found. Layers may be sprite layers, but also cameras for 3D entities, or even custom containers built in other libraries:
+
+\begin{lstlisting}
+
+draw_world [World] (world:World) = 
+  mutable layers = []
+  draw_entity [World] world
+  for layer in layers do
+    layer.Draw()
+    layer.Clear()
+
+draw_entity [Primitive(T)] 
+            (v:T) (layers:List<Layer>) = ()
+draw_entity [T1 * T2 * ... * Tn] 
+            (x1:T1, x2:T2, ..., xn:Tn) (layers:List<Layer>) =
+  draw_entity [T1] x1 layers
+  draw_entity [T2] x2 layers
+  ...
+  draw_entity [Tn] xn layers
+draw_entity [Var<T>] 
+            (v:Var<T>) (layers:List<Layer>) = 
+  draw_entity [T] !v layers
+draw_entity [Ref<T>] 
+            (v:Ref<T>) (layers:List<Layer>) = ()
+draw_entity [List<T>] 
+            (l:List<T>) (layers:List<Layer>) =
+  for x in l do draw_entity [T] x layers
+draw_entity [T=UnionCase(C1(T11 * ... * T1n1), 
+                         C2(T21 * ... * T2n2), ..., 
+                         Cn(Tn1 * ... * Tnnn)))] 
+            (c:T) (layers:List<Layer>)  =
+  match dt with
+  | C1(x1,...,xn1) ->
+    draw_entity [T11] x1 layers
+    draw_entity [T12] x2 layers
+    ...
+    draw_entity [T1n1] xn1 layers
+  | C2(x1,...,xn2) ->
+    draw_entity [T21] x1 layers
+    draw_entity [T22] x2 layers
+    ...
+    draw_entity [T2n1] xn2 layers
+  ...
+  | Cn(x1,...,xnn) ->
+    draw_entity [Tn1] x1 layers
+    draw_entity [Tn2] x2 layers
+    ...
+    draw_entity [Tnnn] xnn layers
+draw_entity [T=Record(l1:T1,l2:T2,...,ln:Tn,rules)] 
+            (r:T) (layers:List<Layer>) =
+  draw_entity [T1] r.l1 layers
+  draw_entity [T2] r.l2 layers
+  ...
+  draw_entity [Tn] r.ln layers
+draw_entity [Drawable(T)] 
+            (d:T) (layers:List<Layer>)= 
+  d.Layer.Add(d)
+draw_entity [Layer(T)] 
+            (l:T) (layers:List<Layer>) =
+  layers.Add(l)
+\end{lstlisting}
+
+As it can be noticed, we have built a certain flexibility in our draw semantics. Beyond the fact that rendering operations must be grouped into layers \footnote{In current GPU architectures, a layer would contain all rendering options such as the shader and the current GPU settings: from alpha blending to the current scissor rectangle to more exotic options such as the stencil buffer. A similar strategy is employed for example in DirectX where constant buffers and effect techniques reduce the number of parameters that are separately sent to the GPU \cite{CHAPTER_5_HLSL_TECHNIQUE, CHAPTER_5_HLSL_CONSTANT_BUFFER}.} and single drawables are anything that can be rendered with polygons and textures, nothing is set. This allows integrating Casanova with many different rendering engines, instead of marrying Casanova to a very specific mindset. Of course the difficult in integrating a rendering engine may range from trivial to substantial, depending on how close the underlying architecture of the engine is from that of Casanova rendering.
+
+\subsection{Scripts}
+The semantics of Casanova scripts actually coincides with their implementation, as described in Chapter \ref{chap:implementation}. This happens because our scripts are defined in terms of monads, and monads are a convenient meta-programming technique to represent complex control flow constructs, stateful computations, and many other libraries.

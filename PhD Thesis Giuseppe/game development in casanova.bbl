@@ -1,0 +1,791 @@
+\begin{thebibliography}{100}
+
+\bibitem{CHAPTER_3_ADVENTURE_CONSTRUCTION_SET}
+Adventure construction set.
+\newblock \url{http://en.wikipedia.org/wiki/Adventure_Construction_Set}.
+
+\bibitem{CHAPTER_3_ARCADE_GAME_CONSTRUCTION_KIT}
+Arcade game construction kit.
+\newblock \url{http://en.wikipedia.org/wiki/Arcade_Game_Construction_Kit}.
+
+\bibitem{CHAPTER_3_BRENDER}
+Brender.
+\newblock \url{http://en.wikipedia.org/wiki/BRender#BRender}.
+
+\bibitem{CHAPTER_8_CSHARP_SPECIFICATION}
+C\# specification.
+\newblock \url{http://msdn.microsoft.com/en-us/library/ms228593.aspx}.
+
+\bibitem{CHAPTER_9_CSHARP_YIELD}
+C\# yield (reference).
+\newblock http://msdn.microsoft.com/en-us/library/9k7k7cf0(v=vs.80).aspx.
+
+\bibitem{CASANOVA_CODEPLEX}
+Casanova website.
+\newblock \url{http://casanova.codeplex.com/}.
+
+\bibitem{CHAPTER_3_REALITY_LAB_INTO_DIRECT3D}
+Direct 3d.
+\newblock \url{http://en.wikipedia.org/wiki/Microsoft_Direct3D}.
+
+\bibitem{CHAPTER_1_MOVIES_AND_MUSIC}
+Entertainment software association.
+\newblock \url{http://www.theesa.com}.
+
+\bibitem{GALAXY_WARS}
+Galaxy wars source code.
+\newblock \url{http://vsteam2010.codeplex.com/}.
+
+\bibitem{CHAPTER_8_GAME_MAKER_MANUAL}
+Game maker manual.
+\newblock \url{http://gamemaker.info/en/manual}.
+
+\bibitem{CHAPTER_9_SCRIPTING_LUA}
+Games using lua as a scripting language.
+\newblock http://en.wikipedia.org/wiki/Category:Lua-scripted\_video\_games.
+
+\bibitem{CHAPTER_3_GARRY_KITCHENS_GAME_MAKER}
+Garry kitchen's game maker.
+\newblock \url{http://en.wikipedia.org/wiki/Garry_Kitchen's_GameMaker}.
+
+\bibitem{CHAPTER_3_ID_TECH}
+Id tech engines.
+\newblock \url{http://en.wikipedia.org/wiki/Id_Tech}.
+
+\bibitem{CHAPTER_1_PL_RESEARCH}
+Lambda the ultimate weblog.
+\newblock \url{http://lambda-the-ultimate.org/papers}.
+
+\bibitem{APPENDIX_B_LIDGREN}
+Lidgren library.
+\newblock \url{http://code.google.com/p/lidgren-network-gen3/}.
+
+\bibitem{APPENDIX_D_7}
+Maggiore, g., bugliesi, m., orsini, r., et al.: Casanova papers.
+\newblock \url{http://casanova.codeplex.com/wikipage?title=Papers}.
+
+\bibitem{CHAPTER_8_GMOGRE}
+Ogre 3d for game maker.
+\newblock \url{http://code.google.com/p/gmogre3d/}.
+
+\bibitem{CHAPTER_3_PINBALL_CONSTRUCTION_SET}
+Pinball construction set.
+\newblock \url{http://en.wikipedia.org/wiki/Pinball_Construction_Set}.
+
+\bibitem{CHAPTER_3_REALITY_LAB}
+Reality lab.
+\newblock \url{http://en.wikipedia.org/wiki/Reality_Lab}.
+
+\bibitem{CHAPTER_3_RPG_MAKER}
+Rpg maker.
+\newblock \url{http://www.rpgmakerweb.com/}.
+
+\bibitem{CHAPTER_9_UNITY_YIELD}
+Scripting in unity.
+\newblock http://unity3d.com/support/
+  documentation/ScriptReference/index.Coroutines\_26\_Yield.html.
+
+\bibitem{CHAPTER_3_SHOOT_EM_UP_CONSTRUCTION_KIT}
+Shoot 'em-up construction kit.
+\newblock \url{http://en.wikipedia.org/wiki/Shoot'Em-Up_Construction_Kit}.
+
+\bibitem{CHAPTER_8_UNITY_REFERENCE_MANUAL}
+Unity reference manual.
+\newblock \url{http://docs.unity3d.com/Documentation/Components/}.
+
+\bibitem{CHAPTER_3_UNREAL_ENGINES}
+Unreal engines.
+\newblock \url{http://en.wikipedia.org/wiki/Unreal_Engine}.
+
+\bibitem{CHAPTER_3_WARGAME_CONSTRUCTION_SET}
+Wargame construction set.
+\newblock \url{http://en.wikipedia.org/wiki/Wargame_Construction_Set}.
+
+\bibitem{CHAPTER_8_XNA_REFERENCE}
+Xna reference.
+\newblock \url{http://msdn.microsoft.com/en-us/library/bb203940.aspx}.
+
+\bibitem{CHAPTER_1_OLD_EDUCATIONAL_VIDEOGAMES}
+Educational videogames.
+\newblock \url{http://en.wikipedia.org/wiki/Educational_video_game}, 2012.
+
+\bibitem{CHAPTER_1_GAME_ENGINES_MUST_BE_REBUILT_OFTEN}
+Game engines.
+\newblock \url{http://en.wikipedia.org/wiki/Game_engine}, 2012.
+
+\bibitem{CHAPTER_2_LOCKLESS_THREADING}
+Lockless programming considerations for xbox 360 and microsoft windows.
+\newblock
+  \url{http://msdn.microsoft.com/en-us/library/windows/desktop/ee418650(v=vs.85).aspx},
+  2012.
+
+\bibitem{APPENDIX_F_FSHARP_MSDN}
+Visual f\#.
+\newblock
+  \url{http://msdn.microsoft.com/en-us/library/dd233154(v=vs.110).aspx}, 2012.
+
+\bibitem{CHAPTER_1_INDIE_GAMES_ON_SMARTPHONES_AND_TABLETS}
+The smartphone \& tablet games summit at gdc 2013.
+\newblock \url{http://www.gdconf.com/conference/gdcsmartphone.html}, 2013.
+
+\bibitem{CHAPTER_1_PL_OBJECTS}
+Martin Abadi and Luca Cardelli.
+\newblock {\em A Theory of Objects}.
+\newblock Springer-Verlag New York, Inc., Secaucus, NJ, USA, 1st edition, 1996.
+
+\bibitem{CHAPTER_6_MEMOIZATION}
+Umut~A. Acar, Guy~E. Blelloch, and Robert Harper.
+\newblock Selective memoization.
+\newblock In {\em In Proceedings of the 30th Annual ACM Symposium on Principles
+  of Programming Languages}, pages 14--25. ACM Press, 2003.
+
+\bibitem{CHAPTER_1_COMPILER_OPTIMIZATIONS}
+Alfred~V. Aho, Ravi Sethi, and Jeffrey~D. Ullman.
+\newblock {\em Compilers: principles, techniques, and tools}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 1986.
+
+\bibitem{CHAPTER_1_EDUTAINMENT}
+Khaled Ayad and Dimitrios Rigas.
+\newblock Learning with edutainment: a multi-platform approach.
+\newblock In {\em Proceedings of the 11th WSEAS international conference on
+  Mathematical methods and computational techniques in electrical engineering},
+  MMACTEE'09, pages 220--225, Stevens Point, Wisconsin, USA, 2009. World
+  Scientific and Engineering Academy and Society (WSEAS).
+
+\bibitem{CHAPTER_3_BOO}
+R.~Barreto~de Oliveira.
+\newblock The boo programming language.
+\newblock \url{http://boo.codehaus.org/}.
+
+\bibitem{APPENDIX_B_NETWORKING_DIFFICULTIES}
+T.~Barron.
+\newblock {\em Multiplayer Game Programming}.
+\newblock Prima Tech's Game Development. Prima Tech, 2001.
+
+\bibitem{CHAPTER_1_TESTING_MORE_THAN_WRITING}
+Kent Beck.
+\newblock {\em {Extreme programming explained : embrace change}}.
+\newblock Addison-Wesley, us ed edition, October 2001.
+
+\bibitem{APPENDIX_E_TYPE_CLASSES_VS_TEMPLATES}
+Jean-Philippe Bernardy, Patrik Jansson, Marcin Zalewski, Sibylle Schupp, and
+  Andreas Priesnitz.
+\newblock A comparison of c++ concepts and haskell type classes.
+\newblock In {\em Proceedings of the ACM SIGPLAN workshop on Generic
+  programming}, WGP '08, pages 37--48, New York, NY, USA, 2008. ACM.
+
+\bibitem{APPENDIX_B_LATENCY_COMPENSATION}
+Y~Bernier.
+\newblock Latency compensating methods in client/server in-game protocol design
+  and optimization.
+\newblock In {\em In Game Developers Conference}, 2001.
+
+\bibitem{CHAPTER_1_GAMES_ARE_CONCURRENT}
+Micah~J. Best, Alexandra Fedorova, Ryan Dickie, Andrea Tagliasacchi, Alex
+  Couture-Beil, Craig Mustard, Shane Mottishaw, Aron Brown, Zhi~Feng Huang,
+  Xiaoyuan Xu, Nasser Ghazali, and Andrew Brownsword.
+\newblock Searching for concurrent design patterns in video games.
+\newblock In {\em Proceedings of the 15th International Euro-Par Conference on
+  Parallel Processing}, Euro-Par '09, pages 912--923, Berlin, Heidelberg, 2009.
+  Springer-Verlag.
+
+\bibitem{bjork2005patterns}
+S.~Bj{\"o}rk and J.~Holopainen.
+\newblock {\em Patterns In Game Design}.
+\newblock Game development series. Charles River Media, 2005.
+
+\bibitem{CHAPTER_2_UNITY}
+S.~Blackman.
+\newblock {\em Beginning 3D Game Development with Unity: All-in-one,
+  multi-platform game development}.
+\newblock Apresspod Series. Apress, 2011.
+
+\bibitem{CHAPTER_1_SIZE_OF_GAMES}
+Jonathan Blow.
+\newblock Game development: Harder than you think.
+\newblock {\em Queue}, 1(10):28--37, February 2004.
+
+\bibitem{CHAPTER_2_DIRECT3D_10}
+David Blythe.
+\newblock The direct3d 10 system.
+\newblock In {\em ACM SIGGRAPH 2006 Papers}, SIGGRAPH '06, pages 724--734, New
+  York, NY, USA, 2006. ACM.
+
+\bibitem{CHAPTER_1_EARLY_MODELS_OF_COMPUTATION}
+G.S. Boolos, J.P. Burgess, and R.C. Jeffrey.
+\newblock {\em Computability and Logic}.
+\newblock Cambridge University Press, 2007.
+
+\bibitem{APPENDIX_C_HIERARCHICAL_PATHFINDING}
+A~Botea, M~Müller, and J~Schaeffer.
+\newblock Near optimal hierarchical path-finding.
+\newblock {\em Journal of Game Development}, (1):7--28, 2004.
+
+\bibitem{CHAPTER_2_STATE_MACHINES3}
+David~M. Bourg and Glenn Seemann.
+\newblock {\em AI for Game Developers}.
+\newblock O'Reilly Media, Inc., 2004.
+
+\bibitem{CHAPTER1_LAMBDA_CALCULUS}
+Alonzo Church.
+\newblock {A Set of Postulates for the Foundation of Logic}.
+\newblock {\em Annals of Mathematics}, 2(33):346--366, 1932.
+
+\bibitem{CHAPTER_1_GROWING_DIFFUSION}
+R.~W. Crandall and J.~G. Sidak.
+\newblock {Video Games: Serious Business for America's Economy}.
+
+\bibitem{CHAPTER_6_CPS}
+Olivier Danvy and Andrzej Filinski.
+\newblock Representing control: a study of the cps transformation, 1992.
+
+\bibitem{APPENDIX_G_CSHARP_ASYNC}
+A.~Davies.
+\newblock {\em Async in C\# 5.0}.
+\newblock O'Reilly Media, 2012.
+
+\bibitem{CHAPTER_9_SCRIPTING_PYTHON}
+Bruce Dawson.
+\newblock Game scripting in python.
+\newblock http:// www.gamasutra.com/features/ 20020821/dawson\_ pfv.htm, 2002.
+\newblock Game Developers Conference Proceedings.
+
+\bibitem{CHAPTER_1_POINTER_ARITHMETICS_IN_GAME}
+M.A. DeLoura.
+\newblock {\em Game Programming Gems 2}.
+\newblock Game Programming Gems Series. Charles River Media, 2001.
+
+\bibitem{CHAPTER_1_TESTING_DOES_NOT_WORK}
+E.~Dijkstra.
+\newblock Classics in software engineering.
+\newblock chapter The humble programmer, pages 111--125. Yourdon Press, Upper
+  Saddle River, NJ, USA, 1979.
+
+\bibitem{CHAPTER_2_COMPILATION_LENGTH}
+D.H. Eberly.
+\newblock {\em 3d Game Engine Architecture: Engineering Real-time Applications
+  With Wild Magic}.
+\newblock Morgan Kaufmann Series in Interactive 3D Technology. Morgan Kaufmann,
+  2005.
+
+\bibitem{GPU_GEMS_1}
+Randima Fernando.
+\newblock {\em GPU Gems: Programming Techniques, Tips and Tricks for Real-Time
+  Graphics}.
+\newblock Pearson Higher Education, 2004.
+
+\bibitem{APPENDIX_C_STRIPS}
+Richard~E. Fikes and Nils~J. Nilsson.
+\newblock {Strips: A new approach to the application of theorem proving to
+  problem solving}.
+\newblock {\em Artificial Intelligence}, 2(3-4):189--208, 1971.
+
+\bibitem{CHAPTER_2_VISITOR_PATTERN}
+Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.
+\newblock {\em Design patterns: elements of reusable object-oriented software}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 1995.
+
+\bibitem{GAME_OF_LIFE}
+Martin Gardner.
+\newblock {Mathematical Games: The fantastic combinations of John Conway's new
+  solitaire game ``life''}.
+\newblock {\em Scientific American}, pages 120--123, October 1970.
+
+\bibitem{APPENDIX_C_BDI}
+Michael~P Georgeff, Barney Pell, Martha~E Pollack, Milind Tambe, and Michael
+  Wooldridge.
+\newblock The belief-desire-intention model of agency.
+\newblock In {\em Intelligent Agents V, Agent Theories, Architectures, and
+  Languages, 5th International Workshop, (ATAL'98}, pages 4--7. Springer.
+
+\bibitem{CHAPTER_2_STATE_MACHINES2}
+Sunbir Gill.
+\newblock Visual finite state machine ai systems.
+\newblock
+  \url{http://www.gamasutra.com/view/feature/2165/visual_finite_state_machine_ai_.php},
+  2004.
+
+\bibitem{APPENDIX_E_CONCEPTS}
+Douglas Gregor, Jaakko J\"{a}rvi, Jeremy Siek, Bjarne Stroustrup, Gabriel
+  Dos~Reis, and Andrew Lumsdaine.
+\newblock Concepts: linguistic support for generic programming in c++.
+\newblock {\em SIGPLAN Not.}, 41(10):291--310, October 2006.
+
+\bibitem{CHAPTER_1_GAME_ENGINES}
+Jason Gregory.
+\newblock {\em Game engine architecture}.
+\newblock Taylor \& Francis Ltd., 1 edition, 2009.
+
+\bibitem{CHAPTER_2_GAME_MAKER}
+Jacob Habgood and Mark~H. Overmars.
+\newblock {\em The game maker s apprentice - game development for beginners}.
+\newblock Apress, 2006.
+
+\bibitem{CHAPTER_9_XBOX_GC_ISSUES}
+S.~Hargreaves.
+\newblock Twin paths to garbage collector nirvana.
+\newblock
+  \url{http://blogs.msdn.com/b/shawnhar/archive/2007/07/02/twin-paths-to-garbage-collector-nirvana.aspx}.
+
+\bibitem{APPENDIX_E_STRUCTURE_REPRESENTATION}
+Ralf Hinze.
+\newblock Polytypic values possess polykinded types.
+\newblock In {\em Proceedings of the 5th International Conference on
+  Mathematics of Program Construction}, MPC '00, pages 2--27, London, UK, UK,
+  2000. Springer-Verlag.
+
+\bibitem{APPENDIX_E_GENERIC_HASKELL}
+Ralf Hinze and Johan Jeuring.
+\newblock Generic haskell: practice and theory.
+\newblock In {\em In Generic Programming, Advanced Lectures, volume 2793 of
+  LNCS}, pages 1--56. Springer-Verlag, 2003.
+
+\bibitem{APPENDIX_C_HIERARCHICAL_AI}
+H~Hoang, S~Lee-Urban, and Muñoz-Avila.
+\newblock H.: Hierarchical plan representations for encoding strategic game ai.
+\newblock In {\em Marina del Ray, CA}, 2005.
+
+\bibitem{CHAPTER_1_PL_AND_RESOURCE_SHARING}
+Liyang Hu and Graham Hutton.
+\newblock {Towards a Verified Implementation of Software Transactional Memory}.
+\newblock In Peter Achten, Pieter Koopman, and Marco Morazan, editors, {\em
+  {Trends in Functional Programming volume 9}}. Intellect, 2009.
+\newblock Selected papers from the Ninth Symposium on Trends in Functional
+  Programming, Nijmegen, The Netherlands, May 2008.
+
+\bibitem{APPENDIX_E_HASKELL_TYPE_CLASSES}
+Paul Hudak, John Peterson, and Joseph Fasel.
+\newblock A gentle introduction to haskell 98, 1999.
+
+\bibitem{CHAPTER_4_ORTHOGONALITY_PL}
+Andrew Hunt and David Thomas.
+\newblock {\em The pragmatic programmer: from journeyman to master}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 1999.
+
+\bibitem{APPENDIX_G_MONADIC_PARSERS}
+Graham Hutton and Erik Meijer.
+\newblock Monadic parser combinators, 1996.
+
+\bibitem{APPENDIX_C_STATISTICAL_PATTERN_RECOGNITION}
+A~K Jain, R~Duin, and J~Mao.
+\newblock Statistical pattern recognition: A review.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intellgence},
+  (22):4--37, 2000.
+
+\bibitem{APPENDIX_C_GOAP_FEAR}
+J.Orkin.
+\newblock Three states and a plan: The ai of f.e.a.r.
+\newblock {\em Proceedings of the Game Developer's Conference (GDC)}, 2006.
+
+\bibitem{CHAPTER_9_RENDERING_EQUATION}
+James~T. Kajiya.
+\newblock The rendering equation.
+\newblock In {\em Proceedings of the 13th annual conference on Computer
+  graphics and interactive techniques}, SIGGRAPH '86, pages 143--150, New York,
+  NY, USA, 1986. ACM.
+
+\bibitem{CHAPTER_2_VOXELS}
+A.~Kaufman and E.~Shimony.
+\newblock {3D scan-conversion algorithms for voxel-based graphics}.
+\newblock In {\em Proceedings of 1986 Workshop on Interactive 3D Graphics},
+  pages 45--75, 1986.
+
+\bibitem{APPENDIX_E_HLISTS}
+Oleg Kiselyov, Ralf L{\"a}mmel, and Keean Schupke.
+\newblock {Strongly typed heterogeneous collections}.
+\newblock In {\em {Haskell 2004: Proceedings of the ACM SIGPLAN workshop on
+  Haskell}}, pages 96--107. ACM Press, 2004.
+
+\bibitem{APPENDIX_E_TYPE_FAMILIES}
+Oleg Kiselyov, Simon Peyton, and Jones~Chung chieh Shan.
+\newblock Fun with type functions, 2010.
+
+\bibitem{CHAPTER_2_RETAINED_VS_IMMEDIATE_MODE}
+Peter~J. Kovach.
+\newblock {\em The Awesome Power of Direct3D/DirectX - DirectX 5 Version}.
+\newblock Manning Publications Co., Greenwich, CT, USA, 1998.
+
+\bibitem{CHAPTER_2_VOXELS_IN_GAMES}
+E.~Lengyel.
+\newblock {\em Game Engine Gems, Volume One}.
+\newblock Jones \& Bartlett Learning, 2010.
+
+\bibitem{APPENDIX_C_CLIPMAPS}
+Frank Losasso and Hugues Hoppe.
+\newblock Geometry clipmaps: terrain rendering using nested regular grids.
+\newblock {\em ACM Trans. on Graphics}, (23):2004.
+
+\bibitem{CASANOVA_FSHARP}
+G.~Maggiore and G.~Costantini.
+\newblock {\em Friendly F\#}.
+
+\bibitem{CASANOVA_SCRIPTS}
+Giuseppe Maggiore, Michele Bugliesi, and Renzo Orsini.
+\newblock Monadic scripting in f\# for computer games.
+\newblock In {\em Proceedings of the 5th International Workshop on Harnessing
+  Theories for Tool Support in Software (TTSS)}, 2011.
+
+\bibitem{CASANOVA_SEBD}
+Giuseppe Maggiore, Renzo Orsini, and Michele Bugliesi.
+\newblock On casanova and databases or the similarity between games and dbs.
+\newblock In Nicola Ferro and Letizia Tanca, editors, {\em SEBD}, pages
+  271--276. Edizioni Libreria Progetto, Padova, Italy, 2012.
+
+\bibitem{CASANOVA_X3D}
+Giuseppe Maggiore, Fabio Pittarello, Michele Bugliesi, and Mohamed Abbadi.
+\newblock A compilation technique to increase x3d performance and safety.
+\newblock In {\em Proceedings of the 27th Annual ACM Symposium on Applied
+  Computing}, SAC '12, pages 969--974, New York, NY, USA, 2012. ACM.
+
+\bibitem{CASANOVA_ACG}
+Giuseppe Maggiore, Alvise Spanò, Renzo Orsini, Giulia Costantini, Michele
+  Bugliesi, and Mohamed Abbadi.
+\newblock Designing casanova: A language for games.
+\newblock In H.~Jaap van~den Herik and Aske Plaat, editors, {\em ACG}, volume
+  7168 of {\em Lecture Notes in Computer Science}, pages 320--332. Springer,
+  2011.
+
+\bibitem{CASANOVA_EICS}
+Giuseppe Maggiore, Alvise Span\`{o}, Renzo Orsini, Michele Bugliesi, Mohamed
+  Abbadi, and Enrico Steffinlongo.
+\newblock A formal specification for casanova, a language for computer games.
+\newblock In {\em Proceedings of the 4th ACM SIGCHI symposium on Engineering
+  interactive computing systems}, EICS '12, pages 287--292, New York, NY, USA,
+  2012. ACM.
+
+\bibitem{CASANOVA_ICEC}
+Giuseppe Maggiore, Pieter Spronck, Renzo Orsini, Michele Bugliesi, Enrico
+  Steffinlongo, and Mohamed Abbadi.
+\newblock Writing real-time .net games in casanova.
+\newblock In {\em ICEC}, pages 341--348, 2012.
+
+\bibitem{CHAPTER_9_GENERATIONAL_GC}
+R.~Mariani.
+\newblock Garbage collector basics and performance hints.
+\newblock http://msdn.microsoft.com/en-us/library/ms973837.aspx.
+
+\bibitem{CHAPTER_1_PL_GARBAGE_COLLECTION}
+John McCarthy.
+\newblock Recursive functions of symbolic expressions and their computation by
+  machine, part i.
+\newblock {\em Commun. ACM}, 3(4):184--195, April 1960.
+
+\bibitem{APPENDIX_G_MONADS_AND_ASPECTS}
+Wolfgang~De Meuter.
+\newblock Monads as a theoretical foundation for aop.
+\newblock In {\em In International Workshop on Aspect-Oriented Programming at
+  ECOOP}, page~25. Springer-Verlag, 1997.
+
+\bibitem{CHAPTER_1_SERIOUS_GAMES}
+David~R. Michael and Sandra~L. Chen.
+\newblock {\em Serious Games: Games That Educate, Train, and Inform}.
+\newblock Muska \& Lipman/Premier-Trade, 2005.
+
+\bibitem{APPENDIX_E_TEMPLATES_ARE_PURE_FUNCTIONS}
+Markus Michelbrink.
+\newblock A direct translation of the simply typed lambda calculus into
+  c++-templates.
+\newblock
+  \url{http://www.cs.nott.ac.uk/types06/slides/michelbrink_types_06.pdf}, 2006.
+
+\bibitem{APPENDIX_D_HANDMADE_OPTIMIZATION_IN_GAMES}
+I.~Millington.
+\newblock {\em Game Physics Engine Development}.
+\newblock The Morgan Kaufmann series in interactive 3D technology. Morgan
+  Kaufmann Publishers, 2007.
+
+\bibitem{CHAPTER_2_STATE_MACHINES4}
+Ian Millington.
+\newblock {\em Artificial Intelligence for Games (The Morgan Kaufmann Series in
+  Interactive 3D Technology)}.
+\newblock Morgan Kaufmann Publishers Inc., San Francisco, CA, USA, 2006.
+
+\bibitem{CHAPTER_1_PL_TYPE_SYSTEMS_AND_MEMORY_ALIGNMENT}
+Robin Milner.
+\newblock A theory of type polymorphism in programming.
+\newblock {\em Journal of Computer and System Sciences}, 17:348--375, 1978.
+
+\bibitem{APPENDIX_G_NOTIONS_OF_COMPUTATION_AND_MONADS}
+Eugenio Moggi.
+\newblock Notions of computation and monads.
+\newblock {\em Inf. Comput.}, 93(1):55--92, July 1991.
+
+\bibitem{DATABASE_SYSTEM_IMPLEMENTATION}
+Hector~G. Molina, Jennifer Widom, and Jeffrey~D. Ullman.
+\newblock {\em {Database System Implementation}}.
+\newblock Prentice-Hall, Inc., Upper Saddle River, NJ, USA, 1999.
+
+\bibitem{CHAPTER_1_PL_HOF}
+Joel Moses.
+\newblock The function of function in lisp or why the funarg problem should be
+  called the environment problem.
+\newblock {\em SIGSAM Bull.}, (15):13--27, July 1970.
+
+\bibitem{GPU_GEMS_3}
+Hubert Nguyen.
+\newblock {\em Gpu gems 3}.
+\newblock Addison-Wesley Professional, first edition, 2007.
+
+\bibitem{CHAPTER_1_PL_STATIC_ANALYSIS}
+Flemming Nielson, Hanne~R. Nielson, and Chris Hankin.
+\newblock {\em Principles of Program Analysis}.
+\newblock Springer-Verlag New York, Inc., Secaucus, NJ, USA, 1999.
+
+\bibitem{CHAPTER_5_HLSL_CONSTANT_BUFFER}
+Michael Oneppo.
+\newblock Hlsl shader model 4.0.
+\newblock In {\em ACM SIGGRAPH 2007 courses}, SIGGRAPH '07, pages 112--152, New
+  York, NY, USA, 2007. ACM.
+
+\bibitem{APPENDIX_C_GOAP_BOOK}
+J.~Orkin.
+\newblock Agent architecture considerations for real-time planning in games.
+\newblock {\em Artificial Intelligence}, 38(4):105--110, 2005.
+
+\bibitem{APPENDIX_G_CATEGORY_THEORY}
+Bryan O'Sullivan, John Goerzen, and Don Stewart.
+\newblock {\em Real World Haskell}.
+\newblock O'Reilly Media, Inc., 1st edition, 2008.
+
+\bibitem{GP_GEMS_5}
+K.~Pallister.
+\newblock {\em Game Programming Gems 5}.
+\newblock GAME PROGRAMMING GEMS SERIES. Charles River Media, 2005.
+
+\bibitem{CHAPTER_2_SIMULA67}
+J.~Palme.
+\newblock {\em SIMULA 67: An advanced programming and simulation language}.
+\newblock Publication. Norsk regnesentral, 1970.
+
+\bibitem{CHAPTER_5_HLSL_TECHNIQUE}
+Craig Peeper and Jason~L. Mitchell.
+\newblock Introduction to the directx 9 high level shading language.
+\newblock In Wolfgang Engel, editor, {\em ShaderX2: Introduction and Tutorials
+  with DirectX 9}. Wordware, Plano, Texas, 2003.
+
+\bibitem{CHAPTER_1_EXPONENTIAL_COST_OF_GAMEDEV}
+Steve Peterson.
+\newblock Next-gen consoles mean increased development costs.
+\newblock
+  \url{http://www.gamesindustry.biz/articles/2012-04-03-next-gen-consoles-mean-increased-development-costs},
+  2012.
+
+\bibitem{APPENDIX_E_USES_OF_TYPE_CLASSES}
+Simon {Peyton Jones} et~al.
+\newblock The {Haskell} 98 language and libraries: The revised report.
+\newblock {\em Journal of Functional Programming}, 13(1):0--255, Jan 2003.
+\newblock \url{http://www.haskell.org/definition/}.
+
+\bibitem{APPENDIX_G_IMPERATIVE_FP}
+Simon~L. Peyton~Jones and Philip Wadler.
+\newblock Imperative functional programming.
+\newblock In {\em Proceedings of the 20th ACM SIGPLAN-SIGACT symposium on
+  Principles of programming languages}, POPL '93, pages 71--84, New York, NY,
+  USA, 1993. ACM.
+
+\bibitem{GPU_GEMS_2}
+Matt Pharr and Randima Fernando.
+\newblock {\em GPU Gems 2: Programming Techniques for High-Performance Graphics
+  and General-Purpose Computation (Gpu Gems)}.
+\newblock Addison-Wesley Professional, 2005.
+
+\bibitem{APPENDIX_B_SERIALIZATION}
+Michael Philippsen, Bernhard Haumacher, and Christian Nester.
+\newblock More efficient serialization and rmi for java, 2000.
+
+\bibitem{CHAPTER_1_PL_INFLUENCE_ON_PL}
+Benjamin~C. Pierce.
+\newblock {\em Types and programming languages}.
+\newblock MIT Press, Cambridge, MA, USA, 2002.
+
+\bibitem{CHAPTER_2_XNA}
+A.~Reed.
+\newblock {\em Learning XNA 4.0}.
+\newblock O'Reilly Series. O'Reilly Media, Incorporated, 2010.
+
+\bibitem{CHAPTER_2_INFORM}
+Aaron Reed.
+\newblock {\em Creating Interactive Fiction with Inform 7}.
+\newblock Course Technology Press, Boston, MA, United States, 1st edition,
+  2010.
+
+\bibitem{CHAPTER_1_EDUCATIONAL_GAMES_1900}
+John Rice.
+\newblock {Assessing Higher Order Thinking in Video Games}.
+\newblock {\em Journal of Technology and Teacher Education}, 15(1):87--100,
+  January 2007.
+
+\bibitem{CHAPTER_1_ISSUES_WITH_INDIE_GAMES}
+Jason~Della Rocca, Hank Howie, Steve Meretzky, Joe Minton, Kent Quirk, and
+  Tracy Rosenthal-Newsom.
+\newblock In the trenches: game developers and the quest for innovation.
+\newblock In {\em Proceedings of the 2006 ACM SIGGRAPH symposium on
+  Videogames}, Sandbox '06, pages 9--11, New York, NY, USA, 2006. ACM.
+
+\bibitem{CHAPTER_3_GAMEBRYO}
+J.~Russell and R.~Cohn.
+\newblock {\em Gamebryo}.
+\newblock Book on Demand, 2012.
+
+\bibitem{CHAPTER_3_RENDERWARE}
+J.~Russell and R.~Cohn.
+\newblock {\em Renderware}.
+\newblock Book on Demand, 2012.
+
+\bibitem{CHAPTER_1_PL_AND_SWENG}
+Barbara~G. Ryder, Mary~Lou Soffa, and Margaret Burnett.
+\newblock The impact of software engineering research on modern progamming
+  languages.
+\newblock {\em ACM Trans. Softw. Eng. Methodol.}, 14(4):431--477, October 2005.
+
+\bibitem{CHAPTER_1_PATCHING_CYCLES}
+C.P. Schultz, R.~Bryant, and T.~Langdell.
+\newblock {\em Game Testing All in One}.
+\newblock Game Development Series. Thomson/Course Technology, 2005.
+
+\bibitem{CHAPTER_1_PL_DATASTRUCTURES}
+C.A. Shaffer.
+\newblock {\em A practical introduction to data structures and algorithm
+  analysis}.
+\newblock Prentice Hall, 1997.
+
+\bibitem{CHAPTER_1_APPLICATIONS_OF_SERIOUS_GAMES}
+Peter Shea.
+\newblock Review of 'the complete guide to simulations \& serious games' by
+  clark aldrich.
+\newblock {\em eLearn}, 2009(11), November 2009.
+
+\bibitem{CHAPTER_6_MONADIC_DSL}
+Tim Sheard, Zine-el-abidine Benaissa, and Emir Pasalic.
+\newblock Dsl implementation using staging and monads.
+\newblock In {\em Proceedings of the 2nd conference on Domain-specific
+  languages}, DSL '99, pages 81--94, New York, NY, USA, 1999. ACM.
+
+\bibitem{APPENDIX_E_PARTIAL_TEMPLATE_SPECIALIZATION}
+Jeremy Siek and Walid Taha.
+\newblock A semantic analysis of c++ templates.
+\newblock In {\em Proceedings of the 20th European conference on
+  Object-Oriented Programming}, ECOOP'06, pages 304--327, Berlin, Heidelberg,
+  2006. Springer-Verlag.
+
+\bibitem{CHAPTER_1_CODE_MANAGEMENT}
+W.~Stevens, G.~Myers, and L.~Constantine.
+\newblock Classics in software engineering.
+\newblock chapter Structured design, pages 205--232. Yourdon Press, Upper
+  Saddle River, NJ, USA, 1979.
+
+\bibitem{stoy2006components}
+Chris Stoy.
+\newblock Game object component system.
+\newblock In Michael Dickheiser, editor, {\em Game Programming Gems 6}, pages
+  393--403. Charles River Media, 2006.
+
+\bibitem{Sullivan02advancedprogramming}
+Gregory~T. Sullivan.
+\newblock Advanced programming language features for executable design patterns
+  "better pattern through reflection", 2002.
+
+\bibitem{APPENDIX_C_REINFORCEMENT_LEARNING}
+R~S Sutton and A~G Barto.
+\newblock Reinforcement learning: An introduction, 1998.
+
+\bibitem{APPENDIX_B_VIDEO_CODEC}
+Qing Tang and Jesse~S. Jin.
+\newblock Compressed video transmission over digital networks: analysis and
+  design.
+\newblock In {\em Selected papers from the 2002 Pan-Sydney workshop on
+  Visualisation - Volume 22}, VIP '02, pages 97--100, Darlinghurst, Australia,
+  Australia, 2002. Australian Computer Society, Inc.
+
+\bibitem{CHAPTER_1_PL_INFLUENCE_ON_CURRENT_LANGUAGES}
+Mads Torgersen.
+\newblock Querying in c\#: how language integrated query (linq) works.
+\newblock In Richard~P. Gabriel, David~F. Bacon, Cristina~Videira Lopes, and
+  Guy L.~Steele Jr., editors, {\em Companion to the 22nd Annual ACM SIGPLAN
+  Conference on Object-Oriented Programming, Systems, Languages, and
+  Applications, OOPSLA 2007, October 21-25, 2007, Montreal, Quebec, Canada},
+  pages 852--853. ACM, 2007.
+
+\bibitem{APPENDIX_E_TEMPLATES_TURING_EQUIVALENCE}
+Todd~L. Veldhuizen.
+\newblock C++ templates are turing complete.
+\newblock Technical report, 2003.
+
+\bibitem{APPENDIX_B_EVENTUAL_CONSISTENCY}
+Werner Vogels.
+\newblock Eventually consistent.
+\newblock {\em Commun. ACM}, 52(1):40--44, January 2009.
+
+\bibitem{CHAPTER_1_PL_GENERIC_PROGRAMMING}
+P.~Wadler and S.~Blott.
+\newblock How to make ad-hoc polymorphism less ad hoc.
+\newblock In {\em Proceedings of the 16th ACM SIGPLAN-SIGACT symposium on
+  Principles of programming languages}, POPL '89, pages 60--76, New York, NY,
+  USA, 1989. ACM.
+
+\bibitem{APPENDIX_E_AD_HOC_POLYMORPHISM}
+P.~Wadler and S.~Blott.
+\newblock How to make ad-hoc polymorphism less ad hoc.
+\newblock In {\em Proceedings of the 16th ACM SIGPLAN-SIGACT symposium on
+  Principles of programming languages}, POPL '89, pages 60--76, New York, NY,
+  USA, 1989. ACM.
+
+\bibitem{APPENDIX_G_COMPREHENDING_MONADS}
+Philip Wadler.
+\newblock Comprehending monads.
+\newblock In {\em Proceedings of the 1990 ACM conference on LISP and functional
+  programming}, LFP '90, pages 61--78, New York, NY, USA, 1990. ACM.
+
+\bibitem{APPENDIX_G_ESSENCE_OF_FP}
+Philip Wadler.
+\newblock The essence of functional programming.
+\newblock In {\em Proceedings of the 19th ACM SIGPLAN-SIGACT symposium on
+  Principles of programming languages}, POPL '92, pages 1--14, New York, NY,
+  USA, 1992. ACM.
+
+\bibitem{APPENDIX_D_11}
+Gerhard Weikum and Gottfried Vossen.
+\newblock {\em Transactional information systems: theory, algorithms, and the
+  practice of concurrency control and recovery}.
+\newblock Morgan Kaufmann Publishers Inc., San Francisco, CA, USA, 2001.
+
+\bibitem{SGL}
+Walker White, Christoph Koch, Johannes Gehrke, and Alan Demers.
+\newblock Better scripts, better games.
+\newblock {\em Commun. ACM}, 52(3):42--47, March 2009.
+
+\bibitem{CHAPTER_1_PL_SUBROUTINES}
+Maurice~V. Wilkes, David~J. Wheeler, and Stanley Gill.
+\newblock {\em The Preparation of Programs for an Electronic Digital Computer,
+  with Special Reference to the EDSAC and the Use of a Library of Subroutines}.
+\newblock Addison-Wesley, 1951.
+
+\bibitem{CHAPTER_1_INDIE_GAMES_SIZE}
+Jason Wilson.
+\newblock Indie rocks! mapping independent video game design.
+\newblock {\em Media International Australia Incorporating Culture \& Policy},
+  (115), 2005.
+
+\bibitem{CHAPTER_5_FORMAL_SEMANTICS}
+Glynn Winskel.
+\newblock {\em The formal semantics of programming languages: an introduction}.
+\newblock MIT Press, Cambridge, MA, USA, 1993.
+
+\bibitem{CHAPTER_1_DEFINITION_OF_GAME}
+L.~Wittgenstein.
+\newblock {\em Philosophical Investigations}.
+\newblock Basil Blackwell, Oxford, 1953.
+
+\bibitem{CHAPTER_2_OPENGL}
+Mason Woo, Jackie Neider, Tom Davis, and Dave Shreiner.
+\newblock {\em OpenGL Programming Guide: The Official Guide to Learning OpenGL,
+  Version 1.2}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 3rd
+  edition, 1999.
+
+\bibitem{CHAPTER_1_DESIGNERS_TOUCH_THE_GAME}
+E.~Yiskis.
+\newblock Finite-state machine scripting language for designers.
+\newblock {\em AI Game Programming Wisdom 2}, 2003.
+
+\end{thebibliography}

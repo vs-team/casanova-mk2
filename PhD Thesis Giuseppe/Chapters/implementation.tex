@@ -1,0 +1,672 @@
+Casanova is a member of the ML family of programming languages. In particular, it is related to the F\# variant of OCAML, given that the two languages are similar enough to each other, but F\# has access to a very large codebase of useful libraries for real-time rendering, audio playing, input management, and networking; among these, Casanova relies heavily on the MonoGame library. Casanova also takes advantage of F\# multi-platform support, and thus can run on anything that F\# can run on, thanks to the Mono run-time. F\# is a "pragmatic" functional programming language that belongs to the .Net framework. It is pragmatic in the sense that, together with functional idioms, it also allows inter-operation with all other .Net languages (most notably C\#) and their libraries, and it also allows mutation and imperative constructs with almost no limitations. F\# also supports some advanced meta-programming constructs that allow to extend it, for example monads (albeit renamed \textit{computational expressions} in the language documentation).
+
+% todo: riordinare il capitolo:
+% Language Choice:
+% sottosezioni F\#, Haskell, C++, Python, C\#
+% why we chose F\#
+Casanova has a working implementation that can be accessed in two different ways: \textit{(i)} as an F\# library in any development environment that supports the language; \textit{(ii)} or through our specialized IDE. The current implementation relies on input and rendering primitives implemented as part of the MonoGame framework, which runs on both .Net under Microsoft operating systems, and Mono on all major operating systems from Windows to Android and to iOS. The implementation is already usable and fully open source \cite{CASANOVA_CODEPLEX}.
+
+The implementation unfortunately cannot be expressed in idiomatic F\#. This happens because the update and draw functions are defined inductively on the type of their input parameters. This kind of expressivity (known as the ability to define \textit{polytypic} functions) is unfortunately quite rare. Two languages that support it are C++ with heavy use of partial specialization of templates, and Haskell with its type-classes. 
+
+The main reasons for choosing a statically typed functional language like F\# are multiple: \textit{(i)} dynamic languages such as Python are slower than F\# by an order of magnitude, especially with highly dynamic code and coroutines; \textit{(ii)} dynamic languages offer less static type checking, and thus gives developers less help when one misuses the functionality from a different module, for example by passing a function the wrong arguments; \textit{(iii)} dynamic languages have less support for IDE assistance tools, for example autocompletion, refactoring, or similar. Unfortunately, the evidence we have is partially conjectural in nature, since only with a fully optimized implementation and appropriate user studies it would be possible to give a conclusive answer to the problem of choosing an underlying implementation platform. Still, partial benchmarks are available in Chapter \ref{chap:evaluation}.
+
+In conclusion, we pick F\# because: \textit{(i)} it is a functional language and readily supports many of the constructs needed for Casanova; \textit{(ii)} it is less insular than Haskell or OCaML in terms of supported libraries and development environments; \textit{(iii)} it is far simpler than C++ in terms of low-level details the user must be aware of and can be used by beginners and advanced users alike; \textit{(iv)} it is faster than Python and other dynamically typed languages.
+
+Casanova in F\# presents three essential differences from pure Casanova: \textit{(i)} rules require a specialized data-type for storage; \textit{(ii)} the update and draw functions that apply rules are defined through reflection instead of generating assembly code at compile-time; and \textit{(iii)} coroutines are implemented through F\# monads.
+
+We now discuss these three aspects of the implementation in detail.
+
+\section{Rule Containers}
+Rules in Casanova modify a field according to a fixed logic stored in the rule itself. Since Casanova rules are implemented through double-buffering, but F\# fields are by default a single, immutable value of the given type, we use two specialized data-types for storing fields that are modified through rules. Single values upon which a rule is applied are defined as \texttt{Rule<'a>}, while \texttt{RuleList<'a>} contains lists that are modified through rules. The logic of rules is represented as a static method that has the same name of the field it acts upon, followed by the word \texttt{Rule}. Also, to signal F\# that we wish a specific data-type to be traversed by the Casanova engine, we must annotate it with the \texttt{CasanovaEntity} attribute. For example, the following Casanova type definition:
+
+\begin{lstlisting}
+type MyEntity = {
+  I : int
+  L : List<int>
+} rule I(world, self, dt) = self.I + 1
+  rule L(world, self, dt) = 
+    [ for x in self.L do yield x + 1 ]
+\end{lstlisting}
+
+\noindent{would} be translated as:
+
+\begin{lstlisting}
+type [<CasanovaEntity>] MyEntity = {
+  I : Rule<int>
+  L : RuleList<int>
+} static member IRule(world, self, dt) = !self.I + 1
+  static member LRule(world, self, dt) = 
+    [ for x in !self.L do yield x + 1 ]
+\end{lstlisting}
+
+Note that, since the fields of rules are now of type \texttt{Rule<'a>} (or \texttt{RuleList<'a>}) instead of simply \texttt{'a} (or \texttt{List<'a>}), we must dereference rules with the \texttt{(!)} operator \footnote{\texttt{(!)} is akin to the dereference operator \texttt{(*)} in C/C++, which extracts the value from its pointer or container; the only difference is that \texttt{(!)} also chooses, from inside a rule, the \textit{current} value} which returns the current value of the rule.
+
+Initializing a rule value requires some care. There are three ways to initialize a rule value: \textit{(i)} with a single value type that is copied to both the current and next values of the rule; \textit{(ii)} with two, different reference values that are used for the current and next values; and \textit{(iii)} with a single collection which is copied into the current list while the next list is initialized to the empty list. It is important to notice that, if both the current and next values are used to store the same reference value, then a rule is no more than a convoluted way to represent that single reference value and does not exhibit the expected semantic properties anymore.
+
+Rules are defined as double buffers that contain two versions of a value. For example, a possible implementation for a rule could be the following, which contains: \textit{(i)} an array of two values of type \texttt{'a} that are initialized in the constructor; \textit{(ii)} a series of properties that allow to get and set the current and next values; and \textit{(iii)} a swap method that exchanges the current and next value:
+
+\begin{lstlisting}
+type Rule<'a> =
+  struct
+    val mutable v1 : 'a
+    val mutable v2 : 'a
+    new (v1:'a,v2:'a) = { v1 = v1; v2 = v2 }
+    member this.Value with get() = v1
+    member this.SetValue v' = v2 <- v'
+    member this.ImmediateValue = v2
+    member this.Swap() =
+      let x = v1
+      v1 <- v2
+      v2 <- x
+  end
+\end{lstlisting}
+
+
+\section{Generating the Update and Draw Functions}
+Drawable entities in Casanova are meant to be highly customizable; this, paired with the ability to import .Net or Mono libraries for functionalities such as physics and AI, makes Casanova highly extensible. Drawable entities are simply data-types marked with the \texttt{DrawableEntity} attribute and which have two methods: \texttt{Clear} and \texttt{Draw}. This simple definition allows us to change or extend the implementation of Casanova rendering without any further modification to the system or to existing games. Drawable entities are of two kinds: batches and primitives. Batches contain a list of primitives, which add themselves to their batch whenever they are drawn. When a batch is drawn, at the end of the draw method, then it renders all its primitives according to some ordering. Batching \cite{GPU_GEMS_2} can yield very high speedups when compared with straightforward rendering, for example through the use of instancing or other advanced techniques. Moreover, if a batch is, for example, a camera, then other optimizations such as visibility culling (frustum culling or occlusion culling) to remove primitives that are not visible on the screen can yield further speedups.
+
+We now describe how rules are applied to the game world (i.e., the update function), and how drawables are rendered (i.e. the draw function). The first, naïve, implementation of the update and draw functions in F\# through reflection simply performs reflection at every tick of the game loop.
+
+\subsection{Naïve traversal}
+The backbone of all the traversal functions we present here is that the type of the world, and subsequently the type of all entities, are traversed by using reflection. When a type is traversed, then its components (its attributes, properties, union cases, etc.) are all traversed in turn. We use active patterns to perform pattern matching on all the types that the Casanova run-time understands. When we encounter types that contain other values, such as a list, a var, an option, etc. then we traverse its contents recursively. When we encounter a Casanova record, either in the form of a drawable entity or a user-defined entity, then we invoke the \texttt{on\_casanova\_record} function which performs some operation on the fields of that record. The operation will either be the evaluation and application of rules for the update function, or the invocation of the draw methods for the draw function. What follows is the traversal function that uses F\# active patterns \cite{APPENDIX_F_FSHARP_MSDN, CASANOVA_CODEPLEX} to hide the reflection operations under pattern-matching:
+
+\begin{lstlisting}
+let rec traverse_entity 
+          (t_self : Type) 
+          (world:'world) (self:obj) (dt:float<s>) 
+          on_casanova_record =   
+  match t_self with
+  | RefType(arg) -> ()
+  | VarType(arg) | RuleType(arg) ->
+    do traverse_entity arg world !self dt on_casanova_record
+  | ListType(list_arg) -> 
+    for x in self do
+      do traverse_entity list_arg world x dt 
+                         on_casanova_record
+  | UnionType(cases) ->
+    let case, parameters = get_case self
+    for parameter,parameter_type in parameters do
+      do traverse_entity parameter_type world parameter dt 
+                         on_casanova_record
+  | CasanovaDrawable ->
+    do on_casanova_record world self dt
+  | CasanovaEntity() ->
+    do on_casanova_record world self dt
+    for field,field_type in get_record_fields self do
+      do traverse_entity field_type world field dt 
+                         on_casanova_record
+  | _ -> ()
+\end{lstlisting}
+
+The execution of the code above results in lots of run-time inspections of the game entities types, and with a relatively low number of entities the cost of reflection ends up becoming higher than the cost of the actual operations of the game, to the point that the run-time of reflection overshadows the run-time of the game itself, which appears much slower than it should be. Every time we perform reflection operations such as pattern-matching the type of an entity, getting its properties, etc. we suffer a noticeable performance hit.
+
+\subsection{Traversal with CPS caching}
+The first optimization that we can apply is that of pre-computing, just once, all the operations that explore the types of the entities. To do so, we just need the type of the world, which we explore recursively; for each entity accessible from the world we add a new node to an anonymous function that is built and which takes in its closure the function pointers to the various class members to invoke to apply rules and to draw drawable entities. This amounts to a form of continuation passing style (CPS, see \cite{CHAPTER_6_CPS}) which builds a continuation that will then perform the actual exploration of the game world. This way the pre-traversal performs all the slower reflection operations, pre-computing their results and caching these values, \textit{without ever touching the actual game world or its entities}. The result of this operation is the update function, which gets the game world as input and passes it to the cached reflected operations, which are then invoked dynamically:
+
+% todo: more detailed description
+
+\begin{lstlisting}
+let rec traverse_entity 
+          (t_self:System.Type) 
+          (k:Ref<'world -> obj -> 'b -> Unit>) 
+          on_casanova_record = 
+  match t_self with
+  | RefType(arg) -> ()
+
+  | VarType(arg) | RuleType(arg) ->
+    let k_aux = ref (fun w s dt -> ())
+    do traverse_entity arg k_aux on_casanova_record type_predicate
+    let k_aux = !k_aux
+    let k' = !k
+
+    let value = t_self.GetProperty("Value")                
+    let value_get = value.GetGetMethod()
+
+    do k := fun world self dt ->
+              k' world self dt
+              let f = value_get.Invoke(self,[||])
+              do k_aux world f dt
+    
+  | ListType(list_arg) -> 
+    let k_aux = ref (fun w s dt -> ())
+    do traverse_entity list_arg k_aux on_casanova_record type_predicate
+    let k_aux = !k_aux
+    let k' = !k
+    do k := fun world self dt ->
+              k' world self dt
+              for x in  self do
+                do k_aux world x dt
+  | UnionType(cases)->
+    let tag_reader = precompute_tag_reader(t_self)
+    let union_readers = 
+      [| for case in cases do yield pre_compute_reader(case) |]
+
+    let parameter_traversals = 
+      [|
+        for case in cases do             
+          yield
+            [
+              for parameter in case.Parameters do
+                let k_aux = ref (fun w s dt -> ())
+                do traverse_entity parameter k_aux on_casanova_record type_predicate
+                yield !k_aux
+            ]
+      |]
+    
+    let k' = !k
+    do k := fun world self dt ->
+              k' world self dt
+              let tag = tag_reader self
+              let parameters = union_readers.[tag] self
+              for p,k in Seq.zip parameters parameter_traversals.[tag] do
+                k world p dt
+    
+  | CasanovaDrawable ->
+    do on_casanova_record t_self k
+
+  | CasanovaEntity(fields) ->
+    do on_casanova_record t_self k
+    for field in fields do
+      let k_aux = ref (fun w s dt -> ())
+      do traverse_entity f_type k_aux a type_predicate
+      let k_aux = !k_aux
+      let k' = !k
+      do k := fun world self dt ->
+                k' world self dt
+                let f = field.Get(self)
+                do k_aux world f dt
+  | _ -> ()
+\end{lstlisting}
+
+Dynamic invocation of reflected operations is faster than naïvely re-computing them every frame, but it is still slower than directly invoking methods without reflection or other indirection mechanisms. For this reason we are currently building an approach that may be even faster. Instead of building the continuation with dynamic invocations, this new system builds a continuation by emitting directly the assembly operations that will traverse the game world. This final approach makes the Casanova run-time a kind of self-modifying program that directly outputs assembly code to obtain the highest possible run-time performance, beyond which only micro-optimizations could yield further improvements.
+
+\paragraph{CPS Speedup}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ c | c | c | c }
+   City no CPS & City CPS & RTS no CPS & RTS CPS \\
+   \hline
+   0.2 & 30 & 10 & 58 \\
+\end{tabular}
+\caption{Traversal FPS}
+\label{table:traversal_fps}
+\end{table}
+
+As we can see from Table \ref{table:traversal_fps}, the average performance of these approaches in two test games (a city simulation and a space RTS) shows the expected differences in resulting framerate. Using the CPS version of the traversal yields a large performance increase, and in the case of the virtual city, where the game world contains a very large number of elements, it even reaches two orders of magnitude. These improvements are very important, since the obtained speedups would have only been spurious computational costs coming from insufficient optimization on the side of the Casanova runtime libraries and not on the game itself. Indeed, one of the central tenets of Casanova is ease of use, and this implies that the user will not have to worry too much about lower level matters concerning performance details (of course a proper selection of algorithms is something that the developer will still have to do).
+
+\section{Scripts and coroutines}
+In this section, we describe a statically typed game scripting language based on a monadic domain-specific language (DSL) built on top of F\#. Our DSL combines with the benefits of strong, static typing the flexibility of programming abstractions comparable to those offered by commonly used game-scripting languages such as LUA. In addition, our DSL language supports a  smooth integration between the execution model of the simulation engine, based on discrete-time updates of the game state, and the logic implemented by the scripts, which typically encode actions that span multiple update time-slots. As it happens in other scripting languages, this integration is achieved by equipping our DSL with coroutines, which we encode within the monadic operators for binding and return.
+
+The advantages of this approach are multiple: \textit{(i)} our DSL offers greater flexibility over coroutines which are wired inside the virtual machine itself such as those in LUA and Python; \textit{(ii)} this flexibility makes it possible to tailor our scripting system precisely around the requirements of the game; \textit{(iii)} encapsulating coroutines inside a monad effectively makes them transparent to the developer; \textit{(iv)} the additional flexibility comes with very limited overhead: indeed, our scripts run faster than LUA's or Python, and at least as fast as C\# scripts, as detailed in Chapter \ref{chap:evaluation}.
+
+Central to our present concerns is the \texttt{update} function of the game loop, which implements all the functionalities that modify the game state. As discussed earlier, most of these functionalities, typically the physics of the various entities (such as forces, collision detection, etc.) and the interaction with the input/output/other devices are coded as rules. On the other hand, higher-level aspects of the game, related to gameplay, are typically left outside the code of the update function, and can be modified quite often during the design of the high-level aspects of the game logic. Such aspects are commonly called \textit{scripts}, and they are encoded as coroutines.
+
+The most important function of these scripts is to model the behaviors of the computer characters and of the other in-game objects. To illustrate a scenario where this comes into play, consider the following pseudo-code which describes the behavior of a prince in a role playing game:
+
+\begin{lstlisting}
+prince :
+  princess = find_nearest_princess ()
+  walk_to ( princess )
+  save ( princess )
+  take_to_castle ( princess )
+\end{lstlisting}
+
+The main problem in coding this behavior with a script is to achieve a smooth interaction between the discrete-time structure of the game animation implemented by the simulation engine, and the behavior implemented by the script, which spans multiple time slots of the simulation engine. Specifically, in order to guarantee a smooth user experience, each script must be interruptible, so that at each discrete step of the simulation engine the script performs a finite number of operations and then suspend itself: failing to do so would at best slow down the simulation steps, hence the resulting framerate of the game would decrease, thereby reducing the player immersion, and at worst it would just freeze the game in a single iteration of the game loop, thereby breaking the game outright.
+
+The problem is traditionally addressed by coding -by hand- scripts as state machines (SMs), which execution gets interrupted at each state transition. However, while SMs represent a viable design choice for simple scripts, they are far less effective for modelling objects with complex behavior, as their structure grows easily out of control and becomes rather hard to maintain. Modern scripting languages adopt coroutines as a mechanism to build state machines implicitly, by way of their (the coroutines') built-in mechanisms to suspend and resume execution. With coroutines the code for a SM is written \textit{linearly}, one statement after another, but each action may suspend itself (an operation often called \texttt{yield}) many times before completing. The local state of the state machine is stored as part of the continuation of the coroutine. Some of the most used scripting languages, which are Lua, Python and C\#, all offer some suspension mechanisms similar to coroutines that game developers use for scripting; for a detailed discussion of couroutines in these languages, see [16, 12, 2].
+
+Instead of using those suspension mechanism, which often result in ad-hoc solutions that scale poorly because of their inadequate generalization, we use monads. Monads can be used for many purposes. Indeed, monads allow us to overload the bind operator, in order to define exactly what happens when we bind an expression to a name, thereby earning the name of \textit{programmable semicolons}. We will use this capability of monads to implement a DSL for coroutines that allows to chain coroutines together with the binding operator. The monad we define will suspend itself at every bind and return its continuation as a lambda. The monadic type is:
+
+\begin{lstlisting}
+type Script <'a> = Unit -> Step <'a>
+and Step <'a> = Done of 'a | Next of Script <'a>
+\end{lstlisting}
+
+Notice that the signature is very similar to that of the regular state monad, but rather than returning a result of type \texttt{'a} it returns either \texttt{Done of 'a} or the continuation \texttt{Next of Script<'a>}. The continuation stores, in its closure, the local state of a suspended script, plus the game world if needed; this way our scripts will be able to read, write or modify the main state of the game to interact with the processing performed by the game engine. Since the game world is mutable, given that its rules and variables may be assigned inside scripts, we do not use the classical signature of the state monad for an immutable state. The immutable version of the state monad would return the new state after every operation, but in our case all modifications of the game world will be directly in-place.
+
+Returning a result in this monad is simple: we just wrap it in the \texttt{Done} constructor since obtaining this value requires no actual computation steps. Binding together two statements is more complex. We try executing the first statement;
+if the result is \texttt{Done x}, then we perform the binding and we continue with the rest of the program with the result of the first statement plugged in it. If the result is \texttt{Next p'}, then we cannot yet invoke run on the second coroutine of the binding. This means that at the next execution step we will continue the execution of the first coroutine from where it stopped (that is \texttt{p'}).
+
+\begin{lstlisting}
+let return (x:'a) : Script <'a> = 
+  fun () -> Done x
+
+let rec bind (p:Script <'a>, k:'a->Script <'b>) =
+  fun () ->
+    match p () with
+    | Done x -> k x ()
+    | Next p' -> Next ( bind (p',k))
+\end{lstlisting}
+
+We now define the coroutine that forces a suspension, by wrapping \texttt{Done ()} into a \texttt{Next} contructor:
+
+\begin{lstlisting}
+let yield : Script <Unit> = 
+  fun () -> Next (fun () -> Done ())
+\end{lstlisting}
+
+In the following we assume the standard F\# syntactic sugar. This convention means that \texttt{let! x = script1 in script2} will be translated into \texttt{bind(script1, fun x -> script2)} and \texttt{return x} will be translated into \texttt{return(x)}, but only inside blocks delimited by \texttt{co\{...\}}. For example the monadic code:
+
+\begin{lstlisting}
+m{
+  do! s1
+  let! x = s2
+  if p x then
+    return a
+  else
+    return b
+}
+\end{lstlisting}
+
+\noindent{would} be translated into:
+
+\begin{lstlisting}
+m.Bind(s1, fun () ->
+m.Bind(s2, fun x ->
+  if p x then
+    m.Return a
+  else 
+    m.Return b))
+\end{lstlisting}
+
+Let us now see a small, self-contained example of our scripting system in action. Coroutines can be used in many ways to achieve various results; what we are mostly interested in is using coroutines as a means to perform long and complex computations asynchronously inside the main loop of an application. We wish to build an application that computes a very large Fibonacci number, but does so while continuously writing on the console that it is still alive and
+responsive. The coroutine version of the Fibonacci function is very similar to a regular implementation of the Fibonacci function, with the only difference being that we use monadic binding to recursively invoke the function itself. Each time we recurse,
+the coroutine suspends:
+
+\begin{lstlisting}
+let rec fibonacci n : Script<int> =
+  co {
+    match n with
+    | 0 -> return 0
+    | 1 -> return 1
+    | n ->
+      do! yield
+      let! n1 = fibonacci (n -1)
+      let! n2 = fibonacci (n -2)
+      return n1+n2
+  }
+\end{lstlisting}
+
+An interesting aspect of monads is that, when they are defined properly, they support a series of operators in the form of higher-order functions that automate combining coroutines in different fashions. For example, we could define a \textit{lifting} operator that takes as input a function on values and transforms it into a function on coroutines that return those values:
+
+\begin{lstlisting}
+let (!) x op y =  
+  co{
+    let! x_res = x
+    let! y_res = y
+    return op x y
+  }
+\end{lstlisting}
+
+The last portion of the Fibonacci function can now be re-written in the more concise (and usual) form of:
+
+\begin{lstlisting}
+return! ! fibonacci(n-1) (+) fibonacci(n-1)
+\end{lstlisting}
+
+Notice the use of the \texttt{return! t} operator, which by F\# convention is equivalent to \texttt{let! x = t in return x}. In general, lifting operations can be defined on all arieties of functions, in order to support unary, binary, ternary, and in general \textit{n}-ary functions. Moreover, this ability to embed other functionalities and existing libraries into a monad without modifying their code is one of the greatest strengths of monads.
+
+Running the Fibonacci function now requires many steps of our scripting monad; for this reason we can safely invoke this function with the knowledge that it will run for a short time before returning either the final result with \texttt{Done}
+or its continuation with \texttt{Next}. We can define the main loop of our application as follows:
+
+\begin{lstlisting}
+let main_loop () =
+  let rec main_loop (f: Co<int>) =
+    do printf "I am  alive .\n"
+    match f () with
+    | Done result ->
+      do printf "The result is \%d\\n" result
+    | Next f' ->
+      main_loop f'
+  do main_loop (fibonacci 1000000)
+\end{lstlisting}
+
+The main loop above can be seen as a simplification of the game loop we have seen previously. Of course, in a game, the application would perform its full update and draw operations instead of just printing a string on the screen. This said, adding the above pattern matching to each iteration of the main loop of the game is all that is required to integrate our scripting system with an existing game engine, which is clearly a trivial addition.
+
+\subsection{A DSL for Scripting}
+When we augment a monad with a series of additional operators that implement complex combinators, then those operators and the underlying monad can be considered as a DSL \cite{CHAPTER_6_MONADIC_DSL}. The script monad can be seen as the runtime core of our DSL by virtue of its binding and return functions that automate or simplify common operations for the DSL developers.
+
+Our objective is to provide the foundation for other developers to add to our monad with their own specific DSLs, to implement additional monadic patterns that perform message-passing synchronization of scripts, game-level script helpers, networking scripts, etc. This goal comes from the realization that the best set of operators for a scripting DSL is strongly
+dependent upon the kind of game to be scripted. In this Section we describe a general-purpose set of operators that make up a basic calculus of coroutines, but we would expect that other game developers would define additional operators that are a tighter fit to their games. The operators of our calculus of coroutines take as input one or more coroutines and return as output a new coroutine, and they are listed in Table \ref{table:scripting_combinators}.
+
+\begin{table}[ht]
+\caption{Scripting combinators}
+\centering
+\begin{tabular}{ | l | p{6cm} | } 
+\hline
+\texttt{parallel} (\texttt{s1} $\wedge$ \texttt{s2}) & executes two scripts in parallel and returns both results \\
+\hline
+\texttt{concurrent} (\texttt{s1} $\vee$ \texttt{s2}) & executes two scripts concurrently and returns the result of the first to terminate \\
+\hline
+\texttt{guard} (\texttt{s1} $\Rightarrow$ \texttt{s2}) & executes and returns the result of script \texttt{s2} only when script \texttt{s1} evaluates to true \\
+\hline
+\texttt{repeat} ($\uparrow$ \texttt{s}) & keeps executing a script over and over \\
+\hline
+\texttt{atomic} ($\downarrow$ \texttt{s}) & forces a script to run in a single tick of the discrete simulation engine \\
+\hline
+\end{tabular} 
+\label{table:scripting_combinators}
+\end{table}
+
+We show here the implementation of these combinators with our monadic system:
+
+\begin{lstlisting}
+let rec (&&) (p:Co<'a>) (q:Co<'b>) : Co<'a * 'b> =
+  match p(), q() with
+  | Done x, Done y -> Done(x,y)
+  | Next p', Next q' -> Next (p' && q')
+  | Next p', Done y -> Next(p' && return y)
+  | Done x, Next q' -> Next(return x && q')
+
+let rec (||) (p:Co<'a>) (q:Co<'b>) : Co<Choice<'a,'b>> =
+  match p(), q() with
+  | Done x, _ -> Done(Choice1Of2 x)
+  | _, Done y -> Done(Choice2Of2 y)
+  | Next p', Next q' -> Next (p' || q')
+
+let rec (=>) (p:Co<Option<'a>>) (q:'a->Co<'b>) : Co<'b> = 
+  co{
+    let! x = p
+    match x with
+    | Some v -> return! q v
+    | None -> return! p => q
+  }
+
+let rec repeat (p:Co<Unit>) : Co<Unit> = 
+  co{ 
+    do! p
+    return! repeat p
+  }
+
+let rec atomic (p:Co<'a>) : Co<'a> =  
+  match p() with
+  | Done x -> return x
+  | Next p' -> atomic p'
+\end{lstlisting}
+
+We can now present another self-contained example that shows a producer and a consumer running in parallel; the two coroutines will share a single, mutable memory cell which they can read or write. This cell will have a function similar to that of to the game state in an actual game. We define some additional helper functions to access the state. A good software engineering rule of thumb is that, the more complex is the state, the less should coroutines directly access it, in order to keep the definition of scripts and the definition of the game state as loosely coupled as possible. When the state grows complex, we can define a series of additional accessor functions that help us manipulating the various aspects of the state:
+
+\begin{lstlisting}
+let set_buffer cell v =
+  cell := Some v
+let is_buffer_empty cell () = 
+  !cell = None
+let reset_buffer cell () =  
+  cell := None
+let get_buffer cell () =  
+  match !cell with
+  | Some v -> v
+  | _ -> failwith "cannot get from empty buffer"
+\end{lstlisting}
+
+We now define the producer and the consumer in a parameterized fashion so that the actual production and consumption is done through other coroutines that depend on the application:
+
+\begin{lstlisting}
+let producer_consumer (produce_value:Co<'a>)
+                      (consume_value:'a->Co<Unit>):Co<Unit> = 
+  let cell = var None
+  let set_buffer      = set_buffer cell
+  let is_buffer_empty = is_buffer_empty cell
+  let reset_buffer    = reset_buffer cell
+  let get_buffer      = get_buffer cell
+  
+  let rec wait_buffer_predicate p = 
+    co{
+      if p(is_buffer_empty()) then return ()
+      else  
+        do! yield
+        do! wait_empty_buffer
+    }
+  let wait_empty_buffer = wait_buffer_predicate id
+  let wait_full_buffer = wait_buffer_predicate not
+  
+  let rec producer =
+    co{
+      do! wait_empty_buffer
+      let! v = produce_value 
+      do set_buffer v
+      do! producer
+    }
+
+  let rec consumer =
+    co{
+      do! wait_full_buffer
+      let v = get_buffer()
+      do reset_buffer()
+      do! consume_value v
+      do! consumer
+    }
+
+  producer && consumer
+\end{lstlisting}
+
+The example above illustrates how to build two coroutines which separately access a shared state. The overall behavior of the whole program is then given by stepping through these coroutines in the main loop of the application, possibly interspersed with some other logic (for example, visualization, logging, etc.). Such a scenario is similar to a simplified game, since we can draw a parallel between: \textit{(i)} the game world and the shared state; \textit{(ii)} the main loop of the game and the main loop of the application; \textit{(iii)} the rules of the game and the additional logic that the main loop performs (which are not shown here as they are not central to our discussion on scripts); \textit{(iv)} the scripts of the game and the \texttt{producer} and \texttt{consumer} coroutines.
+
+\subsection{Scripting in Games}
+In the following we outline how we have built most of the game logic of the RTS game Galaxy Wars (released as open source software) with the scripting system just presented. In this game the players compete to conquer a series of star systems by sending fleets to reinforce their systems or to conquer the opponent's.
+
+Thanks to our general combinators we can define a small set of recurring game patterns; by instantiating these game patterns one can build the actual game scripts with ease. These patterns may be adapted for the specific domain of a game, or new patterns may be created altogether in order to fit another game better. 
+
+The first game pattern we see is the most general, and for this reason it is called \texttt{game\_pattern}. This pattern initializes the game in a single tick, then performs the main logic of the script (that which is active while the game is not over) and finally, after the main logic of the script has finished, it performs the ending operation before returning some result. The initialization is performed by the \texttt{init} script, which returns a result of a generic type \texttt{'a}; this result is the state of the script, and it contains data that may be helpful for tracking additional information that is useful to our scripts but which is not stored in the game state. The logic of the various game entities, such as their AI, is then performed, repeatedly, by the logic script. While the logic script is run, the \texttt{game\_over} script continuously checks to see if the game has been won or lost and thus must be terminated; when the termination condition is met, the
+\texttt{ending} script is invoked. Such a script may show a recap of the game that has just ended, some animation sequence, etc. The game pattern is then implemented as follows:
+
+\begin{lstlisting}
+let game_pattern
+  (init : Script <'a>)
+  (game_over :'a -> Script <bool>)
+  (logic :'a -> Script <Unit>)
+  (ending :'a -> Script <'c>) : Co<'c> =
+  co{
+    let! x = init
+    let! (Choice1Of2 y) = (game_over x => ending x) || repeat(logic x)
+    return y
+  }
+\end{lstlisting}
+
+The game pattern above is very general, but not all scripts always need all of its parameters. We can build less general game patterns by assuming standard (null) values for many of those parameters; for example, we may build a game pattern that has no initialization, logic or ending sequence; such a game pattern would implement the case of a game script whose sole responsibility is to check the termination conditions for a game (those that trigger the game over screen):
+
+\begin{lstlisting}
+let wait_game_over (is_game_over:Co<bool>) : Co<Unit> =
+  let null = co{ return () }
+  game_pattern
+    null
+    (fun () -> is_game_over)
+    (fun () -> null)
+    (fun () -> null)
+\end{lstlisting}
+
+Writing a script for the Galaxy Wars game then consisted of instantiating one game pattern with specialized scripts as its parameters; these scripts will alternate accesses to the state of the game with invocations of combinators from the calculus seen above.  
+
+Let us now see a sample Galaxy Wars script. In the game, the state consists of a series of star systems, fleets, players, and various other data:
+
+\begin{lstlisting}
+type GameState = {
+  StarSystems : List<StarSystem>
+  Fleets : Var<List<Fleet>>
+  Players : List<Player>
+  ... 
+}
+\end{lstlisting}
+
+The basic mode of the game uses our scripting system to determine the winner of the game; as long as there is more than one team standing, the script returns \texttt{None}. This script computes the union of the set of active fleet owners with the set of system owners; to save processing power, we do not compute this right away, but instead we wait for half a second (a player will most certainly not resurrect after being killed, but this way we perform the check twice per second instead of sixty times per second, and we obtain a small performance gain):
+
+\begin{lstlisting}
+let is_basic_game_over world =
+  co{
+    do! wait 0.5<s>
+    let fleet_owners = 
+      [ for f in !world.Fleets do yield f.Owner ] |> Set.ofList
+    let star_system_owners = 
+      [ for s in world.StarSystems do yield !s.Owner ] |> Set.ofList
+    let alive_players =  
+      Set.union fleet_owners star_system_owners
+    let alive_teams =  
+      alive_players |> Set.groupBy (fun p -> p.Team)
+    if alive_teams.Count = 1 then 
+      return Some(alive_teams.[0].Key)
+    else 
+      return None
+  }
+\end{lstlisting}
+
+The main task of our script is to wait until the set of active teams has exactly one element; when this happens, that team is returned as the winner; we create the full game script by writing simply: 
+
+\begin{lstlisting}
+let basic_game_mode = wait_game_over (is_basic_game_over world)
+\end{lstlisting}
+
+The two short snippets above are all there is to the main game mode.
+
+There are many variations of the game; from Invasion, to Timed mode based on score, to networked multiplayer. All of these variations have been implemented with the same simplicity of the scripts above, i.e. by instancing one game pattern with appropriate scripts which are built with a mix of combinators interspersed with accesses to the game state.
+
+Another large subsystem where we have used our scripting system is \textit{input management}. Input is divided into a series of pairs of scripts. Each pair of scripts is separated by a guard: the first script performs an event detection, while the second performs an event response. Each pair of scripts is repeated forever, in parallel with all the other scripts. As an example, consider the following script that decides whether to launch or not ships against a target:
+
+\begin{lstlisting}
+co{
+  if left_mouse_clicked() then
+    let mouse_position = get_mouse_position ()
+    match all_planets |> Seq.tryFind (close_enough mouse_position) with
+    | Some clicked -> return Some clicked
+    | None -> return None
+  else
+    return None
+} => fun selected_planet -> co{ return world.SourcePlanet := Some p }
+
+co{
+  if right_mouse_clicked() && world.SourcePlanet <> None then
+    let mouse_position = get_mouse_position ()
+    match all_planets |> Seq.tryFind (close_enough mouse_position) with
+    | Some clicked 
+        when !clicked.Owner <> world.LocalPlayer -> 
+          return Some(clicked,!world.SourcePlanet)
+    | _ -> return None
+  else
+    return None
+} => fun (source, target) -> co{ return mk_fleet world source target }
+\end{lstlisting}
+
+
+A distinct advantage of this technique is that it allows us to cleanly separate the code that reads the actual user input from the code that performs something meaningful on the game world with such input. By parameterizing the code above with respect to the input detection scripts, we could make it possible to support different controller types (game pad, touch panel, mouse, keyboard, etc.) without changing the event response scripts. Moreover, this input detection style (where the event detection script reads from the actual input devices and returns \textit{all the context} needed by the response script to perform its response) also allows us to easily transfer information about a client's local actions through the network and into the server, since all the host needs to know is which response to run and with which parameters, and then it can run the response as the client would have done.
+
+The only small difference between the presentation given above and the actual implementation lies in the fact that we used \texttt{yield\_} with a trailing underscore instead of \texttt{yield}, since the latter is a reserved F\# keyword. For reasons of homogeneity, we also used a trailing underscore for all other coroutine combinators. Operators such as \texttt{(\&\&)} and \texttt{(||)}, have been renamed to \texttt{(.\&\&)} and \texttt{(.||)} respectively, in order to avoid overriding the binary \texttt{and} and \texttt{or} operators. Moreover, when performing the parallel or concurrent execution of two scripts that return \texttt{Unit}, to avoid obtaining the meaningless result of \texttt{Unit * Unit} or \texttt{Choice<Unit,Unit>}, we can use the automated ignore operators \texttt{(.\&\&>)} and \texttt{(.||>)} that simply return \texttt{Co<Unit>}.
+
+The list of active coroutines is stored in a global, private list; another list contains the pending coroutines that have just been added with the \texttt{run\_script} function. At each tick of the game loop, coroutines are ticked with the following code:
+
+\begin{lstlisting}
+active_scripts <- 
+  [ 
+    for s in active_scripts do 
+      match s() with
+      | Done () -> ()
+      | Yield s' -> yield s'
+    for s in pending_scripts do
+      yield s
+  ]
+pending_scripts <- []
+\end{lstlisting}
+
+The code above ticks all active coroutines, removes those that have terminated, and adds the pending coroutines so that, starting from the next frame, they will be run too. Note that there are three separate lists of coroutines: those that are updated every frame, those that are updated ten times per second, and finally those that are updated once per second, according to the same logic described in Chapter \ref{chap:semantics}.
+
+\paragraph{Optimization}
+A great deal of development effort in modern games is spent editing the game source, but, rather than adding new and useful features, the same code is tuned until it is efficient enough, by applying various optimizations such as visibility culling (to reduce the number of rendered models) and other techniques. One of the original design goals of Casanova is to save developers time and effort by automatically performing several of those optimizations that would otherwise have to be hand-written.
+
+A lot of game optimization effort goes into \textit{optimizing quadratic queries}; many games feature lots of searches to compare all pairs from two collections: collision detection, visibility, interaction, etc. For example, we may wish to compute the auras that different magical units in an RPG apply to each other, or we may wish to find all the asteroids that collide with plasma projectiles: computing this query with naïve nested loops would have an $O(N^2)$ complexity. By using a spatial partitioning index on the involved entities (such as asteroids, projectiles, magical units, etc.), it becomes possible to solve this query in a much shorter time. If the index is a tree, such as a quad-tree, oc-tree, or k-d-tree, then each lookup in the tree will have cost $O(\log N)$. The resulting complexity for the optimized query becomes $O(N \log N)$. In case of a sparsely populated indexing tree, we could even use a hash table for spatial partitioning; accesses to the hash table, on average, are $O(1)$, and the complexity of the whole query then becomes as low as $O(N)$.
+
+The Casanova translation semantics works as follows. Whenever we encounter a query that performs a Cartesian product with some predicate on the generated pairs, then: \textit{(i)} we add to the game state an index that makes resolution of a superset of this predicate faster; \textit{(ii)} at the beginning of the update function we clear and re-fill the index so that it is up-to-date with the current game state; \textit{(iii)} instead of naïvely computing the original query, we look up the index to reduce the number of elements to which we apply the original predicate. By default Casanova uses a hash table as an index for all query optimizations. The specifics of this technique are well known from the database literature, and can be found in \cite{DATABASE_SYSTEM_IMPLEMENTATION}.
+
+Another important optimization that can speedup the Casanova implementation is that of \textit{avoiding the rule swapping routine} at the end of the update function. This is done by storing the current and next values of a rule inside an array of length 2, and by using a (private) global index to identify current and next. A simplified implementation of the container for rule values is:
+
+\begin{lstlisting}
+let private mutable rule_index = 0
+let private current() = rule_index % 2
+let private next() = (rule_index + 1) % 2
+
+type Rule<'a> = { Values : 'a[] }
+ member this.Current with get() = Values.[current()]
+ member this.Next with set v' = Values.[next()] <- v'
+\end{lstlisting}
+
+With this implementation, swapping the various current and next values inside all the rules of the game simply requires incrementing the \texttt{rule\_index} reference. 
+
+Collections inside rules can be optimized as well with a similar, simple modification. Instead of creating new collections at each tick of the update function, collection rules are optimized by pre-allocating two mutable collections (the F\# data-type is ResizeArray). When computing the new value of the collection rule, the \texttt{Next} collection is cleared and the values of the new collection are added to it. Let us consider a simple example:
+
+\begin{lstlisting}
+type R = {
+  Xs : list<int>
+  } with rule Xs(self,dt) = [x + 1 | x <- self.Xs]
+\end{lstlisting}
+
+Without optimization, the code above would generate a new list at each tick of the update function with the desired value. This would weigh heavily on the garbage collector, and would waste the space already allocated inside the next value which instead would be discarded. With our optimization, we do not allocate a new list of values at each frame but rather we reuse the space allocated for the same collection, and we allocate new space only when it is needed. Moreover, instead of allocating a list as the return value for the rule function, we return a sequence, which is a lazy list that only contains the iterator for the values and does not allocate the list itself. This is obtained in F\# by replacing the square brackets with the sequence comprehension delimiters \texttt{seq\{ ... \}}. We define the rule container for lists as:
+
+\begin{lstlisting}
+type RuleTable<'a> = { Values : ResizeArray<'a>[] }
+ member this.Current with get() = Values.[current()]
+ member this.Next with set (v':Seq<'a>) =
+   let next = Values.[next()]
+   do next.Clear()
+   for x in v' do next.Add x
+\end{lstlisting}
+
+Another important optimization that becomes very useful when the game world is very large, is to \textit{avoid traversing sub-trees of the game state} for drawing or for the application of rules when the sub-tree does not contain anything to draw or update (that is, datatypes without drawable fields, without rules, or that only contain references that are thus ignored). This simply requires modifying all recursive steps of the update function with invocations to:
+
+\begin{lstlisting}
+update_entity_if_needed [World] [T] (world:World) (v:T) dt =
+  if contains_updateables [T] then 
+    update_entity [World] [T] world v dt
+\end{lstlisting}
+
+\noindent{instead} of to \texttt{update\_entity}. The \texttt{contains\_updateables} function simply traverses the game world in search for rules:
+
+\begin{lstlisting}
+contains_updateables [Primitive(T)] = false
+contains_updateables [T1 * T2 * ... * Tn] =
+  contains_updateables [T1] ||
+  contains_updateables [T2] ||
+  ...
+  contains_updateables [Tn]
+contains_updateables [Var<T>] = 
+  contains_updateables [T]
+contains_updateables [Ref<T>] = false
+contains_updateables [List<T>] =
+  contains_updateables [T]
+contains_updateables [T=UnionCase(C1(T11 * ... * T1n1), C2(T21 * ... * T2n2), ..., Cn(Tn1 * ... * Tnnn)))] =
+    contains_updateables [T11] ||
+    contains_updateables [T12] ||
+    ...
+    contains_updateables [T1n1] ||
+    contains_updateables [T21] ||
+    contains_updateables [T22] ||
+    ...
+    contains_updateables [T2n1] ||
+    ...
+    contains_updateables [Tn1] ||
+    contains_updateables [Tn2] ||
+    ...
+    contains_updateables [Tnnn]
+contains_updateables [T=Record(l1:T1,l2:T2,...,ln:Tn,r1=rb1,r2=rb2,...,rm=rbm)] =
+  contains_updateables [T1] ||
+  contains_updateables [T2] ||
+  ...
+  contains_updateables [Tn]
+\end{lstlisting}
+
+Notice also that the \texttt{contains\_updateables} function does not depend on any dynamic value such as \texttt{world}, \texttt{v}, or \texttt{dt}. For this reason, it is memoized (that is, precomputed in a table \cite{CHAPTER_6_MEMOIZATION}), thereby speeding up the execution of the game further.
+
+The same kind of optimization may be applied to drawing. There is no point in drawing an entity which does not (recursively) contain anything drawable: instead of traversing sub-trees that will not produce any visible results, we can save performance for more useful and interesting tasks. For this reason we use the following draw traversal function:
+
+\begin{lstlisting}
+draw_entity_if_needed [World] [T] (world:World) (v:T) =
+  if contains_drawables [T] then 
+    draw_entity [World] [T] world v
+\end{lstlisting}
+
+\noindent{where} the \texttt{contains\_drawables} is implemented almost exactly as its update counterpart. Again, the function may be memoized in order to achieve better run-time performance.
+
+Another important optimization that is performed by Casanova is \textit{parallel execution}. Since at each iteration of the update function there are no rules that write the same memory location (given that each rule reads the \texttt{Current} value of the other rules but only writes its own \texttt{Next} value), rules may be evaluated (and their results written to the state) in parallel. It is important though to avoid spawning threads or other excessively expensive constructs for each rule, since doing so would result in a higher maintenance cost for creating the threads, running (too many of) them and allocating their stacks. Indeed, creating one thread for each rule is an overkill that in the end reduces performance, since threads are not beneficial at a granularity level of hundreds or even thousands of entities. A better solution is the use of a thread pool of preallocated threads, to which tasks are allocated; these tasks spawn entire blocks of entities at the world level, and, even though they may not be perfectly balanced, at least their cost is negligible to the point that we will certainly not waste performance in running them, and often we will obtain benefits. The same optimization can be applied to updating and drawing, which may be run in parallel.
+
+The last optimizations regard the \textit{frequency of application} of rules, the main script, and input scripts. Since not all rules require the same update frequency, we allow the user to specify the frequency to which each rule will be updated by adding an annotation in the form of an F\# attribute. There are only three frequencies allowed for updating rules: \textit{(i)} the default of every frame, \texttt{RuleUpdateFrequency(EveryFrame)}; \textit{(ii)} interactive framerate, which is equivalent to 10 frames per second and which is applied by default to input scripts,  \texttt{RuleUpdateFrequency(InteractiveFramerate)}; and \textit{(iii)} low frequency, which is equivalent to once per second, \texttt{RuleUpdateFrequency( LowFrequency)}. These attributes may be applied either to the entire entity (and thus all its fields will inherit its update frequency) or to the single rules. 
+
+Specifying a lower frequency than every frame, for example for less important update operations, will invoke such operations less. To compensate the lesser number of invocations, these operations will also be invoked with a higher \texttt{dt}. The end result will be less frequent updates which all cover longer time spans each: this will save performance, but without affecting the dynamics of the game world.
+
+An example of such a rule would be a rule that updates the life of battling units; it is not important that battles happen at a frequency of 60 or more frames per seconds, and instead the life of the various units could go down (or up) about once per second. On the other hand, increasing the frequency, for example for input scripts, would yield a higher precision of the computation but with increased polling. Mouse movements could benefit from such a framerate, while key-presses could still be acceptable at the default of 10 polls per second. 

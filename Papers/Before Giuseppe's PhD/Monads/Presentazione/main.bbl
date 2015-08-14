@@ -1,0 +1,71 @@
+\begin{thebibliography}{10}
+
+\bibitem{10}
+O.~de~Moor, J.~Gibbons, and G.~Jones.
+\newblock The fun of programming.
+
+\bibitem{2}
+Iavor~S. Diatchki and Mark~P. Jones.
+\newblock Strongly typed memory areas programming systems-level data structures
+  in a functional language.
+\newblock In {\em Haskell '06: Proceedings of the 2006 ACM SIGPLAN workshop on
+  Haskell}, pages 72--83, New York, NY, USA, 2006. ACM.
+
+\bibitem{5}
+Matthew Fluet and Greg Morrisett.
+\newblock Monadic regions.
+\newblock {\em SIGPLAN Not.}, 39(9):103--114, 2004.
+
+\bibitem{13}
+Matthew Fluet and Riccardo Pucella.
+\newblock Phantom types and subtyping.
+
+\bibitem{12}
+Matthew Fluet and Riccardo Pucella.
+\newblock Practical datatype specializations with phantom types and recursion
+  schemes.
+
+\bibitem{11}
+Ralph Hinze and J.~Cheney.
+\newblock Phantom types.
+
+\bibitem{4}
+Oleg Kiselyov and Chung chieh Shan.
+\newblock Position: Lightweight static resources: Sexy types for embedded and
+  systems programming.
+\newblock In {\em In TFP ’07, the 8 th Symposium on Trends in Functional
+  Programming}, 2007.
+
+\bibitem{8}
+Oleg Kiselyov, Simon Peyton~Jones, and Chung-chieh Shan.
+\newblock Fun with type functions.
+\newblock {\em Reflections on the Work of C. A. R. Hoare}, pages 303--333.
+
+\bibitem{7}
+Oleg Kiselyov and Chung-chieh Shan.
+\newblock Lightweight static capabilities.
+\newblock {\em Electron. Notes Theor. Comput. Sci.}, 174(7):79--104, 2007.
+
+\bibitem{3}
+Oleg Kiselyov and Chung-chieh Shan.
+\newblock Lightweight monadic regions.
+\newblock In {\em Haskell '08: Proceedings of the first ACM SIGPLAN symposium
+  on Haskell}, pages 1--12, New York, NY, USA, 2008. ACM.
+
+\bibitem{9}
+Erik Meijer and Peter Drayton.
+\newblock Static typing where possible, dynamic typing when needed: The end of
+  the cold war between programming languages.
+
+\bibitem{6}
+Tim Sheard and Simon~Peyton Jones.
+\newblock Template meta-programming for haskell.
+\newblock In {\em Haskell '02: Proceedings of the 2002 ACM SIGPLAN workshop on
+  Haskell}, pages 1--16, New York, NY, USA, 2002. ACM.
+
+\bibitem{1}
+Philip Wadler.
+\newblock How to declare an imperative.
+\newblock {\em ACM Comput. Surv.}, 29(3):240--263, 1997.
+
+\end{thebibliography}

@@ -1,0 +1,199 @@
+In this Appendix we present the meta-programming technique known as \textit{monads} \cite{APPENDIX_G_NOTIONS_OF_COMPUTATION_AND_MONADS}. Monads are used to express different ways of interpreting computations, and their adoption is fueled by their expressive power. Monads are so flexible as to be able to represent very different computational constructs, ranging from list comprehensions, to exception handling, to I/O, to concurrent computations, etc. \cite{APPENDIX_G_IMPERATIVE_FP, APPENDIX_G_ESSENCE_OF_FP, APPENDIX_G_COMPREHENDING_MONADS}. It may be useful to notice that even though the term "monad" derives from category theory, the usage of monads in computer science is slightly different and is more closely related to the concept of \textit{strong monad} in category theory \cite{APPENDIX_G_CATEGORY_THEORY}. As a side-note, the use of monads has been pioneered in functional programming languages, but imperative programming languages are starting to use them, as is the case with C\# LINQ \cite{CHAPTER_1_PL_INFLUENCE_ON_CURRENT_LANGUAGES} and \texttt{async/await} \cite{APPENDIX_G_CSHARP_ASYNC}.
+
+Monads are data structures that represent computations instead of just data; in addition to the monad type, a programmer also defines operations that chain (or "bind") instances of that type together. Since monads represent computations, chaining monad instances creates \textit{pipelines} of data processing. Each chaining action is decorated with additional rules provided by the monad, so that the programmer may be saved from the effort of having to write boilerplate code by those processing rules that are inserted automatically in the pipeline. The granularity of monadic chaining operations is such that monads are sometimes described in terms of a "programmable semicolon", that is monads redefine the semantics of a programming language \textit{statement} \cite{APPENDIX_G_CATEGORY_THEORY}.
+
+Purely functional programming languages such as Haskell have pioneered the use of monads to define sequenced operations such as IO, stateful memory with variables, flow control with exceptions, or concurrency. Monads are also used in languages that already feature the above mentioned constructs, in order to simplify handling complex operations such as parsing \cite{APPENDIX_G_MONADIC_PARSERS}, nondeterminism, continuations, list processing, and more. In both cases, monads are used to extend a language without significant changes to the original semantics of the language. Moreover, since monads can add operations that are centered on the program's domain logic, they can be seen as a form of aspect-oriented programming \cite{APPENDIX_G_MONADS_AND_ASPECTS}.
+
+Formally, a monad is defined as a type-constructor \texttt{M<'a>}, a chaining operation \texttt{bind : M<'a> * ('a -> M<'b>) -> M<'b>}, and an initialization operation (that creates instances of a monad) \texttt{return : 'a -> M<'a>}. In most contexts, and in Casanova coroutines as well, a monad can be seen as an action that will (eventually) return a value of type \texttt{'a}. The return operation takes a values from a plain type \texttt{'a} and inserts it into a monadic container of type \texttt{M<'a>}. The bind operation chains a monadic value where the final action is chosen based on the result of the previous actions.
+
+\paragraph{Monad sample}
+We now consider a few standard, basic monads: \textit{maybe}, \textit{list}, and \textit{state}.
+
+The first sample is the \textit{maybe monad}, which encapsulates operations that manipulate option types. This automates checking for null values and chaining operations that may return null results in case of an error or an unhandled case. The maybe monad is defined simply as \texttt{type Maybe<'a> = Just of 'a | None}. Creating a value of the maybe monad invokes the \texttt{Just} constructor as follows:
+
+\begin{lstlisting}
+let return x = Just x
+\end{lstlisting}
+
+Chaining two operations together checks if the first one has returned a null result. In this case, then the chain cannot proceed and the monad will just propagate the null value; otherwise, the chain will pass the result of the first computation into the second and return the seconds' result:
+
+\begin{lstlisting}
+let bind(p:Maybe<'a>, k:'a->Maybe<'b>):Maybe<'b> =
+  match p with
+  | None -> None
+  | Some x -> k x
+\end{lstlisting}
+
+In the following, we will be using the \texttt{let!} notation of F\#, that simply translates into an invocation of the bind operator:
+
+\begin{lstlisting}
+let! x = p in q  $\equiv$ bind(p, fun x -> q)
+\end{lstlisting}
+
+With the \texttt{let!} notation, instead of writing long chains of nested invocations to the bind and return operators, we can simply use a sequence of monadic bindings. Such a sequence will often look as if the language supported the monadic construct as a first class construct, but without necessitating a whole extension to the language syntax and semantics.
+
+Thanks to the maybe monad we can define chains of operations that may fail at any time, without having to explicitly check for failure because the monad automatically does so for us. For example, suppose we wish to find an allied ship that is under attack, and to send one of our ships to the rescue: we need to check if indeed there are allied ships in distress, and if we have ships available to send. With the maybe monad, we do not perform any check, and we just write:
+
+\begin{lstlisting}
+maybe{
+  let! under_attack = allied_ships |> Seq.tryFind is_under_attack
+  let! closest_friendly = own_ships |> Seq.tryMinBy (distance under_attack)
+  do closest_friendly.Target := under_attack.Attackers |> Seq.head
+}
+\end{lstlisting}
+
+where \texttt{Seq.tryFind} has signature \texttt{('a -> bool) -> Seq<'a> -> Option<'a>}, that is it returns the first item that respects a given predicate, or if no such item exists then it returns \texttt{None}.
+
+Another common monad is the \textit{list monad}, which relevance is increased by the fact that it acts as the foundation for list comprehensions and sequence generators. The list monad abstracts away those operations that generate a list combining other lists together. The list monad datatype is the inductive list definition: \texttt{type List<'a> = 'a :: List<'a> | []}. The return operator simply creates a list with a single element:
+
+\begin{lstlisting}
+let return x = [x]
+\end{lstlisting}
+
+The binding operator takes an input list and an operation that creates a list for every element of the input list. It applies the operation to all the elements in the input list, obtaining a list of lists (of type \texttt{List<List<'b>}\texttt{>}). Finally, it returns the concatenation of all those lists, which is the desired result of type \texttt{List<'b>}:
+
+\begin{lstlisting}
+let bind(l:List<'a>, k:'a->List<'b>):List<'b> =
+  List.map k l |> List.concat
+\end{lstlisting}
+
+With the list monad, it is very simple to define operations that generate lists starting from other lists, and other operations. For example, suppose we wish to transform all the elements of a list by incrementing them by one:
+
+\begin{lstlisting}
+let add_one l =
+  list{
+    let! x = l
+    return x + 1
+  }
+\end{lstlisting}
+
+Similarly, we could filter away all the elements that do not satisfy a certain predicate (such as even numbers) from a list:
+
+\begin{lstlisting}
+let remove_even l =
+  list{
+    let! x = l
+    if x \% 2 = 0 then
+      return x + 1
+  }
+\end{lstlisting}
+
+The list monad also allows us to easily create Cartesian products, for example to find all the pairs of colliding asteroids and plasma balls:
+
+\begin{lstlisting}
+let find_colliders asteroids plasma_balls =
+  list{
+    let! a = asteroids
+    let! p = plasma_balls
+    if distance(a,p) < 25.0<m> then
+      return (a,p)
+  }
+\end{lstlisting}
+
+In languages such as F\#, the list monad acts as the foundation for list comprehensions, a form of syntactic sugar to create lists with easily readable code. For example, the code above could be rewritten into:
+
+\begin{lstlisting}
+let find_colliders asteroids plasma_balls =
+  [
+    for a in asteroids do
+      for p in plasma_balls do
+        if distance(a,p) < 25.0<m> then
+          yield (a,p)
+  ]
+\end{lstlisting}
+
+With list comprehensions, instead of \texttt{let! ID = EXPR in EXPR} we write \texttt{for ID in EXPR do EXPR}, and instead of \texttt{return} we write \texttt{yield} (see also Appendix \ref{chap:fsharp}).
+
+List comprehensions also act as the foundation for techniques that evaluate sequence operations on a database (LINQ), or in parallel on multiple cores (PLINQ).
+
+The final monad we consider is the \textit{state monad}. The state monad, which is quite similar to our coroutine monad, allows us to handle a series of computations that all access the same global state, without the need to pass this state around explicitly. The state monad data-type is defined as a function that takes as input the state, performs some operations on it, and finally returns the new state (which could be unchanged). The state is returned paired with the result of the stateful computation:
+
+\begin{lstlisting}
+type State<'s,'a> = 's -> 'a * 's
+\end{lstlisting}
+
+The return operation creates a computation that just returns a certain value; this operation simply ignores the state received as input:
+
+\begin{lstlisting}
+let return x = fun s -> (x,s)
+\end{lstlisting}
+
+The bind operator takes as input two stateful computations: one that returns a value of type \texttt{'a}, and the other that takes as input the returned value of the first before performing its own computation:
+
+\begin{lstlisting}
+let bind(p:State<'s,'a>, k:'a->State<'s,'b>):State<'s,'b> =
+  fun s ->
+    let s1,a = p s
+    in k a s
+\end{lstlisting}
+
+Consider building a small virtual machine that performs certain computations on its own stack of integers, and where the stack is implicit and is the state of a state monad:
+
+\begin{lstlisting}
+type CPUState = State<Stack<int>, Unit>
+
+let nop = return()
+let push x = fun s -> x::s,()
+let pop = fun (x::s) -> s,()
+let add = fun (x::y::s) -> (x+y)::s
+let sub = fun (x::y::s) -> (x-y)::s
+let mul = fun (x::y::s) -> (x*y)::s
+let div = fun (x::y::s) -> (x/y)::s
+\end{lstlisting}
+
+We now have a small interpreter capable of running assembly programs like:
+
+\begin{lstlisting}
+state{
+  do! push 10
+  do! push 5
+  do! push -3
+  do! add
+  do! div
+}
+\end{lstlisting}
+
+The state monad by itself is of little use in a language that already supports writing variables and other imperative operations. It becomes far more interesting when binding or return operations that access the state do so in some "useful" manner, for example, pausing the computation, adding some synchronization logic across different threads, and so on.
+
+An important property of monads is that they may be mixed together. The above sample for the state monad requires that the developer does not perform operations on an empty stack. Such steep requirement, which may lead to unhandled exceptions, may be relaxed by using a combination of the state and maybe monads. This way, combining the two monads we may handle exceptions in imperative computations:
+
+\begin{lstlisting}
+type MaybeState<'s,'a> = 's -> Maybe<'a * 's>
+\end{lstlisting}
+
+The return operation creates a computation that just returns a certain value. This operation simply ignores the state it receives as input:
+
+\begin{lstlisting}
+let return x = fun s -> Just(x,s)
+\end{lstlisting}
+
+The bind operator takes as input two stateful computations: one that returns a value of type \texttt{'a}, and the other that takes as input the returned value of the first before performing its own computation. The second computation is invoked only if the first result is not null:
+
+\begin{lstlisting}
+let bind(p:MaybeState<'s,'a>, k:'a->MaybeState<'s,'b>):MaybeState<'s,'b> =
+  fun s ->
+    match p s with
+    | Just(s1,a) -> k a s
+    | None -> None
+\end{lstlisting}
+
+\paragraph{Formal definition}
+Formally, a monad is an embedding of the monadic type system (that is, roughly, all types \texttt{M<'a>}) into the underlying type system of the host language. The monadic type system preserves the significant aspects of the underlying type system, while adding specific features that depend on the monad implementation.
+
+The monad itself is defined in terms of its Kleisli triple of monadic type constructor, a binding operator, and a unit operator: \texttt{M, M<'a>->('a->M<'b>)->M<'b>, 'a->M<'a>}. The monadic type constructor is simply the polymorphic monad data-type. The unit operator maps a value from the underlying type system into the monadic type system, while decorating the underlying value with the least possible additional information, thereby creating the "smallest" monadic value that still preserves the original value. The bind operator usually is explained in terms of four stages: \textit{(i)} the monad-related structure is unpacked, generating some (zero, one, or more) values of the underlying type; \textit{(ii)} the given function is applied to all those values, obtaining new instances of the resulting monad; \textit{(iii)} these values are also unpacked, exposing all the transformed values; \textit{(iv)} finally, the monad is reassembled over all the final results, and the final instance of the monad is returned.
+
+Monads are also characterized by two axioms. These axioms guarantee the well-formedness of a monad, but monads may find use in practice even if the axioms are not respected. The first axiom concerns the neutrality of the return operator with respect to bind:
+
+\begin{lstlisting}
+bind((return x),f) $\equiv$ f x
+bind(m,return) $\equiv$ m
+\end{lstlisting}
+
+The second axiom states that, when binding, then the order of association does not matter:
+
+\begin{lstlisting}
+bind(bind(m, f),g) $\equiv$ bind(m,(fun x -> bind(f x,g)))
+\end{lstlisting}
+
+\paragraph{Conclusion}
+To sum up, monads are a powerful meta-programming construct that allows to extend a language with new features. The granularity of monads means that the extensions they provide is often smoothly integrated with the host language. Moreover, monads can be combined together in order to reap the benefits of multiple monads in one. Finally, monads are a programming construct that is well-grounded in theoretical Computer Science. Theoretical studies tell us what axioms a monad should respect in order to be well formed, but they also offer further inspiration. Such inspiration comes in the form of ulterior abstraction mechanisms that can guide and inspire developers who are building even more general and abstract mechanisms.

@@ -1,0 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% solution_workflow.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In Figure \ref{fig:solution_workflow} we can see a diagram depicting the steps used by our system when processing an X3D scene (plus its accompanying scripts). In the figure red blocks represent data while the blue blocks represent computations.
+We start with an X3D file which describes our scene. This file may contain some scripts in its \texttt{script} nodes or the scripts may be stored into an external file. There are two layers of transformations described by our system, but only the second has been actually implemented:
+\begin{itemize}
+\item a transformation from the original scripts into our F\# scripts
+\item a transformation from the original X3D file into the final program
+\end{itemize}
+
+Our system starts by translating the X3D scene into F\# source code. This source code contains a type definition that describes the entire scene, plus an update function that performs a step of the virtual world simulation (by activating routes and scripts).
+
+Scripts are then validated against our type definition, to ensure that they correctly access the scene. If their validation succeeeds, the final program is produced that integrates both scene and scripts.
+
+\begin{figure*}
+\begin{center}
+\includegraphics[scale=1.0]{Solution_workflow.png}
+\end{center}
+\label{fig:solution_workflow}
+\caption{Solution workflow}
+\end{figure*}
+

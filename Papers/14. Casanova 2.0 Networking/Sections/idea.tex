@@ -1,0 +1,614 @@
+In this section we describe the general approach of networking in Casanova 2.0. We discuss the architecture, the syntactic and semantic elements, and give a rough idea of how they work. We conclude the section with an in-depth example that shows how to build a small game with a lobby with Casanova 2.0.
+
+\subsection{Architecture}
+The architecture of Casanova networking is peer-to-peer. This choice is motivated by the fact that by nature none of the players is significantly more important than the others, and clients may disconnect (because of faults or purposefully because of their users) at all times. A peer-to-peer architecture also has the advantage that each instance is only responsible for a subset of entities: usually those that were generated locally in that instance. A peer-to-peer architecture is compared to a more traditional host-clients architecture where one of the player is the \textit{game host}. The game host usually contains the latest version of the game world, and acts as the latest, authoritative version of the game which all clients are eventually forced to show on their local screens. The advantages of peer-to-peer are various. Peer-to-peer allows us to naturally build systems where computational load is distributed across the various clients. For example, AI that drives the game entities may be run only for the local entities, while the remote ones spawned on the other clients are just synchronized across the net. Also, if a client has transmission problems, then he will not necessarily disrupt the game for all players. Only interactions with him will be problematic, but interactions with other, accessible clients are still possible. In a host-clients architecture, on the other hand, the host is responsible for most computations (such as AI), so the host machine needs to be significantly more powerful than that of the other players. Also, if the host leaves the game, then the game will suffer from issues that range from just quitting the game for all other players, to lengthy waits as a client is promoted to become the new host, etc.
+
+\subsection{Ownership of entities}
+In Casanova, entities have a concept of ownership. The instance of the game where an entity is constructed is called the \textit{local} of the entity. The instances of the game that received that entity across the net, on the other hand, are called the \textit{remotes} of the entity. This means that each entity can have two sets of rules: one for its local instance, and one for its remote instances. The local rules will usually (but not necessarily) update the internal logic of the entities that are locally owned, and send (some of) the updates to the remotes. The remote rules will usually (but not necessarily) receives the updates from the local and potentially interpolate the values in order to give a perception of smoothness.
+
+\subsection{Connection primitives}
+Casanova supports the concept of connection and disconnection. Each entity may specify what transmissions (or even logic) happens when a new instance of the game connects to the current instances. \textit{local connections} will usually send the locally owned entity to the new instance. \textit{remote connections} will usually receive the remotely owned entity from existing instances, and add it to the game world.
+
+\subsection{Transmission primitives}
+In order to be able to send and receive data in a convenient manner, Casanova offers three primitives: \texttt{send}, \texttt{receive},  \texttt{send\_reliable}, and \texttt{receive\_many}. The different versions of \textit{send} are used, respectively, for sending data without confirmation or with confirmation. Confirmation is more expensive in terms of used bandwidth, and can be used when a value \textit{needs} to be transmitted correctly in order to ensure the functioning of the game. The different versions of \textit{receive} are used, respectively, to receive a value from a single instance or from all the current other instances of the game. \texttt{receive\_all} is akin to primitives such as \texttt{gather} in the MPI framework.
+
+Send and receive are generic primitives, meaning that they are capable of full serialization of more complex values. This allows a significant simplification with respect to network libraries which only can transmit elementary data types, because it can be used to hide large and complex transmissions of compound data types without any programmer intervention. This can greatly reduce the amount of bugs that derive from misaligned transmissions such as sending a value on one instance but not receiving it on the other instance. 
+
+Finally, we take advantage of type inference. This means that, even though we could write \texttt{send<T>(x)}, the type inference engine automatically determines, from the parameter \texttt{x} itself, the type \texttt{T}. This allows us to write the much simpler \texttt{send(x)} (the same applies to all other networking primitives).
+
+\subsection{Samples}
+In this section we discuss some samples in order to see the Casanova networking primitives in action. We will only show the internal logic of the samples, and the synchronization primitives and the communication protocols. We purposefully avoid showing any rendering code or complex game logic, as that is out of the scope of this work.
+
+\subsubsection{A simple chat}
+The first example we see is very simple: an unregulated chat where any new instance of the game can directly add a line to the shared chat lines.
+
+The game world, which represents the main data structure that contains the game data and the rules for a whole instance of the game, is made up of only three fields: the name of the local player, the text of the chat so far, and the text that makes up the line that the local player is writing:
+
+\begin{lstlisting}
+world Chat = {
+  Name              : string
+  Text              : string
+  Line              : string
+  Keyboard          : Keyboard
+\end{lstlisting}
+
+We now specify a series of rules. Rules define how one (or more) fields are updated as time progress in the game or certain events take place (for example key presses). The main rule that governs the dynamics of the chat game will update the \texttt{Line} and \texttt{Text} fields; we see this from the rule header:
+
+\begin{lstlisting}
+  rule Line -> Line,Text =
+\end{lstlisting}
+
+The rule waits until enter is pressed. When this happens, we send the current \texttt{Line} prefixed by the local user \texttt{Name}. We then reset the local value of \texttt{Line} to the empty string, and add that string to the \texttt{Text}:
+
+\begin{lstlisting}
+    wait_until(from c in Line
+               exists_by c = '\n')
+    send_reliable(Line)
+    yield "", Text + Line
+\end{lstlisting}
+
+Whenever a character is pressed, then we add it to the line we are writing:
+
+\begin{lstlisting}
+  rule Keyboard -> Line =
+    wait_until (Keyboard.PressedChars <> [])
+    yield Line + Keyboard.PressedChars
+\end{lstlisting}
+
+There is also a rule that, in parallel to the previous one, waits until a string is received from one of the other clients and appends it to the \texttt{Text}:
+
+\begin{lstlisting}
+  rule Text -> Text =
+    yield Text + receive()
+\end{lstlisting}
+
+Finally, we specify the \texttt{Create} function that initializes the game world. In this case we take as input the local user name, and use it to initialize the \texttt{Name} field. All other fields start as empty strings:
+
+\begin{lstlisting}
+  Create(own_name) = 
+    {
+      Name     = own_name
+      Text     = ""
+      Line     = ""
+      Keyboard = Keyboard.Create()
+    }
+}
+\end{lstlisting}
+
+\subsubsection{A game lobby}
+We now discuss a more complex example: a game lobby (or just \textit{lobby)}. A lobby allows a group of players to coordinate, chat, and in general choose game options right before the game starts. The lobby is an especially interesting case study because it features all elements of a networked game, such as connections, transmissions, and even a bit of non-trivial sequential protocols.
+
+We begin with the lobby data structure. The lobby contains one field for the local player and a list of other (remote) players that are connected to the game:
+
+\begin{lstlisting}
+world Lobby = {
+  Self     : LobbyPlayer
+  Others   : List<LobbyPlayer>
+\end{lstlisting}
+
+When a new instance of the game connects to the game, then all existing instances run once the rules inside their \texttt{local connect} scope:
+
+\begin{lstlisting}
+  local {
+    connect{
+\end{lstlisting}
+
+In our case, the existing instances will all reliably send their local players, which are all received with \texttt{receive\_many}. Those players will be stored in the \texttt{Others} list, and used to find a free position for the local player. The local player is then re-created with the new position and sent to the other instances:
+
+\begin{lstlisting}
+      rule Self, Others -> Self, Others =
+        let others = receive_many()
+        let max_x = 
+          maxby p in others
+          select p.StartPosition.X
+        let self = { Self 
+                     with Position.X = max_x + 5.0f<pixel> }
+        yield +send_reliable(self), others
+    }
+  }
+\end{lstlisting}
+
+The other instances of the game simply do the opposite operation upon connection of a new player, inside the \texttt{remote connect} block.
+
+\begin{lstlisting}
+  remote {
+    connect {
+\end{lstlisting}
+
+First the new instance (reliably) sends its own local player. We receive the new player instance which was just computed remotely and store it locally in the \texttt{Others} list:
+
+\begin{lstlisting}
+      rule Self,Others -> Others =
+        send_reliable(Self)
+        let new_player = receive()
+        yield Others + new_player
+    }
+  }
+\end{lstlisting}
+
+We wait until each player declares to be ready, and then we change the game world by switching from the lobby to the main arena:
+
+\begin{lstlisting}
+  rule Self,Others -> CurrentWorld = 
+    wait_until(Self.Ready)
+    wait_until(forall p in Others
+               select p.Ready)
+    yield Arena.Create(Self)
+\end{lstlisting}
+
+When the lobby is created, then it takes as input the string that contains the name of the local player and initializes the players list with only that player (put in the origin):
+
+\begin{lstlisting}
+  Create(own_name) = {
+    Self   = Players.Create(own_name, Vector2.Zero)
+    Others = []
+  }
+}
+\end{lstlisting}
+
+The player entity contains the name of the player, a boolean which signals whether or not that player is ready to play or wishes to remain in the lobby a bit more, and the starting position:
+
+\begin{lstlisting}
+entity LobbyPlayer = {
+  Name            : string
+  Ready           : bool
+  StartPosition   : Vector2<pixel>
+  Keyboard        : Keyboard
+\end{lstlisting}
+
+The entity performs a simple local computation: it waits until the user has pressed the \texttt{Enter} key, and then assigns to its own \texttt{Ready} field the \texttt{true} value. The entity also sends the value \texttt{true} to all of its own remote versions in other instances:
+
+\begin{lstlisting}
+  local {
+    rule Keyboard, Ready = 
+      wait_until Keyboard.EnterPressed
+      yield+send_reliable true
+\end{lstlisting}
+
+As a safeguard, we also force all players to automatically declare that they are ready after \texttt{30} seconds, in order to avoid players who keep others waiting for too long:
+
+\begin{lstlisting}
+    rule () -> Ready = 
+      wait(30.0f<s>)
+      yield+send_reliable true
+  }
+\end{lstlisting}
+
+The remote version of the entity in other game instances simply waits to receive its own \texttt{Ready} message, which it assigns locally:
+
+\begin{lstlisting}
+  remote {
+    rule () -> Ready = 
+      yield receive()
+  }
+\end{lstlisting}
+
+Finally, we create a lobby player from a name and an initial position. The player is initialized as not ready:
+
+\begin{lstlisting}
+  Create(name, p) = 
+    {
+      Name          = name
+      Ready         = false
+      StartPosition = p
+    }
+}
+\end{lstlisting}
+
+
+\subsubsection{Game arena}
+In this section we discuss how a simple game arena can be defined with Casanova and its networking facilities. In the game we simply have a series of ships, one controlled by the player and others controlled by remote players. When a player shoots, he adds a projectile to his list of locally controlled projectiles. Projectiles are synchronized between instances, so that the projectiles created on an instance are \textit{shown} (but have no real effect on the world) on the other game instances. When an instance of the game registers a hit of one of its \textit{local} projectiles, then it locally adds a \textit{hit} which it also synchronizes with the other instances. When an instance of the game receives a hit on its locally owned ship, then, it registers damage on itself.
+
+In short, \textit{local ships check for messages that tell them they have been hit}, while \textit{hits are registered with the owner of the hitting projectile}.
+
+The arena world contains the ship of the local player and those of the remote players:
+
+\begin{lstlisting}
+world Arena = {
+  Self		: Ship
+  Others	: List<Ship>
+\end{lstlisting}
+
+When the instance connects to others, it reliably sends its own local ship and receives the ships of the other instances:
+
+\begin{lstlisting}
+  local {
+    connect {
+      rule Self -> Others = 
+      	send_reliable(Self)
+      	yield receive_many()
+    }
+  }
+\end{lstlisting}
+
+When the instance connects to others, the others receive its ships and add them to the \texttt{Others} list, and send their own local ship:
+
+\begin{lstlisting}
+  remote {
+    connect {
+      rule Self,Others -> Others = 
+      	let new_other = receive()
+      	send_reliable(Self)
+      	yield Others + new_other
+    }
+  }
+\end{lstlisting}
+
+We create the local instance of the game from the \texttt{LobbyPlayer} that we defined in the previous section. We simply use the starting position to initialize the local ship, and start the instances of the other players as an empty list:
+
+\begin{lstlisting}
+  Create(self:LobbyPlayer) =
+    {
+      Self    = Ship.Create(self.StartPosition)
+      Others  = []
+    }
+}
+\end{lstlisting}
+
+The ship entity contains many fields. On one hand, it stores the position, velocity, and health:
+
+\begin{lstlisting}
+entity Ship = {
+  Position    : Vector2<pixel>
+  Velocity    : Vector2<pixel/s>
+  Health      : float<health>
+\end{lstlisting}
+
+The ship also contains the list of projectiles that it has shot so far:
+
+\begin{lstlisting}
+  Shots       : List<Projectile>
+\end{lstlisting}
+
+Whenever another ship is hit by one of the local projectiles, then it is added to the list of \texttt{Hits}. The hits are synchronized so that other instances of the game can register damage to their local ships when it is hit by remote instances. Notice that we store the hit ships as \texttt{Ref}, because we just store a pointer to them, which Casanova will then skip when updating and drawing the various entities:
+
+\begin{lstlisting}
+  Hits        : List<Ref<Ship>>
+\end{lstlisting}
+
+The local instance of a ship updates and sends the position and the velocity with \texttt{yield+send}, which at the same time updates the local value of a field and sends it across the network. Some input-specific code determines how the ship turns and changes direction of movement:
+
+\begin{lstlisting}
+  local {
+    rule Position,Velocity -> Position = 
+      yield+send Position + Velocity * dt
+    rule ... -> Velocity = 
+      ... input-specific code
+      yield+send ...
+\end{lstlisting}
+
+The ship also registers its updated health by subtracting the number of hits from others to itself:
+
+\begin{lstlisting}
+    rule World.Others, Health -> Health = 
+      yield+send(
+        Health - from o in world.Others
+                 from h in o.Hits
+                 where h = Self
+                 select 1
+                 sum)
+\end{lstlisting}
+
+Whenever the ship registers a new shot, it sends it across the network and also stores it to the \texttt{Shots} list:
+
+\begin{lstlisting}
+    rule Shots, ... -> Shots = 
+      ... input-specific code
+      let new_shot = ...
+      send(new_shot)
+      yield new_shot + Shots
+\end{lstlisting}
+
+We split the current shots into two lists. On one hand, we keep the shots which have not yet hit any \texttt{Other} ship and we put them into \texttt{shots'}. On the other hand, we find all the hits that were hit by at least one shot and we put the into \texttt{hits'}. We reliably send these new hits across the network, because we need to communicate to other instances that they need to ``damage themselves'', and we must do so reliably because the hitting event is very important. We also locally keep the new hits and the new shots:
+
+\begin{lstlisting}
+    rule Hits,Shots -> Hits,Shots = 
+      ... partition Shots into shots and hits
+      let hits',shots' = ... 
+      send_reliable(hits')
+      yield hits', shots'
+  }
+\end{lstlisting}
+
+Remote instances of a ship receive all the values of updated position, velocity, and health:
+
+\begin{lstlisting}
+  remote {
+    rule () -> Position = yield receive()
+    rule () -> Velocity = yield receive()
+    rule () -> Health = yield receive()
+\end{lstlisting}
+
+Whenever a new shot is received, then it is added to the local list:
+
+\begin{lstlisting}
+    rule Shots -> Shots = 
+      let new_shot = receive()
+      yield new_shot + Shots
+\end{lstlisting}
+
+Whenever a new set of shots is received, we wait for a tick (so that they can be processed by reducing the health of the local ship as needed) and then remove them:
+
+\begin{lstlisting}
+    rule () -> Hits = 
+      yield receive()
+      yield []
+  }
+\end{lstlisting}
+
+Inactive shots are removed from the list of shots. This is done outside either the \texttt{local} or the \texttt{remote} blocks, and as such even remote instances of a ship will remove inactive projectiles:
+
+\begin{lstlisting}
+  rule Shots -> Shots = 
+    from s in Shots
+    where s.Active
+    select s
+\end{lstlisting}
+
+We create a ship from an initial position and with full health, no shots, and no hits:
+
+\begin{lstlisting}
+  Create(p) =
+    {
+      Position = p
+      Velocity = Vector2.Zero
+      Health   = 100.0<health>
+      Shots    = []
+      Hits     = []
+    }
+}
+\end{lstlisting}
+
+The projectile, similarly to the ship, contains a position, a velocity, and an \texttt{Active} flag to determine when the projectile is to be removed:
+
+\begin{lstlisting}
+entity Projectile = {
+  Position    : Vector2<pixel>
+  Velocity    : Vector2<pixel/s>
+  Active      : bool
+\end{lstlisting}
+
+All projectiles, regardless of whether they are local or remote, update their position according to the usual physical rules:
+
+\begin{lstlisting}
+  rule Position,Velocity -> Position = 
+    yield Position + Velocity * dt
+\end{lstlisting}
+
+The local instance of a projectile sends, every few seconds, the position and the velocity to the remote instances:
+
+\begin{lstlisting}
+  local {
+    rule Position -> Position =
+      wait 5.0<s>
+      send(Position)
+    rule Velocity -> Velocity =
+      wait 10.0<s>
+      send(Velocity)
+\end{lstlisting}
+
+After twenty seconds the projectile is registered both locally and remotely as inactive:
+
+\begin{lstlisting}
+    rule () -> Active =
+      wait 20.0<s>
+      yield+send_reliable false
+  }
+\end{lstlisting}
+
+The remote versions receive the sent values:
+
+\begin{lstlisting}
+  remote {
+    rule () -> Position = 
+      yield receive()
+    rule () -> Velocity =
+      yield receive()
+    rule () -> Active =
+      yield receive()
+  }
+\end{lstlisting}
+
+Finally, we create a projectile from its position and velocity, and we set it to \texttt{Active}:
+
+\begin{lstlisting}
+  Create(p,v) =
+    {
+      Position = p
+      Velocity = v
+      Active   = true
+    }
+}
+\end{lstlisting}
+
+
+\subsubsection{Disconnection}
+Disconnection is not handled with explicit primitives. Rather, disconnection can be handled with a mixture of the networking primitives that we have seen so far and the default primitives that Casanova offers.
+
+We add to the entity that handles disconnection a boolean flag and a time stamp. One flag is for disconnection, the other is for pings:
+
+\begin{lstlisting}
+Disconnected : bool
+LastPing     : Time
+\end{lstlisting}
+
+The local instance of an entity sends a ping every few seconds that signals that the entity is not disconnected. The ping is of type \texttt{Unit}, meaning that it contains no data whatsoever:
+
+\begin{lstlisting}
+local {
+  rule () -> LastPing =
+    wait 5.0<s>
+    send()
+}
+\end{lstlisting}
+
+The remote instance reads the ping messages and resets the last ping time whenever it receives something:
+
+\begin{lstlisting}
+remote {
+  rule () -> LastPing =
+    receive()
+    yield Now()
+\end{lstlisting}
+
+If no ping has been received within a reasonable time, then we set the \texttt{Disconnected} flag to true:
+
+\begin{lstlisting}
+  rule LastPing -> Disconnected =
+    wait (Now() - LastPing > 30.0<s>)
+    yield true
+}
+\end{lstlisting}
+
+As a side note, when an instance is communicating with another one from \textit{inside a rule}, within a complex protocol, then in case of disconnection between one of the parties the rule execution will be aborted midway. This is needed in order to prevent protocols stuck midway (after the other party disconnected) and stealing messages from other communications.
+
+\subsubsection{Verbose syntax}
+In some cases, the type of the message is ambiguous inside an entity. For example, when transferring multiple boolean flags, the language may be unable to understand when to receive one message or the other.
+
+Consider an entity that contains two boolean fields, \texttt{A} and \texttt{B}:
+
+\begin{lstlisting}
+A : bool
+B : bool
+\end{lstlisting}
+
+The local instance of the entity updates \texttt{A} and \texttt{B} according to some internal logic, such as input, AI, etc.:
+
+\begin{lstlisting}
+local {
+  ... logic for updating A and B
+\end{lstlisting}
+
+Both \texttt{A} and \texttt{B} are sent across the network to the remote instances:
+
+\begin{lstlisting}
+  rule A -> A = yield+send(A)
+  rule B -> B = yield+send(B)
+}
+\end{lstlisting}
+
+The remote instances try to receive \texttt{A} and \texttt{B}, but the compiler has no way to determine what the intention of a message was:
+
+\begin{lstlisting}
+remote {
+  rule () -> A = yield receive()
+  rule () -> B = yield receive()
+}
+\end{lstlisting}
+
+It may seem intuitively reasonable to match sends and receives depending on the rule name, but this can lead to a system which is too restrictive: it may be that the developer really wishes to swap \texttt{A} and \texttt{B} between the local and the remote.
+
+A better solution is to give a compiler error for ambiguous cases, and at the same to offer explicit \texttt{send} and \texttt{receive} primitives with a user-defined \textit{label}. Ambiguous communication operations will be matched depending on the label, and not only on the type:
+
+\begin{lstlisting}
+send[ID]<T>(E:T) : Unit
+receive[ID]<T>() : T
+\end{lstlisting}
+
+The example above would then become:
+
+\begin{lstlisting}
+local {
+  rule A -> A = yield+send[A]<bool>(A)
+  rule B -> B = yield+send[B]<bool>(B)
+}
+
+remote {
+  rule () -> A = yield receive[A]<bool>()
+  rule () -> B = yield receive[B]<bool>()
+}
+\end{lstlisting}
+
+Notice that we could also use labels which are not related to the names of the fields which are sent, for example to have more descriptive sources in the case where we swap the values of \texttt{A} and \texttt{B} \footnote{Imagine that \texttt{X} and \texttt{Y} are descriptive labels that capture the essence of the communication.}:
+
+\begin{lstlisting}
+local {
+  rule A -> A = yield+send[X]<bool>(A)
+  rule B -> B = yield+send[Y]<bool>(B)
+}
+
+remote {
+  rule () -> A = yield receive[Y]<bool>()
+  rule () -> B = yield receive[X]<bool>()
+}
+\end{lstlisting}
+
+\paragraph{A more complex motivation}
+Sending and receiving with an explicit ID for the operation is an advanced feature that is most often needed in complex scenarios. For this reason it is relatively hard to come up with a convincing, yet simple, example that uses it. It is possible, on the other hand, to describe the abstract class of game rules that may benefit from this kind of computation.
+
+Suppose that we have two fields in an entity. Field \texttt{A} is a boolean, and as such can be transmitted easily across instances with minimal bandwidth usage. Field \texttt{X}, on the other hand, has type \texttt{T}, which we assume to be \textit{too large} to transmit often across the network:
+
+\begin{lstlisting}
+A : bool
+X : T
+\end{lstlisting}
+
+There are a series of similar rules that all compute a new value for \texttt{A}, and use that value to compute a new value for \texttt{X}. Each rule uses a different way to compute both \texttt{A} and \texttt{X}:
+
+\begin{lstlisting}
+local {
+  rule A,X -> A,X = 
+    let A' = a1()
+    let X' = f1(A')
+    yield +send(A'), X'
+  rule A,X -> A,X = 
+    let A' = a2()
+    let X' = f2(A')
+    yield +send(A'), X'
+  ...
+  rule A,X -> A,X = 
+    let A' = aN()
+    let X' = fN(A')
+    yield +send(A'), X' 
+}
+\end{lstlisting}
+
+When we receive a value of \texttt{A}, we can compute the correct value of \texttt{X} without having to transmit it: 
+
+\begin{lstlisting}
+remote {
+  rule X -> A,X = 
+    let A' = receive()
+    let X' = f1(A')
+    yield A', X'
+  rule X -> A,X = 
+    let A' = receive()
+    let X' = f2(A')
+    yield A', X'
+  ...
+  rule X -> A,X = 
+    let A' = receive()
+    let X' = fN(A')
+    yield A', X'
+}
+\end{lstlisting}
+
+Unfortunately, the system has no way of determining which \texttt{send} is paired with which \texttt{receive}. For this reason we will have to tag each transmission with an appropriate ID to disambiguate:
+
+\begin{lstlisting}
+local {
+  rule X -> A,X = 
+    let A' = a1()
+    let X' = f1(A')
+    yield +send[ID1](A'), X'
+  rule X -> A,X = 
+    let A' = a2()
+    let X' = f2(A')
+    yield +send[ID2](A'), X'
+  ...
+}
+
+remote {
+  rule X -> A,X = 
+    let A' = receive[ID1]()
+    let X' = f1(A')
+    yield A', X'
+  rule X -> A,X = 
+    let A' = receive[ID2]()
+    let X' = f2(A')
+    yield A', X'
+  ...
+}
+\end{lstlisting}
+
+Thanks to this disambiguation the system now knows that the various \texttt{send} operations will only feed data in the appropriate \texttt{receive} slots.

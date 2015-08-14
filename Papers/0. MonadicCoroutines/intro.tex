@@ -1,0 +1,97 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% intro.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Computer games promise to be the next frontier in entertainment, with
+game sales having topped movie and music sales in 2010 \cite{ESA}. 
+This unprecedented market prospects and potential for computer-game 
+diffusion among end-users has created substantial interest 
+in research on principled design techniques and on 
+cost-effective development technologies for game architectures. 
+Our present endeavour makes a step along these directions. 
+
+The architecture of a computer game is centered around the game's
+underlying discrete simulation engine  \cite{DESIGN_PC_GAME_ENGINE}, 
+a complex piece of software which provides the core functionalities
+related to the {\em game content} -- most notably the game logic,
+determining the behavior of the various game characters -- 
+and at the same time acts as the central coordination unit among the
+different components of the architecture -- the rendering and graphic
+algorithms and  functions, the physics engine, the
+input-output/networking devices, $\dots$ and so on. 
+
+Given their inherent complexity, game engines are usually written in
+low-level languages in order to ensure the high performance figures
+required for a smooth playing experience. Unfortunately, the use of
+such languages has two main drawbacks. First, game logic and
+AI require very frequent changes and fine tuning throughout all
+phases of game development. As such, coding gameplay functionalities
+within the engine  implies long (re)compilation times and hence heavy
+design/development costs. Secondly, game logic and AI  
+are built, modified and maintained by game designers,  who are often
+rather inexperienced with computer programming concepts and
+techniques and hence may hardly operate effectively with low-level
+programming languages. 
+
+To counter these shortcomings, modern game architectures tend
+to support a clean separation between the development of the game
+engine and its content, with engines made \textit{scriptable}, so that
+their gameplay functionalities can be programmed without direct access
+to the engine internals and with a higher-level language. This is
+typically achieved by embedding into the game engine the virtual
+machine of the chosen language and by exporting the engine
+itself as an API for that language. Scripting then provides the
+ability to code major game functionalities directly within code
+snippets (the  scripts) that are interpreted by the game engine,
+without touching  the engine at all. This makes games highly
+customizable and at the  
+same time keeps the development costs under control by drastically
+reducing compilation time and greatly simplifying the scripting experience. 
+Games scripting has become common practice, to the point that most 
+commercial games nowadays come integrated either with off-the-shelf scripting 
+languages, most notably LUA \cite{SCRIPTING_LUA}, Python \cite{SCRIPTING_PYTHON} or
+C\# \cite{UNITY_YIELD}, or else with  in-house built
+languages \cite{UNREALSCRIPT_LATENT_FUNCTIONS}.   
+
+In the present paper, we propose a novel, statically typed game
+scripting language based on a monadic DSL \cite{MONADIC_DSL} built 
+on top of F\# \cite{FRIENDLY_FSHARP}. Our DSL combines the flexibility of programming
+abstractions comparable to those offered  by LUA with the benefits of
+strong, static typing. In addition, our DSL language supports a rather
+smooth integration between the execution model of the simulation
+engine, based on discrete-time updates of the game state, and the
+logic implemented  by the scripts, which typically encode actions that
+span multiple update time-slots. As in other scripting languages, this
+integration   is achieved by equipping our DSL with coroutines, which
+we encode  within the monadic operators for binding and return. As a
+result our DSL offers greater flexibility over coroutines which 
+are wired inside the virtual machine itself; this flexibility, 
+in turn, makes it possible to tailor our scripting system precisely
+around the requirements of the game, without knowledge about the (complex)
+internals of a virtual machine. Also, encapsulating coroutines inside
+a monad effectively makes them mostly transparent to the developer.
+Interestingly, the additional flexibility comes with very limited
+overhead: indeed, our scripts run faster than LUA's and at least as
+fast as C\# scripts. We have tested extensively our scripting system by
+using it in many projects, among which the most important is arguably
+\cite{GALAXY_WARS}, an upcoming strategy game that uses our scripts for
+managing most of its game logic, animating the world entities, handling
+user input and even implementing the networking subsystem. Our scripting 
+system also lends itself to be programmed through a visual editor for
+non-technical users, such as gameplay designers and others.
+
+\paragraph{Paper structure} Section \ref{sec:scripting_in_games} gives a
+brief review of game architectures and of the technical issues arising
+in scriptable engines. Section \ref{sec:script_monad} details the core 
+runtime of our DSL, while Section \ref{sec:script_combinators}
+develops the DSL itself as a library of combinators built
+around the core that support a powerful set of customized behaviors,
+and illustrates an actual example of our DSL at work in the
+development of a game. Section \ref{sec:benchmarks} presents our
+results, Section \ref{sec:visual_editor} discusses the introduction of a 
+visual environment to create scripts for non-technical users and Section 
+\ref{sec:conclusions} concludes the presentation.    
+
+
+
+

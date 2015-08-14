@@ -1,0 +1,89 @@
+\newcommand{\Sample}{\ensuremath{\mathsf{Sample}}}
+
+%\newcommand{\todo}[1]{\textbf{TODO:#1}}
+%\newcommand{\commentpietro}[1]{\textbf{Pietro says: } \textit{#1}}
+%\newcommand{\commentgiulia}[1]{\textbf{Giulia says: } \textit{#1}}
+\newcommand{\todogiulia}[1]{\footnote{\textbf{Todo GIULIA: #1}}}
+\newcommand{\todopietro}[1]{\footnote{\textbf{Todo PIETRO: #1}}}
+%\newcommand{\todogiuseppe}[1]{\footnote{\textbf{Todo GIUSEPPE: #1}}}
+\newcommand{\goodgap}{\hspace{1.536pt}}
+
+
+\newcommand{\Java}{\ensuremath{\mathsf{Java}}}
+\newcommand{\real}{\ensuremath{\mathbb{R}}}
+\newcommand{\integer}{\ensuremath{\mathbb{Z}}}
+\newcommand{\naturals}{\ensuremath{\mathbb{N}}}
+\newcommand{\Scala}{\ensuremath{\mathsf{Scala}}}
+\newcommand{\IVSF}{\ensuremath{\mathsf{IVSF}}}
+\newcommand{\TSF}{\ensuremath{\mathsf{TSF}}}
+\newcommand{\CSharp}{\ensuremath{\mathsf{C\#}}}
+\newcommand{\FSharp}{\ensuremath{\mathsf{F\#}}}
+
+\newcommand{\variables}{\ensuremath{\mathsf{Vars}}}
+
+\newcommand{\lfp}[2]{\ensuremath{\mathit{lfp}^{#1}_{#2} \hspace{2pt}}}
+\newcommand{\parts}[1]{\ensuremath{\wp(#1)}}
+\newcommand{\dom}[1]{\ensuremath{\cfunction{dom}(#1)}}
+\newcommand{\statement}[1]{\ensuremath{\mathtt{#1}}}
+\newcommand{\funzione}[2]{\ensuremath{#1 \rightarrow#2}}
+\newcommand{\pair}[2]{\ensuremath{#1 \times #2}}
+\newcommand{\cartesianproduct}[2]{\ensuremath{#1 \times #2}}
+\newcommand{\reducedproduct}[2]{\ensuremath{#1 \varotimes #2}}
+\newcommand{\true}{\cel{true}}
+\newcommand{\false}{\cel{false}}
+\newcommand{\booltop}{\cel{\top_B}}
+\newcommand{\reducefunction}{\afunction{red}}
+\newcommand{\gettype}{\afunction{getType}}
+\newcommand{\getstatictype}[1]{\cfunction{\sttype}(#1)}
+\newcommand{\sttype}{statictype}
+\newcommand{\abstractn}{abstract}
+\newcommand{\abstractfunction}[1]{\afunction{\abstractn}(#1)}
+
+
+\newcommand{\sequence}[1]{\ensuremath{#1^*}}
+\newcommand{\sem}[1]{\ensuremath{\llbracket \mathtt{#1} \rrbracket}}
+\newcommand{\semanticanome}[1]{\ensuremath{\mathbb{#1}}}
+\newcommand{\semantica}[2]{\ensuremath{\semanticanome{#1}\sem{#2}}}
+
+%Concreto
+
+%Dominio e semantica concrete
+\newcommand{\cset}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\ctrace}[1]{\ensuremath{\trace{{\cset{#1}}}}}
+\newcommand{\cel}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\cjoin}{\ensuremath{\cup}}
+\newcommand{\cmeet}{\ensuremath{\cap}}
+\newcommand{\corder}{\ensuremath{\subseteq}}
+\newcommand{\cbot}{\ensuremath{\emptyset}}
+\newcommand{\ctop}[1]{\cset{#1}}
+\newcommand{\cfunction}[1]{\ensuremath{\mathit{#1}}}
+\newcommand{\csemantics}[2]{\ensuremath{\semantica{#1}{#2}}}
+
+%Astratto
+
+%Dominio e semantica astratte
+\newcommand{\adomain}{\ensuremath{\mathcal{H}}} % D^\sharp}}
+\newcommand{\aset}[1]{\cset{\overline{#1}}}
+\newcommand{\ael}[1]{\cel{\overline{#1}}}
+\newcommand{\alub}{\ensuremath{\cup^\mathcal{H} }} %\sharp}}
+\newcommand{\aglb}{\ensuremath{\cap^\mathcal{H} }} %\sharp}}
+\newcommand{\awidening}{\ensuremath{\nabla_{\mathcal{H} }}} %D^\sharp}}}
+\newcommand{\aorder}{\ensuremath{\subseteq^\mathcal{H}}} %\sharp}}
+\newcommand{\abot}{\ensuremath{\bot^\mathcal{H} }} %\sharp}}
+\newcommand{\abtop}{\ensuremath{\top^\mathcal{H} }} %\sharp}}
+\newcommand{\asemantics}[2]{\semantica{\afunction{\semanticanome{#1}}}{#2}}
+\newcommand{\atrace}[1]{\ensuremath{\trace{#1}}}
+\newcommand{\afunction}[1]{\ensuremath{\overline{\mathit{#1}}}}
+\newcommand{\function}[1]{\ensuremath{\mathit{#1}}}
+\newcommand{\agenericdomain}{\ensuremath{\mathcal{A}}}
+
+\newcommand{\gas}{\ensuremath{\cset{\mathcal{REMOVE}}}}
+%\newcommand{\hypercubes}{\ensuremath{\cset{\mathcal{H}}}}
+
+
+\newcommand{\avaluename}{\ensuremath{\afunction{value}}}
+\newcommand{\avalue}[1]{\ensuremath{\avaluename(#1)}}
+
+\newcommand{\avariableindexname}{\ensuremath{\function{varIndex}}}
+\newcommand{\avariableindex}[1]{\ensuremath{\avariableindexname(#1)}}
+\newcommand{\aval}{\ensuremath{\cset{Val}}}

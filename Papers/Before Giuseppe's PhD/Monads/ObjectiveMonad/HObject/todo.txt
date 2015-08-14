@@ -1,0 +1,5 @@
+*labels con tipi smarter per aiutare il type checker
+*shapes benchmark
+*unify <--
+*togliere l'inutile distinzione tra Constant e Reference
+*far ritornare ad =: Ref s a e non Ref s ()

@@ -1,0 +1,37 @@
+%----------------------------------------------------------------------------
+%  intro.tex 
+%----------------------------------------------------------------------------
+Our goal is to define a set of operators that allow us to write
+object-oriented programs in the Haskell language. Object orientation
+can be used in conjunction with various paradigms, such as (these are
+by no means the only possible fields of application): 
+\begin{itemize}
+\item mutable programs where the state inside each object can be
+  transparently mutated by method calls and other kinds of
+  manipulations 
+\item concurrent programs where the inner state of each object does
+  not belong to the same thread, process or even machine 
+\item reactive programs where each stateful operation is recomputed
+  whenever the values it depends from change 
+\item transactional programs where each stateful operation is recorded
+  and blocks of stateful operations can be undone 
+\end{itemize}
+
+We definitely wish to define our operators so that we can use anyone
+of these paradigms for running our object-oriented programs. For this 
+reason we define the object oriented operators abstractly, that is
+inside type classes; we then proceed to give the concrete
+implementations  that will allow us to actually run our code.
+
+We also wish to make it simple to use our objects. One of the best
+ways to make some abstraction simpler to code in the Haskell language
+is to take advantage of monads and their syntactic sugar: we will try
+to make use of monads whenever possible, and we will even require so
+at the level of our typeclasses.
+
+To make a working object oriented system in a type-safe and purely
+functional language such as Haskell we are forced to define many  
+type-level functions and predicates. A relevant side effect of this is
+that all our entities are first class entities in the host language; 
+this allows us to freely manipulate labels, method applications, and
+so on, and even to design a type safe reflection system. 

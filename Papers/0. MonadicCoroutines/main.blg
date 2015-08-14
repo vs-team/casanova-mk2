@@ -1,0 +1,28 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: main.aux
+The style file: plain.bst
+Database file #1: references.bib
+I was expecting a `,' or a `}'---line 14 of file references.bib
+ : 
+ : @misc{DLR,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--string name "august" is undefined
+--line 66 of file references.bib
+Warning--string name "august" is undefined
+--line 171 of file references.bib
+I was expecting a `,' or a `}'---line 224 of file references.bib
+ :    
+ :    year = {2011}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--to sort, need author or key in ESA
+Warning--to sort, need author or key in SCRIPTING_LUA
+Warning--to sort, need author or key in UNITY_YIELD
+Warning--to sort, need author or key in UNREALSCRIPT_LATENT_FUNCTIONS
+Warning--to sort, need author or key in GALAXY_WARS
+Warning--to sort, need author or key in CSHARP_YIELD
+Warning--to sort, need author or key in CSHARP_ASYNC
+Warning--to sort, need author or key in SWIG
+Warning--to sort, need author or key in DLR
+Warning--empty year in FRIENDLY_FSHARP
+(There were 2 error messages)

@@ -1,0 +1,65 @@
+The case study presented in Section \ref{sec:problem_statement} would require to use very complex synchronization conditions and discrete dynamics to be implemented. To simplify the treatment of discrete dynamics, we propose to describe them through the following operators:
+\begin{itemize}
+\item \textbf{Waiting} (\texttt{wait}) takes as input either a floating-point value or a boolean expression. If a floating-point value is provided, then the operator stops the execution of the function for the specified amount of time. If a boolean condition is provided then the execution is stopped until the condition is met.
+\item \textbf{Parallelism} (\texttt{.\&}) takes as input multiple code blocks and keeps executing them indefinitely.
+\item \textbf{Concurrency} (\texttt{.|}) takes as input multiple conditions, each associated to a code block. Whenever one of these conditions is met, it executes the corresponding code block associated to it, ignoring all the others.
+\item \textbf{Pre-emption} (\texttt{!|}) takes as input multiple conditions, each associated to a code block. The conditions are prioritized, i.e. if multiple conditions are met, the code associated to the topmost one is executed. Furthermore, the code blocks are interruptible, which means that, if a condition with a higher priority becomes true, the execution of the current block is stopped and it will resume at the beginning of the block associated with the higher priority.
+\end{itemize}
+
+Our case study can be implemented using these operators. In the following example we assume that \texttt{Guard} has two fields \texttt{NearThreats} and \texttt{TargetsInRange} that contain respectively a list of close enemies to the guard when he is critically wounded, and a list of targets which can be attacked by the guard.
+
+\begin{lstlisting}
+entity Guard = {
+  //field declarations
+  //...
+
+  rule Target,Target.Health,this.Health =
+    !| this.Health <= 0 =>
+        //play dead animation
+    !| this.Health <= this.HealthThreshold =>
+        !| this.NearThreats.Length > 0 =>
+            //retreat to a safe point
+        !| world.GuardPost.HasHealer =>
+            .| Vector2.Distance(this.Position,GuardPost.Position) > 1.0 =>
+                //move towards healer
+            .| Vector2.Distance(this.Position,GuardPost.Position) <= 1.0 =>
+                yield Target,Target.Health,100
+        !| _ => //play idle animation
+    !| TargetsInRange.Length > 0 =>
+        yield TargetsInRange.Head,Target.Health,this.Health
+        yield Target,0,this.Health
+    !| _ => 
+        .&
+          //move towards next waypoint
+        .&
+          yield Target,Target.Health,this.Health + 1
+          wait 1.0
+    
+    //...
+    //entity constructor
+
+}
+\end{lstlisting}
+Below we present the operator syntax in Backus-Naur form and their semantics:
+
+\begin{lstlisting}[caption = Operators syntax]
+<parallelism> ::= '.&' <expr> {<parallelism>}
+<concurrency> ::= '.|' <boolExpr> '=>' <expr> {<concurrency>}
+<pre-emption> ::= '!|' <boolExpr> '=>' <expr> {<pre-emption>}
+<expr> ::= ...(* 
+                 typical expressions : let , if , 
+                 for , while , new, query, 
+                 arithmetic expressions, boolean expressions etc. 
+               *)
+                 ( wait (<boolExpr | arithExpr>) |
+                   <parallelism> | <concurrency> | 
+                   <pre-emption>) {<expr>}
+            
+<arithExpr >  ::= ...(* typical arithmetic expressions *)
+<boolExpr >   ::= ...(* typical boolean expressions *)
+<literal >    ::= ...(* strings , numbers *)
+<queryExpr >  ::= ...(* typical query expressions *)
+\end{lstlisting}
+
+
+

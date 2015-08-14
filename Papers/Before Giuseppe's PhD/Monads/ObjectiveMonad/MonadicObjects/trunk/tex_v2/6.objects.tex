@@ -1,0 +1,46 @@
+We now start with the characterization of objects in our system. The $Object$ predicate says that an object will be a record which supports methods and inheritance; of course all the object operators are expected to work in conjunction with the rest of the system. Since objects will reference themselves, to avoid recursive type definitions we give a predicate that allows us to freely add or remove some constructor from an object:
+\begin{lstlisting}
+class Recursive o where
+  type Rec o :: *
+  to :: o -> Rec o
+  from :: Rec o -> o
+\end{lstlisting}
+
+An object is required to support the $Recursive$ predicate:
+\begin{lstlisting}
+class (Record o st, Recursive o) => Object o st where
+  data Method st :: * -> * -> * -> *
+  (<=|) :: Memory s => Ref st s o -> Label st o (Method st (Rec o) a b) -> a -> st s s b
+  mk_method :: (Ref st o o -> a -> st o o b) -> Method st (Rec o) a b
+\end{lstlisting}
+
+With respect to inheritance, it looks clear how we can instance coercion to take advantage (and make access more uniform) of the $base$ operations:
+\begin{lstlisting}
+class Object o st => Inherits o b st where
+  data Inherit :: * -> *
+  get_base :: Memory s => Ref st s o -> Ref st s b
+\end{lstlisting}
+
+Notice that methods are defined with a different operator than the selection operator for records. This can be addressed as follows: we define a new predicate for selecting something from a reference through a label:
+\begin{lstlisting}
+class Memory m => Selectable st m t a where
+  type Selection st m t a :: *
+  (<=) :: Ref st m t -> Label st t a -> Selection st m t a
+\end{lstlisting}
+
+We instance this predicate twice, one for field selection and one for method selection. Before doing so, though, we must be careful to disambiguate the last parameter in the record definition. For this purpose we add a $Field$ type function that represents a placeholder type that will distinguish fields from methods and inherited types:
+\begin{lstlisting}
+instance (Record r st, Memory m) => Selectable st m r (Field st a) where
+  type Selection st m r (Field st a) = Ref st m a
+  (<=) = (<==)
+\end{lstlisting}
+
+We instance this new record typeclass as before, plus 
+we add a simple container for fields:
+
+Now we can instance the selection predicate:
+\begin{lstlisting}
+instance (Object o st, ro~Rec o, Memory m) => Selectable st m o (Method st ro a b) where
+  type Selection st m o (Method st ro a b) = a -> st m m b
+  (<=) = (<=|)
+\end{lstlisting}

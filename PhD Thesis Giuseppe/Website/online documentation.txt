@@ -1,0 +1,64 @@
+Introduction:
+
+Casanova is a statically typed programming language designed /around/ the common problems that arise in game development. It is a language, in the sense that it has been studied how to allow you, the game developer, to better code certain constructs; it is also a system and framework in the sense that it has its own small IDE, its libraries, and a fully working implementation for building 2D games. It is important to notice right away that we are extending the Casanova system and framework at a great pace, adding new features and abilities.
+
+As a language, Casanova is a bit difficult to cathegorize: it is at the same time an imperative language (you can modify variables inside scripts), it is functional (functions are first class constructs), and it is declarative (you can use list comprehensions to declare the new shape of a list in the same spirit as SQL-queries). Casanova also features some aspects of functional languages such as monads to encapsulate effects and control flow, but this is not very relevant for a day-to-day programmer!
+
+The best way to get started is the [Downloads] page, where you can download the IDE and a bunch of samples (we are actively working on extending those as well, don't worry!). With the IDE you can start on making real-time, single-player, 2D games right away.
+
+If you wish to know more about Casanova, then jump on to the [Overview of Casanova].
+
+
+*Overview of Casanova*
+So, what is exactly Casanova? Casanova is a programming language that belongs to the ML family; in particular it is a direct descendent of the F# language, a functional programming language of the .Net group, which has many advantages over other functional languages, as well as some shortcomings:
+- it is well designed by top-researchers from Microsoft Research in Cambridge
+- it has excellent-quality tools integrated in Visual Studio and maintained by Microsoft
+- it interoperates with all .Net libraries and languages, such as C# and VB .Net
+- it works on non-Microsoft platforms thanks to the amazing Mono project
+- it does not have all the advanced, cutting-edge features of other functional languages such as type-classes, a module system, and compile-time meta-programming
+
+All considered, F# proved extensible and flexible enough to be adapted into Casanova, and it also allowed us to integrate powerful game-development libraries such as MonoGame (the XNA implementation available under Mono and .Net). F# is still available under the hood of Casanova; this means that if you need to create classes, object-expressions, or access any .Net library, you are free to do so anywhere in a Casanova program, no escape function needed.
+
+The main features that Casanova adds to F# are all designed to make your life as a game developer easier. In particular, you are assisted in the definition of:
+- the /model/ of the game world, that is what the entities that make up the game are
+- the /rules/ of the game entities, that is what is the logic that animates the game as time flows
+- the /scripts/ that move the game entities according to AI, complex logic processes, or user input
+- the /visual appearance/ of the game entities
+
+Casanova offers first-class constructs to deal with each of these problems. These constructs are available all together (at least at the time of writing, but hopefully other languages will follow suit!) only in Casanova, but some of them can be often be found, in isolation, in other languages as well.
+
+Let us start by showing you a simple example game. In this game we just have a single ball that bounces at the bottom of the game window. You can download the working sample at [Bouncing Ball.zip].
+
+The bouncing ball is defined as a record with a position, a velocity, and a visual appearance in the form of a 2D sprite:
+
+type Ball = {
+    Position    : Vector2<m>
+    Velocity    : Vector2<m/s>
+    Appearance  : DrawableSprite
+  }
+
+
+The ball as defined above is completely static, that is it only contains a description of itself during a single frame of the game, but it does not describe its own dynamics, that is how its description changes over time. The changes of the ball as time progresses are defined through /rules/. Rules are similar to methods in an object-oriented language, with the difference that they have a very specific signature, and they may only be invoked by the Casanova internal functions under precise circumstances (a tick of the game loop).
+
+The rules for the ball are one to update the position, another to update the velocity, and the last one to update the position of the sprite; rules are written right after the entity itself, that is after the closed curly bracket character '}':
+
+rule Position(self:Ball, dt:float<s>) =
+  self.Position + self.Velocity * dt 
+rule Velocity(self:Ball, dt:float<s>) =
+  self.Velocity + G * dt
+rule Appearance.Position(self:Ball) =
+  self.Position * Vector2<pixel/m>(1.0,-1.0)
+
+
+The rules above make heavy use of units of measure. Units of measure make it possible to distinguish numbers and data structures which have the same internal data but representing values with different semantics; for example, both the position and the velocity are vectors that contain two floating point numbers each, but one represents a position in meters, while the other represents a velocity in meters per second. Also notice that to compute the position for the ball appearance we must convert its position from meters into pixels. In particular, we use a one-to-one conversion, that is one meter in the simulation will be long one pixel on the screen; we also flip the Y axis, because by default the upper-left corner in the Casanova window has (0,0) coordinates that grow towards the right and down.
+
+The rules for the ball simulation presented above are not sufficient as it is: the ball needs to bounce when it touches the bottom of the screen! To achieve this we could write the following, updated rules for the position and the velocity only (since the appearance will keep using the ball position, no matter how it is computed):
+
+rule Position(self:Ball,dt:float<s>) =
+  
+
+
+
+
+
+

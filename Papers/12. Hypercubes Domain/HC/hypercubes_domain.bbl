@@ -1,0 +1,135 @@
+\begin{thebibliography}{10}
+
+\bibitem{AHLP00}
+R.~Alur, T.A. Henzinger, G.~Lafferriere, and G.J. Pappas.
+\newblock Discrete abstractions of hybrid systems.
+\newblock {\em Proceedings of the IEEE}, 88(7):971--984, 2000.
+
+\bibitem{ADI02}
+Rajeev Alur, Thao Dang, and Franjo Ivancic.
+\newblock Reachability analysis of hybrid systems via predicate abstraction.
+\newblock In {\em Hybrid Systems: Computation and Control, Fifth International
+  Workshop, LNCS 2289}, pages 35--48. Springer-Verlag, 2002.
+
+\bibitem{AS12}
+Gianluca Amato and Francesca Scozzari.
+\newblock The abstract domain of parallelotopes.
+\newblock {\em Electronic Notes Theoretical Computer Science}, 287:17--28,
+  2012.
+
+\bibitem{BHZ07}
+Roberto Bagnara, Patricia~M. Hill, and Enea Zaffanella.
+\newblock Widening operators for powerset domains.
+\newblock {\em STTT}, 9(3-4):413--414, 2007.
+
+\bibitem{B09}
+Olivier Bouissou.
+\newblock Proving the correctness of the implementation of a control-command
+  algorithm.
+\newblock In {\em Static Analysis, 16th International Symposium, SAS 2009, Los
+  Angeles, CA, USA, August 9-11, 2009. Proceedings}, volume 5673 of {\em
+  Lecture Notes in Computer Science}, pages 102--119. Springer, 2009.
+
+\bibitem{B12}
+Olivier Bouissou.
+\newblock From control-command synchronous programs to hybrid automata.
+\newblock In {\em Analysis and Design of Hybrid Systems (ADHS'12)}, June 2012.
+
+\bibitem{BMC12}
+Olivier Bouissou, Samuel Mimram, and Alexandre Chapoutot.
+\newblock Hyson: Set-based simulation of hybrid systems.
+\newblock In {\em Proceedings of the 23rd IEEE International Symposium on Rapid
+  System Prototyping, RSP 2012, Tampere, Finland}, pages 79--85, 2012.
+
+\bibitem{CGJ00}
+Edmund~M. Clarke, Orna Grumberg, Somesh Jha, Yuan Lu, and Helmut Veith.
+\newblock Counterexample-guided abstraction refinement.
+\newblock In {\em Computer Aided Verification (CAV), 12th International
+  Conference, CAV 2000, Chicago, IL, USA, July 15-19, 2000, Proceedings},
+  volume 1855 of {\em Lecture Notes in Computer Science}, pages 154--169.
+  Springer, 2000.
+
+\bibitem{COU98}
+P{.} Cousot.
+\newblock The calculational design of a generic abstract interpreter.
+\newblock In {\em Calculational System Design}. NATO ASI Series F. IOS Press,
+  Amsterdam, 1999.
+
+\bibitem{CH78}
+P{.} Cousot and N{.} Halbwachs.
+\newblock Automatic discovery of linear restraints among variables of a
+  program.
+\newblock In {\em Proceedings of POPL '78}. ACM Press, 1978.
+
+\bibitem{E10}
+D.H. Eberly.
+\newblock {\em Game Physics}.
+\newblock Interactive 3D technology series. Elsevier Science, 2010.
+
+\bibitem{FR99}
+Gilberto Fil{\'e} and Francesco Ranzato.
+\newblock The powerset operator on abstract interpretations.
+\newblock {\em Theor. Comput. Sci.}, 222(1-2):77--111, 1999.
+
+\bibitem{G12}
+Khalil Ghorbal, Franjo Ivancic, Gogul Balakrishnan, Naoto Maeda, and Aarti
+  Gupta.
+\newblock Donut domains: Efficient non-convex domains for abstract
+  interpretation.
+\newblock In {\em Proceedings of VMCAI '12}, pages 235--250. Springer-Verlag,
+  2012.
+
+\bibitem{GC10}
+Arie Gurfinkel and Sagar Chaki.
+\newblock Boxes: A symbolic abstract domain of boxes.
+\newblock In {\em Static Analysis - 17th International Symposium, SAS 2010,
+  Perpignan, France, September 14-16, 2010. Proceedings}, volume 6337 of {\em
+  Lecture Notes in Computer Science}, pages 287--303. Springer, 2010.
+
+\bibitem{HMG06}
+Nicolas Halbwachs, David Merchat, and Laure Gonnord.
+\newblock Some ways to reduce the space dimension in polyhedra computations.
+\newblock {\em Formal Methods in System Design}, 29(1):79--95, 2006.
+
+\bibitem{HRP94}
+Nicolas Halbwachs, Pascal Raymond, and Yann eric Proy.
+\newblock Verification of linear hybrid systems by means of convex
+  approximations.
+\newblock pages 223--237. Springer-Verlag, 1994.
+
+\bibitem{HKL10}
+Jacob~M. Howe, Andy King, and Charles Lawrence-Jones.
+\newblock Quadtrees as an abstract domain.
+\newblock {\em Electronic Notes in Theoretical Computer Science.},
+  267(1):89--100, 2010.
+
+\bibitem{MR05}
+Laurent Mauborgne and Xavier Rival.
+\newblock Trace partitioning in abstract interpretation based static analyzers.
+\newblock In {\em Proceedings of ESOP '05}, pages 5--20. Springer-Verlag, 2005.
+
+\bibitem{MIN06}
+A{.} Min\'e.
+\newblock The octagon abstract domain.
+\newblock {\em Higher-Order and Symbolic Computation}, 2006.
+
+\bibitem{RS05}
+Stefan Ratschan and Zhikun She.
+\newblock Safety verification of hybrid systems by constraint propagation based
+  abstraction refinement.
+\newblock In {\em Proceedings of HSCC 2005}, volume 3414 of {\em Lecture Notes
+  in Computer Science}, pages 573--589. Springer, 2005.
+
+\bibitem{SISG06}
+Sriram Sankaranarayanan, Franjo Ivancic, Ilya Shlyakhter, and Aarti Gupta.
+\newblock Static analysis in disjunctive numerical domains.
+\newblock In {\em Proceedings of SAS '06}, pages 3--17. Springer-Verlag, 2006.
+
+\bibitem{SB13}
+Yassamine Seladji and Olivier Bouissou.
+\newblock Fixpoint computation in the polyhedra abstract domain using convex
+  and numerical analysis tools.
+\newblock In {\em Proceedings of VMCAI '08}, pages 149--168. Springer-Verlag,
+  2013.
+
+\end{thebibliography}

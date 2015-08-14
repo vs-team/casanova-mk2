@@ -1,0 +1,2109 @@
+% \iffalse
+% File: PhdThesis.dtx
+% Copyright (C) 1995-2012 Marco Comini <comini@dimi.uniud.it>. 
+%
+% This class is the Phd Thesis format of the Computer Science Department 
+% of the Pisa University -- Italy.
+% 
+%  This class is distributed in the hope that it will be useful,
+%  but WITHOUT ANY WARRANTY; without even the implied warranty of
+%  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%
+% Direct use of code from this class in another class
+% which is either sold for profit, or not made freely available,
+% is explicitly forbidden by the author.
+%
+%<class>\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+%<class>\ProvidesClass{PhdThesis}[2010/10/30 2.0o PhdThesis document class]
+%<*driver>
+\documentclass[a4paper,11pt,fleqn]{ltxdoc}
+\usepackage{multicol,verbatim}
+\usepackage[hyperindex=false]{hyperref}
+
+\EnableCrossrefs
+\PageIndex
+
+\setlength\hfuzz{15pt}
+\hbadness=7000
+\addtolength\marginparwidth{-30pt}
+\newcommand{\NEWfeature}[1]{%
+	\hskip 1sp \marginpar{\small\sffamily\raggedright New feature\\#1}}
+\newcommand{\NEWdescription}[1]{%
+	\hskip 1sp \marginpar{\small\sffamily\raggedright New description\\#1}}
+\newenvironment{decl}
+	{\par\small\addvspace{4.5ex plus 1ex}\vskip -\parskip
+	 \noindent\hspace{-\leftmargini}%
+	 \begin{tabular}{|l|}\hline\ignorespaces}%
+	{\\\hline\end{tabular}\nobreak\par\nobreak\vspace{2.3ex}\vskip -\parskip}
+% \newcommand{\meta}[1]{\mbox{$\langle$\it #1\/$\rangle$}}
+\providecommand*{\href}[2]{#2}
+\begin{document}
+\GetFileInfo{PhdThesis.cls}
+% How can I avoid to define this manually?
+\def\filename{PhdThesis.cls}
+\def\filedate{2010/10/30}
+\def\fileversion{2.0o}
+
+	\typeout{*********************************************************}
+	\typeout{* Documentation of the `\filename' file,}
+	\typeout{*  version \fileversion,  last revised \filedate}
+	\typeout{*********************************************************}
+	\title{A class for formatting a Phd Thesis\thanks{This description
+	refers to file \filename, version number \fileversion, last revised
+	\filedate.}}
+	\author{Marco Comini\\
+	e-mail: \href{mailto:Marco Comini <comini@dimi.uniud.it>}
+    {\texttt{comini@dimi.uniud.it}}}
+	\date{\filedate}
+	\maketitle
+	\begin{abstract}
+		This class has been and is used at the Computer Science Depatments
+		of the Universities of Udine and Pisa for formatting the PhD
+		Theses.  It has a modular structure that should ease the
+		customization to other institutes.
+% 		
+% 		This description refers to file \filename, version number
+% 		\fileversion, last revised \filedate.
+	\end{abstract}
+	\begin{multicols}{2}
+		\tableofcontents
+	\end{multicols}
+	The |PhdThesis.cls| class is very similar to the |book.cls| one. 
+	Indeed |PhdThesis.cls| mainly patches some features of |book.cls| to
+	aid in writing a Ph.D. Thesis or a Master Thesis.
+	
+	The default behavior of most of the provided features can be
+	customized.  See section~\ref{sec:customize} for explanations.
+	
+	The development of this class has evolved during a long period of time,
+	mainly driven by the different needs of plenty of people.  I've been
+	trying constantly to use define a user interface as omogeneous as
+	possible.  Nethertheless lots of discrepancies are still there.  I
+	would welcome any suggestion or criticism which can be useful to
+	improve the class.
+
+	Remember that the syntax \marg{argument} denotes a mandatory argument, 
+	while \oarg{argument} denotes an optional argument.
+	
+	\DocInput{PhdThesis.dtx}
+	\InputIfFileExists{PhdThesis.ind}{}{\typeout{No index file.}}
+\end{document}
+%</driver>
+% \fi
+% 	
+% \section{Options of the Class}
+% 
+% \sloppy
+% The class accepts some of the options of |book.cls| plus the following
+% ones.
+%    \begin{comment}
+%<*class>
+%%%%%
+%%%%% Options
+%%%%%
+\DeclareOption{a5paper}
+	{\ClassWarningNoLine{PhdThesis}{Option `a5paper' not supported}}
+\DeclareOption{b5paper}
+	{\ClassWarningNoLine{PhdThesis}{Option `b5paper' not supported}}
+\DeclareOption{letterpaper}
+	{\ClassWarningNoLine{PhdThesis}{Option `letterpaper' not supported}}
+\DeclareOption{legalpaper}
+	{\ClassWarningNoLine{PhdThesis}{Option `legalpaper' not supported}}
+\DeclareOption{executivepaper}
+	{\ClassWarningNoLine{PhdThesis}{Option `executivepaper' not supported}}
+\DeclareOption{landscape}
+	{\ClassWarningNoLine{PhdThesis}{Option `landscape' not supported}}
+\DeclareOption{titlepage}
+	{\ClassWarningNoLine{PhdThesis}{Option `titlepage' not supported}}
+\DeclareOption{twocolumn}
+	{\ClassWarningNoLine{PhdThesis}{Option `twocolumn' not supported}}
+%    \end{comment}
+% 	\begin{description}
+% 		
+% 		\item[|final| (default)] the same option as the one of 
+% 		|book.cls|.
+%    \begin{comment}
+\DeclareOption{final}{}
+\ExecuteOptions{final}
+% \PassOptionsToClass{final}{book}
+%    \end{comment}
+% 		
+% 		\item[|draft|] the same option as the one of |book.cls|.
+%    \begin{comment}
+\DeclareOption{draft}{\PassOptionsToClass{draft}{book}}
+%    \end{comment}
+% 		
+% 		\item[|a4paper| (default)] for A4 paper format.
+%    \begin{comment}
+\DeclareOption{a4paper}{\PassOptionsToClass{a4paper}{book}}
+\ExecuteOptions{a4paper}
+%    \end{comment}
+% 		
+% 		\item[|onecolumn| (default)] for onecolumn format.
+%    \begin{comment}
+\DeclareOption{onecolumn}{\PassOptionsToClass{onecolumn}{book}}
+\ExecuteOptions{onecolumn}
+%    \end{comment}
+% 		
+% 		\item[|english| (default)] \NEWfeature{2003/03/30} uses British English
+% 		language.
+%    \begin{comment}
+%** 
+%%% Flag phd@langdef
+%** 
+\newif\if@phd@langdef\@phd@langdeffalse
+\DeclareOption{english}{\@phd@langdeftrue\AtBeginDocument{
+	\phd@setcaptions{english}{\phd@captions@english}
+	\typeout{Class PhdThesis: Adding British English Captions.}
+}}
+%    \end{comment}
+% 		
+% 		\item[|american|] uses American English language.
+%    \begin{comment}
+\DeclareOption{american}{\@phd@langdeftrue\AtBeginDocument{
+	\phd@setcaptions{american}{\phd@captions@american}
+	\typeout{Class PhdThesis: Adding American English Captions.}
+}}
+%    \end{comment}
+% 		
+% 		\item[|italian|] uses Italian language.
+%    \begin{comment}
+\DeclareOption{italian}{\@phd@langdeftrue\AtBeginDocument{
+	\phd@setcaptions{italian}{\phd@captions@italian}
+	\typeout{Class PhdThesis: Adding Italian Captions.}
+}}
+%    \end{comment}
+% 		
+% 		\item[|spanish|] \NEWfeature{2003/04/22} uses Spanish language.
+%    \begin{comment}
+\DeclareOption{spanish}{\@phd@langdeftrue\AtBeginDocument{
+	\phd@setcaptions{spanish}{\phd@captions@spanish}
+	\typeout{Class PhdThesis: Adding Spanish Captions.}
+}}
+%    \end{comment}
+% 		
+% 		\item[|french|] \NEWfeature{2003/08/05} uses French language.
+%    \begin{comment}
+\DeclareOption{french}{\@phd@langdeftrue\AtBeginDocument{
+	\phd@setcaptions{french}{\phd@captions@french}
+	\typeout{Class PhdThesis: Adding French Captions.}
+}}
+%    \end{comment}
+% 		
+% 		\item[|chapterempty| (default)] 
+% 		\NEWfeature{1997/10/30}\NEWdescription{1997/11/07} the first page 
+% 		of the chapter is not numbered.  Moreover the |plain| pagestyle is 
+% 		renamed in |latexplain|.
+%    \begin{comment}
+%** 
+%%% Flag phd@chpempty
+%** 
+\newif\if@phd@chpempty
+\DeclareOption{chapterempty}{\@phd@chpemptytrue}
+\ExecuteOptions{chapterempty}
+%    \end{comment}
+% 		
+% 		\item[|chapterplain|] the first page of the chapter is numbered 
+% 		with the \emph{plain} page-style.
+%    \begin{comment}
+\DeclareOption{chapterplain}{\@phd@chpemptyfalse}
+%    \end{comment}
+% 		
+% 		\item[|UdinePhdThesis| (default)] \NEWfeature{2003/02/06} performs the
+% 		Philosophical Doctoral title page of the University of Udine. 
+% 	\begin{comment}
+%** 
+%%% Global phd@shapefile
+%** 
+\let\@phd@shapefile\@empty
+\DeclareOption{UdinePhdThesis}{\def\@phd@shapefile{UdinePhdThesis}
+	\PassOptionsToClass{twoside}{book}}
+\ExecuteOptions{UdinePhdThesis}
+%    \end{comment}
+% 		
+% 		
+% 		\item[|UdinePhdThesisCR|] \NEWfeature{2003/05/05} performs the
+% 		Camera Ready Philosophical Doctoral title page of the University of
+% 		Udine.
+%    \begin{comment}
+\DeclareOption{UdinePhdThesisCR}{\def\@phd@shapefile{UdinePhdThesisCR}
+	\PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+% 		
+% 		\item[|UdineMstThesis|] \NEWfeature{2003/08/05} performs the Master
+% 		Thesis title page of the University of Udine.
+%    \begin{comment}
+\DeclareOption{UdineMstThesis}{\def\@phd@shapefile{UdineMstThesis}
+	\PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+% 		
+% 		\item[|UdineBachThesis|] \NEWfeature{2004/09/22} performs the
+% 		Bachelor's Thesis title page of the University of Udine.
+% 		\begin{comment}
+\DeclareOption{UdineBachThesis}{\def\@phd@shapefile{UdineBachThesis}
+	\PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+% 		
+% 		\item[|PisaPhdThesis|] \NEWfeature{2003/02/06} performs the
+% 		Philosophical Doctoral title page of the University of Pisa. 
+%    \begin{comment}
+\DeclareOption{PisaPhdThesis}{\def\@phd@shapefile{PisaPhdThesis}
+	\PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+% 		
+% 		\item[|PisaMasterThesis|] \NEWfeature{2003/02/06} performs the
+% 		Master Thesis title page, of the University of Pisa.
+%    \begin{comment}
+\DeclareOption{PisaMasterThesis}{\def\@phd@shapefile{PisaMstThesis}
+	\PassOptionsToClass{oneside}{book}}
+%    \end{comment}
+%
+%       \item[|SienaPhdThesis|] \NEWfeature{2010/09/05} performs the
+%       Philosophical Doctoral Thesis title page of the University of
+%       Siena.
+%
+%    \begin{comment}
+\DeclareOption{SienaPhdThesis}{\def\@phd@shapefile{SienaPhdThesis}
+    \PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+% 		
+% 		\item[|ValenciaPhdThesis|] \NEWfeature{2003/04/22} performs the
+% 		Philosophical Doctoral title page of the University of Valencia.
+% 		
+%    \begin{comment}
+\DeclareOption{ValenciaPhdThesis}{\def\@phd@shapefile{ValenciaPhdThesis}
+	\PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+%
+%       \item[|ValenciaMstThesis|] \NEWfeature{2010/09/05} performs the
+%       Master Thesis title page of the University of Valencia.
+%
+%    \begin{comment}
+\DeclareOption{ValenciaMstThesis}{\def\@phd@shapefile{ValenciaMstThesis}
+    \PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+%
+%
+% 		\item[|ValenciaBachThesis|] \NEWfeature{2008/08/05} performs the
+% 		Bachelor's Thesis title page of the University of Valencia.
+%
+%    \begin{comment}
+\DeclareOption{ValenciaBachThesis}{\def\@phd@shapefile{ValenciaBachThesis}
+	\PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+% 		
+% 		\item[|VeneziaPhdThesis|] \NEWfeature{2004/02/17} performs the
+% 		Philosophical Doctoral title page of the University of Venice.
+% 		
+%    \begin{comment}
+\DeclareOption{VeneziaPhdThesis}{\def\@phd@shapefile{VeneziaPhdThesis}
+	\PassOptionsToClass{twoside}{book}}
+%    \end{comment}
+% 	\end{description}
+%    \begin{comment}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+%    \end{comment}
+% 	The package options can be set in the usual way while calling the class
+% 	(with |\documentclass|\oarg{options}|{PhdThesis}|) or in a
+% 	|PhdThesis.cfg| file, to customize the default behavior.  A practical
+% 	example of |PhdThesis.cfg| is the following:
+% 	\begin{verbatim}
+%		\typeout{*********************}
+%		\typeout{* Marco Preferences *}
+%		\typeout{*********************} 
+%		\ExecuteOptions{PisaPhdThesis,fancychapter}
+% 	\end{verbatim}
+%    \begin{comment}
+\InputIfFileExists{PhdThesis.cfg}{}{\ClassWarningNoLine{PdhThesis}%
+	{No preferences file}}
+\ProcessOptions\relax
+\if@phd@langdef\else
+	\ClassWarningNoLine{PhdThesis}{no language has been specified,
+	English will be used}
+	\AtBeginDocument{
+		\phd@setcaptions{english}{\phd@captions@english}
+		\typeout{Class PhdThesis: Adding British English Captions.}
+	}
+\fi
+\LoadClass{book}
+%    \end{comment}
+% 
+% \section{Extra page styles and chapter-titles styles}
+% 	
+% 	The command |\pagestyle|\marg{page-style} can 
+% 	use the following extra page styles.
+%    \begin{comment}
+%%%%%
+%%%%% New Headings & Chapter styles
+%%%%%
+\newcommand{\@phd@newpagestyle}[2]{%
+	\@namedef{ps@#1}{\let\@oddfoot\@empty\let\@evenfoot\@empty
+	\let\@mkboth\@phd@mkboth#2}}
+\if@phd@chpempty
+	\let\ps@latexplain\ps@plain
+	\let\ps@plain\ps@empty
+\fi
+\if@twoside
+	\newcommand*{\phd@chaptermark}[1]{\markboth{#1}{}}
+	\newcommand*{\phd@sectionmark}[1]{\markright{#1}}
+	\let\@phd@mkboth\markboth
+\else
+	\newcommand*{\phd@chaptermark}[1]{\markright{#1}}
+	\newcommand*{\phd@sectionmark}[1]{}
+	\let\@phd@mkboth\@gobbletwo
+\fi
+%    \end{comment}
+% 	\begin{description}
+% 		
+% 		\item[|small| (default)] headings in small font.
+%    \begin{comment}
+\AtBeginDocument{\pagestyle{small}}
+\@phd@newpagestyle{small}{%
+	\def\@evenhead{\thepage\hfil\footnotesize\leftmark}
+	\def\@oddhead{{\footnotesize\rightmark}\hfil\thepage}
+	\def\chaptermark##1{%
+		\phd@chaptermark{\MakeUppercase{%
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+				\@chapapp\ \thechapter. \ %
+			\fi
+		\fi
+		##1}}}%
+	\def\sectionmark##1{%
+		\phd@sectionmark{\MakeUppercase{%
+		\ifnum \c@secnumdepth >\z@
+			\if@mainmatter
+				\thesection. \ %
+			\fi
+		\fi
+		##1}}}}
+%    \end{comment}
+% 		
+% 		\item[|underlined|] bold underlined headings.
+%    \begin{comment}
+\@phd@newpagestyle{underlined}{%
+	\def\@evenhead{\underline{\makebox[\textwidth]
+		{{\small\bfseries\thepage\hfill\leftmark}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\@oddhead{\underline{\makebox[\textwidth]
+		{{\small\bfseries\rightmark\hfill\thepage}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\chaptermark##1{%
+		\phd@chaptermark{\MakeUppercase{%
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+				\@chapapp\ \thechapter. \ %
+			\fi
+		\fi
+		##1}}}%
+	\def\sectionmark##1{%
+		\phd@sectionmark{\MakeUppercase{%
+		\ifnum \c@secnumdepth >\z@
+			\if@mainmatter
+				\thesection. \ %
+			\fi
+		\fi
+		##1}}}}
+%    \end{comment}
+% 		
+% 		\item[|mini|] headings without the word ``CHAPTER'' in 
+% 		front of the chapter number.
+%    \begin{comment}
+\@phd@newpagestyle{mini}{%
+	\def\@evenhead{\underline{\makebox[\textwidth]
+		{{\small\bfseries\thepage\hfill\leftmark}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\@oddhead{\underline{\makebox[\textwidth]
+		{{\small\bfseries\rightmark\hfill\thepage}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\chaptermark##1{%
+		\phd@chaptermark{\MakeUppercase{%
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+				\thechapter. \ %
+			\fi
+		\fi
+		##1}}}%
+	\def\sectionmark##1{%
+		\phd@sectionmark{\MakeUppercase{%
+		\ifnum \c@secnumdepth >\z@
+			\if@mainmatter
+				\thesection. \ %
+			\fi
+		\fi
+		##1}}}}
+%    \end{comment}
+% 		
+% 		\item[|center|] centered headings.
+%    \begin{comment}
+\@phd@newpagestyle{center}{%
+	\def\@evenhead{\thepage\hfil{\footnotesize\itshape\leftmark}\hfil}
+	\def\@oddhead{\hfil{\footnotesize\itshape\rightmark}\hfil\thepage}
+	\def\chaptermark##1{\phd@chaptermark{\MakeUppercase{##1}}}%
+	\def\sectionmark##1{\phd@sectionmark{\MakeUppercase{##1}}}}
+%    \end{comment}
+% 		
+% 		\item[|centersmallcaps|] centered small caps headings.
+%    \begin{comment}
+\@phd@newpagestyle{centersmallcaps}{%
+	\def\@evenhead{\thepage\hfil{\footnotesize\scshape\leftmark}\hfil}
+	\def\@oddhead{\hfil{\footnotesize\scshape\rightmark}\hfil\thepage}
+	\def\chaptermark##1{\phd@chaptermark{##1}}%
+	\def\sectionmark##1{\phd@sectionmark{##1}}}
+%    \end{comment}
+% 		
+% 		\item[|serif|] \NEWfeature{1999/10/10} bold sans serif
+% 		underlined headings.
+%    \begin{comment}
+\@phd@newpagestyle{serif}{%
+	\def\@evenhead{\underline{\makebox[\textwidth]
+		{{\small\sffamily\bfseries\thepage\hfill\leftmark}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\@oddhead{\underline{\makebox[\textwidth]
+		{{\small\sffamily\bfseries\rightmark\hfill\thepage}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\chaptermark##1{%
+		\phd@chaptermark{%\MakeUppercase{
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+% 				\@chapapp\ 
+				\thechapter. \ %
+			\fi
+		\fi
+		##1}}%}
+	\def\sectionmark##1{%
+		\phd@sectionmark{%\MakeUppercase{
+		\ifnum \c@secnumdepth >\z@
+			\if@mainmatter
+				\thesection. \ %
+			\fi
+		\fi
+		##1}}}%}
+%    \end{comment}
+% 		
+% 		\item[|smallcaps|] \NEWfeature{2000/01/25} small caps numbered
+% 		headings.
+%    \begin{comment}
+\@phd@newpagestyle{smallcaps}{%
+	\def\@evenhead{\makebox[\textwidth]
+		{{\small\scshape\thepage\hfill\leftmark}
+		\rule[-0.5ex]{0pt}{1ex}}}%
+	\def\@oddhead{\makebox[\textwidth]
+		{{\small\scshape\rightmark\hfill\thepage}
+		\rule[-0.5ex]{0pt}{1ex}}}%
+	\def\chaptermark##1{%
+		\phd@chaptermark{%\MakeUppercase{
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+				\thechapter. \ %
+			\fi
+		\fi
+		##1}}%}
+	\def\sectionmark##1{%
+		\phd@sectionmark{%\MakeUppercase{
+		\ifnum \c@secnumdepth >\z@
+			\if@mainmatter
+				\thesection. \ %
+			\fi
+		\fi
+		##1}}}%}
+%    \end{comment}
+% 		
+% 		\item[|lowercase|] \NEWfeature{2003/02/06} This doesn't convert to
+% 		uppercase the headings.
+%    \begin{comment}
+\@phd@newpagestyle{lowercase}{%
+	\def\@evenhead{\thepage\hfil\normalsize\leftmark}
+	\def\@oddhead{{\normalsize\rightmark}\hfil\thepage}
+	\def\chaptermark##1{%
+		\phd@chaptermark{
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+				\@chapapp\ \thechapter. \ %
+			\fi
+		\fi
+		##1}}%
+	\def\sectionmark##1{%
+		\phd@sectionmark{
+		\ifnum \c@secnumdepth >\z@
+			\if@mainmatter
+				\thesection. \ %
+			\fi
+		##1
+		\fi}}}
+%    \end{comment}
+% 		
+% 		\item[|lowercaseunderlined|] \NEWfeature{2003/02/06} This is
+% 		underlined and doesn't convert to uppercase the headings.
+%    \begin{comment}
+\@phd@newpagestyle{lowercaseunderlined}{%
+	\def\@evenhead{\underline{\makebox[\textwidth]
+		{{\small\bfseries\thepage\hfill\leftmark}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\@oddhead{\underline{\makebox[\textwidth]
+		{{\small\bfseries\rightmark\hfill\thepage}
+		\rule[-0.5ex]{0pt}{1ex}}}}%
+	\def\chaptermark##1{%
+		\phd@chaptermark{%
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+				\@chapapp\ \thechapter. \ %
+			\fi
+		\fi
+		##1}}%
+	\def\sectionmark##1{%
+		\phd@sectionmark{%
+		\ifnum \c@secnumdepth >\z@
+			\if@mainmatter
+				\thesection. \ %
+			\fi
+		##1
+		\fi}}}
+%    \end{comment}
+% 	\end{description}
+% 	
+% 	There is a command
+% 	\DescribeMacro{\chaptertitlestyle}|\chaptertitlestyle|\marg{chapter-style}
+% 	\NEWfeature{2003/02/06} to use the following extra chapter styles.
+%    \begin{comment}
+%**
+%%% New Styles
+%**
+\newcommand{\@phd@newstyle}[3]{%
+	\@namedef{style@#1@#2}{#3}}
+%%% New Chapter Titles Styles
+\newcommand{\chaptertitlestyle}[1]{%
+	\@ifundefined{style@chap@#1}%
+	\undefinedchaptertitlestyle
+	{\@nameuse{style@chap@#1}%
+	\typeout{Class PhdThesis: using `#1' chapter-title style.}}}
+%    \end{comment}
+% 	\begin{description}
+% 		
+% 		\item[|plain| (default)] The style 
+% 		for the chapter's title is the \LaTeX{} default.
+%    \begin{comment}
+\let\@phd@plainmakechapterhead\@makechapterhead
+\let\@phd@plainmakeschapterhead\@makeschapterhead
+\@phd@newstyle{chap}{plain}{%
+	\let\@makechapterhead\@phd@plainmakechapterhead
+	\let\@makeschapterhead\@phd@plainmakeschapterhead
+}
+%    \end{comment}
+% 		
+% 		\item[|serif|] \NEWdescription{2003/05/01}(was |fancy|) Uses a
+% 		different style for the chapter's title with a Serif font.  Should
+% 		be used in combination with |\pagestyle{serif}|.
+%    \begin{comment}
+\@phd@newstyle{chap}{serif}{%
+	\def\@makechapterhead##1{%
+		\vspace*{-75\p@}\noindent\rule{\textwidth}{4pt}\par\noindent%
+		{\parindent \z@ \raggedright \normalfont
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter
+				\small\sffamily\@chapapp\space\Huge\thechapter
+				\space\space
+			\fi
+		\fi
+		\interlinepenalty\@M
+		\Huge \bfseries ##1\par\nobreak
+		\vskip 80\p@
+		}}
+	\def\@makeschapterhead##1{%
+		\vspace*{-75\p@}\noindent\rule{\textwidth}{4pt}\par\noindent%
+		{\parindent \z@ \raggedright \normalfont
+		\interlinepenalty\@M
+		\Huge \bfseries ##1\par\nobreak
+		\vskip 80\p@
+		}}%
+}
+%    \end{comment}
+% 		
+% 		\item[|serifbig|] \NEWdescription{2003/05/01}(was |fancybig|) Uses
+% 		a different style for the chapter's title with a Serif font. 
+% 		Should be used in combination with |\pagestyle{serif}|.
+%    \begin{comment}
+\@phd@newstyle{chap}{serifbig}{%
+	\DeclareFontShape{OT1}{cmr}{b}{n}{<-> cmr17}{}
+	\def\@makechapterhead##1{%
+%		\vspace*{-75\p@} 
+		\vspace*{-10ex}%
+		\noindent\rule{\textwidth}{4pt}\par\nobreak\noindent%
+%		\vskip 40\p@%
+		\vskip 5ex%
+		{\parindent \z@ \raggedleft \normalfont
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter 
+				\fontsize{99.45}{100pt}\fontseries{b}\selectfont\thechapter%
+				\Huge\par\nobreak% 
+%				\vskip 20\p@
+				\vskip 1ex
+			\fi
+		\fi
+		\interlinepenalty\@M \Huge \bfseries\sffamily
+		##1\par\nobreak \vskip 40\p@ }}
+	\def\@makeschapterhead##1{%
+% 		\vspace*{-75\p@}
+		\vspace*{-10ex}%
+		\noindent\rule{\textwidth}{4pt}\par\nobreak\noindent%
+% 		\vskip 40\p@%
+		\vskip 5ex%
+	  {\parindent \z@ \raggedleft \normalfont
+	  \interlinepenalty\@M \Huge \bfseries\sffamily
+		##1\par\nobreak \vskip 40\p@
+		}}%
+}
+%    \end{comment}
+% 		
+% 		\item[|big|] Uses a different style for the chapter's title with a
+% 		number in big font.
+%    \begin{comment}
+\@phd@newstyle{chap}{big}{%
+	\DeclareFontShape{OT1}{cmr}{b}{n}{<-> cmr17}{}
+	\def\@makechapterhead##1{%
+		\vspace*{50\p@}%
+		{\parindent \z@ \raggedleft \normalfont
+		\ifnum \c@secnumdepth >\m@ne
+			\if@mainmatter 
+				\fontsize{99.45}{100pt}\fontseries{b}\selectfont\thechapter%
+				\Huge\par\nobreak\vskip 20\p@
+			\fi
+		\fi
+		\interlinepenalty\@M \Huge \bfseries
+		##1\par\nobreak \vskip 40\p@ }}
+	\def\@makeschapterhead##1{%
+		\vspace*{50\p@}%
+		{\parindent \z@ \raggedleft \normalfont
+		\interlinepenalty\@M \Huge \bfseries
+		##1\par\nobreak \vskip 40\p@
+		}}%
+}
+%    \end{comment}
+% 	\end{description}
+% 	
+% 	There is a command
+% 	\DescribeMacro{\partstyle}|\partstyle|\marg{part-style}
+% 	\NEWfeature{2003/02/06} to use the following extra |\part| styles.
+%    \begin{comment}
+%%% New Part Styles
+\newcommand{\partstyle}[1]{%
+	\@ifundefined{style@part@#1}%
+	\undefinedpartstyle
+	{\@nameuse{style@part@#1}%
+	\typeout{Class PhdThesis: using `#1' part style.}}}
+%    \end{comment}
+% 	\begin{description}
+% 		
+% 		\item[|plain| (default)] The style for |\part| is the \LaTeX{}
+% 		default.
+%    \begin{comment}
+\let\@phd@plainpart\@part
+\let\@phd@plainspart\@spart
+\@phd@newstyle{part}{plain}{%
+	\let\@part\@phd@plainpart
+	\let\@spart\@phd@plainspart
+}
+%    \end{comment}
+% 		
+% 		\item[|big|] \NEWfeature{2003/05/05} Uses a different style for
+% 		|\part| with a roman font.  Should be used in combination with
+% 		|\chaptertitlestyle{big}|.
+%    \begin{comment}
+\@phd@newstyle{part}{big}{%
+	\DeclareFontShape{OT1}{cmr}{b}{n}{<-> cmr17}{}
+	\def\@part[##1]##2{%
+		\ifnum \c@secnumdepth >-2\relax
+		\refstepcounter{part}%
+		\addcontentsline{toc}{part}{\thepart\hspace{1em}##1}%
+		\else
+		\addcontentsline{toc}{part}{##1}%
+		\fi
+		\markboth{}{}%
+		{\raggedleft
+		\interlinepenalty \@M
+		\normalfont
+		\ifnum \c@secnumdepth >-2\relax
+		\if@mainmatter 
+			\fontsize{99.45}{100pt}\fontseries{b}\selectfont%
+			\thepart
+			\par
+			\vskip 20\p@
+			\hrule
+			\vskip 20\p@
+		\fi
+		\fi
+		\Huge \bfseries ##2\par}%
+		\@endpart}
+	\def\@spart##1{%
+		{\raggedleft
+		\interlinepenalty \@M
+		\normalfont
+		\hrule
+		\vskip 20\p@
+		\Huge \bfseries ##1\par}%
+		\@endpart}
+}
+%    \end{comment}
+% 		
+% 		\item[|serifbig|] \NEWdescription{2003/05/05} (was |serif|) Uses a
+% 		different style for |\part| with a Serif font.  Should be used in
+% 		combination with |\pagestyle{serif}| and
+% 		|\chaptertitlestyle{serifbig}|.
+%    \begin{comment}
+\@phd@newstyle{part}{serifbig}{%
+	\DeclareFontShape{OT1}{cmr}{b}{n}{<-> cmr17}{}
+	\def\@part[##1]##2{%
+		\ifnum \c@secnumdepth >-2\relax
+		\refstepcounter{part}%
+		\addcontentsline{toc}{part}{\thepart\hspace{1em}##1}%
+		\else
+		\addcontentsline{toc}{part}{##1}%
+		\fi
+		\markboth{}{}%
+		{\raggedleft
+		\interlinepenalty \@M
+		\normalfont
+		\ifnum \c@secnumdepth >-2\relax
+		\if@mainmatter 
+			\fontsize{99.45}{100pt}\fontseries{b}\selectfont%
+			\thepart
+			\par
+			\vskip 20\p@
+			\hrule
+			\vskip 20\p@
+		\fi
+		\fi
+		\Huge\bfseries\sffamily ##2\par}%
+		\@endpart}
+	\def\@spart##1{%
+		{\raggedleft
+		\interlinepenalty \@M
+		\normalfont
+		\hrule
+		\vskip 20\p@
+		\Huge \bfseries ##1\par}%
+		\@endpart}
+}
+%    \end{comment}
+% 	\end{description}
+% 	
+% \section{Commands provided}
+% 	
+% 	The class defines the chapter-like commands
+% 	\DescribeMacro{\preface}|\preface|\oarg{custom-name},
+% 	\begin{comment}
+%%%%%
+%%%%% Abstract, Preface, Introduction and Acknowledgments pages
+%%%%%
+%** 
+%%% Flag phd@afterintro
+%** 
+\newif\if@phd@afterintro\@phd@afterintrofalse
+\newcommand*{\preface}[1][\prefacename]{%
+	\if@twocolumn
+		\@restonecoltrue\onecolumn
+	\else
+		\@restonecolfalse
+	\fi
+	\chapter*{#1
+	\chaptermark{#1}\sectionmark{#1}}%
+	\ifnum \c@secnumdepth >\m@ne
+		\if@mainmatter
+			\ClassWarningNoLine{PhdThesis}{preface environment %
+				should NOT be used in mainmatter mode}
+		\fi
+		\typeout{#1.}%
+		\addcontentsline{toc}{chapter}
+		{\protect\numberline{}#1}%
+		\if@phd@afterintro\else
+			\global\@phd@afterintrotrue
+			\global\let\@phd@thechapter\thechapter
+		\fi
+		\gdef\thechapter{P}
+		\setcounter{section}{0}%
+		\setcounter{subsection}{0}%
+	\else
+		\addcontentsline{toc}{chapter}{#1}%
+	\fi
+	\if@restonecol\twocolumn\fi
+	\thispagestyle{empty}
+}
+%    \end{comment}
+% 	\DescribeMacro{\introduction}|\introduction|\oarg{custom-name} and
+%    \begin{comment}
+\newcommand*{\introduction}[1][\introductionname]{%
+	\setcounter{section}{0}%
+	\setcounter{subsection}{0}%
+	\if@twocolumn
+		\@restonecoltrue\onecolumn
+	\else
+		\@restonecolfalse
+	\fi
+	\chapter*{#1
+	\chaptermark{#1}\sectionmark{#1}}%
+	\ifnum \c@secnumdepth >\m@ne
+		\if@mainmatter
+			\ClassWarningNoLine{PhdThesis}{introduction environment %
+				should NOT be used in mainmatter mode}
+		\fi
+		\typeout{#1.}%
+		\addcontentsline{toc}{chapter}
+		{\protect\numberline{}#1}%
+		\if@phd@afterintro\else
+			\global\@phd@afterintrotrue
+			\global\let\@phd@thechapter\thechapter
+		\fi
+		\gdef\thechapter{I}
+		\setcounter{section}{0}%
+		\setcounter{subsection}{0}%
+	\else
+		\addcontentsline{toc}{chapter}{#1}%
+	\fi
+	\if@restonecol\twocolumn\fi
+	\thispagestyle{empty}
+}
+%    \end{comment}
+% 	\DescribeMacro{\conclusions}|\conclusions|\oarg{custom-name}, 
+%    \begin{comment}
+%** 
+%%% Flag phd@afterapp
+%** 
+\newif\if@phd@afterapp\@phd@afterappfalse
+\newcommand*{\conclusions}[1][\conclusionsname]{%
+	\if@twocolumn
+		\@restonecoltrue\onecolumn
+	\else
+		\@restonecolfalse
+	\fi
+	\chapter*{#1
+	\chaptermark{#1}\sectionmark{#1}}%
+	\ifnum \c@secnumdepth >\m@ne
+		\if@mainmatter
+			\ClassWarningNoLine{PhdThesis}{conclusions environment %
+				should NOT be used in mainmatter mode}
+		\else\fi
+		\typeout{#1.}%
+		\addcontentsline{toc}{chapter}
+		{\protect\numberline{}#1}%
+		\if@phd@afterintro\else
+			\global\@phd@afterintrotrue
+			\global\let\@phd@thechapter\thechapter
+		\fi
+		\gdef\thechapter{C}
+		\setcounter{section}{0}%
+		\setcounter{subsection}{0}%
+		\if@phd@afterapp
+			\global\let\thesection\@phd@thesection
+			\global\@phd@afterappfalse
+		\fi
+	\else
+		\addcontentsline{toc}{chapter}{#1}%
+	\fi
+	\if@restonecol\twocolumn\fi
+	\thispagestyle{empty}
+}
+%    \end{comment}
+% 	which should be used for preface, introduction and conclusions
+% 	respectively.  They behave just like |\chapter*| but (sub)sections can
+% 	be used inside them.  atically depending on the current active language
+% 	as the default one).  \NEWdescription{1999/10/31} The commands
+% 	|preface| and |introduction| should be used in |frontmatter| mode while
+% 	the command |conclusions| should be used in |backmatter| mode.
+% 	
+% 	\NEWfeature{2008/01/14} If needed a customized name can be specified
+% 	instead of the default one (be careful as this won't change
+% 	automatically depending on the current active language as the default
+% 	one).  Moreover numbering of introduction and conlusions will 
+% 	nevertheless begin with I and C, as in the custom case only * 
+% 	sectioning should be used.
+% 	
+%    \begin{comment}
+%%%%%
+%%%%% MakeTitle Strings Definition Commands
+%%%%%
+%**
+%%% Init strings
+%**
+\let\@phd@chair\@empty
+\let\@phd@cosupervisor\@empty
+\let\@phd@email\@empty
+\let\@phd@homepage\@empty
+\let\@phd@number\@empty
+\let\@phd@phone\@empty
+\let\@phd@referee\@empty
+\let\@phd@rights\@empty
+\let\@phd@supervisor\@empty
+\let\@phd@titleabstract\@empty
+\let\@phd@tutor\@empty
+%    \end{comment}
+% 		
+% 		The commands
+% 		\DescribeMacro{\supervisor}|\supervisor|\marg{names-list},
+% 		\DescribeMacro{\cosupervisor}|\cosupervisor|\marg{names-list},
+% 		\DescribeMacro{\tutor}|\tutor|\marg{names-list},
+% 		\NEWfeature{2010/10/30}
+% 		\DescribeMacro{\referee}|\referee|\marg{names-list} are used to
+% 		insert in the first page the supervisor(s), co-supervisor(s),
+% 		tutor(s) and the referee(s) name(s).  The names list consists of a
+% 		sequence of names separated by |\and|.  \NEWfeature{2007/09/20}
+% 		Note that the |\and| command within these commands and |\author|
+% 		now changes the corresponding label from singular to plural.
+% 	    
+%    \begin{comment}
+\newcommand*{\supervisor}[1]{\gdef\@phd@supervisor{#1}}
+\newcommand*{\referee}[1]{\gdef\@phd@referee{#1}}
+\newcommand*{\cosupervisor}[1]{\gdef\@phd@cosupervisor{#1}}
+\newcommand*{\tutor}[1]{\gdef\@phd@tutor{#1}}
+%    \end{comment}
+% 	
+% 		
+% 		The command \DescribeMacro{\chair}|\chair|\marg{names-list} is used to 
+% 		insert in the first page the chair(s) name(s).  The names list 
+% 		consists of a sequence of names separated by |\and|.
+%    \begin{comment}
+\newcommand*{\chair}[1]{\gdef\@phd@chair{#1}}
+%    \end{comment}
+% 		
+% 		The command \DescribeMacro{\phdnumber}|\phdnumber|\marg{text} is used 
+% 		to insert in the first page the number of the thesis volume.
+%    \begin{comment}
+\newcommand*{\phdnumber}[1]{\gdef\@phd@number{#1}}
+%    \end{comment}
+%    	
+% 		The command 
+% 		\DescribeMacro{\rights}|\rights|\marg{text} \NEWfeature{2003/02/06} is used 
+% 		to insert in the second page a copyright notice.
+% 
+%    \begin{comment}
+\newcommand{\rights}[1]{\gdef\@phd@rights{#1}}
+%    \end{comment}
+%    	
+% 		The command 
+% 		\DescribeMacro{\email}|\email|\marg{text} \NEWfeature{2003/02/06} is used 
+% 		to insert in the second page the author's e-mail.
+% 
+%    \begin{comment}
+\newcommand{\email}[1]{\gdef\@phd@email{#1}}
+%    \end{comment}
+%    	
+% 		The command 
+% 		\DescribeMacro{\homepage}|\homepage|\marg{text} \NEWfeature{2004/02/17} is used 
+% 		to insert in the second page the author's home page URL.
+% 
+%    \begin{comment}
+\newcommand{\homepage}[1]{\gdef\@phd@homepage{#1}}
+%    \end{comment}
+%    	
+% 		The command \DescribeMacro{\telephone}|\telephone|\marg{text}
+% 		\NEWfeature{2003/05/01} is used to insert in the second page the
+% 		author's telephone.
+% 
+%    \begin{comment}
+\newcommand{\telephone}[1]{\gdef\@phd@phone{#1}}
+%    \end{comment}
+%    	
+% 		The command
+% 		\DescribeMacro{\titleabstract}|\titleabstract|\marg{text}
+% 		\NEWfeature{1998/02/28} is used to insert in the first page the
+% 		abstract of the thesis when the command |\maketitlepage| is
+% 		invoked.
+% 
+%    \begin{comment}
+\newcommand{\titleabstract}[1]{\gdef\@phd@titleabstract{#1}}
+%    \end{comment}
+% 	
+% 	The command \DescribeMacro{\printindex}|\printindex| is used to source 
+% 	the index file generated by |MakeIndex|
+%    \begin{comment}
+\newcommand*\printindex{\InputIfFileExists{\jobname.ind}{}
+	{\ClassWarningNoLine{PhdThesis}{No file \jobname.ind.}}}
+%    \end{comment}
+% 	
+% 		The command
+% 		\DescribeMacro{\maketitlepage}|\maketitlepage|
+% 		\NEWfeature{1998/02/28} performs a title page with
+% 		the abstract, different from that of |\maketitle|,
+% 		according to the commands described before.  It
+% 		uses the |phdnumber|, |title|, |author| and
+% 		|titleabstract| fields only.
+% 	
+%    \begin{comment}
+\newcommand*{\maketitlepage}{
+	\begin{titlepage}%
+	\let\footnotesize\small
+	\let\footnoterule\relax
+	\null%\vfil
+	\begin{center}%
+		\vskip -2cm
+		\textsc{\@phd@university}\par
+		\vskip 2em plus .25em minus .25em
+		{\large\textsc{\thesisname\ifx\@phd@number\@empty\else:
+		\@phd@number\fi}\par}
+		\vskip 2em
+		{\LARGE\bfseries\@title\par}\vskip 2em%
+% 		\if@phd@MTh
+% 			\begin{minipage}[t]{0.45\textwidth}
+% 				\begin{center}
+% 					\begin{tabular}[t]{c}%
+% 						\textsc{\candidatename}\\[1ex]
+% 						\@author
+% 					\end{tabular}\\[5em]\mbox{}
+% 				\end{center}
+% 			\end{minipage}
+% 		\else
+		{\large\begin{tabular}[t]{c}%
+			\@author
+		\end{tabular}}\par
+% 		\fi
+		%\vskip 2em plus.25em minus.25em
+		%\vfill
+		\ifx\@phd@titleabstract\@empty\else
+			\vskip .5em plus.25em minus.25em
+			\vfill
+			\begin{minipage}[t]{0.87\textwidth}
+				\textbf{\abstractname.} \@phd@titleabstract
+			\end{minipage}\par
+			\vskip .5em plus.25em minus.25em
+		\fi%
+		\vfill
+		{\large
+		\ifx\undefined\datename\else\datename~{}\fi
+		\@date\par}% Set date in \large size.
+	\end{center}%\par
+	\ifx\@phd@address\@empty\else
+		\par\vfil\begin{center}
+			\@phd@address
+		\end{center}
+	\fi%
+	% \vfil
+	\ifx\@thanks\@empty\else
+		\par\vfil\begin{center}
+			\@thanks
+		\end{center}
+	\fi%
+	\null
+	\end{titlepage}%
+	\thispagestyle{empty}
+	\setcounter{footnote}{0}%
+	\let\thanks\relax\let\maketitle\relax
+	\gdef\@thanks{}\gdef\@author{}\gdef\@title{}
+	}
+%    \end{comment}
+% 	
+% 	The command
+% 	\DescribeMacro{\chapterappendix}|\chapterappendix| \NEWfeature{1999/10/31} is similar to
+% 	|\appendix| but is meant for chapters and thus affects sections only.
+% 
+%    \begin{comment}
+\newcommand\chapterappendix{\par
+	\setcounter{section}{0}%
+	\setcounter{subsection}{0}%
+	\global\@phd@afterapptrue\global\let\@phd@thesection\thesection
+	\gdef\thesection{\thechapter.\@Alph\c@section}}
+%    \end{comment}
+% 
+% \section{Environments}
+% 	
+% 	The class defines the environments \DescribeEnv{abstract}|abstract|, 
+%    \begin{comment}
+\newenvironment{abstract}[1][\abstractname]
+	{\chapter*{#1
+	\chaptermark{#1}\sectionmark{#1}}%
+	\thispagestyle{empty}}
+	{\thispagestyle{empty}\cleardoublepage\thispagestyle{empty}}
+%    \end{comment}
+% 	\DescribeEnv{acknowledgments}|acknowledgments|,
+%    \begin{comment}
+\newenvironment{acknowledgments}[1][\acknowledgmentsname]
+	{\chapter*{#1
+	\chaptermark{#1}\sectionmark{#1}}%
+	\thispagestyle{empty}}
+	{\thispagestyle{empty}\cleardoublepage\thispagestyle{empty}}
+%    \end{comment}
+% 	\DescribeEnv{approval}|approval|, 
+%    \begin{comment}
+\newenvironment{approval}[1][]{
+	\begin{titlepage}
+		\vspace*{70pt}
+		\vskip 0pt plus.3fil
+		\begin{center}
+}{
+		\end{center}
+		\vskip 0pt plus.6fil
+	\end{titlepage}
+	\thispagestyle{empty}
+}
+%    \end{comment}
+% 	\DescribeEnv{dedication}|dedication| and
+%    \begin{comment}
+\newenvironment{dedication}[1][]{
+	\begin{titlepage}
+		\vspace*{70pt}
+		\vskip 0pt plus.3fil
+		\begin{flushright}
+}{
+		\end{flushright}
+		\vskip 0pt plus.6fil
+		\thispagestyle{empty}
+	\end{titlepage}
+	\thispagestyle{empty}
+}
+%    \end{comment}
+% 	\DescribeEnv{summary}|summary| \NEWfeature{1998/02/28}
+%    \begin{comment}
+\newenvironment{summary}[1][\summaryname]
+	{\chapter*{#1
+	\chaptermark{#1}\sectionmark{#1}}%
+	\thispagestyle{empty}}
+	{\thispagestyle{empty}\cleardoublepage\thispagestyle{empty}}
+%    \end{comment}
+% 	which are intended to produce an abstract, acknowledgments, approval, 
+% 	summary and dedication pages respectively.  They should be used just 
+% 	after the |\maketitle| command and just before the |\frontmatter| one 
+% 	and can be used with the following syntax
+% 	\begin{decl}
+% 		|\begin|\meta{front-env-name}||\oarg{custom-name} \\
+% 		\quad\meta{text} \\
+% 		|\end|\meta{front-env-name}||
+% 	\end{decl}
+% 	\NEWfeature{2008/01/14} where (if needed) a customized name can be
+% 	specified instead of the default one (be careful as this won't change
+% 	automatically depending on the current active language as the default
+% 	one).
+% 	
+% 	Finally, we have the environment
+% 	\DescribeEnv{chapterabstract}|chapterabstract|\NEWfeature{1998/10/13}
+% 	which should be used at the beginning of a chapter to produce its
+% 	abstract.
+%    \begin{comment}
+\newenvironment{chapterabstract}[1][\chapterabstractname]
+	{\normalfont\small\hrulefill#1\hrulefill%\bigskip
+	\quotation\noindent\small\ignorespaces}%
+	{\endquotation%\bigskip
+	\hrule\bigskip\noindent\ignorespaces}
+\AtBeginDocument{
+	\providecommand*{\chapterabstractname}{~\abstractname~}
+}
+%    \end{comment}
+% 	\NEWfeature{2008/01/14} For this too a customized name can be
+% 	specified.
+% 		
+% \section{Miscellaneous}
+% 	
+% 	The class supplies all the caption names used for any of the supported
+% 	languages listed in the options.  The way of supplying names is fully
+% 	compatible with the |babel| package and takes advantage of its
+% 	features.  It is higly reccomended to load this package.  If not, in
+% 	case of multiple language options the only caption definitions to be
+% 	available will be the ones of the last language specified.  Note that
+% 	if you use a non-supported language all the names which are not
+% 	provided by |babel| will be expressed in the last supported language
+% 	used (english by default).
+% 
+% \begin{comment}
+%**
+%%% Language Dependent and Shape Independent Names
+%**
+\AtBeginDocument{\@ifpackageloaded{babel}{}{
+\ClassWarningNoLine{PhdThesis}{The package babel is not loaded}
+}}
+\def\phd@setcaptions#1#2{%
+	\@ifpackageloaded{babel}{%
+	    \expandafter\addto\csname captions#1\expandafter\endcsname
+	    \expandafter{#2}%
+	}{#2}%
+}
+%%%	Language Dependent Names
+\def\phd@captions@american{%
+	\def\abstractname{Abstract}%
+	\def\acknowledgmentsname{Acknowledgments}%
+	\def\chairname{Chair}%
+	\def\conclusionsname{Conclusions}%
+	\def\cosupervisorname{Co-Supervisor}%
+	\def\cosupervisorsname{Co-Supervisors}%
+	\def\indexname{Index}%
+	\def\introductionname{Introduction}%
+	\def\prefacename{Preface}%
+	\def\refereename{Referee}%
+	\def\refereesname{Referees}%
+	\def\summaryname{Summary}%
+	\def\supervisorname{Supervisor}%
+	\def\supervisorsname{Supervisors}%
+	\def\tutorname{Tutor}%
+	\def\tutorsname{Tutors}%
+}
+\let\phd@captions@english\phd@captions@american
+\def\phd@captions@italian{%
+	\def\abstractname{Sommario}%
+	\def\acknowledgmentsname{Ringraziamenti}%
+	\def\chairname{Direttore}%
+	\def\conclusionsname{Conclusioni}%
+	\def\cosupervisorname{Co-relatore}%
+	\def\cosupervisorsname{Co-relatori}%
+	\def\indexname{Indice Analitico}%
+	\def\introductionname{Introduzione}%
+	\def\prefacename{Prefazione}%
+	\def\refereename{Controrelatore}%
+	\def\refereesname{Controrelatori}%
+	\def\summaryname{Riassunto}%
+	\def\supervisorname{Relatore}%
+	\def\supervisorsname{Relatori}%
+	\def\tutorname{Tutor Aziendale}%
+	\def\tutorsname{Tutor Aziendali}%
+}
+\def\phd@captions@spanish{%
+	\def\abstractname{Resumen}%
+	\def\acknowledgmentsname{Agradecimientos}%
+	\def\chairname{Tutor}%
+	\def\conclusionsname{Conclusiones}%
+	\def\cosupervisorname{Codirector}%
+	\def\cosupervisorsname{Codirectores}%
+	\def\indexname{\'Indice alfab\'etico}%
+	\def\introductionname{Introducci\'on}%
+	\def\prefacename{Prefacio}%
+	\def\refereename{Revisor}%
+	\def\refereesname{Revisores}%
+	\def\summaryname{Sumario}%
+	\def\supervisorname{Director}%
+	\def\supervisorsname{Directores}%
+	\def\tutorname{Tutor}%
+	\def\tutorsname{Tutores}%
+}
+\def\phd@captions@french{%
+	\def\abstractname{Sommaire}%
+	\def\acknowledgmentsname{Remerciements}%
+	\def\chairname{Pr\'esident}%
+	\def\conclusionsname{Conclusions}%
+	\def\cosupervisorname{Codirecteur de th\`ese}%
+	\def\cosupervisorsname{Codirecteurs de th\`ese}%
+	\def\indexname{Index}%
+	\def\introductionname{Introduction}%
+	\def\prefacename{Pr\'eface}%
+	\def\refereename{Rapporteur}%
+	\def\refereesname{Rapporteurs}%TO BE CHECKED
+	\def\summaryname{R\'esum\'e}%
+	\def\supervisorname{Directeur de th\`ese}%
+	\def\supervisorsname{Directeurs de th\`ese}%TO BE CHECKED
+	\def\tutorname{Tutor}%
+	\def\tutorsname{Tutors}%
+}
+%    \end{comment}
+% 	
+% 	The |\tableofcontents|, |\listoffigures| and |\listoftables| commands 
+% 	are patched to be compatibile with the headings options.
+% 
+% \begin{comment}
+%**
+%%% Patches to book.cls definitions
+%**
+\renewcommand\tableofcontents{%
+	\if@twocolumn\@restonecoltrue\onecolumn\else\@restonecolfalse\fi
+	\chapter*{\contentsname
+	\chaptermark{\contentsname}\sectionmark{\contentsname}}%
+	\@starttoc{toc}\if@restonecol\twocolumn\fi
+	\if@mainmatter\ClassWarning{PhdThesis}
+	{Command \tableofcontents should be used in frontmatter mode}\fi}
+\renewcommand\listoffigures{%
+	\if@twocolumn\@restonecoltrue\onecolumn\else\@restonecolfalse\fi
+	\chapter*{\listfigurename
+	\chaptermark{\listfigurename}\sectionmark{\listfigurename}}%
+	\@starttoc{lof}\if@restonecol\twocolumn\fi
+	\if@mainmatter\ClassWarning{PhdThesis}
+	{Command \listoffigures should be used in frontmatter mode}\fi}
+\renewcommand\listoftables{%
+	\if@twocolumn\@restonecoltrue\onecolumn\else\@restonecolfalse\fi
+	\chapter*{\listtablename
+	\chaptermark{\listtablename}\sectionmark{\listtablename}}%
+	\@starttoc{lot}\if@restonecol\twocolumn\fi
+	\if@mainmatter\ClassWarning{PhdThesis}
+	{Command \listoftables should be used in frontmatter mode}\fi}
+%    \end{comment}
+% 	
+% 	The |thebibliography| environment is patched to automatically add its 
+% 	entry in the table of contents.  As a side effect it exits |mainmatter| mode.
+% 	
+% \begin{comment}
+\AtBeginDocument{% Compatible with openbib?
+\renewenvironment{thebibliography}[1]
+	{\chapter*{\bibname
+	\chaptermark{\bibname}\sectionmark{\bibname}}%
+	\typeout{\bibname.}%
+	\addcontentsline{toc}{chapter}{\protect\numberline{}\bibname}
+	\@mainmatterfalse
+	\list{\@biblabel{\@arabic\c@enumiv}}%
+	{\settowidth\labelwidth{\@biblabel{#1}}%
+	\leftmargin\labelwidth
+	\advance\leftmargin\labelsep
+	\@openbib@code
+	\usecounter{enumiv}%
+	\let\p@enumiv\@empty
+	\renewcommand\theenumiv{\@arabic\c@enumiv}}%
+	\sloppy
+	\clubpenalty4000
+	\@clubpenalty\clubpenalty
+	\widowpenalty4000%
+	\sfcode`\.\@m}
+{\def\@noitemerr
+	{\@latex@warning{Empty `thebibliography' environment}}%
+	\endlist}
+}
+%    \end{comment}
+% 	
+% 	\NEWdescription{1998/03/24} The |theindex| environment is patched to
+% 	perform proper |\cleardoublepage| and to automatically add it in the
+% 	table of contents.  As a side effect it exits |mainmatter| mode.
+% 
+% \begin{comment}
+\renewenvironment{theindex}
+	{\if@twocolumn\@restonecolfalse\else\@restonecoltrue\fi
+	\if@openright\cleardoublepage\else\clearpage\fi
+	\columnseprule \z@
+	\columnsep 35\p@
+	\twocolumn[\vskip 7mm\@makeschapterhead{\indexname}]%
+	\chaptermark{\indexname}\sectionmark{\indexname}%
+	\typeout{\indexname.}%
+	\addcontentsline{toc}{chapter}{\protect\numberline{}\indexname}
+	\@mainmatterfalse
+	\thispagestyle{empty}\parindent\z@
+	\parskip\z@ \@plus .3\p@\relax
+	\let\item\@idxitem}
+	{\if@restonecol\onecolumn\else\clearpage\fi}
+%    \end{comment}
+% 	
+% 	The |\chapter| and |\appendix| commands are patched to friendly work
+% 	with |\introduction| and |\conclusions|.  Moreover the |\appendix|
+% 	performs a |\mainmatter| to display chapter numbers in the headings.
+% 	\NEWdescription{2004/01/15}
+% 	
+% \begin{comment}
+\renewcommand\appendix{\par
+  \setcounter{chapter}{0}%
+  \setcounter{section}{0}%
+  \gdef\@chapapp{\appendixname}%
+  \if@phd@afterintro
+  \gdef\@phd@thechapter{\@Alph\c@chapter}
+  \else
+  \gdef\thechapter{\@Alph\c@chapter}
+  \fi%
+  \@mainmattertrue%this to behave like mainmatter without resetting page counter
+  }
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+	\if@phd@afterintro
+		\global\@phd@afterintrofalse
+		\global\let\thechapter\@phd@thechapter
+	\fi
+	\if@phd@afterapp
+		\global\let\thesection\@phd@thesection
+		\global\@phd@afterappfalse
+	\fi
+	\if@mainmatter
+		\refstepcounter{chapter}
+		\typeout{\@chapapp\space\thechapter.}%
+		\addcontentsline{toc}{chapter}%
+		{\protect\numberline{\thechapter}#1}%
+	\else
+		\addcontentsline{toc}{chapter}{#1}%
+	\fi
+\else
+	\addcontentsline{toc}{chapter}{#1}%
+\fi
+\chaptermark{#1}%
+\addtocontents{lof}{\protect\addvspace{10\p@}}%
+\addtocontents{lot}{\protect\addvspace{10\p@}}%
+\if@twocolumn
+	\@topnewpage[\@makechapterhead{#2}]%
+\else
+	\@makechapterhead{#2}%
+	\@afterheading
+\fi}
+%    \end{comment}
+% 	
+% 
+% \section{Shape-Definition Files}
+% 
+% 	For each institution different page formats and title pages
+% 	styles are needed.  All this settings are provided by suitables
+% 	\meta{Shape-Definition}|.sdf| files.  
+% 
+%    \begin{comment}
+%** 
+%%% Load Shape Definition File and corresponding local .cfg
+%** 
+\providecommand*{\addto}[2]{%
+  \ifx#1\@undefined
+    \def#1{#2}%
+  \else
+    \ifx#1\relax
+      \def#1{#2}%
+    \else
+      {\toks@\expandafter{#1#2}%
+        \xdef#1{\the\toks@}}%
+    \fi
+  \fi
+}
+\expandafter\InputIfFileExists{\@phd@shapefile.sdf}{%
+%	\ClassWarningNoLine{PhdThesis}{loaded `\@phd@shapefile' shape document file}
+}{%
+	\ClassError{PhdThesis}{cannot load `\@phd@shapefile' shape document file}
+	{No help, sorry}
+}
+%</class>
+%    \end{comment}
+% 
+% 	\NEWdescription{2004/01/15} First, according to the desired shape to be
+% 	produced, several \LaTeX/\TeX{} parameters concerning page dimensions
+% 	(text width, text height, margins, base line, \ldots) have to be set
+% 	up.  For example, all |.sdf| files modify the |\textheight| and
+% 	|\textwidth| parameters accordingly to the |10pt|, |11pt| or |12pt|
+% 	options.  For some of them |12pt| is reccomended, since the final
+% 	version should be printed as two pages up one A4 paper (hence reduced
+% 	by 70\%), for others not.  If you want to know what is reccomended
+% 	simply look at the tex output since warnings are issued for
+% 	non-reccomended setups.
+% 
+%    \begin{comment}
+%<*sdf>
+%<!CR&Pisa&Mst>\typeout{Class PhdThesis: PisaMstThesis.sdf 2010/09/05.} 
+%<!CR&Pisa&Phd>\typeout{Class PhdThesis: PisaPhdThesis.sdf 2010/09/05.}
+%<!CR&Siena&Phd>\typeout{Class PhdThesis: SienaPhdThesis.sdf 2010/10/30.}
+%<!CR&Udine&Bach>\typeout{Class PhdThesis: UdineBachThesis.sdf 2010/10/30.} 
+%<!CR&Udine&Mst>\typeout{Class PhdThesis: UdineMstThesis.sdf 2010/10/30.} 
+%<!CR&Udine&Phd>\typeout{Class PhdThesis: UdinePhdThesis.sdf 2010/10/30.}
+%<!CR&Valencia&Bach>\typeout{Class PhdThesis: ValenciaBachThesis.sdf 2010/10/30.} 
+%<!CR&Valencia&Mst>\typeout{Class PhdThesis: ValenciaMstThesis.sdf 2010/10/30.}
+%<!CR&Valencia&Phd>\typeout{Class PhdThesis: ValenciaPhdThesis.sdf 2010/10/30.}
+%<!CR&Venezia&Phd>\typeout{Class PhdThesis: VeneziaPhdThesis.sdf 2010/09/05.}
+%<CR&Udine&Phd>\typeout{Class PhdThesis: UdinePhdThesisCR.sdf 2004/01/15.}
+%<CR&drawmargins&Udine&Phd>\typeout{Class PhdThesis: UdinePhdThesisCRmargins.sdf 2004/01/15.}
+%%% Defines page shape
+% Must preserve "(\textheight -	\topskip) divides \baselineskip".
+\ifcase\@ptsize% mods for 10 pt
+%<Phd&!((Udine&CR)|Valencia)|(Mst|Bach)>\ClassWarningNoLine{PhdThesis}
+%<Phd&!((Udine&CR)|Valencia)>{You should use 12pt option instead of 10pt}
+%<(Mst|Bach)>{You should use 11pt option instead of 10pt}
+%<Phd&!((Udine&CR)|Valencia)|(Mst|Bach)>\setlength\textheight{53\baselineskip}
+%<Phd&((Udine&CR)|Valencia)>\setlength\textheight{44\baselineskip}
+\or% mods for 11 pt
+%<Phd>\ClassWarningNoLine{PhdThesis}
+%<Phd&!((Udine&CR)|Valencia)>{You should use 12pt option instead of 11pt}
+%<Phd&((Udine&CR)|Valencia)>{You should use 10pt option instead of 11pt}
+%<Phd&!((Udine&CR)|Valencia)|(Mst|Bach)>\textheight 46\baselineskip
+%<Phd&((Udine&CR)|Valencia)>\textheight 39\baselineskip
+\or% mods for 12 pt
+%<(Mst|Bach)|Phd&((Udine&CR)|Valencia)>\ClassWarningNoLine{PhdThesis}
+%<Phd&((Udine&CR)|Valencia)>{You should use 10pt option instead of 12pt}
+%<(Mst|Bach)>{You should use 11pt option instead of 12pt}
+%<Phd&!((Udine&CR)|Valencia)|(Mst|Bach)>\setlength\textheight{42\baselineskip}
+%<Phd&((Udine&CR)|Valencia)>\setlength\textheight{36\baselineskip}
+\fi
+\advance\textheight by \topskip
+% \setlength\headheight{0 pt}
+% \setlength\marginparwidth{16mm}
+%<Phd&!((Udine&CR)|Valencia)|(Mst|Bach)>\setlength\headsep{10mm}
+%<Phd&((Udine&CR)|Valencia)>\setlength\headsep{8mm}
+%<Phd&!((Udine&CR)|Valencia)|(Mst|Bach)>\setlength\topmargin{3mm}
+%<Phd&((Udine&CR)|Valencia)>\setlength\topmargin{22mm}
+%<Phd&!((Udine&CR)|Valencia)>\setlength\evensidemargin{3mm}
+%<Phd&((Udine&CR)|Valencia)>\setlength\evensidemargin{14.5mm}
+%<(Mst|Bach)>\setlength\evensidemargin{5mm}
+%<Phd&!((Udine&CR)|Valencia)>\setlength\oddsidemargin{7mm}
+%<Phd&((Udine&CR)|Valencia)>\setlength\oddsidemargin{14.5mm}
+%<(Mst|Bach)>\setlength\oddsidemargin{15mm}
+%<Phd&!((Udine&CR)|Valencia)>\setlength\textwidth{150mm}
+%<Phd&((Udine&CR)|Valencia)>\setlength\textwidth{130mm}
+%<(Mst|Bach)>\setlength\textwidth{140mm}
+%<(Mst|Bach)>\setlength\parskip {0.2em plus 1pt minus 1pt}
+% %<(Mst|Bach)>\renewcommand*{\baselinestretch}{1.2}
+% %<(Mst|Bach)>bl' =\alpha bl, \alpha = 42/n, n\in\mathbb{N}
+% %<(Mst|Bach)>\alpha = [1.05, 1.0769230769, 1.1052631579, 1.1666666667, 
+% %<(Mst|Bach)>1.2, 1.3125, 1.4, 1.5]
+%<(Mst|Bach)>\AtBeginDocument{
+%<(Mst|Bach)>\setlength\baselineskip {1.3125\baselineskip} 
+%<(Mst|Bach)>}
+%<Phd&Udine&CR&drawmargins>%%% Draw page margins
+%<Phd&Udine&CR&drawmargins>\setlength{\unitlength}{1mm}
+%<Phd&Udine&CR&drawmargins>\let\phd@pagestyle\pagestyle
+%<Phd&Udine&CR&drawmargins>\def\pagestyle#1{\phd@pagestyle{#1}
+%<Phd&Udine&CR&drawmargins>\let\phd@evenhead\@evenhead
+%<Phd&Udine&CR&drawmargins>\def\@evenhead{%
+%<Phd&Udine&CR&drawmargins>\makebox[0pt]{\begin{picture}(0,0)
+%<Phd&Udine&CR&drawmargins>\thinlines\put(-12,-218){\framebox(160,235){}}
+%<Phd&Udine&CR&drawmargins>\end{picture}}%
+%<Phd&Udine&CR&drawmargins>\phd@evenhead}
+%<Phd&Udine&CR&drawmargins>\let\phd@oddhead\@oddhead
+%<Phd&Udine&CR&drawmargins>\def\@oddhead{%
+%<Phd&Udine&CR&drawmargins>\makebox[0pt]{\begin{picture}(0,0)
+%<Phd&Udine&CR&drawmargins>\thinlines\put(-17,-218){\framebox(160,235){}}
+%<Phd&Udine&CR&drawmargins>\end{picture}}%
+%<Phd&Udine&CR&drawmargins>\phd@oddhead}
+%<Phd&Udine&CR&drawmargins>}
+% %<Phd&Udine&CR>\AtBeginDocument{
+% %<Phd&Udine&CR>\requirepackage{drawmargins}
+% %<Phd&Udine&CR>\special{
+% %<Phd&Udine&CR>  ! userdict begin
+% %<Phd&Udine&CR>  /thesis-CurrentPage 0 def
+% %<Phd&Udine&CR>  /thesis-rm 72 160 mul 25.4 div def
+% %<Phd&Udine&CR>  /thesis-bm 72 235 mul 25.4 div def 
+% %<Phd&Udine&CR>  /thesis-PS currentpagedevice /PageSize get def
+% %<Phd&Udine&CR>  /thesis-width thesis-PS 0 get def
+% %<Phd&Udine&CR>  /thesis-height thesis-PS 1 get def
+% %<Phd&Udine&CR>  /bop-hook{
+% %<Phd&Udine&CR>    /thesis-CurrentPage thesis-CurrentPage 1 add def       
+% %<Phd&Udine&CR>    thesis-CurrentPage 2 mod 1 eq
+% %<Phd&Udine&CR>    { gsave            
+% %<Phd&Udine&CR>      0 thesis-height translate
+% %<Phd&Udine&CR>      %270 rotate
+% %<Phd&Udine&CR>      newpath
+% %<Phd&Udine&CR>      thesis-rm 0 moveto
+% %<Phd&Udine&CR>      thesis-rm -1 thesis-rm mul lineto
+% %<Phd&Udine&CR>      0 -1 thesis-rm mul lineto
+% %<Phd&Udine&CR>      0.4 setlinewidth
+% %<Phd&Udine&CR>      stroke           
+% %<Phd&Udine&CR>      grestore
+% %<Phd&Udine&CR>    }
+% %<Phd&Udine&CR>    { gsave 
+% %<Phd&Udine&CR>      thesis-width thesis-height translate
+% %<Phd&Udine&CR>     % 270 rotate
+% %<Phd&Udine&CR>      newpath
+% %<Phd&Udine&CR>      -1 thesis-rm mul 0 moveto
+% %<Phd&Udine&CR>      -1 thesis-rm mul -1 thesis-bm mul lineto
+% %<Phd&Udine&CR>      0 -1 thesis-bm mul lineto
+% %<Phd&Udine&CR>      0.4 setlinewidth
+% %<Phd&Udine&CR>      stroke           
+% %<Phd&Udine&CR>      grestore
+% %<Phd&Udine&CR>    } ifelse
+% %<Phd&Udine&CR>  } def
+% %<Phd&Udine&CR>  end
+% %<Phd&Udine&CR>}
+% %<Phd&Udine&CR>}
+%%% Provides strings required by maketitlepage (and patched maketitle)
+\def\@phd@address{%
+%<Udine&Phd>Dipartimento di Matematica e Informatica\\
+% %<(Udine|Pisa)&(Mst|Bach)>Corso di Laurea in Informatica\\
+% %<(Udine|Pisa)&(Mst|Bach)>Facolt\`a di Scienze Matematiche Fisiche e Naturali\\
+%<Udine>Universit\`a degli Studi di Udine\\
+%<Udine>Via delle Scienze, 206\\
+%<Udine>33100 Udine\\
+%<Udine>Italia
+%<Pisa&Phd>Dipartimento di Informatica\\
+%<Pisa>Universit\`a degli Studi di Pisa\\
+%<Pisa>Via Buonarroti, 2\\
+%<Pisa>56??? Pisa\\
+%<Pisa>Italia
+%<Valencia&(Phd|Mst)>Departamento de Sistemas Inform\'aticos y Computaci\'on\\
+%<Valencia>Universidad Polit\'ecnica de Valencia\\
+%<Valencia>Camino de Vera, s/n\\
+%<Valencia>46022 Valencia\\
+%<Valencia>Espa\~na
+%<Venezia&Phd>Dipartimento di Informatica\\
+%<Venezia>Universit\`a Ca' Foscari di Venezia\\
+%<Venezia>Via Torino, 155\\
+%<Venezia>30172 Venezia Mestre -- Italia \\
+%<Venezia>tel. +39 041 2348411 \\
+%<Venezia>fax. +39 041 2348419 \\
+%<Venezia>web: {\tt http://www.dsi.unive.it}
+%<Siena>Dipartimento di Scienze Matematiche e Informatiche\\
+%<Siena>Universit\`a degli Studi di Siena\\
+%<Siena>Pian dei Mantellini, 44\\
+%<Siena>53100 Siena\\
+%<Siena>Italia
+}
+\gdef\@phd@university{%
+%<Udine>Universit\`a degli Studi di Udine\\[0.5em]
+%<Udine&Phd>Dipartimento di Matematica e Informatica\\[0.5em]
+%<Udine&Phd>Dottorato di Ricerca in Informatica%
+%<Udine&(Mst|Bach)>Facolt\`a di Scienze Matematiche Fisiche e Naturali\\[0.5em]
+%<Udine&Mst>Corso di Laurea Specialistica in Informatica%
+%<Udine&Bach>Corso di Laurea Triennale in Informatica%
+%<Valencia&Mst>{\large%
+%<Valencia>Universidad Polit\'ecnica de Valencia\\[0.5em]
+%<Valencia&(Phd|Mst)>Departamento de Sistemas Inform\'aticos y Computaci\'on\\[0.5em]
+%<Valencia&Bach>Facultad de Inform\'atica\\[0.5em]
+%<Valencia&Phd>Doctorado en Inform\'atica%
+%<Valencia&Mst>\begin{center}%
+%<Valencia&Mst>M\'aster en Ingenier\'{\i}a del Software, M\'etodos Formales y Sistemas de Informaci\'on%
+%<Valencia&Mst>\end{center}%
+%<Valencia&Mst>}%
+%<Valencia&Bach>Ingenier\'{\i}a Inform\'atica%
+%<Pisa>Universit\`a degli Studi di Pisa\vskip 0.75em plus 0.25em minus 0.25em
+%<Pisa>{\large%
+%<Pisa&Phd>Dipartimento di Informatica\\
+%<Pisa&Phd>Dottorato di Ricerca in Informatica}
+%<Pisa&(Mst|Bach)>Facolt\`a di Scienze Matematiche Fisiche e Naturali\\
+%<Pisa&Mst>Corso di Laurea in Scienze dell'Informazione}
+%<Venezia>Universit\`a Ca' Foscari di Venezia\vskip 0.75em plus 0.25em minus 0.25em
+%<Venezia>{\large%
+%<Venezia&Phd>Dipartimento di Informatica\\
+%<Venezia&Phd>Dottorato di Ricerca in Informatica}
+%<Venezia&(Mst|Bach)>Facolt\`a di Scienze Matematiche Fisiche e Naturali\\
+%<Venezia&Mst>Corso di Laurea in Scienze dell'Informazione}
+%<Siena>Universit\`a degli Studi di Siena\\[0.5em]
+%<Siena&Phd>Dipartimento di Scienze Matematiche e Informatiche\\[0.5em]
+%<Siena&Phd>Dottorato di Ricerca in Informatica%
+}
+%    \end{comment}
+% 
+% 	Then the |\maketitle| command is patched in order to perform
+% 	the title page according to the desired shape and using the
+% 	commands described before (|supervisor|, \ldots).
+% 	
+% 	\NEWfeature{2007/09/20} Note that the |\and| command within |\author|,
+% 	|\supervisor| and |\referee| now changes the corresponding label from
+% 	singular to plural.
+% 
+%    \begin{comment}
+% \let\@phd@address\@empty
+%<!CR>%%% Redefines maketitle
+%<!CR&!Pisa>\AtBeginDocument{
+%<!CR&!Pisa>\RequirePackage{graphicx}
+%<!CR&!(Pisa|Venezia)>\RequirePackage{calc}
+%<!CR&!Pisa>}
+%<!CR&!Pisa>\newsavebox{\@phd@titlebox}
+%<!CR&!Pisa>\newsavebox{\@phd@tmpbox}
+%<!CR>\renewcommand*{\maketitle}{
+%<!CR>\begin{titlepage}%
+%<!CR&!Pisa>\begin{lrbox}{\@phd@titlebox}
+%<!CR&!(Pisa|Venezia)>\begin{minipage}[b][.8\paperheight][s]{.7\paperwidth}
+%<!CR&(Venezia)>\begin{minipage}[b][.8\paperheight][s]{.75\paperwidth}
+%<!CR>\let\footnotesize\small
+%<!CR>\let\footnoterule\relax
+%<!CR>\null%\vfil%
+%<!CR&(Pisa)>\vskip -15mm ~
+%<!CR&(Pisa|Venezia)>\begin{center}%
+%<!CR&(Pisa|Venezia)>\textsc{\@phd@university}\par
+%<!CR&(Pisa|Venezia)>\vskip 4em plus .25em minus .25em
+%<!CR&!(Pisa|Venezia)>\noindent{\Large\textsc{\@phd@university}}
+%<!CR&!(Pisa|Venezia)>\normalsize
+%<!CR&!(Pisa|Venezia)>\vfill
+%<!CR&!(Pisa|Venezia)>\begin{center}%
+%<!CR>{\large\textsc{\thesisname\ifx\@phd@number\@empty\else: \@phd@number\fi}\par}
+%<!CR>\vskip 4em
+%<!CR&!(Pisa|Venezia)>{\huge\bfseries\@title\par}\vskip 5em%
+%<!CR&!(Pisa|Venezia)>\vfill
+%<!CR&(Pisa|Venezia)>{\LARGE\bfseries\@title\par}\vskip 4em%
+%<!CR&!(Pisa|Venezia)>{\large%
+%<!CR&!(Pisa|Venezia)>\def\@phd@varname{\candidatename}
+%<!CR&!(Pisa|Venezia)>\def\and{\\[0.2ex] %
+%<!CR&!(Pisa|Venezia)> \gdef\@phd@varname{\candidatesname}}
+%<!CR&!(Pisa|Venezia)>\begin{lrbox}{\@phd@tmpbox}
+%<!CR&!(Pisa|Venezia)> \parbox[t]{0.40\textwidth}{\@author}
+%<!CR&!(Pisa|Venezia)>\end{lrbox}
+%<!CR&Valencia>\hspace{3em}
+%<!CR&!(Pisa|Venezia)>\parbox[t]{0.40\textwidth}{
+%<!CR&!(Pisa|Venezia)> \textsc{\@phd@varname:}\\[1ex]
+%<!CR&!(Pisa|Venezia)> \usebox{\@phd@tmpbox}
+%<!CR&!(Pisa|Venezia)>}
+%<!CR&!(Pisa|Venezia)>~~
+%<!CR&!(Pisa|Venezia|Valencia)>\parbox[t]{0.40\textwidth}{
+%<!CR&Valencia>\parbox[t]{0.35\textwidth}{
+%<!CR&!(Pisa|Venezia)>\ifx\@phd@supervisor\@empty\relax
+%<!CR&!(Pisa|Venezia)>\else
+%<!CR&!(Pisa|Venezia)> \def\@phd@varname{\supervisorname}
+%<!CR&!(Pisa|Venezia)> \def\and{\\[0.2ex] %
+%<!CR&!(Pisa|Venezia)>  \gdef\@phd@varname{\supervisorsname}}
+%<!CR&!(Pisa|Venezia)> \begin{lrbox}{\@phd@tmpbox}
+%<!CR&!(Pisa|Venezia)>  \parbox[t]{0.40\textwidth}{\@phd@supervisor}
+%<!CR&!(Pisa|Venezia)> \end{lrbox}
+%<!CR&!(Pisa|Venezia)> \textsc{\@phd@varname:}\\[1ex]
+%<!CR&!(Pisa|Venezia)> \usebox{\@phd@tmpbox}\\[2em]
+%<!CR&!(Pisa|Venezia)>	% \vskip 2em
+%<!CR&!(Pisa|Venezia)>\fi
+%<!CR&!(Pisa|Venezia)>\ifx\@phd@cosupervisor\@empty\relax
+%<!CR&!(Pisa|Venezia)>\else
+%<!CR&!(Pisa|Venezia)> \def\@phd@varname{\cosupervisorname}
+%<!CR&!(Pisa|Venezia)> \def\and{\\[0.2ex] %
+%<!CR&!(Pisa|Venezia)>  \gdef\@phd@varname{\cosupervisorsname}}
+%<!CR&!(Pisa|Venezia)> \begin{lrbox}{\@phd@tmpbox}
+%<!CR&!(Pisa|Venezia)>  \parbox[t]{0.40\textwidth}{\@phd@cosupervisor}
+%<!CR&!(Pisa|Venezia)> \end{lrbox}
+%<!CR&!(Pisa|Venezia)> \textsc{\@phd@varname:}\\[1ex]
+%<!CR&!(Pisa|Venezia)> \usebox{\@phd@tmpbox}\\[2em]
+%<!CR&!(Pisa|Venezia)>	% \vskip 2em
+%<!CR&!(Pisa|Venezia)>\fi
+%<!CR&!(Pisa|Venezia)>\ifx\@phd@tutor\@empty\relax
+%<!CR&!(Pisa|Venezia)>\else
+%<!CR&!(Pisa|Venezia)> \def\@phd@varname{\tutorname}
+%<!CR&!(Pisa|Venezia)> \def\and{\\[0.2ex] %
+%<!CR&!(Pisa|Venezia)>  \gdef\@phd@varname{\tutorsname}}
+%<!CR&!(Pisa|Venezia)> \begin{lrbox}{\@phd@tmpbox}
+%<!CR&!(Pisa|Venezia)>  \parbox[t]{0.40\textwidth}{\@phd@tutor}
+%<!CR&!(Pisa|Venezia)> \end{lrbox}
+%<!CR&!(Pisa|Venezia)> \textsc{\@phd@varname:}\\[1ex]
+%<!CR&!(Pisa|Venezia)> \usebox{\@phd@tmpbox}\\[2em]
+%<!CR&!(Pisa|Venezia)>	% \vskip 2em
+%<!CR&!(Pisa|Venezia)>\fi
+%<!CR&!(Pisa|Venezia)>\ifx\@phd@referee\@empty\relax
+%<!CR&!(Pisa|Venezia)>\else
+%<!CR&!(Pisa|Venezia)> \def\@phd@varname{\refereename}
+%<!CR&!(Pisa|Venezia)> \def\and{\\[0.2ex] %
+%<!CR&!(Pisa|Venezia)>  \gdef\@phd@varname{\refereesname}}
+%<!CR&!(Pisa|Venezia)> \begin{lrbox}{\@phd@tmpbox}
+%<!CR&!(Pisa|Venezia)>  \parbox[t]{0.40\textwidth}{\@phd@referee}
+%<!CR&!(Pisa|Venezia)> \end{lrbox}
+%<!CR&!(Pisa|Venezia)> \textsc{\@phd@varname:}\\[1ex]
+%<!CR&!(Pisa|Venezia)> \usebox{\@phd@tmpbox}\\[2em]
+%<!CR&!(Pisa|Venezia)>	% \vskip 2em
+%<!CR&!(Pisa|Venezia)>\fi
+%<!CR&!(Pisa|Venezia)>\ifx\@phd@chair\@empty\relax
+%<!CR&!(Pisa|Venezia)>\else
+%<!CR&!(Pisa|Venezia)>	\textsc{\chairname:}\\[1ex]
+%<!CR&!(Pisa|Venezia)>	\@phd@chair\\
+%<!CR&!(Pisa|Venezia)>\fi
+%<!CR&!(Pisa|Venezia)>% 
+%<!CR&!(Pisa|Venezia)>}}\par
+%<!CR&(Pisa|Venezia)&(Mst|Bach)>\begin{minipage}[t]{0.45\textwidth}
+%<!CR&(Pisa|Venezia)&(Mst|Bach)>\begin{center}
+%<!CR&(Pisa|Venezia)>{\large\begin{tabular}[t]{c}%
+%<!CR&(Pisa|Venezia)&(Mst|Bach)>\textsc{\candidatename}\\[1ex]
+%<!CR&(Pisa|Venezia)>\@author
+%<!CR&(Pisa|Venezia)>\end{tabular}}
+%<!CR&(Pisa|Venezia)&Phd>\par
+%<!CR&(Pisa|Venezia)&(Mst|Bach)>\\[5em]\mbox{}
+%<!CR&(Pisa|Venezia)&(Mst|Bach)>\end{center}
+%<!CR&(Pisa|Venezia)&(Mst|Bach)>\end{minipage}
+%<!CR&(Pisa|Venezia)>%\vskip 2em plus.25em minus.25em
+%<!CR&(Pisa|Venezia)>\vskip 1em\vfill
+%<!CR&(Pisa|Venezia)>% supervisors
+%<!CR&(Pisa|Venezia)>\def\and{\end{tabular}\\[5em]\mbox{}\end{center}\end{minipage}\hfill
+%<!CR&(Pisa|Venezia)>\begin{minipage}[t]{0.45\textwidth}\begin{center}
+%<!CR&(Pisa|Venezia)>\begin{tabular}[t]{c}\textsc{\supervisorname}\\[1ex]%
+%<!CR&(Pisa|Venezia)>}
+%<!CR&(Pisa|Venezia)>\ifx\@phd@supervisor\@empty\else
+%<!CR&(Pisa|Venezia)>\begin{minipage}[t]{0.45\textwidth}
+%<!CR&(Pisa|Venezia)>\begin{center}
+%<!CR&(Pisa|Venezia)>\begin{tabular}[t]{c}%
+%<!CR&(Pisa|Venezia)>\textsc{\supervisorname}\\[1ex]
+%<!CR&(Pisa|Venezia)>\@phd@supervisor
+%<!CR&(Pisa|Venezia)>\end{tabular}\\[5em]\mbox{}
+%<!CR&(Pisa|Venezia)>\end{center}
+%<!CR&(Pisa|Venezia)>\end{minipage}
+%<!CR&(Pisa|Venezia)>\fi%
+%<!CR&(Pisa|Venezia)>% referees
+%<!CR&(Pisa|Venezia)>\def\and{\end{tabular}\\[5em]\mbox{}\end{center}\end{minipage}\hfill
+%<!CR&(Pisa|Venezia)>\begin{minipage}[t]{0.45\textwidth}\begin{center}
+%<!CR&(Pisa|Venezia)>\begin{tabular}[t]{c}\textsc{\refereename}\\[1ex]%
+%<!CR&(Pisa|Venezia)>}
+%<!CR&(Pisa|Venezia)>\ifx\@phd@referee\@empty\else
+%<!CR&(Pisa|Venezia)>\hfill
+%<!CR&(Pisa|Venezia)>\begin{minipage}[t]{0.45\textwidth}
+%<!CR&(Pisa|Venezia)>\begin{center}
+%<!CR&(Pisa|Venezia)>\begin{tabular}[t]{c}%
+%<!CR&(Pisa|Venezia)>\textsc{\refereename}\\[1ex]
+%<!CR&(Pisa|Venezia)>\@phd@referee
+%<!CR&(Pisa|Venezia)>\end{tabular}\\[5em]\mbox{}
+%<!CR&(Pisa|Venezia)>\end{center}
+%<!CR&(Pisa|Venezia)>\end{minipage}
+%<!CR&(Pisa|Venezia)>\fi%
+%<!CR&(Pisa|Venezia)>\par
+%<!CR&(Pisa|Venezia)>% chair
+%<!CR&(Pisa|Venezia)>\def\and{\end{tabular}\\[5em]\mbox{}\end{center}\end{minipage}\hfill
+%<!CR&(Pisa|Venezia)>\begin{minipage}[t]{0.45\textwidth}\begin{center}
+%<!CR&(Pisa|Venezia)>\begin{tabular}[t]{c}\textsc{\chairname}\\[1ex]%
+%<!CR&(Pisa|Venezia)>}
+%<!CR&(Pisa|Venezia)>\ifx\@phd@chair\@empty\else
+%<!CR&(Pisa|Venezia)>\begin{minipage}[t]{0.45\textwidth}
+%<!CR&(Pisa|Venezia)>\begin{center}
+%<!CR&(Pisa|Venezia)>\begin{tabular}[t]{c}%
+%<!CR&(Pisa|Venezia)>\textsc{\chairname}\\[1ex]
+%<!CR&(Pisa|Venezia)>\@phd@chair
+%<!CR&(Pisa|Venezia)>\end{tabular}\\[5em]\mbox{}
+%<!CR&(Pisa|Venezia)>\end{center}
+%<!CR&(Pisa|Venezia)>\end{minipage}
+%<!CR&(Pisa|Venezia)>\fi%
+%<!CR>\vskip 1em\vfill
+%<!CR>{\large\ifx\undefined\datename\else\datename~{}\fi\@date}\par% Set date in \large size.
+%<!CR>\end{center}%\par
+% thanks
+%<!CR>\ifx\@thanks\@empty\else
+%<!CR>\par\vfil%
+%\begin{center}
+%<!CR>\@thanks
+% 	\end{center}
+%<!CR>\fi%
+%<!CR&(Mst|Bach)>\ifx\@phd@address\@empty\else
+%<!CR&(Mst|Bach)>\par\vfil\begin{center}
+%<!CR&(Mst|Bach)>\@phd@address
+%<!CR&(Mst|Bach)>\end{center}
+%<!CR&(Mst|Bach)>\fi%
+%<!CR>\null
+%<!CR&!Pisa>\end{minipage}
+%<!CR&!Pisa>\end{lrbox}
+%<!CR&!(Pisa|Venezia)>\sbox{\@phd@tmpbox}{%
+%<!CR&(Venezia)>\begin{lrbox}{\@phd@tmpbox}
+%<!CR&(Venezia)>\begin{minipage}[b][.8\paperheight][s]{.75\paperwidth}
+%<!CR&(Venezia)>\null\vfill%\par\noindent
+%<!CR&Udine>\includegraphics[height=.75\paperheight,bb=180 0 405 405, clip]{UdineLogo}%
+%<!CR&(Valencia&Bach)>\includegraphics[height=.55\paperheight, bb=25 0 200 200, clip=false]{ValenciaLogoFIV.jpg}%
+%<!CR&(Valencia&Mst)>\includegraphics[height=.34\paperheight, bb=35 -125 70 75, clip=false]{ValenciaLogoDSIC.jpg}%
+%<!CR&(Valencia&Phd)>\includegraphics[height=.68\paperheight,bb=100 0 300 280, clip]{ValenciaLogoPOLI}%
+%<!CR&Siena>\includegraphics[height=.75\paperheight,bb=40 -30 160 160, clip]{SienaLogo}%
+%<!CR&Venezia>\includegraphics[width=.75\paperwidth]{VeneziaLogo}%
+%<!CR&!(Pisa|Venezia)>}
+%<!CR&(Venezia)>\vfill\null
+%<!CR&(Venezia)>\end{minipage}
+%<!CR&(Venezia)>\end{lrbox}
+%<!CR&!(Pisa|Venezia)>\newlength{\@phd@tmplen}
+%<!CR&!(Pisa|Venezia)>\setlength{\@phd@tmplen}{\heightof{\usebox{\@phd@tmpbox}}}
+%<!CR&!(Pisa|Venezia)>\enlargethispage*{70pt}
+%<!CR&(Venezia)>\enlargethispage*{3cm}
+%<!CR&!(Pisa|Venezia)>\begin{sloppypar}
+%<!CR&!(Pisa|Venezia)>\hspace*{-\oddsidemargin}\hspace*{-.35in}\usebox{\@phd@tmpbox}
+%<!CR&!(Pisa|Venezia)>\vspace*{-\@phd@tmplen}\vspace*{-\topmargin}\vspace*{-\headheight}
+%<!CR&!(Pisa|Venezia)>\hspace*{-\oddsidemargin}\usebox{\@phd@titlebox}
+%<!CR&!(Pisa|Venezia)>\end{sloppypar}
+%<!CR&(Venezia)>\vspace*{-\topmargin}\vspace*{-\headheight}\vspace*{-1cm}
+%<!CR&(Venezia)>\hspace*{-2cm}%\null\hspace*{-\oddsidemargin} \hspace*{-.35in}
+%<!CR&(Venezia)>\hfill\usebox{\@phd@tmpbox}\hfill\par
+%<!CR&(Venezia)>\vspace*{-.8\paperheight}\vspace*{-\baselineskip}%\vspace*{-\topmargin}\vspace*{-\headheight}
+%<!CR&(Venezia)>\hspace*{-2cm}%
+%<!CR&(Venezia)>\hfill\usebox{\@phd@titlebox}\hfill\par
+%<!CR>\end{titlepage}%
+%<!CR>\thispagestyle{empty}
+%<!CR>\setcounter{footnote}{0}%
+%<!CR>\let\thanks\relax\let\maketitle\relax%
+%\gdef\@thanks{}\gdef\@author{}\gdef\@title{}
+%<!CR&(Phd)>% second page
+%<!CR&(Phd)>% copyright (or copyleft)
+%<!CR&(Phd)>\ifx\@phd@rights\@empty\else
+%<!CR&(Phd)>\vskip 4em 
+%<!CR&(Phd)>\par\vfil\noindent
+%<!CR&(Phd)>\@phd@rights\\
+%<!CR&(Phd)>\hrule
+%<!CR&(Phd)>\fi%
+%<!CR&(Phd)>% address
+%<!CR&(Phd)>\vfill
+%<!CR&(Phd)>\def\and{\\}
+%<!CR&(Phd)>\ifx\@phd@homepage\@empty\else
+%<!CR&(Phd)>\noindent
+%<!CR&(Phd)>\homepagename:
+%<!CR&(Phd)>\begin{tabular}[t]{l}
+%<!CR&(Phd)>	\@phd@homepage%
+%<!CR&(Phd)>\end{tabular}\\[2em]
+%<!CR&(Phd)>\fi
+%<!CR&(Phd)>\ifx\@phd@email\@empty\else
+%<!CR&(Phd)>\noindent
+%<!CR&(Phd)>\emailname:
+%<!CR&(Phd)>\begin{tabular}[t]{l}
+%<!CR&(Phd)>	\@phd@email%
+%<!CR&(Phd)>\end{tabular}\\[2em]
+%<!CR&(Phd)>\fi
+%<!CR&(Phd)>\ifx\@phd@phone\@empty\else
+%<!CR&(Phd)>\noindent
+%<!CR&(Phd)>\phonename:
+%<!CR&(Phd)>\begin{tabular}[t]{l}
+%<!CR&(Phd)>	\@phd@phone%
+%<!CR&(Phd)>\end{tabular}\\[2em]
+%<!CR&(Phd)>\vfil
+%<!CR&(Phd)>\fi%
+%<!CR&(Phd)>\ifx\@phd@address\@empty\else
+%<!CR&(Phd)>% \par
+%<!CR&(Phd)>\noindent
+%<!CR&(Phd)>\addressname:\\[1em]
+%<!CR&(Phd)>\@phd@address
+%<!CR&(Phd)>\fi%
+%<!CR&(Phd)>\vfill
+%<!CR&(Phd)>\vfill
+%<!CR>}% end \maketitle 
+%    \end{comment}
+% 
+% 	Proper captions appearing in the title page (the ``Author's address''
+% 	caption, the ``Author's e-mail'' caption, etc.)  are introduced
+% 	according to the supported languages.
+% 
+%    \begin{comment}
+%<!CR>%%% Adds captions used by maketitle
+%<!CR>\addto\phd@captions@italian{%
+%<!CR>\def\addressname{Indirizzo dell'autore}%
+%<!CR>\def\candidatename{Candidato}%
+%<!CR>\def\candidatesname{Candidati}%
+%<!CR>\def\datename{Anno Accademico}%
+%<!CR>\def\emailname{Posta elettronica dell'autore}%
+%<!CR>\def\homepagename{Pagina Web dell'autore}%
+%<!CR>\def\phonename{Numero telefonico dell'autore}%
+%<!CR&Phd>\def\thesisname{Tesi di Dottorato}%
+%<!CR&Bach>\def\thesisname{Tesi di Laurea}%
+%<!CR&Mst>\def\thesisname{Tesi di Laurea Magistrale}%
+%<!CR>}
+%<!CR>\addto\phd@captions@spanish{%
+%<!CR>\def\addressname{Direcci\'on del autor}%
+%<!CR&(Phd|Mst)>\def\candidatename{Candidato}%
+%<!CR&(Phd|Mst)>\def\candidatesname{Candidatos}%
+%<!CR&Bach>\def\candidatename{Alumno}%
+%<!CR&Bach>\def\candidatesname{Alumnos}%
+%<!CR>\def\datename{A\~no Acad\'emico}%
+%<!CR>\def\emailname{Correo Electr\'onico del autor}%
+%<!CR>\def\homepagename{P\'agina Web del autor}%
+%<!CR>\def\phonename{N\'umero telef\'onico del autor}%
+%<!CR&Phd>\def\thesisname{Tesis de Doctorado}%
+%<!CR&Bach>\def\thesisname{Proyecto Fin de Carrera}%
+%<!CR&Mst>\def\thesisname{Tesis de M\'aster}%
+%<!CR>}
+%<!CR>\addto\phd@captions@american{%
+%<!CR>\def\addressname{Author's address}%
+%<!CR>\def\candidatename{Candidate}%
+%<!CR>\def\candidatesname{Candidates}%
+%<!CR>\def\emailname{Author's e-mail}%
+%<!CR>\def\homepagename{Author's Web Page}%
+%<!CR>\def\phonename{Author's telephone number}%
+%<!CR>\def\datename{Academic Year}%
+%<!CR&Phd>\def\thesisname{Ph.D.~Thesis}%
+%<!CR&Mst>\def\thesisname{Master Thesis}%
+%<!CR&Bach>\def\thesisname{Bachelor Thesis}%
+%<!CR>}
+%<!CR>\let\phd@captions@english\phd@captions@american
+%</sdf>
+%    \end{comment}
+% 		
+% \section{Customizing}\label{sec:customize}
+% 		
+% 	The default behavior of most of the provided features can be
+% 	customized.
+% 
+% 	All the default names used by macros and envinronments can be
+% 	overridden by defining a macro |\|\meta{feature}|name| with the desired
+% 	text in the preamble of the document.  For example if you want the name
+% 	`Coordinator' instead of `Chair' in the title page, use the command
+% 	|\newcommand{\chairname}{Coordinator}| in the preamble of the document.
+% 
+% 	For what concerns the page format of a selected \meta{Shape-Definition}
+% 	is possible to store all the personal definitions in the file
+% 	\meta{Shape-Definition}|.cfg|.
+% 
+%    \begin{comment}
+%<*class>
+\InputIfFileExists{\@phd@shapefile.cfg}{
+	\ClassWarningNoLine{PhdThesis}{loaded LOCAL `\@phd@shapefile' page layout}
+}{
+}
+%</class>
+%    \end{comment}
+% 	For example, when using the |UdinePhdThesis| Shape-Definition, one
+% 	can create a file |UdinePhdThesis.cfg| as follows:
+% 	\begin{verbatim}
+% 		\typeout{*******************************}
+% 		\typeout{* PhdThesis Preferences Marco *}
+% 		\typeout{*******************************}
+% 		\AtBeginDocument{
+% 			\setlength\baselineskip{1.2\baselineskip}
+% 			\pagestyle{centersmallcaps}
+% 		}
+% 	\end{verbatim}
+% 	to store some personal customisations.
+%    
+% \section*{Acknowledgments}
+% 	
+% 	I thank my ``beta testers'' --- Andrea~Baruzzo, Alicia~Villanueva,
+% 	Luca~Di~Gaspero, Fausto~Spoto, Corrado~Lattanzio, Francesca~Scozzari,
+% 	Elisabetta~Comini, Domenico~Tripepi, Chiara~Meo and Ubaldo~Ruggeri ---
+% 	that (even not wanting to) have contributed to improve my work and
+% 	expecially had to fight against all my changes (improvements?)  of the
+% 	code day by day.
+% 	
+% 	\endinput
+\endinput
+
+%%%%
+%%%% cose ANCORA da fare:
+%%%% 
+
+-
+-
+
+%%%%
+%%%% Rottami?
+%%%% 
+%
+% Approval, 1/3 down the page
+%
+\ifx\@phd@approval\@empty\else
+\begin{titlepage}
+	\vspace*{70pt}
+	\vskip 0pt plus.3fil
+	\begin{center}
+		\@phd@approval
+	\end{center}
+	\vskip 0pt plus.6fil
+\end{titlepage}
+\thispagestyle{empty}
+\fi
+%
+% Dedication, 1/3 down the page
+%
+\ifx\@phd@dedication\@empty\else
+\begin{titlepage}
+	\vspace*{70pt}
+	\vskip 0pt plus.3fil
+	\begin{flushright}
+		\@phd@dedication
+	\end{flushright}
+	\vskip 0pt plus.6fil
+\end{titlepage}
+\thispagestyle{empty}
+\fi
+\ifx\@phd@chair\@empty\else
+ \begin{tabular}[t]{c}%
+	 \textsc{\chairname}\\[1ex]
+	 \@phd@chair
+ \end{tabular}\par%
+ \par
+\fi
+\vfill
+
+\newcommand*{\degree}[1]	{\gdef\@phd@degree{#1}}
+\newcommand*{\permanentaddress}[1] {\gdef\@phd@permaddress{#1}}
+\newcommand*{\examiners}[1] {\gdef\@phd@examiners{#1}}
+\newcommand*{\convocationseason}[1] {\gdef\@phd@convocationdate{#1}}
+\newcommand*{\frontpiece}[1] {\@phd@fronttrue\gdef\@phd@frontpiece{#1}}
+
+\newcommand*{\admin}{
+	\singlespace
+	\releasepage
+	\if@front\frontpage\else\relax\fi
+	\titlepage
+	\approvalpage
+	\if@dedi\dedicationpage\else\relax\fi
+	\endsinglespace
+}
+
+%%%	
+%%% Prova per dimensioni
+%%%
+%atbegindocument\RequirePackage[twosideshift=20pt,textheight=231mm,textwidth=153mm,a4paper]{geometry}[1999/10/07]
+
+    \providecommand*\addressname{Author's address}}
+    \if@phd@proposal%
+    \def\thesisname{Ph.D.~Thesis~Proposal} 
+    \def\candidatename{Proponent}
+    \else\if@phd@progress%
+    \def\thesisname{Ph.D.~Thesis~Progress~Report} 
+    \def\candidatename{Candidate}
+    \else
+    \def\thesisname{Ph.D.~Thesis}
+    \def\candidatename{Candidate}
+    \fi\fi
+
+
+\begin{tabular}{p{0.40\textwidth} p{0.40\textwidth}}
+\ifx\@phd@supervisor\@empty
+\textsc{\candidatename:} & ~ \\[1ex]
+\@author & ~ \\
+\textsc{\candidatename:} & \textsc{\supervisorname:} \\[1ex]
+\@author & \@phd@supervisor
+\fi
+\end{tabular}
+\vskip 2em
+\begin{tabular}{p{0.40\textwidth} p{0.40\textwidth}}
+\ifx\@phd@referee\@empty\else
+\def\and{\\ ~ & }
+~ & \textsc{\refereename:} \\[1ex]
+~ & \@phd@referee
+\fi
+\end{tabular}
+\vskip 2em
+\begin{tabular}{p{0\textwidth} p{0.40\textwidth}}
+\ifx\@phd@chair\@empty\else
+\def\and{\\ ~ & }
+~ & \textsc{\chairname:} \\[1ex]
+~ & \@phd@chair
+\fi
+\end{tabular}

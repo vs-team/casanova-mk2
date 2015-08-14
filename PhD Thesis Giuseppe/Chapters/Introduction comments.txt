@@ -1,0 +1,35 @@
+Next time please the TeX files.
+
+Abstract needs a lot of work, but that's for later.
+
+Chapter 1:
+
+The introduction of Chapter 1 (before 1.1) goes much too fast. Basically, you try to use this to summarize the chapter. A summary belongs at the end of a chapter. In this introduction, you should just explain what you will do in the chapter: discuss game development in general, discuss tools, define requirements for the tools, leading to a problem statement and research questions.
+
+Moreover, the table with "questions" that you have are not actually questions, but points for discussion.
+
+Title for 1.1 is wrong. It should not be a question. And it does not really explain what the section is about. If it is "game development" in general, then name it so. Or call it "research in game development".
+
+1.1 is much too fast, and much too technical. You should write the first chapter for computer scientists, or scientists in general, who know little about games and game development. You should use the first sections of chapter 1 to explain why games are interesting, what purpose they have, why game development is an interesting research topic, and what challenges it faces. From that you can derive what the problem (statement) of your thesis is, and introduce research questions which help you answer the problem statement. That is the whole purpose of the first chapter.
+
+There are sentences within 1.1 which belong there (especially when you talk about non-programmers needing to build games), but the whole focus of the section is not right.
+
+Your English is a bit too "loose". Your terminology is not always scientific (arcana, unique blend, etc).
+
+Don't write "it's". Write "it is".
+
+1.2 Again lots of terminology that needs explaining. What is an AAA title? I know that, you know that, but it is not well-defined. Use the first chapter to lay out the research for laymen.
+
+I think the whole contents of chapter are a good short lay-out for a discussion, but the discussion will definitely be much slower and longer.
+
+You also need more references.
+
+Take for instance the sentence: "Languages are, primarily: (i) .... etc". How do you know? Who says this? Is this well-known? Then where are the references? Or is this your theory? What do you base it on? Is it complete? Etc. And when you say what it means to be flexible, how do you know this? Is there agreement on that? Or is this what you define that flexibility means?
+
+You also are writing far too convinced and hyperbolic: "Games require constant modification!" "Games require flexibility in all aspects!" Really? I doubt that. 
+
+The way you write is very much columnist style, or web reviewer style. Scientific writing needs to be much more precise. It is fine to start as you do, to put your first ideas or imagined argumentation on paper, but this needs a lot of work.
+
+You talk a lot about problems in game development and how they establish themselves. That is typically something that (a) needs a lot of references, and (b) does not belong in chapter 1. Or even later.
+
+You do not have yet a problem statement or research questions for your thesis.

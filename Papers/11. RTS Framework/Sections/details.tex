@@ -1,0 +1,270 @@
+We now give the syntax and semantics of actions in Casanova. The
+grammar allows the definition of actions, which make up the body of
+spatial Casanova entities which act as placeholders for
+actions. When an entity contains such an action, the Casanova
+runtime will apply it to all appropriate targets.
+
+\subsection{Action Grammar Definition}
+
+We first provide a taxonomy for actions. We divide the actions into three
+kinds: (1) constant transfer actions, (2) mutable transfer actions, and
+(3) threshold actions.
+
+\textbf{Constant Transfer} actions update the target fields with a constant
+value or a value taken from one of the source fields. The source field
+is not affected by the resource transfer. An example of a constant transfer
+action is a defense tower with infinite ammunition shooting an arrow at an infantry unit.
+
+\begin{lstlisting}[language=sql]
+TARGET Infantry; RESTRICTION Owner <> Owner; RADIUS 1000.0; TRANSFER CONSTANT Life - ArrowDamage;
+\end{lstlisting}
+
+\textbf{Mutable Transfer} actions are used when the resource exchange transfers resources from the source entity
+to the target entity, or vice versa. An example of a mutable transfer action is a spaceship
+transferring minerals from its holds to a shipyard.
+
+\begin{lstlisting}[language=sql]
+TARGET Shipyard; RESTRICTION Owner = Owner; RADIUS 150.0; TRANSFER MineralStash + Minerals;
+\end{lstlisting}
+
+\textbf{Threshold} actions follow the same transfer semantics as the previous
+two types of actions. In addition, they have a collection of threshold
+values and output operations. The output operations are executed once
+when all the threshold values are reached. The threshold values are on
+fields belonging to the source entity. The output operations modify
+only fields of the source entity following the semantics of the
+transfer operations. An example for a threshold action is a worker building a town hall. When
+the \texttt{integrity} of the town hall reaches 100, a flag
+\texttt{completed} is set (which is one of its fields) which warns the
+system to replace the partially constructed building with the complete
+building.
+\begin{lstlisting}[language=sql]
+TARGET ConstructionTownHall; RESTRICTION Owner = Owner; RADIUS 10.0; TRANSFER CONSTANT Integrity + 1.0; THRESHOLD Integrity = 100.0; OUTPUT Completed := true
+\end{lstlisting}
+
+Below we give a formal definition for the grammar instances presented in
+the examples above, using the extended Backus-Naur form. A \emph{Casanova Entity} is an entity in the game
+world represented as a record; the special keyword
+\texttt{Self} is used to refer to the entity owning the action as one of
+its fields.
+
+\begin{lstlisting}
+<Action> ::= TARGET <TARGET LIST> <RESTRICTION LIST> [<RADIUS CLAUSE>] <TRANSFER LIST>
+   <INSERT LIST> [<THRESHOLD BLOCK>]
+<TARGET LIST> ::= <ACTION ELEMENT>+
+<ACTION ELEMENT> ::= Casanova Entity | Self
+<RESTRICTION LIST> ::= {<RESTRICTION CLAUSE>}
+<RESTRICTION CLAUSE> ::= RESTRICTION Boolean Expression of <SIMPLE PRED>
+<SIMPLE PRED> ::= Self Casanova Entity Field (= | <>) Target Casanova Entity Field
+<TRANSFER LIST> ::= {<TRANSFER CLAUSE>}
+<TRANSFER CLAUSE> ::= (TRANSFER | TRANSFER CONSTANT)
+(Target Casanova Entity Field) <Operator> ((Self Casanova Entity Field) | (Field Val)) [* Float Val]
+<Operator> ::= + | - | :=
+<RADIUS CLAUSE> ::= RADIUS (Float Val)
+<INSERT LIST> ::= {<INSERT CLAUSE>}
+<INSERT CLAUSE> ::= INSERT (Target Casanova Entity Field) -> (Self Casanova Entity Field List)
+<THRESHOLD BLOCK> ::= <THRESHOLD CLAUSE>+
+<OUTPUT CLAUSE>+
+<THRESHOLD CLAUSE> ::= THRESHOLD
+(Self Casanova Entity Field) Field Val
+<OUTPUT CLAUSE> ::= OUTPUT
+(Self Casanova Entity Field) <Operator> ((Self Casanova Entity Field) | (Field Val)) [* Float Val]
+\end{lstlisting}
+
+\subsection{Formal semantic definition}
+
+Given the fact that actions resemble queries on entities, we specify
+their semantics via translation to SQL. This allows us to
+leverage existing discussions on SQL correctness \citep{SQLsemantic}.
+
+In defining our translation rules formally, we consider a set $T =
+\left\lbrace t_{1},t_{2},...,t_{n} \right\rbrace $ of target types and
+a source entity type \textit{s}. In all actions we select a subset of
+targets in each $t_{i}$ to which we apply the action, using
+the specified restrictions. After that we apply the resource transfer.
+
+We assume that each entity type is represented by an SQL relation and
+that there exists a key attribute called \textbf{Id} for each
+relation. We now consider each of the three translation cases.
+In the translation rules we use notations inside the SQL code
+taken from the Backus-Naur form for grammar definitions. We also extend the SQL grammar with a global
+variable $dt$ which is the time difference between the current and the
+last game frame. In this way the increments of the entity attribute
+values can be made proportional to the elapsed time. All types of actions
+evaluate the predicates in the restriction conditions and apply a
+filter to their targets. All targets further than the radius
+are automatically discarded when executing the action. The transfer
+predicates are executed immediately on all filtered targets.
+
+For a \textbf{CONSTANT TRANSFER} we must update each target with the value in the source fields or
+constant values specified in the transfer clause. For simplicity, we
+assume that constant values are stored as attributes of the
+source entity.
+
+Consider a set of resource attributes
+$A = \left\lbrace  a_{j_{1}},a_{j_{2}},...,a_{j_{m}} \right\rbrace $
+of the source entity used to update the target $t_{i}$. To
+compute the contribution of all sources of the same type on the target
+$t_{i}$, we specify a relation of which the tuples represent the
+target id, followed by the total amount of resource $a_{j_{r}}$ to
+transfer, called $\Sigma_{r}$:
+
+\begin{center}
+\begin{tabular}
+{| c | c | c | c | c |}
+\hline
+\multicolumn{5}{|c|}{Transfer} \\
+\hline
+$ID$ & $\Sigma_{1}$ & $\Sigma_{2}$ & $\cdots$ & $\Sigma_{m}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+The following SQL instruction implements the relation definition above:
+\begin{lstlisting}[language=sql]
+SELECT	$t_{i}$.id, SUM($s.a_{_j{1}}$} AS $\Sigma_{1}$,
+	SUM($s.a_{_j{2}}$} AS $\Sigma_{2}$,...,
+	SUM($s.a_{_j{m}}$} AS $\Sigma_{m}$
+
+FROM	Target $t_{i}$, Source $s$
+WHERE	<RESTRICTION LIST> [AND <RADIUS CLAUSE>]
+GROUP BY $t_{i}.id$
+\end{lstlisting}
+
+$\forall t_{i} \in T$ we update the target attributes $A' =
+\left\lbrace a_{t_{1}},a_{t_{2}},...,a_{t_{m}} \right\rbrace$ using
+one of the target operators defined in the grammar (Set, Add,
+Subtract) with the attributes of the previous relation scheme.
+\begin{lstlisting}
+WITH	Transfer AS(
+		SELECT	$t_{i}$.id, SUM($s.a_{_j{1}}$} AS $\Sigma_{1}$,
+			SUM($s.a_{_j{2}}$} AS $\Sigma_{2}$,...,
+			SUM($s.a_{_j{m}}$} AS $\Sigma_{m}$)
+
+FROM	Target $t_{i}$, Source $s$
+WHERE	[<RESTRICTION LIST>] [AND <RADIUS CLAUSE>]
+GROUP BY $t_{i}.id$)
+UPDATE	Target $t_{i}$
+SET	$t_{i}.a_{t_{1}}$ = u.$\Sigma_{1}$ | $t_{i}.a_{t_{1}}$ = $t_{i}.a_{t_{1}}$ + u.$\Sigma_{1}$ * $dt$ | $t_{i}.a_{t_{1}}$ =
+$t_{i}.a_{t_{1}}$ - u.$\Sigma_{1}$ * $dt$\
+$\cdots$
+FROM	Transfer $u$
+WHERE	$u.id = t_{i}.id$
+\end{lstlisting}
+
+For a \textbf{MUTABLE TRANSFER} the field of the source involved in the resource
+transfer is updated depending on the applied transfer
+operator. The resource is subtracted from
+the source field and added to the target field proportionally to
+$dt$, or vice versa.
+
+To translate this semantic rule we must first determine how many
+targets (if any) are affected by each source entity, in order to
+obtain the following relation scheme:
+
+\begin{center}
+\begin{tabular}
+{| c | c |}
+\hline
+\multicolumn{2}{|c|}{TotalTargets} \\
+\hline
+\textit{Source ID} & \textit{TargetCount} \\
+\hline
+\end{tabular}
+\end{center}
+
+The SQL code implementing the previous scheme is the following:
+
+\begin{lstlisting}[language=sql]
+TotalTargets =
+SELECT	s.id,COUNT(*) AS TargetCount
+FROM	Source s, Target $t_{1}$, Target $t_{2}$,...,Target $t_{n}$
+WHERE	<RESTRICTION LIST> [AND <RADIUS CLAUSE>]
+GROUP BY s.id
+HAVING	COUNT(*) > 0
+\end{lstlisting}
+
+$\forall t_{i} \in T$ we need to obtain a relation storing what target each of the source entities is affecting, including a count of affected targets, using the following relation scheme:
+
+\begin{center}
+\begin{tabular}
+{| c | c | c |}
+\hline
+\multicolumn{3}{|c|}{OutputSharing} \\
+\hline
+\textit{Source ID} & \textit{Target ID} & \textit{Output Sharing}\\
+\hline
+\end{tabular}
+\end{center}
+
+This scheme is implemented by the following SQL code: % there was a vague remark here on the use of RelationName = [...], which I did not understand so I removed it.
+
+\begin{lstlisting}[language=sql]
+OutputSharing =
+SELECT	*
+FROM	TotalTargets c, SourceOutput c1
+WHERE	c.s_id = c1.s_id
+	AND SourceOutput =
+		SELECT	$s.id$ AS s_id,$t_{i}.id$ AS t_id
+		FROM	Source s, Target $t_{i}$
+		WHERE	<RESTRICTION LIST> [AND <RADIUS CLAUSE>]
+	AND TotalTargets = [...]
+\end{lstlisting}
+
+Each target attribute receives an amount of resources equal to the total transferred resources divided by the number of targets. The complete SQL code to update the target $t_{i}$ is the following:
+
+\begin{lstlisting}[language=sql]
+WITH	Transfer AS(
+	SELECT	$t_{i}$.id, SUM($s.a_{j_{1}}$ / o.TargetCount) AS $\Sigma_{0}$,SUM($s.a_{j_{2}}$ / o.TargetCount) AS $\Sigma_{2}$,...,SUM($s.a_{j_{m}}$ / o.TargetCount) AS $\Sigma_{m}$
+	FROM	Source s, Target $t_{i}$,OutputSharing o
+	WHERE	OutputSharing = [...] AND s.id = o.s_id AND t.id = o.t_id)
+	GROUP BY $t_{i}$.id
+UPDATE	Target $t_{i}$
+SET	$t_{i}.a_{t_{1}}$ = u.$\Sigma_{1}$ |$t_{i}.a_{t_{1}}$ = $t_{i}.a_{t_{1}}$ + u.$\Sigma_{1}$ * $dt$ |$t_{i}.a_{t_{1}}$ = $t_{i}.a_{t_{1}}$ - u.$\Sigma_{1}$ * $dt$
+$\cdots$
+FROM	Transfer u
+WHERE	$t_{i}$.id = u.id
+\end{lstlisting}
+
+To update the Source relation we use a relation similar to the one used to update the target, but this time there is no need to save the count of the affected targets.
+
+\begin{lstlisting}[language=sql]
+WITH	TotalTransfer AS(
+	SELECT	s.id,s.$a_{j_{1}}$,s.$a_{j_{2}}$,...,s.$a_{j_{m}}$
+	FROM	Source s, Target $t_{1}$,...,Target $t_{n}$
+	WHERE	<RESTRICTION LIST>
+		[AND <RADIUS CLAUSE>]
+	GROUP BY	s.id,$s.a_{j_{1}}$,$s.a_{j_{2}}$,...,$s.a_{j_{m}}$
+	HAVING 	COUNT(*) > 0)
+	
+UPDATE	Source s
+SET	s.$a_{j_{1}}$ = s.$a_{j_{1}}$ - s.$a_{j_{1}} * dt$|s.$a_{j_{1}}$ = s.$a_{j_{1}}$ + s.$a_{j_{1}} * dt $
+$\cdots$
+FROM	TotalTansfer u
+WHERE	s.id = u.id
+\end{lstlisting}
+
+The \textbf{THRESHOLD} action is defined as the previous two types, i.e., it has a resource transfer definition which is always executed, and a set of threshold conditions that, if met, activate the Output operations which are always towards the source entity. The attributes of the source entity affected by Output operations are updated with constant values, or with values from other attributes in the source entity. In the latter case the transfer is treated as for the mutable transfer case.
+
+Consider a set of updating attributes $U = \left\lbrace a_{k_{1}},a_{k_{2}},...,a_{k_{l}} \right\rbrace$ and a set of attributes to be updated $U'= \left\lbrace a_{s_{1}},a_{s_{2}},...,a_{s_{l}} \right\rbrace$ in the output operation. We first check that all the conditions in the threshold clauses are met, then we update the attributes in the source entity appropriately.
+
+\begin{lstlisting}[language=sql]
+WITH	TotalOutput AS(
+	SELECT	s.id,s.$a_{k_{1}}$,s.$a_{k_{2}}$,...,s.$a_{k_{l}}$
+	FROM	Source s
+	WHERE	<THRESHOLD CLAUSE 1>
+		[AND <THRESHOLD CLAUSE 2>]
+		.
+		.
+		.
+		[AND <THRESHOLD CLAUSE $l$>])
+UPDATE	Source s
+SET	s.$a_{s_{1}}$ = o.$a_{k_{1}}$|s.$a_{s_{1}}$ = (s.$a_{s_{1}}$ + o.$a_{k_{1}}) * dt$; o.$a_{k_{1}}$ = o.$a_{k_{1}}$ - o.$a_{k_{1}} * dt$|s.$a_{s_{1}}$ = (s.$a_{s_{1}}$ - o.$a_{k_{1}}) * dt$; o.$a_{k_{1}}$ = o.$a_{k_{1}}$ + o.$a_{k_{1}} * dt$
+$\cdots$
+FROM	TotalOutput o
+WHERE	s.id = o.id
+\end{lstlisting}
+
+%\subsection{Casanova implementation}
+
+%The process of evaluating actions was added to Casanova, which, using a compiler, generates assembly code specific for each action. The generated code executes the actions at each game frame. Besides, the compiler checks that the targets are valid and that the fields used in all the predicates are contained in those entities. To improve performance an index is built at compile time, to speed up resolution of radius restrictions. The implementation uses type attributes for actions, so the syntax is different even though there is a mapping between elements of the syntax presented here and those of the concrete syntax. 

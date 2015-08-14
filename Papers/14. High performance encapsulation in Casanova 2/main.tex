@@ -1,0 +1,65 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{upquote}
+\title{High performance encapsulation in Casanova 2}
+\author{}
+\date{}
+
+\lstset{
+    	tabsize=2,
+        upquote=true,
+        basicstyle=\scriptsize,
+        columns=fixed,
+        showstringspaces=false,
+        mathescape,
+        breaklines=true,
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\ttfamily
+}
+
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+Modern video games require high-performance components, which are usually implemented by scratch using general purpose programming languages (such as C++ or C\#). Therefore programmers are forced to write the optimization code by hand, affecting readability and maintainability of the program. In this paper we propose a solution to the difficulties arising from manually implementing optimizations in the code and, at the same time, writing a readable and maintainable program. We introduce \textit{Casanova}, a language oriented to game development, and we present the implementation of its compiler which automates the process of optimizing the code. We show that our compiler produces a code which is readable, maintainable, and high-performance with respect to other implementations in languages commonly used by video game industry.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+\input{section1}
+
+
+\section{Encpasulation in games}
+\label{sec:encapsulation}
+\input{section2}
+
+
+\section{Optimizing encapsulation with code transformations}
+\label{sec:optimization_overview}
+\input{section3}
+
+\section{Encapsulation optimization in Casanova compiler}
+\label{sec:implementation}
+\input{section4}
+
+\section{Evaluation}
+\label{sec:evaluation}
+\input{section5}
+
+
+\bibliography{references} 
+\bibliographystyle{plain}
+
+\end{document}

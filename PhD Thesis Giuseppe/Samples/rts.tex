@@ -1,0 +1,156 @@
+type World = {
+    Clusters        : List<Cluster>
+    GateLinks       : Map<WarpGate,WarpGate>
+    Players         : List<Player>
+    Battles         : List<Battle>
+    MovingFleets    : Seq<MovingFleet>
+    StandingFleets  : Seq<Fleet>
+    Alliances       : List<Alliance>
+  }
+  rule Battles(world,dt) =
+    [for b in world.Battles do 
+       if b.Status = Underway then
+         yield b
+     for p in world.Players do
+       yield! p.InitiatedBattles]
+  rule MovingFleets(world,dt) =
+    seq{for p in world.Players do
+          yield! p.MovingFleets }
+  rule StandingFleets(world,dt) =
+    seq{for p in world.Players do
+          yield! p.StandingFleets }
+
+
+type Cluster = {
+    Center      : Vector2<gm>
+    Stars       : List<CelestialBody>
+    Planets     : List<CelestialBody>
+    WarpGates   : List<WarpGate>
+  }
+  
+
+type CelestialBody = {
+    Position    : Vector2<mm>
+    Buildings   : List<Building>
+    MaxOutput   : Resources
+  }
+  
+
+type Building = {
+  
+}
+
+
+type WarpGate = {
+    Position    : Vector2<mm>
+}
+
+
+type Player = {
+    MovingFleets     : List<MovingFleet>
+    StandingFleets   : List<Fleet>
+    InitiatedBattles : List<Battle>
+    CelestialBodies  : List<Ref<CelestialBodies>>
+    Buildings        : Seq<Ref<Building>>
+    Resources        : Resources
+    Upgrades         : Upgrades
+}
+
+type Alliance = {
+  Player1     : Player
+  Player2     : Player
+  Ransom      : Ransom
+  Permanent   : bool
+}
+
+
+type Ransom = {
+  FleetsLost  : float<perc>
+  PlanetsLost : float<perc>
+}
+
+
+type Battle = {
+    Fleets           : List<Player * Fleet>
+    Status           : BattleStatus
+    Target           : Planet
+}
+
+
+type BattleStatus = 
+  | Underway
+  | Winners of List<Player>
+  | NoWinners
+
+  
+type Fleet = {
+  Cluster    : Ref<Cluster>
+  Position   : Vector2<mm>
+  Ships      : List<Ship>
+}
+
+
+type MovingFleet = {
+  Fleet       : Fleet
+  Source      : Location
+  Target      : Location
+  Previous    : MovementStep
+  Next        : MovementStep
+  Arrived     : Arrived
+}
+
+
+type Location = {
+  Cluster       : Ref<Cluster>
+  CelestialBody : Ref<CelestialBody>
+}
+
+
+type MovementStep = {
+  Source      : Location
+  Target      : Location
+  Alpha       : float
+}
+
+
+type Ship = {
+  ShipKind    : ShipKind
+  Integrity   : float<i>
+  ShipStats   : ShipStats
+}
+
+
+type ShipKind = 
+  | Freighter
+  | Scout
+  | Fighter
+  | Frigate
+  | Cruiser
+  | Destroyer
+  | BattleShip
+
+
+type ShipStats = {
+  Hold          : Resources
+  Weapons       : float<W*Ton>
+  Shields       : float<W>
+  Engines       : float<N>
+  Mass          : float<Ton>
+}
+
+
+type Resources = {
+  Energy        : float<W>
+  Minerals      : float<Ton>
+}
+
+
+type Upgrades = {
+  Attack        : int
+  Production    : int
+  Defense       : int
+  Research      : int
+}
+
+
+

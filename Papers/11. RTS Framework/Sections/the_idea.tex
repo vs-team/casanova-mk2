@@ -1,0 +1,29 @@
+In this section we will define a model for an algebra to show that the REA (Resource Entity Action) model can be reduced to a problem of linear algebra. We then show how games that use this model can be further simplified by linguistic constructs.
+
+\subsection{Action algebra}
+
+An action consists of a transfer of resources from a source entity to one or more target entities. We require that each entity has a resource vector, which contains the current amount of resources of the entity. The resource vector is sparse, since most actions involve only few resource types. An action is expressed by a transformation matrix $A$.
+
+Consider a set of target entities $T = \left\lbrace t_{1},t_{2},...,t_{n}\right\rbrace$, which are the targets of the action, and a source entity $e$. Each entity $t_{i}$ (including the source entity type) has a resource vector
+$\mathbf{r_{i}}=\left(r_{i_{1}},r_{i_{2}},...,r_{i_{m}} \right)$. The source entity also has a transformation matrix $A$ of size $m \times m$, which defines the interactions between all the resources of the source entity and all the resources of the target entities. We also consider an integrator $dt$ which contains the time difference between the current frame and the previous one. We then compute $\mathbf{w_{e}} = \left(  w_{e_{1}},w_{e_{2}},...,w_{e_{m}} \right) = \mathbf{r_{s}} \times A \cdot dt$. From the definition of matrix multiplication, it immediately follows that each component of $ \mathbf{w_{e}}$ represents how a resource will change by applying the effect of all the other resources to it. We compute the vector $\mathbf{r'_{i}} = \mathbf{r_{i}} + \mathbf{w_{e}} \; \forall e_{i} \in E$
+which replaces the resource vector in each target entity.
+
+For instance, consider the action of a spaceship (entity) using laser to damage (resource) an enemy spaceship (entity). This involves a  vector resource of two elements: laser and life points. The action must transfer laser points to subtract from the enemy life points. Suppose that the vector resource of the targeting ship is $r_{s} = (20,500)$ and the vector resource of the targeted ship is $r_{t} = (15,1000)$. Let the transformation matrix be
+$A =
+\begin{bmatrix}
+0 & -1\\
+0 & 0\\
+\end{bmatrix}
+$
+which means that the source entity will reduce the life of the target by the number of its laser points.
+Thus $w_{e} = r_{s} \times A  \cdot dt = (20,500) \times A  \cdot dt = (0,-20) \cdot dt$. At this point, assuming $dt = 1$ second, we have $r'_{t} = r_{t} + w_{e} = (20,1000) + (0,-20) \cdot dt = (20,980)$.
+
+\subsection{A declarative language extension}
+
+We now describe a language extension that implements the REA design pattern and its associated algebra for the Casanova game programming language \citep{Casanova}. The language extension is purely declarative. Its semantics are described using the SQL query language, which has the advantage of familiarity to most programmers.
+
+%Implementing the action algebra is done using an abstract class which contains an abstract method which performs the action. Each action is a class which extends the previous abstract class and implements the abstract method. This method will fetch the world looking for the information needed to find what entities are affected by the action execution. Each entity of the game will have a collection of actions it can perform, automatically run by Casanova.
+
+To identify the set of target entities $T$ given a source entity and its action, we create a new type definition called \textit{action}. An action is a declarative construct which is used to describe not only the resource exchange between entities, but also what kinds of entities participate in the exchange. The resource exchange is based on \textit{transfers} (Add, Subtract, and Set), while the target determination is based on \textit{predicates}: we filter the game world entities depending on their types, attributes and radius (specifying the distance beyond which the action is not applied). Some actions, called threshold actions, are not continuous and make use of special predicates to delay the execution (Output) until certain conditions are met.
+
+Using actions it is possible to specify an exchange of resources in a fully declarative manner, so that the developer does not have to rewrite similar pieces of code ad hoc for each action. 

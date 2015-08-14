@@ -1,0 +1,32 @@
+\section{Alternate Implementation}
+In the following sections we give alternate implementations of our system. We do so in order to exploit its flexibility by showing how the same primitives allow us to define very different execution models:
+\begin{itemize}
+\item A transactional model
+\item A concurrent/distributed model
+\item A reactive model
+\end{itemize}
+
+Each model is characterized by a predicate that expresses some requirements on its state, reference or stack types so as to allow different implementations of the same model (for example to experiment with faster algorithms, etc).
+
+The predicate for the transactional model simply states that there must be three methods for opening, closing and undoing transactions. Notice that transactions might also be used for implementing undo buffers in a very simple and clean way:
+\begin{lstlisting}
+class Transactional st where
+  beginT :: st s ()
+  commitT :: st s ()
+  abortT :: st s ()
+\end{lstlisting}
+
+The predicate for concurrency requires a method for forking computations:
+\begin{lstlisting}
+class Concurrent st where
+  fork :: (st s (), st s ()) -> st s ()
+\end{lstlisting}
+
+The reactive model has no specific requirements, and is simply an alternate instantiation of the object system typeclasses.
+
+In addition to these three implementations, we will discuss a system for reflection on objects. Reflective objects will validate a predicate ($ReflectiveObject$) which allows to obtain the labels that respect certain conditions; being labels first class objects, they will then be passed around and used freely for selection on objects of the appropriate type:
+\begin{lstlisting}
+class (Object o ref st s, ro~Rec o) => ReflectiveObject o ref st s where
+  get_fields :: [Label o (Field a)]
+  get_methods :: [Label o (Method ro a b)]
+\end{lstlisting}

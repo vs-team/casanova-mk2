@@ -1,0 +1,55 @@
+\subsection{Memory}
+We start by defining a memory typeclass, which will define the basic environment for our computations. We model our memory after a stack for simplicity. The memory predicate is defined as follows:
+
+\begin{lstlisting}
+class Memory m where
+  data Malloc :: * -> * -> *
+  malloc :: m -> a -> Malloc a m
+  free   :: Malloc a m -> m
+  read   :: Malloc a m -> a
+  write  :: a -> Malloc a m -> Malloc a m
+\end{lstlisting}
+
+Our memory is characterized by three operators:
+\begin{itemize}
+\item a type function that takes our memory and another type as input and returns the new memory obtained by pushing the second parameter 
+on top of the input stack
+\item a $malloc$ function which adds a value to an existing memory
+\item a $free$ function which removes the last allocated value from our memory
+\end{itemize}
+
+The $null$ value is a memory where all the values are null ($undefined$). This value can be used to represent a starting memory with a certain size.
+
+
+\subsection{References and Statements}
+We will never work directly with values, since what we are trying to accomplish requires that values are packed inside "smart" containers that are capable of doing more complex operations such as mutating a shared state, sending messages to other processes or tracking dependencies from other smart values to implement reactive updates. For this reason we will represent values in two different ways:
+\begin{itemize}
+\item as references whenever we wish to represent a pointer to some value inside the current memory
+\item as statements whenever we wish to represent the result of arbitrary computations
+\end{itemize}
+
+References and statements are defined respectively with the $State$ predicate:
+
+\begin{lstlisting}
+class (Memory m,Monad (st m m)) => State st m where
+  data Ref st :: * -> * -> *
+  eval :: Ref st m a -> st m m a
+  (.=) :: Ref st m a -> a -> st m m ()
+  delete :: st (Malloc a m) m ()
+  new :: a -> st m (Malloc a m) (Ref st (Malloc a m) a)
+  (>>+) :: (Memory m', Memory m'') => st m m' a -> (a -> st m' m'' b) -> st m m'' b
+\end{lstlisting}
+
+We represent state in a more complete fashion than is usually done. Usually stateful computations are represented with the type of the denotational semantics of a stateful statement where the state is the same at the beginning and end of the evaluation of the statement. In our case a stateful computation has different input and output types for the state, since memory manipulation changes the type of the state.
+
+The $st$ functor applied to the memory $m$ twice is required by this definition to be a monad; thanks to this we can use our operators on references taking advantage of the syntactic sugar that Haskell offers, obtaining code that is much more intuitive to a programmer used to traditional object oriented languages. Since references are strictly linked to their kind of state, we define a type function $Ref$ which returns the type of references associated to state $st$.
+
+The $new$ and $delete$ operators respectively add and remove a single value from our memory.
+
+To concatenate regular statements and state transition statements we define the $(>>+)$ operator, which is a generalized binding operator: $(>>=)$ is defined in terms of $(>>+)$ for the state monad, since $(>>=)$ simply imposes the constraint that both parameters of $st$ are the same.
+
+In our examples, we will use syntactic sugar that is not available in Haskell to make using the $(>>+)$ operator transparent; we call this the $do+$ notation.
+
+(*=) :: State st s => Ref st s a -> (a->a) -> st s s ()
+ref *= f = do v <- eval ref
+              ref .= (f v)

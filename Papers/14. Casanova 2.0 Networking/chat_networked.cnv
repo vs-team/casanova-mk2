@@ -1,0 +1,92 @@
+﻿open Networking.Common
+
+
+entity Keyboard = {
+  PressedChars    : List<char>
+  rule PressedChars = 
+    let keys = Keyboard.GetPressedKeys()
+    wait_until(from k in keys
+               and_by IsKeyUp(k))
+    yield from k in keys
+          select Enum.Parse(k).[0] 
+}
+
+
+// compiler-generated
+entity InMessageString = {
+  inherit InMessage
+  Value : string
+
+  Create(msg : InMessage) =
+    let value = msg.ReadString()
+    {
+      InMessage = msg
+      Value     = value
+    }
+}
+entity ReliableOutMessageString = {
+  inherit ReliableOutMessage
+
+  Create(value : string, targets : List<Peer>, sender : ConnectionId, owner_entity : EntityId) =
+    let m = new ReliableOutMessage(sender, StringTypeId, owner_entity, targets)
+    do m.WriteString(m)
+    {
+      ReliableOutMessage = m
+    }
+}
+
+
+world Chat = {
+  Text                  : string
+  Line                  : string
+  Keyboard              : Keyboard
+  Inbox                 : List<InMessage>
+  Outbox                : List<ReliableOutMessage>
+  Network               : NetManager
+  Id                    : int
+
+  rule Outbox = yield []
+
+  rule Line = 
+    for c in Keyboard.PressedChars do
+      yield Line + c
+
+  /*
+  rule Line =
+    let c = wait_some(PressedChar())
+    yield Line + c
+  */
+
+  rule Line, Text, Outbox = 
+    wait_until(IsKeyDown(Keys.Enter))
+    let msg = ReliableOutMessageString.Create(Line, [], Network.Id, Id).ReliableOutMessage
+    yield Outbox <- Outbox + msg
+    wait_until(msg.Received)
+    yield Line <- "", Text <- Text + "\n" + Line
+
+  rule Inbox = 
+    yield Inbox +
+          from c in Network.Peers
+          from m in c.ReceivedMessages
+          where m.ContentType = StringTypeId &&
+                m.OwnerEntity = Id
+          select MessageStringIn.Create(c.Id, m.Value)
+
+  rule Text, Inbox =
+    wait_until (Inbox.Length > 1)
+    yield Text + "\n" + Inbox.Head.Value, Inbox.Tail
+
+  Create() =
+    let network = NetManager.Create()
+    let id = network.NextId
+    {
+      Keyboard              = Keyboard.Create()
+      Text                  = ""
+      Line                  = ""
+      Id                    = id
+      Network               = network
+      Inbox                 = []
+      Outbox                = []
+      StringsInbox          = []
+    }
+}

@@ -1,0 +1,35 @@
+Casanova 2 is a declarative-imperative programming language oriented to video game development. A Casanova program is a set of \texttt{entity} definitions organized in a tree structure. The root is a unique entity called \texttt{worldEntity}. Each entity is made of: (\textit{i}) a set of \textit{fields}, \textit{(ii)} a set of \textit{rules}, and (\textit{iii}) a \textit{constructor}. 
+
+A field can have a primitive type (supported types are the most common in other programming languages, such as \texttt{int}, \texttt{float}, \texttt{string}, \textit{tuples}, \textit{lists}) or another entity type. A branch in the tree structure occurs when one field is declared having an entity type. The following example shows a field declaration
+
+\begin{lstlisting}
+entity E = {
+   A : E1
+   B : float
+   C : int
+   ...
+}
+\end{lstlisting}
+
+Rules are defined on one or more fields with the keyword \texttt{rule}. A rule can modify the value of fields by using the statement \texttt{yield} on the fields it take as arguments. Besides rules are also passed as implicit arguments the following three values: a reference to the \texttt{worldEntity}, a reference to the current entity (\texttt{this}), and a floating point value (\texttt{dt}) which contains the time difference between the current frame and the previous one. Each rule executes its body continuously, i.e. once the execution has reached the end of the rule body it is resumed from the beginning. The following example shows a rule definition:
+
+\begin{lstlisting}
+rule P,V = 
+   let new_v = V + g * dt
+   let new_p = P + V * dt
+   yield new_p,new_v
+\end{lstlisting}
+
+A constructor is declared using the keyword \texttt{Create} and may take some parameters as arguments. It returns the initialization of the entity fields enclosed by curly brackets\footnote{This because Casanova 2 syntax is based on F\# syntax and entities are treated as F\# records, thus a constructor returns a record initialization.}. The following example shows a constructor definition:
+
+\begin{lstlisting}
+Create(x : E1) =
+   {
+      A = x
+      B = 1.0
+      C = 0
+      ...
+   }
+\end{lstlisting}
+
+Casanova 2 supports the most common control structures such as \texttt{if-then-else}, \texttt{while-do}, \texttt{for}, and also SQL-like queries such as (\texttt{for x in list - select - where}). Local variables can be declared using the \texttt{let} statement.

@@ -1,0 +1,235 @@
+%----------------------------------------------------------------------------
+%  reference.tex 
+%----------------------------------------------------------------------------
+The state monad as presented above is well-known and commonly used in pure languages such as Haskell. This kind of world- passing-style (or store-passing-style) is powerful and allows a programmer to write perfectly fine imperative code. Since this monad is mostly (if not always exclusively) used to pass around the state and manipulate mutable portions of the state through the use of references and proxies, we now propose an extension of the monad that focuses exclusively on these references.
+A system resource is anything that we wish to release as soon as we are done with it. System resources may include streams, network connections, GPU memory in GPGPU applications (as done, for example, in \cite{9_1,9_2}), threads, etc. In some cases even memory references may be treated as resources, especially when we wish to recycle memory as soon as possible rather than just leave the job to the garbage collector. A system resource can be defined in terms of an appropriate type class:
+
+\begin{lstlisting}
+class Reference f a s where
+  new :: a -> St s (f a)
+  incr :: f a -> St s ()
+  decr :: f a -> St s ()
+  get :: f a -> St s a
+  count :: f a -> St s Int
+\end{lstlisting}
+
+A Reference is represented by a functor f and a type a. a is the type of our actual resource, and f a is the proxy that we will use to access this resource. The proxy f a may:
+\begin{itemize}
+\item be created from a value a with new
+\item increment its internal counter with incr
+\item decrement its internal counter with decr
+\item get its internal value with get
+\item get its internal counter with count
+\end{itemize}
+
+The only public functions that we leave accessible are new and get. The other functions can only be called from inside the monad implementation.
+
+\subsection{Reference axioms}
+A Reference has some requirements that it must respect. These requirements are expressed in terms of axioms, which are a way to formalize the most obvious expectations we have towards a Reference. Informally, we require that a Reference:
+\begin{itemize}
+\item starts with a count of 1 after being created with new
+\item returns a value with get when its count is greater than 0; otherwise get returns $\uparrow$
+\item incr and decr respectively increment and decrement the internal count by 1, but only if the count is greater than 0; otherwise they both return ?
+\end{itemize}
+
+We can express these requirements with the help of the do-notation as:
+
+\begin{lstlisting}
+forall s x . (do r <- new x
+                 count r) s = (1,_)
+
+forall s r . (get r) s = (_,_) if (count r s) = (c,_) with c > 0
+                         $\uparrow$ otherwise
+
+forall s r . (do incr r
+            count r) s = (c+1,_) if (count r s) = (c,_) with c > 0
+                         $\uparrow$ otherwise
+
+forall s r . (do decr r
+                 count r) s = (c-1,_) if (count r s) = (c,_) with c > 0
+                              $\uparrow$ otherwise
+\end{lstlisting}
+
+We also expect, but this is really up to the implementation, that whenever the internal count of a resource is decremented to 0, then the resource will be freed.
+
+\subsection{Possible reference implementation}
+Our definition of Reference may appear a bit excessive. What is the meaning of the functor f? f is the type of references, which will be used as proxies of the actual values of type a. The idea behind the Reference type class is that we do not force anything about how references are represented: the type of references depends strongly on the type of the heap inside which the reference will point to. To strengthen this intuition, let us discuss a few possible implementations.
+A heap may be a list of values where we add values to the end of the list; references are the index from the beginning of the list to the appropriate item and its associated counter:
+
+\begin{lstlisting}
+type F a = Int
+instance Reference F a [(Int,a)]
+  …
+\end{lstlisting}
+
+A heap may be a list of lists of values, for performance reasons (indexing twice helps skipping many elements):
+
+\begin{lstlisting}
+type F a = (Int,Int)
+instance Reference F a [[(Int,a)]]
+  ...
+\end{lstlisting}
+
+A heap may even be a more elaborate data structure, such as a map from a key k into a value a and its associated counter:
+
+\begin{lstlisting}
+instance (Map s, k ~ Key s) => Reference k a (Map k (Int,a))
+  ...
+\end{lstlisting}
+
+where Map s means that s is a map and Key s is a type function that returns the type of key used to index elements of s; ~ is the binding operator for type variables.
+
+The above definitions all define mappings from keys to values that are all pure and quite obvious. Since we are not limiting our language to a pure functional one (the thing will have to run on imperative hardware after all) it is not at all inadmissible that the implementation of the heap and its reference may somehow rely on pointers and mutable state. A simple yet effective implementation only requires that our language supports arrays. References are indices in the array, but this time the access will be much faster:
+
+\begin{lstlisting}
+type F a = Int
+instance Reference F a [|(Int,a)|]
+  ...
+\end{lstlisting}
+
+or
+
+\begin{lstlisting}
+type F a = Int
+instance Reference F a [|[|(Int,a)|]|]
+  …
+\end{lstlisting}
+
+where [ | a | ] is an array of a. We could optimize this last definition further (it has very high performance and is very easy to implement, and as such we have used it in our benchmarks) by adding to each element of the external array the number of free items (those with the counter set to 0):
+
+\begin{lstlisting}
+type F a = Int
+instance Reference F a [|(Int,[|(Int,a)|])|]
+  ...
+\end{lstlisting}
+
+Of course whatever implementation we pick for managing references, we must keep in mind that incrementing (decrementing) a reference to a value also requires us to inductively increment (decrement) all the references contained inside that value. For this reason we modify the Reference class so that its incrementation and decrementation functions only do one step of incrementing and decrementing, while the recursive work is left to a new pair of incr and decr functions:
+
+\begin{lstlisting}
+class Reference f a s where
+  new :: a -> St s (f a)
+  incrStep :: f a -> St s ()
+  decrStep :: f a -> St s ()
+  get :: f a -> St s a
+  count :: f a -> St s Int
+\end{lstlisting}
+
+We define, in the spirit of the LIGD library ([REFERENCE]), a representation datatype using GADTs (Generalized Algebraic Datatypes):
+
+\begin{lstlisting}
+data Unit = Unit
+data Sum a b = Inl a | Inr b
+data Prod a b = Prod a b
+
+data Rep t where
+  RUnit :: Rep Unit
+  RSum :: Rep a -> Rep b -> Rep (Sum a b)
+  RProd :: Rep a -> Rep b -> Rep (Prod a b)
+  RType :: Rep c -> EP b c -> Rep b
+\end{lstlisting}
+
+where the EP datatype is the witness of the isomorphism between two type b and c
+and is defined as:
+
+\begin{lstlisting}
+data EP b c = EP { from :: (b -> c), to :: (c -> b) }
+\end{lstlisting}
+
+As an example, let us see how we could define a generic equality function:
+\begin{lstlisting}
+geq :: Rep a -> a -> a -> Bool
+geq (RUnit)       Unit          Unit          = True
+geq (RSum ra rb ) (Inl a1 )     (Inl a2 )     = geq ra a1 a2
+geq (RSum ra rb ) (Inr b1 )     (Inr b2 )     = geq rb b1 b2
+geq (RSum ra rb ) _             _             = False
+geq (RProd ra rb) (Prod a1 b1 ) (Prod a2 b2 ) = geq ra a1 a2 && geq rb b1 b2
+geq (RType ra ep) t1            t2            = geq ra (from ep t1) (from ep t2)
+\end{lstlisting}
+
+The generic equality function takes an additional parameter which is the representation of the type of the values being compared. This allows us to index the function based on the type (in fact we say that geq is a TIF, or "type-indexed-function").
+
+Now, consider how we could build the representation of a list. We start with the embedding projection:
+
+\begin{lstlisting}
+fromList :: [a] -> Sum Unit (Prod a [a])
+fromList [] = Inl Unit
+fromList (a:as) = Inr (Prod a as)
+toList :: Sum Unit (Prod a as) -> [a]
+toList (Inl Unit) = []
+toList (Inr (Prod a as)) = a:as
+\end{lstlisting}
+
+then we write the representation using RType:
+
+\begin{lstlisting}
+rList :: Rep a -> Rep [a]
+rList ra = RType (RSum RUnit (RProd ra (rList ra)))
+            (EP fromList toList)
+\end{lstlisting}
+
+At this point we define two intermediate functions incrRep and decrRep that recursively invoke themselves in order to invoke incrStep and decrStep respectively on each Reference found inside the original Reference:
+
+\begin{lstlisting}
+incrRep :: Reference f a s => Rep a -> (f a) -> St s ()
+incrRep (RUnit) ref = incrStep ref
+incrRep (RSum ra rb) ref  = 
+  do v <- get ref
+     case v of 
+     | Inl x -> incrRep ra x
+     | Inr x -> incrRep rb x
+     incrStep ref
+incrRep (RProd ra rb) ref = 
+  do (x,y) <- get ref
+     incrRep ra x
+     incrRep rb x
+     incrStep ref
+incrRep (RType ra ep) ref = 
+  do v <- get ref
+     incrRep ra (from ep v)
+     incrStep ref
+
+decrRep :: Reference f a s => Rep a -> (f a) -> St s ()
+...
+\end{lstlisting}
+
+We omit the body of decrRep since it is substantially identical to that of incrRep, to the point that both functions could be easily defined in terms of a single combinatory (a monadic version of the everywhere function [REFERENCE]).
+
+We instance a "constant" Reference so that a simple value can be interpreted as a Reference :
+
+\begin{lstlisting}
+type Id a = a
+instance Reference Id a s where
+  new = return
+  incrStep = return ()
+  decrStep = return ()
+  get = id
+  count = 1
+\end{lstlisting}
+
+At this point we define a typeclass that captures all the datatypes representable in terms of the above GADT:
+
+\begin{lstlisting}
+class Representable a where
+  rep :: Rep a
+\end{lstlisting}
+
+We also require that a Reference is always to a Representable datatype:
+
+\begin{lstlisting}
+class Representable a => Reference f a s where
+  ...
+\end{lstlisting}
+
+in order that the representation is implicit in the Reference and must not be passed around each time. At this point we can define the actual incr and decr functions:
+
+\begin{lstlisting}
+incr :: Reference f a s => f a -> St s ()
+incr ref = incrRep rep ref
+
+decr :: Reference f a s => f a -> St s ()
+decr ref = decrRep rep ref
+\end{lstlisting}
+
+\begin{lstlisting}
+
+\end{lstlisting}

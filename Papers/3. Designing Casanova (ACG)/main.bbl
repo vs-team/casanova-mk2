@@ -1,0 +1,97 @@
+\begin{thebibliography}{10}
+
+\bibitem{CASANOVA_CODEPLEX}
+Casanova project page.
+\newblock casanova.codeplex.com/.
+
+\bibitem{ESA}
+Entertainment software association.
+\newblock http://www.theesa.com.
+
+\bibitem{GAMEOBJECTS}
+Inheritance vs aggregation in game objects.
+\newblock http://gamearchitect.net/Articles/GameObjects1.html.
+
+\bibitem{XBOX_GC}
+Slow garbage collection on the xbox.
+\newblock
+  http://blogs.msdn.com/b/shawnhar/archive/2007/06/29/how-to-tell-if-your-xbox-garbage-collection-is-too-slow.aspx.
+
+\bibitem{XNA}
+The xna framework.
+\newblock http://msdn.microsoft.com/xna.
+
+\bibitem{XNA_SAMPLES}
+Xna spacewar 4.
+\newblock http://create.msdn.com/education/catalog/sample/spacewar.
+
+\bibitem{OO_GAME_DEV}
+Apostolos Ampatzoglou and Alexander Chatzigeorgiou.
+\newblock Evaluation of object-oriented design patterns in game development.
+\newblock {\em Inf. Softw. Technol.}, 49:445--454, May 2007.
+
+\bibitem{GAME_OPT}
+Mat Buckland.
+\newblock {\em Programming Game {AI} by Example}.
+\newblock Jones \& Bartlett Publishers, 1 edition, September 2004.
+
+\bibitem{FRP}
+Conal Elliott and Paul Hudak.
+\newblock Functional reactive animation.
+\newblock {\em SIGPLAN Not.}, 32:263--273, August 1997.
+
+\bibitem{COMPONENTS1}
+Eelke Folmer.
+\newblock Component based game development: a solution to escalating costs and
+  expanding deadlines?
+\newblock In {\em Proceedings of the 10th international conference on
+  Component-based software engineering}, CBSE'07, pages 66--73, Berlin,
+  Heidelberg, 2007. Springer-Verlag.
+
+\bibitem{QUERY_OPT}
+Hector Garcia-molina, Jeffrey~D. Ullman, and Jennifer Widom.
+\newblock {\em Database System Implementation}.
+\newblock 2000.
+
+\bibitem{COROUTINES}
+Donald~E. Knuth.
+\newblock {\em The art of computer programming, volume 1 (3rd ed.): fundamental
+  algorithms}.
+\newblock Addison Wesley Longman Publishing Co., Inc., Redwood City, CA, USA,
+  1997.
+
+\bibitem{FRIENDLY_FSHARP}
+Giuseppe Maggiore and Giulia Costantini.
+\newblock {\em Friendly F\# (fun with game programming)}.
+\newblock Smashwords.
+
+\bibitem{CASANOVA_TR}
+Giuseppe Maggiore, Renzo Orsini, and Michele Bugliesi.
+\newblock Casanova: a declarative language for safe games.
+\newblock Technical Report 2011-7, Ca' Foscari - DAIS, 2011.
+
+\bibitem{MOGGI_MON}
+Eugenio Moggi.
+\newblock Notions of computation and monads.
+\newblock {\em Information and Computation}, 93:55--92, 1989.
+
+\bibitem{LIN_TYPES}
+Philip Wadler.
+\newblock Linear types can change the world!
+\newblock In {\em PROGRAMMING CONCEPTS AND METHODS}. North, 1990.
+
+\bibitem{COMPR_MON}
+Philip Wadler.
+\newblock Comprehending monads.
+\newblock In {\em Mathematical Structures in Computer Science}, pages 61--78,
+  1992.
+
+\bibitem{SCALING_GAMES}
+Walker White, Alan Demers, Christoph Koch, Johannes Gehrke, and Rajmohan
+  Rajagopalan.
+\newblock Scaling games to epic proportions.
+\newblock In {\em Proceedings of the 2007 ACM SIGMOD international conference
+  on Management of data}, SIGMOD '07, pages 31--42, New York, NY, USA, 2007.
+  ACM.
+
+\end{thebibliography}

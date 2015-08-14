@@ -1,0 +1,83 @@
+In this appendix we discuss how Casanova may be extended in order to support a menu system. Menus are ubiquitous in games, since they allow the player to perform choices about the way they wish to play the game. Menus often contain at least options such as starting a single player or multi-player game, creating a new game or continuing a saved one, and editing the game settings.
+
+Menus in Casanova could be defined already with no modification, as described in the following. 
+The game world only contains the current page of the menu:
+
+\begin{lstlisting}
+type World = {
+  CurrentPage : Var<GamePage>
+}
+member this.ActualWorld =
+  match this.CurrentPage with
+  | Game(w) -> w
+  | _ -> 
+  	failwith "Cannot get game world from menu pages."
+
+type GamePage = 
+  | Page1 of MenuPage1
+  | Page2 of MenuPage2
+  | ...
+  | PageN of MenuPageN
+  | Game of ActualWorld
+\end{lstlisting}
+
+The various menu pages can set each other in the game world from their scripts, until the actual game is activated which runs the actual simulation. Since most of the game entities will then need to access the game world, we provide an unsafe property in the game world which assumes that the game is in session and which returns the actual game world for ease of access. This is unsafe, since accessing the game world from any menu page and not from the game page itself would result in an exception and then a crash of the game.
+
+Similarly, we could declare the game world as:
+
+\begin{lstlisting}
+type World = {
+  CurrentPage : GamePage
+}
+rule CurrentPage = ...
+\end{lstlisting}
+
+Where the \texttt{CurrentPage} rule checks if the current page needs to be changed without recurring to scripts. 
+
+This system is sufficiently expressive to create menus of any kind, but it has two severe shortcoming: \textit{(i)} it requires matching on the game world to obtain the actual game world, for each rule of each entity that uses it; this is an expensive operations that should be avoided, and which may even cause bugs if the current page is not the game page; \textit{(ii)} it does not support pause menus that can suspend and resume the game without significant effort by the developer.
+
+We can define a new system that supports arbitrarily nested menus and which makes it transparent to the developer the fact that some game pages are stacked (like the pause menu), and that when they are closed then the previous page must be restored.
+
+Instead of defining directly the \texttt{start\_game} function that instances the game world, its scripts, and runs, we now define a series of "smaller games", one for each page of the menu and one for the game itself. The various pages can of course communicate between each other in order to jump from one page to the other or in and out of the game. Each page now has a \texttt{start\_page} function that acts almost exactly as the \texttt{start\_game} function, but with one major difference: it may take additional parameters that are specified by the other pages when they instance the current one. Each page also contains its own definition of the game world (for that page), its own scripts, and its own input management routines (which may be shared through a common library when sufficiently similar). Different files may be used to split the various pages in the project. For example, in a game where
+
+\begin{lstlisting}
+type Page1 = { ... }
+let start_page1 = ...
+
+type Page2 = { ... }
+let start_page2 = ...
+
+type Page3 = { ... }
+let start_page3 = ...
+
+...
+
+type World = { ... }
+let start_game = ...
+\end{lstlisting}
+
+We then define a series of mutually recursive scripts that represent the whole menu; these scripts are mutually recursive because each script needs to be able to invoke the others in order to navigate pages. Page navigation is done with new Casanova functions that implement most of the menu system. These functions all take as input a \texttt{start\_page}  function, and they are: \textit{(i)} \texttt{set\_page} to set the current page; \textit{(ii)} \texttt{push\_page} to add a new page to the stack of active pages, suspending the evaluation of the scripts of the previous page; \textit{(iii)} \texttt{pop\_page} to remove the current page and restore the previous one. By using currying on the \texttt{start\_page} functions, it becomes possible to make the various pages communicate with each other, for example passing to each page some parameters that specify different operations to perform, or even passing them whole scripts that recursively activate other pages.
+
+As an example, consider the simplistic case of a game with a main menu which launches the game, which can be paused by the user. We define the \texttt{start\_page} functions so that they take as input the coroutines that perform the menu transitions, and nothing else since there is no further information that any menu page needs from the others. The main script of the game, which is run at the launch of the game, instantiates the main menu to which it passes the script that starts the game:
+
+\begin{lstlisting}
+let rec main_menu = 
+  co{
+    do set_page (start_main_menu game)
+  }
+  
+and game = 
+  co{
+    do set_page (start_game main_menu pause_menu)
+  }
+  
+and pause_menu = 
+  co{
+    do push_page start_pause
+  }
+\end{lstlisting}
+
+Notice that the \texttt{start\_pause} function does not takes as input any scripts, since when the pause menu is closed it just invokes the \texttt{pop\_page} function which then restores the game page.
+
+Pushing and restoring is performed easily enough by saving the world, the update function, the draw function, and the running scripts of the current page. 
+One important detail to consider though is that all the timer functions must now be made aware of the fact that time was \textit{suspended} for a page, so the pushing back of a page also requires saving the current total time of that page, instead of relying on a global timer. If this is not done, then problems may arise if a page is restored after a long wait. For example, waiting operations would poll the current global timer of the program right after the page is resumed, but the amount of time elapsed between the last tick of those scripts and the current one would risk being too high and the waits would terminate right away and continue into their next statements. The game would thereby behave as if the pause was just a very long tick of the game loop, and not the freezing of the game that the user expects.

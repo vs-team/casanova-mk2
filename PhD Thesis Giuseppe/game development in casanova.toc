@@ -1,0 +1,144 @@
+\select@language {american}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Games, board games, and video games}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}The challenge of game development}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}Problem statement}{4}{section.1.3}
+\contentsline {section}{\numberline {1.4}Research questions and process}{4}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}A new programming language}{5}{subsection.1.4.1}
+\contentsline {section}{\numberline {1.5}Structure of This Work}{6}{section.1.5}
+\contentsline {chapter}{\numberline {2}Requirements of a game}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}The game loop}{10}{section.2.1}
+\contentsline {section}{\numberline {2.2}State machines}{15}{section.2.2}
+\contentsline {section}{\numberline {2.3}Drawing}{18}{section.2.3}
+\contentsline {section}{\numberline {2.4}Summary}{19}{section.2.4}
+\contentsline {chapter}{\numberline {3}Available game development systems and languages}{21}{chapter.3}
+\contentsline {section}{\numberline {3.1}Systems vs languages}{21}{section.3.1}
+\contentsline {section}{\numberline {3.2}Systems for making games}{22}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Relevant game systems}{23}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Our choice of systems}{24}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Game Maker}{24}{subsection.3.2.3}
+\contentsline {subsubsection}{Unity 3D}{25}{section*.6}
+\contentsline {subsubsection}{XNA}{26}{section*.7}
+\contentsline {section}{\numberline {3.3}Languages for making games}{28}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Simula 67}{28}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Inform}{30}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}SGL}{32}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Motivating a new programming language}{33}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Flexibility}{34}{subsection.3.4.1}
+\contentsline {subsubsection}{Abstraction}{35}{section*.8}
+\contentsline {subsection}{\numberline {3.4.2}Correctness}{35}{subsection.3.4.2}
+\contentsline {subsubsection}{Memory Safety}{36}{section*.9}
+\contentsline {subsubsection}{Concurrency Control}{36}{section*.10}
+\contentsline {subsubsection}{Bug finding}{36}{section*.11}
+\contentsline {subsection}{\numberline {3.4.3}Efficiency}{37}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Creating new languages for making games}{37}{section.3.5}
+\contentsline {chapter}{\numberline {4}Design of Casanova}{39}{chapter.4}
+\contentsline {section}{\numberline {4.1}The RSD pattern}{39}{section.4.1}
+\contentsline {section}{\numberline {4.2}Motivation for a new language}{40}{section.4.2}
+\contentsline {section}{\numberline {4.3}Design Goals}{41}{section.4.3}
+\contentsline {section}{\numberline {4.4}Informal design}{41}{section.4.4}
+\contentsline {chapter}{\numberline {5}Syntax of Casanova}{45}{chapter.5}
+\contentsline {section}{\numberline {5.1}Grammar}{45}{section.5.1}
+\contentsline {section}{\numberline {5.2}Type System}{47}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Rules}{48}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Coroutines}{49}{subsection.5.2.2}
+\contentsline {chapter}{\numberline {6}Semantics of Casanova}{51}{chapter.6}
+\contentsline {section}{\numberline {6.1}Informal Semantics}{51}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Performance}{52}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Correctness}{52}{subsection.6.1.2}
+\contentsline {paragraph}{Correctness and language constraints}{53}{section*.12}
+\contentsline {subsection}{\numberline {6.1.3}Bouncing Balls}{54}{subsection.6.1.3}
+\contentsline {section}{\numberline {6.2}Formal Semantics}{56}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Types Translation}{57}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Rules}{58}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Scripts}{61}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Draw}{62}{subsection.6.2.4}
+\contentsline {chapter}{\numberline {7}Implementation of Casanova}{65}{chapter.7}
+\contentsline {section}{\numberline {7.1}Rule Containers}{66}{section.7.1}
+\contentsline {section}{\numberline {7.2}Generating the Update and Draw Functions}{67}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Na\IeC {\"\i }ve traversal}{68}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Traversal with CPS caching}{69}{subsection.7.2.2}
+\contentsline {paragraph}{CPS Speedup}{71}{table.7.1}
+\contentsline {section}{\numberline {7.3}Scripts and coroutines}{72}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}A DSL for Scripting}{76}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Scripting in Games}{79}{subsection.7.3.2}
+\contentsline {paragraph}{Optimization}{83}{section*.14}
+\contentsline {chapter}{\numberline {8}Making games in Casanova}{89}{chapter.8}
+\contentsline {section}{\numberline {8.1}Game of Life}{89}{section.8.1}
+\contentsline {section}{\numberline {8.2}Making games with Casanova}{94}{section.8.2}
+\contentsline {section}{\numberline {8.3}Player avatar and shooting stuff}{95}{section.8.3}
+\contentsline {section}{\numberline {8.4}Game map and monsters with AI}{98}{section.8.4}
+\contentsline {section}{\numberline {8.5}Active map entities and selection-based input}{100}{section.8.5}
+\contentsline {section}{\numberline {8.6}Recombining the samples}{102}{section.8.6}
+\contentsline {section}{\numberline {8.7}Hand written optimizations}{103}{section.8.7}
+\contentsline {chapter}{\numberline {9}Evaluation of Casanova}{105}{chapter.9}
+\contentsline {section}{\numberline {9.1}Supported Features}{105}{section.9.1}
+\contentsline {section}{\numberline {9.2}Features to Learn}{107}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Remarks}{109}{subsection.9.2.1}
+\contentsline {section}{\numberline {9.3}Quantitative assessment}{110}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Coroutines in games}{110}{subsection.9.3.1}
+\contentsline {section}{\numberline {9.4}Casanova in education}{111}{section.9.4}
+\contentsline {subsection}{\numberline {9.4.1}High school students}{112}{subsection.9.4.1}
+\contentsline {subsection}{\numberline {9.4.2}Master students}{112}{subsection.9.4.2}
+\contentsline {chapter}{\numberline {10}Discussion}{115}{chapter.10}
+\contentsline {section}{\numberline {10.1}Original research questions}{115}{section.10.1}
+\contentsline {section}{\numberline {10.2}Extension opportunities for Casanova}{116}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Rendering}{117}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}Standard library}{117}{subsection.10.2.2}
+\contentsline {subsection}{\numberline {10.2.3}IDE}{117}{subsection.10.2.3}
+\contentsline {subsection}{\numberline {10.2.4}Networking}{118}{subsection.10.2.4}
+\contentsline {subsection}{\numberline {10.2.5}AI}{118}{subsection.10.2.5}
+\contentsline {subsection}{\numberline {10.2.6}AAA games}{119}{subsection.10.2.6}
+\contentsline {section}{\numberline {10.3}Shortcomings of Casanova}{119}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Low-level optimizations}{119}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}Imperative mindset shift}{120}{subsection.10.3.2}
+\contentsline {subsection}{\numberline {10.3.3}Unusual syntax}{120}{subsection.10.3.3}
+\contentsline {subsection}{\numberline {10.3.4}Advanced rendering}{120}{subsection.10.3.4}
+\contentsline {subsection}{\numberline {10.3.5}Other languages}{120}{subsection.10.3.5}
+\contentsline {chapter}{\numberline {11}Conclusions}{123}{chapter.11}
+\contentsline {chapter}{\numberline {}Bibliography}{127}{chapter*.15}
+\contentsline {chapter}{\numberline {A}Building a Menu System}{139}{appendix.A}
+\contentsline {chapter}{\numberline {B}Networking in Casanova}{143}{appendix.B}
+\contentsline {section}{\numberline {B.1}Networking and games}{143}{section.B.1}
+\contentsline {section}{\numberline {B.2}Common solutions}{144}{section.B.2}
+\contentsline {section}{\numberline {B.3}Networking in Casanova}{145}{section.B.3}
+\contentsline {section}{\numberline {B.4}Future work}{146}{section.B.4}
+\contentsline {chapter}{\numberline {C}A General-purpose AI for Casanova}{149}{appendix.C}
+\contentsline {section}{\numberline {C.1}Activities}{149}{section.C.1}
+\contentsline {section}{\numberline {C.2}Agent stats}{150}{section.C.2}
+\contentsline {section}{\numberline {C.3}Na\IeC {\"\i }ve GOAP}{152}{section.C.3}
+\contentsline {section}{\numberline {C.4}Heuristic pruning}{153}{section.C.4}
+\contentsline {section}{\numberline {C.5}Acting out plans}{154}{section.C.5}
+\contentsline {section}{\numberline {C.6}Layered GOAP}{154}{section.C.6}
+\contentsline {section}{\numberline {C.7}Learning Expected Costs and Benefits}{156}{section.C.7}
+\contentsline {subsection}{\numberline {C.7.1}Learning Whole Plans}{157}{subsection.C.7.1}
+\contentsline {subsection}{\numberline {C.7.2}Learning and Layers}{158}{subsection.C.7.2}
+\contentsline {subsection}{\numberline {C.7.3}Implicit Social Interactions}{158}{subsection.C.7.3}
+\contentsline {subsection}{\numberline {C.7.4}Explicit Social Interactions}{159}{subsection.C.7.4}
+\contentsline {section}{\numberline {C.8}Assessment}{159}{section.C.8}
+\contentsline {section}{\numberline {C.9}Missing and implemented}{161}{section.C.9}
+\contentsline {chapter}{\numberline {D}Casanova and Data-bases}{163}{appendix.D}
+\contentsline {section}{\numberline {D.1}The Game World}{163}{section.D.1}
+\contentsline {section}{\numberline {D.2}Persistency, Saving Games \\ and Multiplayer Games}{165}{section.D.2}
+\contentsline {chapter}{\numberline {E}Casanova in Other Languages}{167}{appendix.E}
+\contentsline {section}{\numberline {E.1}Haskell and type classes}{167}{section.E.1}
+\contentsline {subsection}{\numberline {E.1.1}Overview}{168}{subsection.E.1.1}
+\contentsline {subsection}{\numberline {E.1.2}Advanced uses}{168}{subsection.E.1.2}
+\contentsline {subsection}{\numberline {E.1.3}Casanova in Haskell, a sketch}{169}{subsection.E.1.3}
+\contentsline {section}{\numberline {E.2}C++ and partial template specialization}{171}{section.E.2}
+\contentsline {subsection}{\numberline {E.2.1}Casanova rules}{172}{subsection.E.2.1}
+\contentsline {subsection}{\numberline {E.2.2}Casanova scripts}{174}{subsection.E.2.2}
+\contentsline {subsection}{\numberline {E.2.3}Asteroids game}{176}{subsection.E.2.3}
+\contentsline {subsection}{\numberline {E.2.4}Remarks}{179}{subsection.E.2.4}
+\contentsline {chapter}{\numberline {F}A Brief Introduction to F\#}{181}{appendix.F}
+\contentsline {section}{\numberline {F.1}let and fun}{181}{section.F.1}
+\contentsline {section}{\numberline {F.2}Lists and sequences}{183}{section.F.2}
+\contentsline {section}{\numberline {F.3}Basic type definitions}{184}{section.F.3}
+\contentsline {section}{\numberline {F.4}Variables}{185}{section.F.4}
+\contentsline {section}{\numberline {F.5}Units of measure}{186}{section.F.5}
+\contentsline {chapter}{\numberline {G}A Brief Introduction to Monads}{189}{appendix.G}
+\contentsline {paragraph}{Monad sample}{190}{section*.16}
+\contentsline {paragraph}{Formal definition}{194}{section*.17}
+\contentsline {paragraph}{Conclusion}{194}{section*.18}
+\contentsline {chapter}{Summary}{197}{appendix*.19}
+\contentsline {chapter}{About the author}{199}{appendix*.20}

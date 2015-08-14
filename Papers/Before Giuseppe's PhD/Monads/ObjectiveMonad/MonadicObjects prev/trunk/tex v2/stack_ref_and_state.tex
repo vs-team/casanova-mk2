@@ -1,0 +1,105 @@
+\section{Introduction}
+Our goal is to define a set of operators that allow us to write object-oriented programs in the Haskell language. Object orientation can be
+used in conjunction with various paradigms, such as (these are by no means the only possible fields of application):
+\begin{itemize}
+\item mutable programs where the state inside each object can be transparently mutated by method calls and other kinds of manipulations
+\item concurrent programs where the inner state of each object does not belong to the same thread, process or even machine
+\item reactive programs where each stateful operation is recomputed whenever the values it depends from change
+\item transactional programs where each stateful operation is recorded and blocks of stateful operations can be undone
+\end{itemize}
+
+We definitely wish to define our operators so that we can use anyone of these paradigms for running our object-oriented programs. For this
+reason we define the object oriented operators abstractly, that is inside type classes; we then proceed to give the concrete implementations 
+that will allow us to actually run our code.
+
+We also wish to make it simple to use our objects. One of the best ways to make some abstraction simpler to code in the Haskell language is to
+take advantage of monads and their syntactic sugar: we will try to make use of monads whenever possible, and we will even require so at the
+level of our typeclasses.
+
+To make a working object oriented system in a type-safe and purely functional language such as Haskell we are forced to define many 
+type-level functions and predicates. A relevant side effect of this is that all our entities are first class entities in the host language;
+this allows us to freely manipulate labels, method applications, and so on, and even to design a type safe reflection system.
+
+
+\section{Stack}
+We start by defining a stack typeclass, which will define the basic environment of our computations. We choose to use a stack for simplicity,
+and also because the state monad is much harder to make work with a heap. The stack predicate is defined as follows:
+
+\begin{verbatim}
+class Stack s where
+  type Push s :: * -> *
+  push :: s -> a -> Push s a
+  pop  :: Push s a -> s
+\end{verbatim}
+
+the stack is characterized by three operators:
+\begin{itemize}
+\item a type function that takes our stack and another type as input and returns the new stack obtained by pushing the second parameter 
+on top of the input stack
+\item a $push$ function which works exactly as the $Push$ type function but operating on values rather than types
+\item a $pop$ function which does the opposite of what the $push$ function does
+\end{itemize}
+
+
+\section{References and Statements}
+We will never work directly with values, since what we are trying to accomplish requires that values are packed inside "smart" containers
+that are capable of doing more complex operations such as mutating a shared state, sending messages to other processes or tracking dependencies
+from other smart values to implement reactive updates. For this reason we will represent values in two different ways:
+\begin{itemize}
+\item as references whenever we wish to represent a pointer to some value inside the current stack
+\item as statements whenever we wish to represent the result of arbitrary computations
+\end{itemize}
+
+References and statements are defined respectively with one single predicate:
+
+\begin{verbatim}
+class (Stack s,Monad (st s)) => RefSt ref st s where
+  eval :: ref s a -> st s a
+  (:=) :: ref s a -> a -> st s ()
+  (*=) :: ref s a -> (a->a) -> st s ()
+  new :: s'~New s a => a -> (ref s' a -> st s' b) -> st s b
+\end{verbatim}
+
+The $st$ functor applied to the stack $s$ is required by this definition to be a monad; thanks to this we can use our operators on references
+taking advantage of the syntactic sugar that Haskell offers, obtaining code that is much more intuitive to a programmer used to traditional
+object oriented languages.
+
+The $eval$ function takes as input a reference to a value of type $a$ inside a stack of type $s$ and returns a statement that will evaluate 
+to a value of type $a$ inside a state of type $s$. The $:=$ and $*=$ operators respectively assign and in-place modify a reference and return
+a statement that will evaluate to a value of type unit inside a state of type $s$. The $new$ function allocates a value of type $a$ on the 
+stack $s$, obtaining the stack $s'$, performs some operation on this stack inside a function that takes as input the reference to the 
+freshly allocated value of type $a$ and returns a statement that will evaluate to a $b$ in an $s'$, and then returns a statement that will
+evaluate to the same $b$ in an $s$. The $new$ function is essentially a scoping function, which will:
+\begin{itemize}
+\item allocate a new value on the stack
+\item create a reference to this new value in the new stack
+\item do some work with this reference and obtain a result through the input function
+\item deallocate the value from the stack
+\item return a result that represent the result returned by the work done in the input function
+\end{itemize}
+
+An alternative definition (possibly even better) of the new operation could have been:
+\begin{verbatim}
+new :: s'~New s a => a -> (ref s' a -> st s' b) -> st s' b
+\end{verbatim}
+
+which does not automatically destroy the allocated value and which instead maintains the larger stack when it returns its value. This would
+have worked well with a heap rather than a stack, since we could have given a heap capable of deallocating its references with a type function
+such as:
+
+\begin{verbatim}
+class (Heap h, Monad (st h)) => RefSt ref st h where
+  Delete h -> ref h a :: *
+  delete h -> ref h a -> Delete h (ref h a)
+  ...
+\end{verbatim}
+
+Sadly this approach has a major shortcoming. In fact this would make it much harder to work with monads, since at every allocation and
+deallocation the type of the monadic constructor would change: $(st\ h)\ \ne\ (st\ (New\ h\ a))$, and we would have been forced to define 
+an explicit binding operator that is capable of taking care of changes in the first parameter of the statement functor:
+
+\begin{verbatim}
+explicit_bind :: st h a -> (a -> st (New h b) a') -> st (New h b) a'
+\end{verbatim}
+
+but this would, interesting as it may be, would somewhat defeat the point of using a monad for simplicity and readability in the first place.

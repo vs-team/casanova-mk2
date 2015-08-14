@@ -1,0 +1,40 @@
+\begin{thebibliography}{1}
+
+\bibitem{BEHAVIOR_3D}
+Raimund Dachselt and Enrico Rukzio.
+\newblock Behavior3d: an xml-based framework for 3d graphics behavior.
+\newblock In {\em Proceedings of the eighth international conference on 3D Web
+  technology}, Web3D '03, pages 101--ff, New York, NY, USA, 2003. ACM.
+
+\bibitem{GAME_OO_HIERARCHY}
+Julian Gold.
+\newblock {\em Object-Oriented Game Development}.
+\newblock Pearson Addison Wesley, 2004.
+
+\bibitem{FUNCTION_BASED_X3D}
+Qi~Liu and Alexei Sourin.
+\newblock Function-based shape modeling and visualization in x3d.
+\newblock In {\em Proceedings of the eleventh international conference on 3D
+  web technology}, Web3D '06, pages 131--141, New York, NY, USA, 2006. ACM.
+
+\bibitem{X3D_OGL_ES}
+Daniele Nadalutti, Luca Chittaro, and Fabio Buttussi.
+\newblock Rendering of x3d content on mobile devices with opengl es.
+\newblock In {\em Proceedings of the eleventh international conference on 3D
+  web technology}, Web3D '06, pages 19--26, New York, NY, USA, 2006. ACM.
+
+\bibitem{FUNCTION_BASED_HAPTIC_X3D}
+Lei Wei, Alexei Sourin, and Herbert Stocker.
+\newblock Function-based haptic collaboration in x3d.
+\newblock In {\em Proceedings of the 14th International Conference on 3D Web
+  Technology}, Web3D '09, pages 15--23, New York, NY, USA, 2009. ACM.
+
+\bibitem{SGL}
+Walker White, Alan Demers, Christoph Koch, Johannes Gehrke, and Rajmohan
+  Rajagopalan.
+\newblock Scaling games to epic proportions.
+\newblock In {\em Proceedings of the 2007 ACM SIGMOD international conference
+  on Management of data}, SIGMOD '07, pages 31--42, New York, NY, USA, 2007.
+  ACM.
+
+\end{thebibliography}

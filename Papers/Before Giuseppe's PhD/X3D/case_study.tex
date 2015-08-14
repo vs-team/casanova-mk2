@@ -1,0 +1,90 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% case_study.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We will now present a more detailed example to see our compiler in action by showing how it handles all the features of an X3D scene: entities and routes. We will consider an X3D scene that contains a looping timer which updates a color that in turn updates the material used when drawing a box:
+
+\begin{lstlisting}[language=xml]
+<Scene>
+  <ColorInterpolator DEF='myColor'
+    keyValue='1 0 0, 0 1 0, 0 0 1, 1 0 0'
+    key='0.0 0.333 0.666 1.0'/>
+  <TimeSensor DEF='myClock' cycleInterval='10.0' loop='true'/>
+  <Shape>
+    <Box/>
+    <Appearance>
+      <Material DEF='myMaterial'/>
+    </Appearance>
+  </Shape>
+  <ROUTE fromNode='myClock' fromField='fraction_changed'
+         toNode='myColor' toField='set_fraction'/>
+  <ROUTE fromNode='myColor' fromField='value_changed'
+         toNode='myMaterial' toField='diffuseColor'/>
+</Scene>
+\end{lstlisting}
+
+Our compiler produces the following state definition from the above scene:
+
+\begin{lstlisting}
+type Scene =
+  {
+    myColor       : ColorInterpolator
+    myClock       : TimeSensor
+    myMaterial    : Material
+    dynamic_nodes : List<Node>
+    script        : Script
+  }
+\end{lstlisting}
+
+where pointers to all statically known nodes are maintained.
+
+The initialization function for our state initializes a set of local variables, one for each named node, and then builds the actual scene state. Notice that at this point routes are ignored, since they will be used only for the update function:
+
+\begin{lstlisting}
+let scene = 
+  let myColor = 
+       ColorInterpolator(
+         keyValue = [ ... ],
+         key = [ ... ])
+  let myClock = 
+       TimeSensor(
+         cycleInterval = 10.0,
+         loop = true)
+  let myMaterial = Material()
+  let dynamic_nodes = 
+        [
+          Shape(
+            Value = 
+              Box(Appearance(Value = myMaterial)))
+        ]
+  {
+    myColor        = myColor
+    myClock        = myClock
+    myMaterial     = myMaterial
+    dynamic_nodes  = dynamic_nodes
+    script         = null
+  }         
+\end{lstlisting}
+
+After initializing the scene without a script, we can load the script from an external parameter that will be assigned in the linking phase. Loading a script requires passing to it the scene, so that the script may access the scene to manipulate it:
+
+\begin{lstlisting}
+scene.script := load_script scene
+\end{lstlisting}
+
+The update function invokes the internal update function of all nodes, starting from the statically known and ending with the dynamic ones. Routes are executed in the update function:
+
+\begin{lstlisting}
+let update dt = 
+  scene.myClock.update dt
+  scene.myColor.update dt
+  scene.myMaterial.update dt
+  for node in scene.dynamic_nodes do
+    node.update dt
+  scene.script.update dt
+  
+  myColor.fraction <- myClock.fraction
+  myMaterial.diffuseColor <- myColor.value
+\end{lstlisting}
+
+It is important to notice that routes in the update function are represented by the actual chains of field updates that need to be performed; there is no overhead when dynamically propagating the update events. Also, if a field does not start a route then there are no ``hidden'' costs as we would have when firing a \texttt{FieldModified} event with no routes listening.

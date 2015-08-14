@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2010)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: plain.bst
+Database file #1: references.bib
+Warning--string name "august" is undefined
+--line 330 of file references.bib
+Warning--string name "july" is undefined
+--line 346 of file references.bib
+I was expecting a `,' or a `}'---line 356 of file references.bib
+ :    
+ :    year = {2011}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--string name "august" is undefined
+--line 376 of file references.bib
+Warning--to sort, need author or key in SCRIPTING_LUA
+Warning--to sort, need author or key in UNITY_YIELD
+Warning--empty year in OPT3
+Warning--empty year in FRIENDLY_FSHARP
+Warning--empty year in SAFESCRIPTS1
+You've used 20 entries,
+            2118 wiz_defined-function locations,
+            627 strings with 7011 characters,
+and the built_in function-call counts, 5921 in all, are:
+= -- 574
+> -- 255
+< -- 6
++ -- 104
+- -- 82
+* -- 343
+:= -- 955
+add.period$ -- 61
+call.type$ -- 20
+change.case$ -- 99
+chr.to.int$ -- 0
+cite$ -- 25
+duplicate$ -- 242
+empty$ -- 518
+format.name$ -- 82
+if$ -- 1283
+int.to.chr$ -- 0
+int.to.str$ -- 20
+missing$ -- 14
+newline$ -- 100
+num.names$ -- 36
+pop$ -- 151
+preamble$ -- 1
+purify$ -- 81
+quote$ -- 0
+skip$ -- 180
+stack$ -- 0
+substring$ -- 265
+swap$ -- 55
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 76
+warning$ -- 5
+while$ -- 53
+width$ -- 22
+write$ -- 207
+(There was 1 error message)

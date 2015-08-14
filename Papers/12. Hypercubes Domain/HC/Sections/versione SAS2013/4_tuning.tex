@@ -1,0 +1,87 @@
+The aim of this Section is to explain: (i) how to initialize the hypercubes set at the beginning of the analysis, (ii) how to select the interval widths in the hypercubes, and (iii) how to improve the precision of the analysis by using offsets to identify sub-volumes inside the hypercubes. 
+
+\subsection{Initialization of the analysis} \label{sec:initialization}
+Before starting the analysis we have to determine the hypercubes dimensionality, i.e., the number of sides each hypercube will have. To do this, we must find all the variables of the code which are not constants. %To avoid scanning the entire code before starting the analysis, 
+We require the program to initialize all non-constant variables at the beginning of the program. Note that physics simulations, like our case study, satisfy this requirement because they are made up by an initialization of all variables, followed by a \statement{while} loop which contains the core of the program (i.e., the update of the simulated world). Otherwise, we can consider a dummy initialization (i.e., $0.0$) for all variables which are not initialized at the beginning of the program. The actual initialization of the variables will be treated as a normal assignment, without any loss of precision. 
+The initialization of the analysis is made in two steps. First, for each initialized variable, we compute its abstraction in the non-relational domain chosen to represent the single variables. The resulting set of abstract values could contain more than one element. Let us call $\alpha(V)$ the set of abstract values associated to the initialization of the variable $V \in Vars$. Then we compute the Cartesian product of all sets of abstracted values (one for each variable). The resulting set of tuples (where each tuple has the same cardinality as $Vars$) is the initial set of hypercubes of the analysis. 
+
+Formally, $\adomain = \sbigtimes_{V \in Vars} {\alpha(V)}$.
+
+As an example, consider the initialization in Listing \ref{lst:casestudy} of our case study. First of all, we must identify the variables which are not constants: $dt,g,k$ are assigned only once (during the initialization), so we do not include them in $Vars$. The set of not-constant variables is then $Vars = \{ V_1 = px, V_2 = py, V_3 = vx, V_4 = vy \}$. The cardinality of the hypercubes will be $|Vars| = 4$. Suppose that the widths associated to the variables are  $w_1 = 10.0, w_2 = 25.0, w_3 = 30.0, w_4 = 5.0$. Then, the abstraction of each variable is $\alpha(V_1) = \{ 0 \}$, $\alpha(V_2) = \{ 0, 1 \}$, $\alpha(V_3) = \{ 0, 1 \}$, and $\alpha(V_4) = \{ -6 \}$.
+The Cartesian product of these abstractions brings us to the following initial set of hypercubes:
+$$\adomain = \{ (0,0,0,-6) , (0,0,1,-6) , (0,1,0,-6) , (0,1,1,-6) \}$$
+
+\subsection{Width choice} \label{sec:widths}
+The choice of the interval widths is quite important, because it influences both the precision and efficiency of the analysis. The widths influence the granularity of the space partitioning with respect to each variable. On the one hand, if we use smaller widths we certainly obtain more precision, but the analysis risks to be too slow. On the other hand, with bigger widths the analysis will be surely faster, but we could not be able to verify the desired property. 
+
+The width selection can be automatized. We implemented a recursive algorithm which adjusts the widths automatically, starting with bigger ones and then decreasing them only in the portions of space where it is really needed, to avoid compromising the performance.
+
+We start with wide intervals (i.e., coarse precision, but fast results) and we run the analysis for the first time. We track, for each hypercube of the final abstract state, the initial hypercubes (\textit{origins}) from which it is derived.
+
+At the end of the analysis, we check, for each hypercube of the final set, if the desired property is verified. We associate to each origin its final result by merging the results of its derived final hypercubes: some origins will certainly verify the property (i.e., they produce only final hypercubes which satisfy the property), some will not, and some will not be able to give us a definite answer. We can partition the starting hypercubes set with respect to this criterion.
+
+We run the analysis again, but \emph{only} on the origins which did not give a definite answer. To obtain more precise results in this specific space portion, the analysis is now run with halved widths. Note that this step is only performed until we reach a specific threshold, i.e., the \textit{minimum width} allowed for the analysis. This parameter can be specified by the user (together with the starting widths). The smaller this threshold is, the more precise (but slower) the analysis becomes.
+
+
+At the end of this recursive process, we obtain three partitions of the variable space: a set of starting hypercubes which certainly verify the property (\emph{yes} set), a set of starting hypercubes which certainly do not verify the property (\emph{no} set), and a set of starting hypercubes which, at the minimum width allowed for the analysis, still do not give a definite answer (\emph{maybe} set). This means that the analysis tells us which initial values of the variables bring us to verify the property and which do not. Thanks to these results, the user can modify the initial values of the program, and run the analysis again, until the answer is that the property is verified for all initial values. In our case study, for example, we can adjust the possible initial positions and velocities until we are sure that the ball will exit the screen in a certain time frame. 
+
+The formalization of this recursive algorithm is presented in Algorithm \ref{alg:widthAdjusting}.
+
+\begin{algorithm}
+\caption{The width adjusting recursive algorithm} \label{alg:widthAdjusting}
+\begin{algorithmic} 
+\Function {Analysis} {$currWidth, minWidth, startingHypercubes$}
+  \State \Return $(yes \cup yes', no \cup no', maybe')$
+  \State \textbf{where}
+    \State $(yes, no, maybe) = hypercubesAnalysis(currWidth, startingHypercubes )$
+    \If {$currWidth/2.0 \geq minWidth$}
+      \State $(yes', no', maybe') = Analysis(currWidth/2.0, minWidth, maybe)$
+    \Else
+      \State $(yes', no', maybe') = (Set.empty, Set.empty, maybe)$
+    \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+The overall analysis takes as input the starting width, the minimum width allowed and the set of starting hypercubes (obtained from the initialization of the program as described in Section \ref{sec:initialization}). It executes the analysis on such data with the function \statement{hypercubesAnalysis}, which returns three sets of hypercubes (\statement{yes,no,maybe}) with the meaning explained above. Then, if the halved width is still greater than the minimum one allowed, the algorithm performs a recursive step by repeating the analysis function only on the \statement{maybe} hypercubes set (with halved width). 
+
+Note that %the initial hypercubes sets 
+the three final hypercubes sets (the \emph{yes,no,maybe} partitions)
+will contain hypercubes of different sizes: this happens because each hypercube can come from a different iteration of the analysis, and each iteration is associated to a specific hypercube size. A certain portion of the variable space could give a definite answer even at coarse precision (for example, when the horizontal velocity of the ball is sufficiently high, the values of other variables do not matter so much), while another portion could need to be split in much smaller hypercubes to give interesting results.
+
+\subsection{Offsets}
+There is still space for improving accuracy in the domain introduced so far. A loss of precision may occur due to the fact that hypercubes proliferate too much, even using small widths. Consider, for example, the statement \statement{x = x + 0.01} (which is repeated at each iteration of the \statement{while} loop) with $1.0$ as the width associated to \statement{x}. If the initial interval associated to \statement{x} was $[0.0,1.0]$, after the first iteration we would obtain two intervals ($[0.0,1.0]$ and $[1.0,2.0]$) because the resulting interval would be $[0.01,1.01]$, which spans over two fixed-width intervals. For the same reason, after the second iteration we would obtain three intervals ($[0.0,1.0],[1.0,2.0]$ and $[2.0,3.0]$) and so on: at each iteration we add one interval. 
+
+In order to overcome these situations, we may further improve the definition of our domain: each hypercube is augmented with additional information, which limits the admissible values inside it. In particular, each variable $v_i$ (associated to width $w_i$) is related to (other than an integer index $i$ representing the fixed-width interval $[i \times w_i, (i+1) \times w_i]$) a specific offset $(o_m,o_M)$ \emph{inside} such interval. In this way, we use a sub-interval (of arbitrary width) inside the fixed-interval width, thereby restricting the possible values that the variable can assume. Both $o_m$ and $o_M$ must be smaller than $w_i$, greater than or equal to $0$ and $o_m \leq o_M$. Then, if $i$ and $(o_m,o_M)$ are associated to $v_i$, this means that the possible values of $v_i$ belong to the interval $[(i \times w_i) + o_m, (i \times w_i) + o_M]$. If $o_m=0$ and $o_M=w_i$, the sub-interval corresponds to the whole fixed-width interval. 
+
+An element of our abstract domain is now stored (instead as a set of hypercubes) as a map from hypercubes to tuples of offsets. In this way, we can keep the original definition of a hypercube as a tuple of integers, but we also map each hypercube to a tuple of offsets (one for each variable). Before, an abstract state was defined by $ H = \{ h : h \in \integer^{|Vars|}\} $. Now an abstract state is defined by $M : \funzione{\integer^{|Vars|}}{{(\real \times \real)}^{|Vars|}}$, i.e., a map where the domain is the set of hypercubes, and the codomain is the set of tuples of offsets. Each hypercube is associated to a tuple of offsets and each tuple of offsets has one offset for each program variable.
+
+The least upper bound between two abstract states ($M=M_1 \sqcup M_2$) is then defined as follows: $dom(M) = dom(M_1) \cup dom(M_2)$, and 
+$$
+\forall h \in dom(M) : M(h) = \begin{cases}
+M_1(h) & \mbox{if } h \in dom(M_1) \wedge h \notin dom(M_2) \\
+M_2(h) & \mbox{if } h \in dom(M_2) \wedge h \notin dom(M_1) \\
+merge(M_1(h),M_2(h)) & \mbox{otherwise }
+\end{cases}$$
+where $merge(o_1,o_2)$ creates a new tuple of offsets by merging the two tuples of offsets in input: for each pair of corresponding offsets (for example $(m_1,M_1)$ and $(m_2,M_2)$), the new offset is the widest combination possible (i.e., $(\min(m_1,m_2)$ and $\max(M_1,M_2))$). Note that this definition corresponds to the pointwise application of the least upper bound operator over intervals. The widening operator is extended in the same way: it applies the standard widening operators over intervals pointwisely to the elements of the vector representing the offsets.
+
+We also have to modify the abstract semantics to accommodate this change. As the expression semantics $\mathbb{I}$ returns intervals of arbitrary widths, we can use such exact result to update the offsets of the abstract state. Formally, the semantics of the assignment becomes 
+\begin{align*}
+assign(h, V_i, [a..b]) & = \{ \\
+& h[i\mapsto (m,o_m,o_M)] : [m\times w_i .. (m+1)\times w_i] \cap [a..b] \neq \emptyset \wedge \\
+& o_m = \begin{cases} 
+0 & \mbox{if } a \leq (m \times w_i) \\
+a - (m \times w_i) & \mbox{otherwise} \\
+\end{cases} \wedge \\
+& o_M = \begin{cases} 
+w_i & \mbox{if } b \geq ((m+1) \times w_i) \\
+b - (m \times w_i) & \mbox{otherwise} \\
+\end{cases} \\
+& \}
+\end{align*}
+where $h$ is a hypercube, $V_i$ is the assigned variable, and $[a..b]$ is the interval we are assigning. When we extract from a hypercube the interval associated to a variable, we use the interval delimited by the offsets, so that abstract operations can be much more precise. 
+
+Consider again the previous example (\statement{x = x + 0.01}, with $1.0$ as width of \statement{x} and $[0..1]$ as initial value of \statement{x}): after the first iteration we would return the two intervals $[0.0,1.0]$ and $[1.0,2.0]$ with offsets $[0.01,1.0]$ and $[1.0,1.01]$, respectively. In this way, at the following iteration we would obtain again the same two intervals (instead of three), with the offsets changed to $[0.02,1.0]$ and $[1.0,1.02]$. You can see that hypercubes proliferation is not an issue any more. When an offset moves out of the fixed interval inside which it should reside, we remove the corresponding hypercube from the set. In our example, after 100 iterations the first of the two intervals ($[0.0,1.0]$) would be removed from the hypercubes because the offset would start at $1.0$.
+
+Offsets give us much more precision in verifying properties (as we will see in the next Section), without affecting too much the performances, since we just need to store more data for each hypercube, but the cost of the single operations remains almost the same. Indeed, the overall performance is even improved in practice because in the previous approach the number of hypercubes increased exponentially at each iteration of the \statement{while} loop, making the analysis unfeasible.
+

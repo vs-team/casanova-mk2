@@ -1,0 +1,65 @@
+\begin{thebibliography}{10}
+
+\bibitem{ESAreport}
+{Essential Facts About the Computer and Video Game Industry 2011}, 2011.
+
+\bibitem{SeriousRTS}
+Clark Aldrich.
+\newblock {\em The Complete Guide to Simulations and Serious Games: How the
+  Most Valuable Content Will Be Created in the Age Beyond Gutenberg to Google}.
+\newblock Pfeiffer \& Co, 2009.
+
+\bibitem{INDIEexperimentation}
+Erik Andersen, Yun-En Liu, Rich Snider, Roy Szeto, and Zoran Popovi\'{c}.
+\newblock Placing a value on aesthetics in online casual games.
+\newblock In {\em Proceedings of the SIGCHI Conference on Human Factors in
+  Computing Systems}, CHI '11, pages 1275--1278, New York, NY, USA, 2011. ACM.
+
+\bibitem{ResearchRTS}
+Michael Buro.
+\newblock Real-time strategy games: a new {AI} research challenge.
+\newblock In {\em Proceedings of the 18th international joint conference on
+  Artificial intelligence}, pages 1534--1535. Morgan Kaufmann Publishers Inc.,
+  2003.
+
+\bibitem{CostsRTS}
+Michael Buro and Timothy Furtak.
+\newblock On the development of a free rts game engine.
+\newblock In {\em GameOn-NA 2005 Conference}, pages 23--27. Montreal, 2005.
+
+\bibitem{designpatterns}
+Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.
+\newblock {\em Design Patterns: Elements of Reusable Object-Oriented Software}.
+\newblock Addison-Wesley, 1995.
+
+\bibitem{IndiGame}
+Juan Gril.
+\newblock The state of indie gaming, 4 2008.
+
+\bibitem{INDIEinnovation}
+Johan Kristiansson.
+\newblock Interview starbreeze studios johan kristiansson.
+\newblock
+  http://www.develop-online.net/features/478/Interview-Starbreeze-Studios-Johan-Kristiansson,
+  5 2009.
+
+\bibitem{Casanova}
+Giuseppe Maggiore, Alvise Span\`{o}, Renzo Orsini, Michele Bugliesi, Mohamed
+  Abbadi, and Enrico Steffinlongo.
+\newblock A formal specification for casanova, a language for computer games.
+\newblock In {\em Proceedings of the 4th ACM SIGCHI symposium on Engineering
+  interactive computing systems}, EICS '12, pages 287--292, New York, NY, USA,
+  2012. ACM.
+
+\bibitem{INDIEcreativity}
+David Michael.
+\newblock {\em Indie Game Development Survival Guide (Charles River Media Game
+  Development)}.
+\newblock Charles River Media, 2003.
+
+\bibitem{SQLsemantic}
+G\"unter von B\"ultzingsloewen.
+\newblock Translating and optimizing sql queries having aggregates.
+\newblock {\em Proc. 13th Int. Con. VLDB}, pages 235--243, 1987.
+
+\end{thebibliography}

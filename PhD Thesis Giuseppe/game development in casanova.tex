@@ -1,0 +1,176 @@
+\documentclass[12pt,american,VeneziaPhdThesis]{PhdThesis}%[2004/02/17]%,draft
+\usepackage{babel}
+\usepackage[bookmarks=true,bookmarksopen=true,pdfhighlight=/I,pdfpagemode=UseOutlines]{hyperref}
+\usepackage{graphicx}
+\usepackage{mathpartir}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc} 
+\usepackage{url}
+\lstset{language=ml}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{frame=single}
+\lstset{breaklines=true}
+\lstset{basicstyle=\ttfamily \small}
+\usepackage[utf8]{inputenc}
+%\usepackage{qtree}
+
+\author{Giuseppe Maggiore}
+\email{giuseppemag@gmail.com}
+\homepage{http://casanova.codeplex.com/wikipage?title=Giuseppe\%20Maggiore}
+\supervisor{Michele Bugliesi \and Pieter Spronck}
+\phdcoord{Antonino Salibra}
+\title{Casanova: a language for game development}
+\date{December, 2012}
+\phdnumber{800961}
+
+\makeindex
+
+\begin{document}
+\pagestyle{empty}
+\maketitle
+\begin{dedication}
+To my wife, my daughter, my family. Only you give meaning to all of this.
+\end{dedication}
+\begin{abstract}
+In this work we present Casanova, a programming language. Its novelty lies in the fact that it was designed with an exclusive focus on making games.
+
+The goal of Casanova is to change the landscape of game development, by showing how programming languages, and not game engines and game development systems, are the real frontier to explore in order to make game development truly easier.
+
+In this work we do not just show Casanova. We also present an extensive evaluation of our own experience in using the current implementation of Casanova in order to build games and simulations.
+
+We conclude that Casanova is not just capable of making games, but that it also makes it easier to create games and to avoid bugs and common pitfalls.
+\end{abstract}
+
+\begin{acknowledgments}
+To all who helped during a very long path of education: thank you for shaping, encouraging, supporting during all these years.
+
+To prof. Cortesi for his unending support.
+
+To prof. Pelillo and Torsello for introducing me to the world of research.
+
+To prof. Bugliesi for changing the way I think about programming.
+
+To prof. Orsini for his patience and encouragement.
+
+To prof. Spronck for opening new perspectives.
+
+I stand on the shoulders of giants.
+\end{acknowledgments}
+
+\frontmatter
+\partstyle{serifbig}
+\chaptertitlestyle{serifbig}
+\pagestyle{serif}
+\tableofcontents
+\listoffigures
+\listoftables
+
+%\begin{preface}
+%    Here the preface
+%\end{preface}
+
+\mainmatter
+
+\chapter{Introduction}
+\label{chap:introduction}
+\input{Chapters/introduction} 
+
+\chapter{Requirements of a game}
+\footnotetext{This chapter is partially derived from our experience, both with game development \cite{GALAXY_WARS} and research in multi-media and programming \cite{CASANOVA_X3D,CASANOVA_FSHARP}.}
+\label{chap:game_requirements}
+\input{Chapters/gamerequirements} 
+
+\chapter{Available game development systems and languages}
+\label{chap:available_systems}
+\input{Chapters/availablesystems} 
+
+\chapter{Design of Casanova}
+\footnotetext{This chapter is partially derived from the paper \cite{CASANOVA_ACG}.}
+\label{chap:design}
+\input{Chapters/design} 
+
+\chapter{Syntax of Casanova}
+\footnotetext{This chapter is partially derived from the paper \cite{CASANOVA_ACG}.}
+\label{chap:syntax}
+\input{Chapters/syntax} 
+
+\chapter{Semantics of Casanova}
+\footnotetext{This chapter is partially derived from the paper \cite{CASANOVA_EICS}.}
+\label{chap:semantics}
+\input{Chapters/semantics}
+
+\chapter{Implementation of Casanova}
+\footnotetext{This chapter is partially derived from the paper \cite{CASANOVA_SCRIPTS}.}
+\label{chap:implementation}
+\input{Chapters/implementation}
+
+\chapter{Making games in Casanova}
+\footnotetext{This chapter is partially derived from the paper \cite{CASANOVA_ICEC}.}
+\label{chap:making_games}
+\input{Chapters/makinggames} 
+
+\chapter{Evaluation of Casanova}
+\footnotetext{This chapter is partially derived from the papers \cite{CASANOVA_ICEC, CASANOVA_ACG, CASANOVA_SCRIPTS, CASANOVA_EICS}.}
+\label{chap:evaluation}
+\input{Chapters/evaluation} 
+
+\chapter{Discussion}
+\label{chap:discussion}
+\input{Chapters/discussion} 
+
+\chapter{Conclusions}
+\label{chap:conclusions}
+\input{Chapters/conclusions} 
+
+\backmatter
+
+\bibliography{Chapters/references} 
+\bibliographystyle{plain}
+\printindex
+
+\appendix
+\chapter{Building a Menu System}
+\label{chap:menu_system}
+\input{Chapters/menus} 
+
+\chapter{Networking in Casanova}
+\label{chap:networking}
+\input{Chapters/networking} 
+
+\chapter{A General-purpose AI for Casanova}
+\label{chap:goap}
+\input{Chapters/goap}
+
+\chapter{Casanova and Data-bases}
+\footnotetext{This chapter is partially derived from the paper \cite{CASANOVA_SEBD}.}
+\label{chap:casanova_and_dbs}
+\input{Chapters/databases} 
+
+\chapter{Casanova in Other Languages}
+\label{chap:casanova_in_haskell_and_cpp}
+\input{Chapters/otherlanguages}
+
+\chapter{A Brief Introduction to F\#}
+\label{chap:fsharp}
+\input{Chapters/fsharpintro}
+
+\chapter{A Brief Introduction to Monads}
+\label{chap:monads}
+\input{Chapters/monadsintro}
+
+\backmatter
+
+\chapter{Summary}
+\label{chap:summary}
+\input{Chapters/summary}
+
+\chapter{About the author}
+\label{chap:cv}
+\input{Chapters/cv}
+
+\end{document}

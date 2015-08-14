@@ -1,0 +1,109 @@
+%\def\newblock{\hskip .11em plus .33em minus .07em}
+
+\documentclass{llncs}
+\usepackage{graphicx}
+\sloppy
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc} 
+\usepackage{url}
+\lstset{language=ml}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{frame=single}
+\lstset{breaklines=true}
+\lstset{basicstyle=\ttfamily \small}
+
+\newcommand{\Nat}{{\mathbb N}}
+\newcommand{\Real}{{\mathbb R}}
+
+\begin{document}
+
+\title{Monadic Scripting in F\# for Computer Games}
+
+\author{
+G. Maggiore, \ M. Bugliesi, \ R. Orsini
+  \institute{Universit\`a Ca' Foscari Venezia \\
+  \email{\{maggiore,bugliesi,orsini\}@dais.unive.it}
+}
+}
+
+\maketitle
+
+\date{}
+
+\begin{abstract}
+Modern game architectures provide for a clean separation between
+game engine and game content, making engines \textit{scriptable}, so
+as to delegate the development of the main functionalities related to
+gameplay to scripts coded in high-level languages. 
+
+Game scripting poses two orders of problems. First, the scripting
+language must be equipped with coroutining mechanisms to support a
+smooth interaction between the discrete-time structure of the game
+animation implemented by the engine with the execution of the
+scripts, which typically implement character behavior spanning 
+multiple simulation ticks. Secondly, these mechanisms should be transparent, to
+ease design and development, and at the same time offer the highest
+run-time performance to keep up with the interactive frameratess
+expected by the user. 
+
+We present a monadic framework that elegantly solves these problems
+and compare it with the most commonly used systems, and discuss how it has
+been integrated in actual projects. 
+\end{abstract}
+
+\keywords{games, monadic programming, state management, scripting}
+
+\section{Introduction}
+\label{sec:intro}
+\input{intro} 
+% 0 pages
+
+\section{Game Engine Architectures}
+\label{sec:scripting_in_games}
+\input{scripting_in_games} 
+% 6 pages
+
+\section{The Script Monad}
+\label{sec:script_monad}
+\input{script_monad} 
+% 3 pages
+
+\section{A DSL for Scripting}
+\label{sec:script_combinators}
+\input{script_monad_combinators} 
+% 5 pages
+
+\label{sec:script_monad_case_study}
+\input{script_monad_case_study} 
+% 2 pages
+
+\section{Benchmarks}
+\label{sec:benchmarks}
+\input{benchmarks} 
+% 2 pages
+
+\section{A Visual Editor (future work)}
+\label{sec:visual_editor}
+\input{visual_editor} 
+
+\section{Conclusions}
+\label{sec:conclusions}
+\input{conclusions} 
+% 1 pages
+
+\vfill\eject
+
+\bibliographystyle{plain}
+\bibliography{references} 
+% 0 pages
+
+\end{document}

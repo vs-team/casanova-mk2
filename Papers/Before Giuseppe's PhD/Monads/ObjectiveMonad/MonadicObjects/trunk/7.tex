@@ -1,0 +1,171 @@
+\documentclass[a4paper]{article}
+\usepackage{anysize}
+\marginsize{1cm}{1cm}{1cm}{1cm}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[pdftex]{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\lstset{language=haskell}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+%\lstset{labelstep=1}
+%\lstset{backgroundcolor=,framerulecolor=}
+\lstset{backgroundcolor=,rulecolor=}
+\linespread{2.0}
+
+\begin{document}
+
+\section{Methods}
+
+The same way we defined a selection operator for fields that allowed us to create a reference to a field from inside the record represented by a reference, we can give a selection oeprator for methods that allows us to select a method from a record that supports it (such a record is for all practical purposes an $Object$ now) amd to invoke it. The two main challenges we will face are:
+\begin{itemize}
+\item making methods invocable through a simple application: no special invocation operation must be required
+\item making method selection and invocation possible thanks to an overload of the $\Leftarrow$ operator for field selection
+\end{itemize}
+
+We start by giving the definition of a method that takes as input a value of type $\alpha$ and returns in output a value of type $\beta$ and where "this" (the instance over which the method is invoked) has type $\tau$:
+
+\begin{lstlisting}
+Heap h ref $\Rightarrow$ Method $\alpha$ $\beta$ $\tau$ = Method ($\tau$ $\to$ $\alpha$ $\to$ ($\tau$ $\times$ $\beta$))
+\end{lstlisting}
+
+According to the above definition a method contains a function that takes as input a reference to a $\tau$ in some heap $h$, an $\alpha$ (the method parameter) and which retursn as output a reference to a value $\beta$ in the same heap $h$. At this point we can give a definition for a first version of the selection operator; the selection operator will take a label that represents a method, a reference to a value that supports the label and returns an appropriate function that takes as input the method input and internally invokes the method on the input reference:
+
+\begin{lstlisting}
+Heap h ref $\Rightarrow$ (<=|) : ref h $\tau$ $\to$ Label $\tau$ (Method $\alpha$ $\beta$ $\tau$) $\to$ $\alpha$ ST h $\beta$
+self_ref <=| (Label read write) =
+    $\lambda$x.do self $\leftarrow$ eval self_ref
+          let (Method m) = read self
+                     ($self'$,y) = m self x
+          self_ref := $self'$
+          return y
+\end{lstlisting}
+
+the method selection simply extracts the actual method $m$ from $self$ (the evaluation of the input reference), applies the method to $self$, stores back the modified version of $self$ ($self'$) and returns the result of the method.
+
+It is interesting to note is that this definition of methods is completely generic, since it does not require a complete implementation to be given thanks to the fact the concrete implementation can be nicely abstracted away with the set of operators given in the previous parts of this work.
+
+At this point it would be interesting to give a way of building a method through our system of references rather than directly giving a definition that has the right signature. We would like to avoid making it necessary to manually care about the handling of the current value of $this$ when writing methods that mutate the instance on which they are invoked. For this reason we define the operator:
+
+\begin{lstlisting}
+Heap h ref $\Rightarrow$ mk_method : (ref t t -> a -> ST t b) -> Method a t b
+mk_method st_m =
+    Method($\lambda$self.$\lambda$x.
+        let res = st_m id_ref x
+        in res self)
+\end{lstlisting}
+
+where we require the presence of the identity reference (or reference to self):
+
+\begin{lstlisting}
+Heap h ref $\Rightarrow$ id_ref : ref a a
+\end{lstlisting}
+
+which in the simple mutable implementation would be
+
+\begin{lstlisting}
+id_ref = Reference ($\lambda$h.(h,h)) ($\lambda$h'.$\lambda$h.((),$h'$))
+\end{lstlisting}
+
+\section{Selection Overload}
+Let us compare the signatures of the two selection operators we have seen until now:
+
+\begin{lstlisting}
+Heap h ref $\Rightarrow$ (<=) : ref h t -> Label t a -> ref h a
+Heap h ref $\Rightarrow$ (<=|) : ref h t -> Label t (Method a b t) -> a -> ST h b
+\end{lstlisting}
+
+it is clear that these two operators do similar things, and in fact they are quite similar. To be factored into one single operator we must:
+\begin{itemize}
+\item disambiguate the second type parameter of the label
+\item unify the return type ($ref h a$ rather than $(a->ST h b)$) with a type function
+\end{itemize}
+
+We give a simple type constructor:
+
+\begin{lstlisting}
+Field a = Field a
+\end{lstlisting}
+
+that we will use to encapsulate all labels that select the fields of a record; we will now write:
+
+\begin{lstlisting}
+Label r (Field a)
+\end{lstlisting}
+
+whenever we would have used a
+
+\begin{lstlisting}
+Label r a
+\end{lstlisting}
+
+Now we give a simple type function that denotes the result of a selection:
+
+\begin{lstlisting}
+SelectionResult : * $\to$ * $\to$ * $\to$ *
+\end{lstlisting}
+
+and we instance this function with the two only cases of selectables we have until now:
+
+\begin{lstlisting}
+Heap h ref $\Rightarrow$ SelectionResult h ref (Field a) = ref h a
+Heap h ref $\Rightarrow$ SelectionResult h ref (Method a b t) = a $\to$ ST h b
+\end{lstlisting}
+
+now we can express selection with a single operator:
+
+\begin{lstlisting}
+Heap h ref $\Rightarrow$ (<=) ref h t $\to$ Label t a $\to$ SelectionResult t a
+\end{lstlisting}
+
+The $\Rightarrow$ operator (and the $SelectionResult$ type function) are part of the $Selection$ predicate, which is instanced twice.
+
+We can easily fix the implementation of the selection operator to compensate for the additional need of packing and unpacking introduced by the $Field$ constructor needed for the disambiguation above; also, we will need to apply a similar correction to the $labelAt$ function.
+
+
+\section{Recursive Definitions}
+
+There is still a problem. Let us declare the type of a simple counter object:
+
+\begin{lstlisting}
+Counter = Int : Method Unit Unit Counter
+\end{lstlisting}
+
+this declaration is recursive, and as such it does not work. We wish to fix this with the minimal overhead on the rest of the system, so we split the definition of $Counter$ in two:
+
+\begin{lstlisting}
+Counter k = Int : Method Unit Unit k
+RecCounter = RecCounter (Counter RecCounter)
+\end{lstlisting}
+
+this way we both have a definition that still works with the rest of the system ($Counter RecCounter$) and a definition that we can use inside methods. We also wish to express the fact that the two definitions are equivalent, so we introduce an appropriate type predicate:
+
+\begin{lstlisting}
+Recursive s
+    Rec s : *
+    cons : s -> Rec s
+    elim : Rec s -> s
+\end{lstlisting}
+
+that captures the essential identity between a type (like our $Counter RecCounter$) and its recursive wrapper ($RecCounter$). We instance this predicate for our counter:
+
+\begin{lstlisting}
+Recursive (Counter RecCounter)
+    Rec (Counter RecCounter) = RecCounter
+    cons = RecCounter
+    elim (RecCounter x) = c
+\end{lstlisting}
+
+now we modify the signatures of method selection and method construction:
+
+\begin{lstlisting}
+Heap h ref $\wedge$ Recursive $\tau$ $\wedge$ $\tau_{rec}$ = Rec $\tau$ $\Rightarrow$ (<=|) : ref h $\tau$ $\to$ Label $\tau$ (Method $\alpha$ $\beta$ $\tau_{rec}$) $\to$ $\alpha$ ST h $\beta$
+Heap h ref $\wedge$ Recursive t $\wedge$ t_rec = Rec t $\Rightarrow$ mk_method : (ref t t -> a -> ST t b) -> Method a t_rec b
+\end{lstlisting}
+
+and add the appropriate packing and unpacking to the definitions.
+
+\end{document}

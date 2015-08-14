@@ -1,0 +1,199 @@
+In this chapter we evaluate how well Casanova works for making games. We will discuss, in turn: \textit{(i)} what \textit{features} are supported by the various approaches; \textit{(ii)} the set of features to be learned in order to make games with each tool; \textit{(iii)} some benchmarks that partially quantify the strengths of Casanova; and \textit{(iv)} some experiences in using Casanova with students that amount to preliminary user studies.
+
+Our work is focused on smaller-scale games, ranging from commercial games such as indie-games to research and serious games. For this reason we compare Casanova to systems that are intended to build this kind of games: Unity 3D, Game Maker, and XNA. We remind that Casanova focuses on these kinds of games as well, and is not aimed at large scale, triple-A games build with great availability of resources. The studios that build such large games do not have any issue with using expensive, low-level tools since they have the resources to tackle more expensive development efforts in order to achieve total control over performance, and to obtain results of the best possible quality.
+
+\section{Supported Features}
+We start with describing how well Casanova and other systems actually support the requirements of games identified in Chapter \ref{chap:game_requirements}.
+
+The main requirement of a game development tool is its support for the \textit{game loop}:
+
+\begin{tabular}{ | p{2.8cm} | p{2.5cm} | p{2.8cm} | p{2.8cm} | }
+\hline
+Casanova & Unity 3D & Game Maker & XNA \\
+\hline
+Rules on entities & Scripts with \texttt{Update} function; auto-update of entities & Scripts with \texttt{Update} function; auto-update of entities & \texttt{Game} and \texttt{GameComponent} classes \\
+\hline
+\end{tabular}
+
+Casanova supports the main loop implicitly, by having rules that represent the transformation of entities over time across the game world.
+Unity 3D supports the main loop implicitly in the form of entities which are dragged-and-dropped into the game and which are updated automatically; Unity also supports the game loop explicitly with its scripts which expose the ticks of the game loop. Game Maker supports the main loop implicitly in that, like Unity, it allows dragging and dropping sprites onto the game area which are then updated automatically; Game Maker also exposes its main loop through scripts that can be ticked at every iteration of the game loop.
+XNA supports the main loop explicitly, in that it offers the \texttt{Game} and \texttt{GameComponent} classes of which the developer must override the \texttt{Update} method. \texttt{Update} will then be invoked at every tick of the main loop. XNA hides only certain low level details of the main loop, such as the exchange of messages with the underlying OS or the initialization and life-cycle of the graphics device. All the rest of the game is left to the developer to implement.
+
+
+\textit{Input management} is the second requirement, since it defines how interactivity is programmed into the game:
+
+\begin{tabular}{ | p{2.8cm} | p{2.8cm} | p{2.8cm} | p{2.8cm} | }
+\hline
+Casanova & Unity 3D & Game Maker & XNA \\
+\hline
+Coroutines with event-response & Explicit polling in scripts; ready-made components & Explicit polling in scripts; ready-made components & \texttt{Device.} \texttt{GetState()} method \\
+\hline
+\end{tabular}
+
+Input in Casanova is handled with pairs of scripts where one script detects an input event, and another performs the response to that event. Scripts are based on coroutines, so event detection and response may perform complex flow-control operations such as waiting for key releases or even key-chords.
+Unity and Game Maker handle input in very similar ways. Scripts may explicitly poll input devices, while ready-made components and activators offer support for common input operations. Unity also supports coroutines, while Game Maker does not.
+XNA only supports explicit polling of input devices inside the main loop.
+
+
+The third requirement is \textit{state machines}, because they are the foundation that is used to build large portions of games: AIs, network protocols, level activators, timers, etc:
+
+\begin{tabular}{ | p{2.8cm} | p{2.8cm} | p{2.8cm} | p{2.8cm} | }
+\hline
+Casanova & Unity 3D & Game Maker & XNA \\
+\hline
+Coroutines & Limited coroutines & Explicit scripts & Explicit classes \\
+\hline
+\end{tabular}
+
+Casanova fully supports coroutines, which are a powerful technique to create state machines by using regular flow-control constructs which semantics are slightly altered to fit that of coroutines. Casanova coroutines are also particularly flexible, since the monadic definition of coroutines is actually left open so that additional operators may be added by library developers.
+Unity offers a limited form of coroutines. Unity coroutines are limited since they do not support returning values, concurrency control patterns, or programmability like other coroutine systems do (including Casanova).
+Game Maker and XNA offer no support for state machines. Any need related to building state machines in those systems will have to be met with explicit classes with an explicit \texttt{Update} method.
+
+
+The final requirement is the support given to \textit{drawing} entities to the screen:
+
+\begin{tabular}{ | p{2.8cm} | p{2.8cm} | p{2.8cm} | p{2.8cm} | }
+\hline
+Casanova & Unity 3D & Game Maker & XNA \\
+\hline
+Drawable entities & Drawable component & Drawable sprite & Explicit classes and calls \\
+\hline
+\end{tabular}
+
+Casanova supports drawing with drawable entities. Such entities are rendered automatically, and remain synchronized with their logical representation through rules.
+Unity supports drawing by adding visual components to its entities. Entities with visual components simply appear on screen. Components may communicate with each other to share data so that, for instance, the visual component is updated to reflect the results of the logical scripts and the logical components of that entity.
+Game Maker supports drawing by attaching sprites to logical entities.
+XNA supports drawing by explicitly offering drawable entities in certain classes. These entities represent models, text, or sprites, and their draw method must be called explicitly inside the game loop.
+
+
+\section{Features to Learn}
+The size of each of the compared system affects how difficult it is to learn and master. In particular, the more features there are in a system the harder it is to use it to its full power, and the longer and steeper its learning curve becomes.
+
+We now discuss the amount of concepts that need to be learned in order to master Casanova, Unity, Game Maker, and XNA. We argue the size of each system to be correlated to its learning complexity. Unfortunately, this does not help towards assessing the shape of the learning curve for a system, given that the learning curve depends heavily on the order in which the features are learned and their perceived difficulty that may vary for differing users. Table \ref{table:systems_size} lists the size of the various systems, as determined by their respective documentations.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ | p{2.0cm} | p{2.0cm} | p{2.0cm} | p{2.0cm} | p{2.0cm} | p{2.0cm} | }
+   \hline
+   C\# & Unity & Game Maker & Game Maker Language & XNA & Casanova \\
+   \hline
+   13 major, 330 minor & 6 major, 210 minor & 3 major, 20 minor & 10 major, 96 minor & 9 major, 186 minor &    5 major, 44 minor \\
+   \hline
+\end{tabular}
+\label{table:systems_size}
+\caption{Number of features per tool}
+\end{table}
+
+C\# is a complex language. Its specification \cite{CHAPTER_8_CSHARP_SPECIFICATION} contains more than 18 major conceptual categories such as classes, interfaces, structs, statements, etc. These major categories are then subdivided in more than 500 individual concepts. The specification covers all aspects of the language, but we only considered those features of the language that are most commonly used and which are \textit{required} in order to properly interface with and use Unity and XNA classes and data structures. The resulting size of the language is somewhat reduced: 13 major features, counting basic language concepts, types, variables, conversions, expressions, statements, namespaces, classes, structs, arrays, interfaces, enums, and exceptions. These major features are then further subdivided in 330 minor concepts.
+
+The visual editor as described by the Unity reference manual \cite{CHAPTER_8_UNITY_REFERENCE_MANUAL} is slightly smaller in size than the C\# language. We excluded from consideration some functionality sets which we deem to be too advanced for most developers, namely custom shaders and the internals of the Unity deferred shader. We also did not count the terrain engine and the tree creator, since these are only used in specific games and as such many developers will simply skip these areas because they do not need them. The result is that Unity features 6 major areas of functionality, namely components, animations, GUI, networking, built-in shaders, and scripting concepts. These areas are further subdivided in 210 minor features. Notably, more than half of these features are related to components: a long list of possible behaviors that can be attached to game objects, and which can only be learned one by one.
+
+Game Maker, as described in \cite{CHAPTER_8_GAME_MAKER_MANUAL}, offers very little primitives, especially when compared with Unity. Game Maker only has 3 main groups of functions, which are the basic game entities, basic game logic, and "advanced" functionality attached to entities and logic. These aspects are further expanded in as little as 20 minor capabilities, which together form the entirety of the functionality of the tool.
+
+The same documentation for Game Maker shows Game Maker Language to be a small language, just like its host editor. Even though it is small, and thus quick to learn, it is an example of ad-hoc designs that has received criticism for its odd limitations. For example, arrays cannot be held by variables and passed as input to scripts, and all variables may only be strings or floating point numbers. Also, the language requires explicit deallocation of its "advanced" data structures (such as stacks, lists, maps, etc.), which is at odds with the objective of extreme simplicity that is touted by GameMaker. The language counts 10 major features, which are the core language constructs, the interface with the game entities, input handling primitives, graphics, sound, pop-up screens, resource management, "advanced" data structures, particle systems, and multiplayer. These features are further subdivided for a total of 96 minor items to master in order to learn how to use the language.
+
+XNA is a comprehensive framework for developing games with .Net languages. It is mostly centered around the C\# language, but it may be accessed by any .Net language, ranging from VB .Net and F\# to dynamic languages such as IronPython. The XNA reference \cite{CHAPTER_8_XNA_REFERENCE} lists the large set of functionality of the framework. The 9 major areas of functionality are basic math and game loop support, graphics, input, audio, asset (referred to as \textit{content} in XNA) loading, XBox Live! gamer services, media access, networking, and storage access. These areas are then subdivided in 186 further items.
+
+Casanova is by far the smallest of all these tools, as determined by its grammar and its semantics in Chapters \ref{chap:design} and \ref{chap:semantics}. It features 8 major areas, which are the basic language concepts, type definitions, input management, coroutines (and their combinators), and rendering. These major features are then subdivided in as little as 44 minor items. The fact that the language is small was indeed part of our initial goal, and a direct consequence of this is that the effort required to learn the various concepts is less oriented toward memorizing a long list of details, but rather assimilating a series of fundamental ideas and learning to combine them into games. One side effect is that some aspects of Casanova require effort in order to be learned to proficiency. For example, mastering coroutines or learning how to reason on rules without side-effects can be challenging.
+
+\subsection{Remarks}
+We argue that the biggest disadvantage of Unity is that by using general-purpose programming languages for its scripts it asks intermediate users to learn new and complex concepts that seem unrelated to those in the visual editor. This means that the learning curve for a system like Unity (and to a lesser extent like Game Maker) may be welcoming for beginner users who limit themselves to the visual editor and very simple scripts; as soon as the user wishes to do something more advanced then he is faced with a sudden steepening of the learning curve, since he now has to learn C\# programming. We also argue that many of the missing features of Game Maker make Unity more complete, that is as much as Game Maker is smaller it is also less expressive. For example, when compared to Unity then Game Maker lacks features for animations, 3D rendering, visual effects, and more. Finally, we note that even though XNA does not feature a visual editor, supporting common game development tasks by libraries alone (and not by a new set of semantics as done by Casanova) yields a very big framework that can only be learned with study and effort. An unfortunate side-effect of XNA is that, for beginners, it has a steep learning curve from the start: beginners must learn C\# first, and only after that can they move on to basic game programming tasks.
+
+We have built Casanova with the aim of a small and uniformly steep learning curve. Learning Casanova requires little concepts, and from the very beginning the user will be able to make games instead of learning the language in the abstract. Also, the advanced tasks that Casanova may support are built upon the same simple primitives that the user learns right away. Of course, advanced tasks will still require more effort, mostly because of their being advanced. Also, by making game coding easier and more focused on game development tasks, we leave control where it should always remain: with the developer. We do not provide simplicity by ready-made components such as Unity's physics or rendering facilities. The user of Casanova is always free to reuse existing libraries, but he can also re-write them as he sees fit with no penalties. Unity (and Game Maker) do not make it simple to change the underlying components that are assumed to be of general interest, and when they allow such changes they do so by requiring significant efforts \cite{CHAPTER_8_GMOGRE}. XNA fares poorly under similar aspects as well, that is going beyond the basic tasks that are well-supported requires substantial programming effort that is assisted very little by the framework. For example, suppose we wish to render many XNA primitives: beyond a few hundred draw calls per frame the game may get noticeably slower. Solving the problem may require batching or instancing \cite{GPU_GEMS_2}, techniques which are hard to implement and which require advanced knowledge of graphics programming. 
+
+As a final note, Casanova is designed to offer other features that the other systems do not. Casanova games have additional correctness properties guaranteed by its semantics model and its type system: \textit{(i)} the mechanism through which rules are all applied at the same time makes it harder to build errors related to wrong update orders or interferences between multiple updates of as shared value from different entities; \textit{(ii)} coroutines ensure that all state machines are generated and accessed properly; and \textit{(iii)} units of measure ensure no physics errors deriving from mixing different quantities wrongly (\texttt{m + m} is ok, as is \texttt{m + m / s * s}, but \texttt{m + s} results in a compiler error). 
+
+
+\section{Quantitative assessment}
+We now offer some \textit{limited} benchmarks to assess the performance and terseness of Casanova games. Our benchmarks are limited because a direct comparison across different systems would be meaningless, since performance would also involve rendering performance. Also, systems such as Unity use a large set of C++ libraries that make it appear that Unity games require less code, while in reality they are leveraging large, pre-written libraries which seem trivial to use only because they are used through a visual interface. As much as these libraries are fast, they also trade flexibility for performance and ease of use.
+
+In short, it is hard to find a meaningful comparison index between heterogeneous systems such as Casanova, Unity, Game Maker, and XNA. We also argue that this is perfectly fine, since the various systems have different original designs and underlying philosophies and as such comparing them quantitatively is not a significant research effort. For this reason, we have picked another comparison which we deem interesting. Coroutines are a complex piece of software, and larger games may rely on them heavily in order to build difficult algorithms such as AIs; coroutines in a game development system must be easy to use and fast to run. For this reason we have chosen to assess the quality of our implementation of coroutines against other modern implementations which are widely used in games.
+
+
+\subsection{Coroutines in games}
+We now compare Casanova coroutines with those found in C\#, LUA, and Python. This way we get an idea on the verbosity and performance of building coroutines in a statically typed, mainstream programming language such as C\#, but also in dynamically typed languages such as LUA and Python which are often used as scripting languages in games. For a more detailed discussion of the mechanisms of coroutines in Lua, Python and C\# see \cite{CHAPTER_9_CSHARP_YIELD, CHAPTER_9_SCRIPTING_LUA, CHAPTER_9_UNITY_YIELD, CHAPTER_9_SCRIPTING_PYTHON}.
+
+LUA, Python and Casanova offer roughly the same ease of programming, given that: \textit{(i)} scripts are approximately as long and as complex; \textit{(ii)} there are no explicit types, thanks to dynamic typing in LUA and Python, and type inference in Casanova.
+
+It is important to notice that, since Casanova is a statically typed language, it offers a relevant feature that dynamically typed languages do not have: static type safety. This means that more errors will be catched at compile time and correct reuse of modules is made easier.
+
+To measure speed, we have run three benchmarks on a Core 2 Duo 1.86 GHz CPU with 4 GBs of RAM. The tests are two examples of scripts computing large Fibonacci numbers concurrently plus a synthetic game where each script animates a ship traveling across a game level. The tests have been made with Windows 7 Ultimate 64 bits. Lua is version 5.1, Python is version 3.2 and .Net is version 4.0.
+
+\begin{table}[ht]
+\caption{Samples length}
+\centering
+\begin{tabular}{ l | c c c }
+   Language & Test 1 & Test 2 & Test 3\\
+   \hline
+   Casanova & 21 & 21 & 35  \\
+   Python & 24 & 29 & 48 \\
+   LUA & 30 & 39 & 52 \\
+   C\# & 51 & 58 & 59 \\
+\end{tabular}
+\label{table:benchmarks_length}
+\end{table}
+
+\begin{table}[ht]
+\caption{Samples speed}
+\centering
+\begin{tabular}{ l | c c c }
+   Language & Test 1 & Test 2 & Test 3\\
+   \hline
+   Casanova & 7.6 & 5.8 & 4.0 \\
+   Python & 1.1 & 1.1 & 0.9 \\
+   LUA & 1.5 & 1.4 & 0.8 \\
+   C\# & 7.1 & 4.2 & 4.1\\
+\end{tabular}
+\label{table:benchmarks_speed}
+\end{table}
+
+We have measured the total length of each script, listed in Table \ref{table:benchmarks_length}, to give a partial assessment of the expressiveness of each solution, plus the number of yields per second, listed in Table \ref{table:benchmarks_speed}, in order to assess the relative cost of the yielding architecture; more yields per second implies more scripts per second which in turn implies more scripted game entities and thus a more complex and compelling game-play.
+
+It is quite clear that Casanova offers the best mix of performance and terseness. Also, it must be noticed that Python and Lua suffer a noticeable performance hit when accessing the state, presumably due to lots of dynamic lookups; this problem can only become more accentuated in actual games, since they have large and complex states that scripts manipulate heavily.
+
+
+\section{Casanova in education}
+Another venue of evaluation of Casanova has been the adoption of the framework as an educational tool for teaching computer programming to high school students, and to teach advanced game development constructs to master students.
+
+\subsection{High school students}
+High school students were faced with the task of programming snippets of game code with the Casanova framework. The tasks presented to them were very simple, in particular they built a bouncing ball, a set of bouncing balls, and a set of asteroids with gravitational forces. The tasks took one full day of work with instructors present. Most of the students had no previous programming experience.
+
+We assessed the results of the experience by observing the progress of the class in finding the solutions, and also by asking the students questions on the interest and value of the learning experience. Interestingly enough, all students were able to build the final solutions; some students managed to do so in a very short time and with no help whatsoever, while others needed the whole day and some assistance from the lab instructors (especially regarding syntax rules and compiler errors).
+
+From an informal survey, the students described the experience as relevant, formative, and interesting. We used their evaluation to strengthen the idea that Casanova is simple enough to allow complete beginners with no experience in programming to build small simulations with little help.
+
+\subsection{Master students}
+We also used Casanova as part of the course on High Level Game Programming at the Master in Game Development of the University of Verona. Casanova was used to offer students a different take on game development techniques. The objective was to foster understanding of the general patterns behind game development. A secondary objective was to challenge their preconceptions on how to make games, often coming from previous programming experience.
+
+To do so, we organized assignments around the construction of hybrid systems where Casanova was used to provide the main logic for a game, while XNA was used for the remaining components of the game (namely rendering, audio, and low-level input detection).
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ l | c c c c }
+   Student & World definition & Rules & Scripts & Final mark \\
+   \hline
+   1. & 30 & 30 & 30 & 30 \\ 
+   2. & 27 & 30 & 30 & 30 \\ 
+   3. & 30 & 30 & 25 & 30 \\ 
+   4. & 30 & 30 & 30 & 30 \\ 
+   5. & 30 & 30 & 30 & 30 \\ 
+   6. & 30 & 30 & 30 & 30 \\ 
+   7. & 30 & 30 & 25 & 30 \\ 
+   8. & 30 & 30 & 30 & 30 \\ 
+   9. & 30 & 30 & 25 & 30 \\ 
+   10. & 30 & 30 & 30 & 30 \\ 
+   11. & 30 & 30 & 30 & 30 \\ 
+   12. & 27 & 30 & 30 & 30 \\ 
+   13. & 25 & 25 & 20 & 24 \\ 
+   14. & 30 & 30 & 0 & 22 \\ 
+   15. & 27 & 30 & 30 & 28 \\ 
+   16. & 15 & 15 & 0 & 14 \\ 
+   17. & 0 & 0 & 0 & 0 \\ 
+\end{tabular}
+\caption{Master students evaluation}
+\label{table:master_evaluations}
+\end{table}
+
+As an assessment of the course, we provide in Table \ref{table:master_evaluations} the table of evaluations (between 0 and 30) of the students work with respect to the some of the tasks given. We show the evaluation of the students with respect to the completeness and quality of: \textit{(i)} their definition of the game world; \textit{(ii)} their definition of the game rules; and \textit{(iii)} their definition of the game scripts. Notice that the last column, the final mark, also depended on other factors related to the rest of the game, and not only on the Casanova-centered parts of the assignment. 
+
+Interestingly, even though a large group of students passed with full flying colors all the Casanova-related tasks, a small group of students encountered strong difficulties. Discussion with the students in trouble  suggested that they had problems mapping their imperative mindset to the declarative/functional tools offered by Casanova, while students from the successful group enjoyed a different way to think about games and quickly handed their (good) assignments.

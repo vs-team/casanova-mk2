@@ -1,0 +1,60 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% physics_simulations.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The main objective of the Physics Simulation short-course is to show students how to model simple discrete systems such as a bouncing ball.
+
+The students start with an initial definition of two integrators. The first integrator is loaded from a precomputed file, and it offers an accurate simulation of the real behavior of the system. This first integrator acts as a benchmark. The second integrator simulates simple linear motion. An integrator is specified by giving an instance of the \texttt{Integrator} data-type:
+
+\begin{lstlisting}
+// ball = velocity, position
+type Ball = float * float
+
+// time = total, delta
+type Time = float * float
+
+type Integrator = 
+  { 
+    // initial position of the ball $y_0$
+    y0 : float
+    // initial velocity of the ball $v_0$
+    v0 : float
+    // step-integrator function
+    update : Time * Ball -> Ball
+    // display name
+    name : string 
+  }
+\end{lstlisting}
+
+
+The simulation environment takes as input a sequence of integrators to display side-by-side for comparison; the initial sequence the students have is composed of an instance of the precomputed integrator together with the simple linear motion integrator:
+
+\begin{lstlisting}
+let actual = { y0 = FromFile.y0; 
+              v0 = FromFile.v0; 
+              update = FromFile.step; 
+              name = "Exact" }
+let linear = { y0 = Linear.y0; 
+              v0 = Linear.v0; 
+              update = Linear.step; 
+              name = "Linear1" }
+
+let integrators = 
+ seq{
+   yield actual
+   yield linear
+ }
+\end{lstlisting}
+
+The students can inspect and modify the code from the linear integrator, which is:
+
+\begin{lstlisting}
+let y0 = 10.0
+let v0 = 15.0
+
+let step ((t,h),(v,y)) = (v,y + v * h)
+\end{lstlisting}
+
+In particular from this integrator the students can see that the \texttt{step} function takes as input the current time \texttt{t}, the step length \texttt{h}, the ball velocity and position \texttt{(v,y)} at time \texttt{t} and returns the new velocity and position of the ball at time \texttt{t+h}.
+
+Running the initial configuration clearly shows that the linear integrator is not an accurate simulation of the benchmark. The students then build a forward Euler integrator which is accurate only during the first seconds of the simulation and which soon starts diverging. They soon realize that the problem is that such a simple, intuitive integrator suffers from unsightly infinite oscillations (the so called \textit{Zeno phenomenon}). Such oscillatory phenomena can be tamed (but never fully corrected) by either cutting the velocity after a while or when they become too small (a very ad-hoc solution) or by using a more refined integrator which suffers from much smaller oscillations. By implementing the Ralston integrator (also known as Second Order Runge-Kutta integrator) the simulation starts to look very accurate (indeed errors and oscillations are smaller than one pixel and cannot be perceived with the naked eye, as seen in the video linked at Figure 3).

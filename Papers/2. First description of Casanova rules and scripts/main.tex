@@ -1,0 +1,98 @@
+%\documentclass{acm_proc_article-sp}
+
+\documentclass{article}
+
+\usepackage{mathpartir}
+\usepackage{turnstile}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} 
+\usepackage[hyphens]{url}
+\lstset{language=ml}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{frame=single}
+\lstset{breaklines=true}
+\lstset{basicstyle=\ttfamily}
+
+\DeclareMathOperator{\wf}{wf}
+\DeclareMathOperator{\acyclic}{acyclic}
+\DeclareMathOperator{\Linear}{Linear}
+\DeclareMathOperator{\NonLinear}{NonLinear}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\FV}{FV}
+\DeclareMathOperator{\LFV}{LFV}
+\DeclareMathOperator{\rule-fun}{rule-fun}
+
+\begin{document}
+
+\title{Casanova: \\ a declarative language for safe games}
+
+\author{
+Giuseppe Maggiore \and Renzo Orsini \and Michele Bugliesi \\
+\{maggiore,orsini,bugliesi\}@dais.unive.it
+}
+
+\date{}
+
+\maketitle
+
+\begin{abstract}
+Games are extremely complex pieces of software which give life to animated virtual worlds. Games require complex algorithms, large worlds filled with many intelligent entities and high-quality graphics, and it all must run in real time.
+
+Building general, high-performance frameworks capable of representing any virtual world has, until now, proven to be an elusive task; existing solutions either sacrifice performance (X3D browsers) or generality (game engines).
+
+In this paper we present a model that formalizes our notion of a correct game. This model gives all the important properties that game developers struggle to maintain by hand, that is the strong normalization of the \texttt{tick} function, the independence from the order of the ticks of each entity, and the fact that all active entities of the game state must be ticked exactly once. We define the Casanova language around this model, with the aim of achieving the threefold objective of creating games that are correct, declarative (and thus simpler to write) and fast to run.
+
+We will use a linear type system to enforce the uniqueness of our entities (to ensure exactly one tick for each) and to ensure that ticks do not have overlapping effects. We will impose certain restrictions on the state to avoid infinite loops in the update function (in the shape of cyclic references) and we will use a specialized type system to make sure that all the active coroutines of the game will always yield.
+\end{abstract}
+
+\begin{comment}
+\category{D.1.1}{Programming Techniques}{Applicative (Functional) Programming} 
+\category{D.2.2}{Soft\-ware Engineering}{Software Libraries}[Design Tools and Techniques]
+\category{D.2.13}{Soft\-ware Engineering}{Reusable Software}[Domain engineering, Reusable libraries, Reuse models]
+\category{D.3.3}{Programming Languages}{Language Constructs and Features}
+\category{D.3.4}{Pro\-gramming Languages}{Processors}[Optimization, Run-time environments]
+\category{H.5.1}{Information Systems}{Information Interfaces and Presentation}[Multimedia Information Systems]
+
+\terms{Games,Performance,Languages}
+
+\keywords{games, compilation}
+\end{comment}
+
+\section{Game Model}
+\label{sec:game_model}
+\input{game_model} 
+
+\section{The Casanova language}
+\label{sec:casanova}
+\input{casanova_language}
+
+\section{Compilation}
+\label{sec:compilation}
+\input{compilation}
+
+\section{Case Studies}
+\label{sec:case_study}
+\input{case_study}
+
+\section{Benchmarks}
+\label{sec:benchmarks}
+\input{benchmarks}
+
+\bibliographystyle{plain}
+\bibliography{references} 
+
+\cite{*}
+%\nocite{}
+
+\end{document}

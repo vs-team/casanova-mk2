@@ -1,0 +1,184 @@
+For the most part, the abstract semantics applies existing semantic operators of boxed Intervals \cite{COU98}. In this section, we sketch how these operators are used to define the semantics on \adomain.
+
+First of all, $\mathbb{I}$ defines the semantics of arithmetic expressions on a single hypercube by applying the well-known arithmetic operators on intervals. 
+
+We use the semantics $\mathbb{I}$ to define the abstract semantics $\mathbb{B}$ of Boolean comparisons. Given a hypercube and a Boolean comparison $E_1 <bop> E_2$ where $<bop> \in \{\geq, >, \leq, <, \neq \}$, $\mathbb{B}$ returns an \emph{abstract value of the boolean domain} (namely, $\mathit{true}$, $\mathit{false}$, or $\top$) comparing the intervals obtained from $E_1$ and $E_2$ through $\mathbb{I}$. Therefore, given a Boolean condition and a set of hypercubes, we partition this set into the hypercubes for which (i) the condition surely holds, (ii) the condition surely does not hold, and (iii) the condition may or may not hold. In this way, we can discard all the hypercubes for which a given Boolean condition surely holds or does not hold.
+%Note that in this way we lose some precision. For instance, imagine that in a given hypercube we know that $\statement{x} \in [0..5]$ (because the fixed width of intervals associated to \statement{x} is 5), and we check if $\statement{x} \leq 3$. The answer of $\mathbb{B}$ will be $\top$ and, if the condition was inside an \statement{if} statement, this hypercube will be used to compute the semantics of both the branches. Indeed, we would know that $\statement{x} \in [0..3]$ in the \statement{then} branch, and $\statement{x} \in [4..5]$ in the else branch. Nevertheless, we cannot and do not want to track this information in our hypercube, since the width of the interval associated to \statement{x} is 5, and fixed widths are a key feature in order to obtain an efficient analysis. We will present (Section \ref{sec:widths}) how we can recursively modify the widths of the analysis to improve precision in these cases.\todopietro{Remove it when merging section 6 here - the details about the offset should be presented before and here we should report the formal definitions}
+The semantics of the logical operators $not$, $and$, $or$ is defined in the standard way.
+
+$\mathbb{I}$ is used to define the semantics $\mathbb{S}$ of variable assignment as well. The standard semantics of \statement{x=exp} is to (i) obtain the interval representing the right part ($\mathbb{I}\llbracket\statement{x=exp}, \sigma\rrbracket=[m..M]$), and (ii) assign it in the current state. This approach does not necessarily produce a single hypercube, since the interval to assign could have a greater width than the fixed width of the assigned variable (for example, the interval $[0..6]$ when $w=5$). It could also happen that the resulting interval width is smaller than the fixed width, but the interval spans over more than one hypercube side, due to the fixed space partitioning (for example, the interval $[3..6]$ when $w=5$, because the space is partitioned in $[0..5],[5..10]$, etc.). In these cases, we build up several hypercubes that cover the interval $[m..M]$. This can be formalized by $assign(h, V_i, [a..b])=\{h[i\mapsto m] : [m\times w_i .. (m+1)\times w_i]\cap [a..b] \neq \emptyset\}$, where $h$ is a hypercube, $V_i$ is the assigned variable, and $[a..b]$ is the interval we are assigning (which depends on the hypercube $h$, since we use its variables values to compute the result of the expression). We repeat this process for each hypercube $h$ in the abstract state by using it as input for the computation of $assign$.
+In this way, we are able to over-approximate the assignment while also keeping the fixed widths of the intervals, which are very important for performance issues.
+
+\vspace{-10pt}
+\subsubsection{Offsets}
+Offsets allow us to recover some precision when computing the abstract semantics of assignment. In particular, as the expression semantics $\mathbb{I}$ returns intervals of arbitrary widths, we can use such exact result to update the offsets of the abstract state. Formally, the semantics of the assignment is defined as follows: 
+\begin{equation*}
+assign(h, V_i, [a..b]) = \{ h[i\mapsto (m,o_m,o_M)] : [m\times w_i .. (m+1)\times w_i] \cap [a..b] \neq \emptyset \}
+\end{equation*}
+where $h$ is a hypercube, $V_i$ is the assigned variable, $[a..b]$ is the interval we are assigning and $o_m, o_M$ are computed as:
+\begin{equation*}
+o_m = \begin{cases} 
+0 & \mbox{if } a \leq (m \times w_i) \\
+a - (m \times w_i) & \mbox{otherwise} \\
+\end{cases} \wedge 
+o_M = \begin{cases} 
+w_i & \mbox{if } b \geq ((m+1) \times w_i) \\
+b - (m \times w_i) & \mbox{otherwise} \\
+\end{cases}
+\end{equation*}
+Note that, when we extract from a hypercube the interval associated to a variable, we use the interval delimited by the offsets, so that abstract operations can be much more precise. 
+
+Consider the evaluation of statement \statement{x = x + 0.01} inside a while loop with $1.0$ as width of \statement{x} and $[0..1]$ as initial value of \statement{x}. After the first iteration, the abstract semantics computes $[0.0 .. 1.0]$ and $[1.0 .. 2.0]$ with offsets $[0.01 .. 1.0]$ and $[1.0 .. 1.01]$, respectively. In this way, at the following iteration we would obtain again the same two intervals with the offsets changed to $[0.02 .. 1.0]$ and $[1.0 .. 1.02]$. This results is strictly more precise than the one obtained without offsets, and it is an essential feature of our abstract domain. For instance, in the case study of Figure \ref{lst:casestudy} offsets will allow us to discover if a bouncing ball exits the screen after $N$ iterations of the \statement{while} loop.
+
+\vspace{-10pt}
+\subsection{Initialization of the analysis} \label{sec:initialization}
+\vspace{-5pt}
+Before starting the analysis we have to determine the number of sides each hypercube will have. To do this, we must find all the variables ($Vars$) of the program which are not constants (i.e., assigned only once at the beginning of the program). %To avoid scanning the entire code before starting the analysis, 
+We require the program to initialize all the variables at the beginning of the program. 
+%Note that physics simulations, like our case study, satisfy this requirement because they are made up by an initialization of all variables, followed by a \statement{while} loop which contains the core of the program (i.e., the update of the simulated world). Otherwise, we can consider a dummy initialization (i.e., $0.0$) for all variables which are not initialized at the beginning of the program. The actual initialization of the variables will be treated as a normal assignment, without any loss of precision. 
+The initialization of the analysis is made in two steps. First, for each initialized variable, we compute its abstraction in the non-relational domain chosen to represent the single variables. The resulting set of abstract values could contain more than one element. Let us call $\alpha(V)$ the set of abstract values associated to the initialization of the variable $V \in Vars$. Then we compute the Cartesian product of all sets of abstracted values (one for each variable). The resulting set of tuples (where each tuple has the same cardinality as $Vars$) is the initial set of hypercubes of the analysis. 
+Formally, $\adomain = \sbigtimes_{V \in Vars} {\alpha(V)}$.
+
+Consider the code of our case study in Figure \ref{lst:casestudy}. First of all, we must identify the variables which are not constants: $dt,g,k$ are assigned only during the initialization, so we do not include them in $Vars$. The set of not-constant variables is then $Vars = \{ V_1 = px, V_2 = py, V_3 = vx, V_4 = vy \}$, and so $|Vars| = 4$.
+%Suppose that the widths associated to the variables are  $w_1 = 10.0, w_2 = 25.0, w_3 = 30.0, w_4 = 5.0$. Then, the abstraction of each variable is $\alpha(V_1) = \{ 0 \}$, $\alpha(V_2) = \{ 0, 1 \}$, $\alpha(V_3) = \{ 0, 1 \}$, and $\alpha(V_4) = \{ -6 \}$.
+%The Cartesian product of these abstractions brings us to the following initial set of hypercubes:
+%$$\adomain = \{ (0,0,0,-6) , (0,0,1,-6) , (0,1,0,-6) , (0,1,1,-6) \}$$
+
+\vspace{-10pt}
+\subsection{Tracking the origins}\label{sec:origins}
+\vspace{-5pt}
+During the analysis of a program we also track, for each hypercube of the current abstract state, the initial hypercubes (\textit{origins}) from which it is derived. To store such information, we proceed as follows. Let $H_i$ be the set of hypercubes obtained for the $i$-th statement of the program. The data structure of a hypercube $h$ contains also an additional set of hypercubes, $h^{or}$, which are its origins and are always a subset of the initial set of hypercubes, i.e., $\forall h : h^{or} \subseteq H_0$. At the first iteration, each hypercube contains only itself in its origins set: $\forall h \in H_0 : h^{or} = \{ h \}$. When we execute a statement of the program, each hypercube produces some new hypercubes: at this stage, the origins set is simply propagated. For example, if $h$ generates $h_1,h_2$, then $h_1^{or} = h_2^{or} = h^{or}$. When merging all the newly produced hypercubes in a single set (the abstract state associated to the point of the program just after the executed statement), we also merge through set union the sets of origins of any repeated hypercube. For example, consider $H_i = \{ h_a, h_b \}$ and let $h_1,h_2$ be the hypercubes produced by $h_a$ executing statement $i$-th and $h_2,h_3$ be those produced by $h_b$. Then, $H_{i+1} = \{ h_1,h_2,h_3\}$ and $h_1^{or} = h_a^{or}$, $h_2^{or}= h_a^{or} \cup h_b^{or}$ and $h_3^{or} = h_b^{or}$.
+
+\vspace{-10pt}
+\subsection{Width choice} \label{sec:widths}
+\vspace{-5pt}
+The choice of the interval widths influences both the precision and efficiency of the analysis. On the one hand, if we use smaller widths we certainly obtain more precision, but the analysis risks to be too slow. On the other hand, with bigger widths the analysis will be surely faster, but we could not be able to verify the desired property. To deal with this trade-off, we implemented a recursive algorithm which adjusts the widths automatically.
+We start with wide intervals (i.e., coarse precision, but fast results) and we run the analysis for the first time. At the end of the analysis, we check, for each hypercube of the \emph{final} set, if it verifies the desired property. We then associate to each \emph{origin} (i.e., initial hypercube) its final result by merging the results of its derived final hypercubes (we know this relationship because of the origins set stored in each hypercube): some origins will certainly verify the property (i.e., they produce only final hypercubes which satisfy the property), some will not, and some will not be able to give us a definite answer (because they produce both hypercubes which verify the property and hypercubes which do not verify it). We partition the starting hypercubes set with respect to this criterion (obtaining, respectively, the \emph{yes} set, the \emph{no} set and the \emph{maybe} set), and then we run the analysis again with halved widths, but \emph{only} on the origins which did not give a definite answer (the \emph{maybe} set). This step is only performed until we reach a specific threshold, i.e., the \textit{minimum width} allowed for the analysis. The smaller this threshold is, the more precise (but slower) the analysis becomes.
+
+%At the end of this recursive process, we obtain three partitions of the variable space: a set of starting hypercubes which certainly verify the property (\emph{yes} set), a set of starting hypercubes which certainly do not verify the property (\emph{no} set), and a set of starting hypercubes which, at the minimum width allowed for the analysis, still do not give a definite answer (\emph{maybe} set). 
+The analysis is then able to tell us which initial values of the variables bring us to verify the property (the union of all the \emph{yes} sets encountered during the recursive algorithm) and which do not. Thanks to these results, the user can modify the initial values of the program, and run the analysis again, until the answer is that the property is verified \emph{for all initial values}. In our case study, for example, we can adjust the possible initial positions and velocities until we are sure that the ball will exit the screen in a certain time frame. 
+
+The formalization of this recursive algorithm is presented in Algorithm \ref{alg:widthAdjusting}.
+
+\begin{algorithm}
+\caption{The width adjusting recursive algorithm} \label{alg:widthAdjusting}
+\begin{algorithmic} 
+\Function {Analysis} {$currWidth, minWidth, startingHypercubes$}
+  \State \Return $(yes \cup yes', no \cup no', maybe')$
+  \State \textbf{where}
+    \State $(yes, no, maybe) = hypercubesAnalysis(currWidth, startingHypercubes )$
+    \If {$currWidth/2.0 \geq minWidth$}
+      \State $(yes', no', maybe') = Analysis(currWidth/2.0, minWidth, maybe)$
+    \Else
+      \State $(yes', no', maybe') = (Set.empty, Set.empty, maybe)$
+    \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+%The overall analysis takes as input the starting width, the minimum width allowed and the set of starting hypercubes (obtained from the initialization of the program as described in Section \ref{sec:initialization}). It executes the analysis on such data with the function \statement{hypercubesAnalysis}, which returns three sets of hypercubes (\statement{yes,no,maybe}) with the meaning explained above. Then, if the halved width is still greater than the minimum one allowed, the algorithm performs a recursive step by repeating the analysis function only on the \statement{maybe} hypercubes set (with halved width). 
+
+%Note that %the initial hypercubes sets 
+%the three final hypercubes sets (the \emph{yes,no,maybe} partitions)
+%will contain hypercubes of different sizes: this happens because each hypercube can come from a different iteration of the analysis, and each iteration is associated to a specific hypercube size. A certain portion of the variable space could give a definite answer even at coarse precision (for example, when the horizontal velocity of the ball is sufficiently high, the values of other variables do not matter so much), while another portion could need to be split in much smaller hypercubes to give interesting results.
+
+%\todogiulia{Tino: come dicevo questa sezione si dovrebbe ridurre all'osso: riferimenti a Intervalli, Disjuctinve domains trough Powerset, Prodotto Cartesiano, Conditional Partitioning}
+%
+%In this Section, we define the abstract semantics of Hypercubes. In particular, the semantics we will define are the following ones:
+%\begin{itemize}
+%\item $\mathbb{I}$, the abstract semantics of arithmetic expressions, which receives an expression and a single hypercube in input and returns an \emph{interval of real values} resulting from the execution of that expression when the variable values belong to that hypercube.
+%\item $\mathbb{B}$, the abstract semantics of boolean conditions, which receives a single hypercube and two expressions in input and returns an \emph{abstract value of the boolean domain} (namely, $true$, $false$, or $\top$) obtained by comparing the two expressions (through $\geq, >, \leq, <$ or $\neq$) when the variable values belong to that hypercube. Boolean conditions can be combined through logical operators (and, or, not) in the usual way (i.e., exploiting the abstract semantics of the boolean abstract domain). 
+%\item $\mathbb{S}$, the abstract semantics of statements, which receives in input a set of hypercubes (the current abstract state) and returns a new set of hypercubes (the new abstract state after the execution of the statement).
+%\end{itemize}
+%
+%\subsection{The abstract semantics of arithmetic expressions, $\mathbb{I}$}
+%
+%\subsubsection{Constants}
+%\label{sec:constants}
+%We define a constant as a variable which gets assigned only once with a constant value, or a numerical value which appears in some statements (without being assigned to a specific variable). To simplify the treatment of constants, we execute a preprocessing on the program with constant propagation, to remove constant variables and replace their uses with their numerical value. 
+%
+%
+%The abstract semantics of an expression made up by a constant numeric value is, simply, an interval of zero width: the extremes of the interval are the same and they are equal to the value of the constant. 
+%Then, the abstract semantics of a constant is:
+%
+%$$\mathbb{I}\llbracket c \rrbracket \; h = [c,c]$$
+%
+%Note that the value of the hypercube in input ($h$) is i,nored because it is not needed to compute the result.\ nn
+%
+%\subsubsection{Intervals}
+%The abstract semantic of an expression made up by an interval of real values is immediate: it is exactly that interval, without modifications. We ignore the hypercube passed in input.
+%
+%$$\mathbb{I}\llbracket (m,M) \rrbracket \; h = [m,M]$$
+%
+%\subsubsection{Variables}
+%When the expression is made up by a variable, we must consider the abstract value of that variable in the hypercube passed in input. Let $h_i$ be the integer index associated to the $i$-th dimension of the hypercube, $V_i$ the $i$-th variable defined in the program and $w_i$ the width associated in the analysis to such variable. Then, the abstract semantics of a variable  is $\mathbb{I}\llbracket V_i\rrbracket \; h = [h_i*w_i,(h_i+1)*w_i]$.
+%
+%
+%\subsubsection{Arithmetic operations}
+%We considered only the most used arithmetic operators. In particular, we considered sum ($+$), subtraction ($-$), product ($\times$) and division ($\div$). These operators should suffice for most physics simulations (for example, our case study requires only sum and product - the change of sign being a multiplication for $-1$). Anyway, our framework can be easily extended to support other operations (for example modulus), by simply defining their abstract semantics when working on intervals of values.
+%
+%The semantics of these operators over intervals has been already deeply studied, and we refer to \cite{COU98} for their definitions.
+%
+%
+%\subsection{The abstract semantics of Boolean conditions, $\mathbb{B}$}
+%\label{sec:boolcondition}
+%We now define the semantics of integer comparison using the operators $>$, $<$, $\leq$, $\geq$, and $\neq$. 
+%
+%The abstract semantics separately computes the semantics on the left and right arithmetical expressions of the statement, obtaining two intervals. Let us call them $i_1 = [a,b]$ and $i_2 = [c,d]$. The abstract comparison between them depends on the specific comparison operator present in the statement:
+%\begin{itemize}
+%\item $i_1 \neq i_2$ returns true if $b < c \vee a > d$, false if $b=c=a=d$, and $\top$ otherwise.
+%\item $i_1 < i_2$ returns true if $b < c$, false if $a > d$, top otherwise.
+%\item $i_1 > i_2$ returns true if $a > d$, false if $b < c$, top otherwise.
+%\item $i_1 \leq i_2$ returns true if $b \leq c$, false if $a \geq d$, top otherwise.
+%\item $i_1 \geq i_2$ returns true if $a \geq d$, false if $b \leq c$, top otherwise.
+%\end{itemize}
+%
+%$\mathbb{B}$ will be used by the statement semantics $\mathbb{S}$ when computing the semantics of \statement{if} and \statement{while} statements to discard the hypercubes that surely do not satisfy the condition. Note that in this way we lose some precision. For instance, imagine that in a given hypercube we know that $\statement{x} \in [0..5]$ (because the fixed width of intervals associated to \statement{x} is 5), and we check if $\statement{x} \leq 3$ when computing the semantics of an \statement{if} statements. The answer of $\mathbb{B}$ will be $\top$, and so this hypercube will be used to compute the semantics of both the branches. Indeed, we would know that $\statement{x} \in [0..3]$ in the \statement{then} branch, and $\statement{x} \in [4..5]$ in the else branch. Nevertheless, we cannot track this information in our hypercube, since the width of the interval associated to \statement{x} is 5. Anyway, we will present (Section \ref{sec:widths}) how we can recursively modify the widths of the analysis to improve precision in these cases.
+%
+%
+%\subsection{The abstract semantics of statements, $\mathbb{S}$}
+%
+%\subsubsection{Assignment}
+%Usually, with non-disjunctive domains, the abstract semantics of an assignment is straightforward: you have to compute the abstract semantics of the expression and update the abstract value of the variable with the result. In our domain, though, we track a different kind of information: we represent possible values of all variables together (through hypercubes) and we consider disjunctive information (a set of valid hypercubes instead of a single hypercube). Therefore, we must devise a specific abstract semantics to deal with the assignment statement. 
+%
+%Let the assignment be $V_i = e$, where $e$ is an arithmetic expression. Our approach can then be sketched as follows: 
+%\begin{itemize}
+%\item we consider, separately, each hypercube $h$ of the current state;
+%\item we compute the abstract semantics of the arithmetic expression $e$ passing to it the hypercube $h$.
+%\item we create a new hypercube (or \emph{some} new hypercubes, depending on the width of the resulting interval), where the abstract value of $V_i$ is the abstraction of the interval resulting from $e$.
+%\end{itemize}
+%
+%If the interval obtained from $e$ overlaps over several partitions established for variable $V_i$, we have to build up several hypercubes as result of the assignments semantics over a single hypercube. 
+%
+%
+%On the other hand, if many hypercubes of the initial state map to the same hypercube in the resulting state, it could also happen that the cardinality of \adomain\ decreases (or remains unmodified) after the execution of an assignment.
+%
+%Formally: 
+%
+%$$\mathbb{S}\llbracket \statement{V_i = e}\rrbracket \; H = \bigcup_{h \in H} {assign(h, V_i, \mathbb{I}\llbracket e\rrbracket \; h)}$$
+%
+%where $assign(h, V_i, [a,b])=\{h[i\mapsto m] : [m\times w_i .. (m+1)\times w_i]\cap [a..b] \neq \emptyset\}$. The output of this function is the set of hypercubes covering all the intervals that overlaps with the interval assigned to the given variable.
+%
+%
+%\subsubsection{If-then-else semantics}
+%
+%To precisely deal with branches of \statement{if} statements, we partition the abstract state \adomain\ with respect to the evaluation of the branching condition. In particular, we compute the abstract semantics $\mathbb{B}$ of the boolean condition on each hypercube of \adomain\ and we assign each hypercube to a specific partition, based on the result of the condition semantics. Therefore, we obtain three partitions: the hypercubes for which the condition evaluates to true ($p_t$), the ones for which the condition evaluates to false ($p_f$), and the ones for which we do not have a definitive answer ($p_\top$).
+%
+%Once obtained these three partitions, we can compute selectively the abstract semantics of the two branches, and in particular the \statement{then} branch with $p_t \cup p_\top$, and the \statement{else} branch with $p_f \cup p_\top$. 
+%
+%Formally, the semantics of the \statement{if} statements follows:
+%
+%$$\mathbb{S}\llbracket \statement{if}(B)\ \statement{then}\ P_1\ \statement{else}\ P_2\rrbracket \; H = ( \mathbb{S}\llbracket P_1\rrbracket \; (p_t \cup p_\top) ) \cup ( \mathbb{S}\llbracket P_2\rrbracket \; (p_f \cup p_\top) )$$
+%
+%where $p_t = \{ h \in H : \mathbb{B}\llbracket \ael{if}\rrbracket \; h = true \}$, $p_f = \{ h \in H : \mathbb{B}\llbracket \ael{if}\rrbracket \; h = false \}$, and $p_\top = \{ h \in H : \mathbb{B}\llbracket \ael{if}\rrbracket \; h = \top \}$.
+%
+%\subsubsection{Concatenation of statements}
+%The abstract semantics of the concatenation of two statements is straightforward: it executes the abstract semantics of the first statement, it takes the result and it passes it as input to the abstract semantics of the second statement. Formally:
+%
+%$$\mathbb{S}\llbracket P_1;P_2\rrbracket \; H = \mathbb{S}\llbracket P_2\rrbracket \; (\mathbb{S}\llbracket P_1\rrbracket \; H)$$
+%
+%\todogiulia{Non sono per niente convinto che sia questa big-step semantics quello di cui abbiamo bisogno. Ad esempio, la semantics di \statement{while(true) P_1; P_2} ritorna $\emptyset$ stando a questa definizione. A occhio abbiamo bisogno di qualcos'altro, e.g., uno stato astratto per ogni punto di programma di un cfg? In questo caso, non dobbiamo lavorare a questo livello con \statement{if} e \statement{while} ma piu' a basso livello.}
+%
+%\subsection{While loop}
+%To do. 
+

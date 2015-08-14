@@ -1,0 +1,80 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% case_study.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We will now present a simple case study to see our compiler in action. We will consider an X3D scene that contains a looping timer which updates a color that in turn updates the material used when drawing a box:
+
+\begin{lstlisting}[language=xml]
+<Scene>
+  <ColorInterpolator DEF='myColor'
+    keyValue='1 0 0, 0 1 0, 0 0 1, 1 0 0'
+    key='0.0 0.333 0.666 1.0'/>
+  <TimeSensor DEF='myClock' cycleInterval='10.0' loop='true'/>
+  <Shape>
+    <Box/>
+    <Appearance>
+      <Material DEF='myMaterial'/>
+    </Appearance>
+  </Shape>
+  <ROUTE fromNode='myClock' fromField='fraction_changed'
+         toNode='myColor' toField='set_fraction'/>
+  <ROUTE fromNode='myColor' fromField='value_changed'
+         toNode='myMaterial' toField='diffuseColor'/>
+</Scene>
+\end{lstlisting}
+
+We do not want to interpret this scene dynamically into a browser. Rather, we want to compile this scene into a specialized browser which has the above scene \textbf{hardcoded} inside its source.
+
+The source code that implements the above scene is the following:
+
+\begin{lstlisting}
+let rec myScene () = 
+    
+  let rec Appearence1 = 
+    new Appearance(myMaterial)
+  and myMaterial = 
+    new Material("myMaterial",
+      new Vector3(0.80f,0.80f,0.80f))
+  and Box1 = 
+    new Box("Box1",myMaterial,Vector3.One)
+  let rec Shape1 = 
+    new Shape(Box1,Appearence1)
+  and myColor = 
+    new ColorInterpolator("myColor",
+      [
+        new Vector3(1.00f,0.00f,0.00f);
+        new Vector3(0.00f,1.00f,0.00f);
+        new Vector3(0.00f,0.00f,1.00f);
+        new Vector3(1.00f,0.00f,0.00f)],
+      [0.00f;0.33f;0.67f;1.00f])
+  and myClock = 
+    new TimeSensor(true,10.00f)
+        
+  and load_content = 
+    Box1.set_Model( game.Content.Load( "Box"))
+    
+  and update dt = 
+    myClock.time <- (myClock.time + dt)
+    myColor.fraction <- myClock.fraction
+    myMaterial.diffuseColor <- myColor.value
+        
+    if (myClock.time > 10.00f) then
+      myClock.time <- 0.00f
+      myColor.fraction <- myClock.fraction
+      myMaterial.diffuseColor <- myColor.value
+    
+  and draw dt = 
+    Box1.Draw(dt)
+
+  in { update = update; 
+        draw = draw; 
+        load_content = load_content; })
+\end{lstlisting}
+
+Notice that we need to create all the nodes, unfolding them so that even if there are nested DEFs (such as the one for \texttt{myMaterial}) they appear as top level identifiers accessible to the rest of the program. This way we have completed our mapping from named nodes to local \texttt{let}-bindings, so that accessing the nodes of our scene will correspond to the common, simple and fast variable lookups.
+
+We also need to define three functions: an initialization function, which loads any required data from disk; an update function, which performs the game logic and executes the routes; a draw function, which draws the scene to the screen.
+
+Notice that routes in the update function are represented by the actual chains of field updates that we need to happen; there is no overhead at all when dynamically propagating the update events. Also, if a field does not start a route then there are no ``hidden'' costs as we would have when firing a \texttt{FieldModified} event with no listeners.
+
+

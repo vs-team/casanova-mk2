@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Game Model
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section we will define our notion of a correct game. We observe a series of existing game genres, and we break them down into three fundamental building blocks: entities, rules and behaviors.
+
+Entities represent physical and logical objects; ships, asteroids, projectiles, chairs, timers and effect auras are all entities. Entities follow certain rules, which are verified (run) at every tick of the simulation engine. These rules may be physical (no entities may share the same location) or logical (every item has an active aura that influences the surroundings: a chair makes a place more relaxing for characters who then are less prone to attacking). Rules are synchronous with respect to the game tick. Behaviors represent aspects of the game which are asynchronous to the tick function, for example AIs (which perform single actions that span many ticks) and level activators (which wait for certain conditions to be met before offering access to the next gaming stage).
+
+We now present a simple breakdown of games in terms of entities, rules and behaviors; this list is not omnicomprehensive, but it spans various very different game genres (action games, strategy games, role playing games, arcade games):
+\begin{itemize}
+\item first person shooters:
+\begin{itemize}
+\item entities are: characters, projectiles, weapons, obstacles, buildings
+\item rules are: physics, projectiles damage, picking up weapons, being in cover
+\item behaviors are: bot AIs, game logic (capture the flag, other variations), player input
+\end{itemize}
+
+\item real time strategy:
+\begin{itemize}
+\item entities are: units, unit squadrons (if present) buildings
+\item rules are: physics, movement (flocking), battle resolution, building queues
+\item behaviors are: pathfinding, victory conditions, player input
+\end{itemize}
+
+\item Sims:
+\begin{itemize}
+\item entities are: characters, furniture
+\item rules are: furniture auras, social interactions
+\item behaviors are: pathfinding, AI, player input
+\end{itemize}
+
+\item Puzzle Bobble:
+\begin{itemize}
+\item entities are: bubbles, bubble queue
+\item rules are: bubble movement, bubble blowing, bubble generation
+\item behaviors are: level victory, player input
+\end{itemize}
+\end{itemize}
+
+We describe the game $G$ as the pair $(E,B)$ of all the entities and all the behaviors:
+
+$$ G\ =\ (E,B) $$
+
+Entities are pairs $(e,u)$ of an entity $e$ and its update function $u$.
+
+We define the interpretation $\llbracket u \rrbracket_I$ of an update function as a function from an entity and the game state to its updated version. Since entities update by interacting with each other, the update function cannot take as input the entity $e$ alone. We write:
+
+$$ e' = \llbracket u \rrbracket_I(e,G) $$
+
+to denote the update of an entity $e$.
+
+The interpretation $\llbracket b \rrbracket_I$ of a behavior $b$ is defined as the function that updates the entire state by executing a single step of a behavior. A step of a behavior is executed by sequentially executing all of its instructions from the previous point of suspension until the next. A behavior suspends itself by invoking the \texttt{yield} function.
+
+The interpretation of a set of behaviors $B\ =\ {b_1,...,b_m}$ is the concatenation of all the interpretations of all the behaviors:
+
+$$\llbracket B \rrbracket_I\ =\ \llbracket b_1 \rrbracket_I\ \circ\ ...\ \circ\ \llbracket b_n \rrbracket_I$$
+
+We write:
+
+$$ G' = \llbracket B \rrbracket_I(G) $$
+
+to denote the application of a step of all behaviors to the game.
+
+The tick function is defined as the function that given a game state $G=(E,B)$ produces the updated game state $G'$ where all entities have been updated according to their rules and all behaviors have been run for one step:
+
+$$
+\begin{array}{lc}
+tick(E,B) = G' \\
+\mathtt{where} & \ G' = \llbracket B \rrbracket_I((E',\emptyset)) \\
+\mathtt{and} & \ E' = \{(\llbracket u \rrbracket_I(e,G),u)\ |\ (e,u) \in E\}\\
+\end{array}
+$$
+
+Rules enforce certain properties on each entity; behaviors on the other hand may add, remove or modify any aspect of the game. Behaviors may add or remove new behaviors and entities.
+
+\paragraph{Correctness}
+
+We define four properties of a correct game; these properties are related to the tick:
+
+\begin{enumerate}
+\item all rules of each entity are applied exactly once
+\item rule application is order-independent
+\item tick always terminates
+\end{enumerate}
+
+These rules are important because:
+\begin{enumerate}
+\item if a rule is not applied or is applied more than once we risk inconsistent updates, for example an entity which does not move or moves too fast
+\item rule application must be order-independent, because all rules represent aspects of the world which happen during one tick; since the tick is the smallest unit of time in a simulation, anything that happens during one tick must behave as if it happened simultaneously
+\item tick must always terminate, since otherwise the simulation would hang indefinitely
+\end{enumerate}
+
+We now explore a few common mistakes that are commonly performed when coding games by hand. Let us consider a simple game where the entities are asteroids, cannons and projectiles. We define as entities the asteroids, cannons and projectiles. The user clicks a cannon to make it shoot. Rules are:
+
+\begin{itemize}
+\item asteroids fall towards the bottom of the screen
+\item projectiles move towards the top of the screen
+\item asteroids that are hit by a projectile are destroyed
+\item projectiles that hit an asteroid are removed
+\item cannons that are hit by an asteroid are destroyed
+\item the score is incremented by one whenever an asteroid is hit by a projectile
+\item asteroids that exit the screen are removed
+\end{itemize}
+
+Behaviors are:
+
+\begin{itemize}
+\item when a cannon is clicked it shoots a projectile
+\item when the score reaches 1000 the game is won
+\item when there are no more cannons the game is lost
+\end{itemize}
+
+Let us now consider the mistakes that could be made with respect to the three constraints we have seen above (all rules are executed exactly once, rule application is order-independent and tick is strongly normalizing).
+
+If the first constraint is violated, then an asteroid, projectile or cannon may not be updated correctly or may move or collide more than once; moving more than once during the same tick would multiply an entity velocity by a value greater than one, while colliding more than once would increment the score counter too much.
+
+This constraint could be violated very easily by removing or duplicating the same entity from the entity list.
+
+To see a violation of the second constraint let us consider two possible rules in action; let us assume that rules are executed sequentially and their results are stored in place:
+
+\begin{lstlisting}
+module Asteroids =
+  (* remove asteroids which are destroyed or which are no more visible *)
+  asteroids := [a | a <- asteroids, a.Life > 0, a.InScreen]
+
+  (* increment the score by the number of destroyed asteroids *)
+  score := score + [a | a <- asteroids, a.Life <= 0].Count * 10
+
+module Projectiles =
+  (* increment the score by the number of projectiles that hit their target *)
+  score := score + [p | p <- projectiles, p.HasHit].Count
+
+  (* remove projectiles which hit an asteroid or which are no more visible *)
+  projectiles := [p | p <- projectiles, p.HasHit = false, p.InScreen]
+\end{lstlisting}
+
+If the destroyed asteroids are removed from the state before the score is updated, then the score will never be modified. Projectiles do not suffer from this problem because the score for projectile hits is registered before the hitting projectiles are removed.
+
+This kind of mistake is easy to make and can easily creep in a game, especially as the number of entity types and processing rules grows. Moreover, by splitting the effects on a field (such as \texttt{score}) in different modules it may becomes quite hard to fully understand how an entity is processed during a single tick.
+
+Violations of the last constraint are very dangerous, in that they do not produce a logical mistake but rather they would make the game hang, which is essentially the same as an application crash but even more invasive to the user who then needs to manually kill the game process (an operation that is made even harder when the game is running in fullscreen and has claimed full ownership of the graphics card).

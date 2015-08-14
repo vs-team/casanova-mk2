@@ -1,0 +1,86 @@
+In this appendix we present a novel observation: many game development problems may be already solved in a field which, at a first glance, may appear utterly unrelated: databases. The field of databases already contains a large body of relevant research works which simply needs to be studied and adopted by game developers. Casanova indeed draws much inspiration from modern database systems and tries to apply some of their wisdom to game making. The language aims at offering a series of abstractions and optimizations that allow a developer to specify only certain core aspects of a game logic and visualization, without concerning himself too much with boilerplate code such as state traversal or query optimizations, exactly in the spirit of a modern relational DBMS.
+
+Interestingly enough, Casanova is not alone in its effort. There is at least one other research effort of linking database research with game development; this work has yielded the SGL language \cite{SGL}, an experimental game development language which uses SQL queries to define the way the various entities of the game world are updated at each time-step of the simulation. SGL may be unsuitable for larger scale problems, since it offers no techniques to model the game world and entities, but the underlying optimizations and expressivity of the framework are undeniably powerful and require virtually no effort on the part of the game developer in order to obtain important speedups.
+
+
+\section{The Game World}
+The logical simulation of a game starts at the first step of the creation of a new database: modeling (or conceptual schema definition). A game consists, at its core, of a series of concepts and their relationships. These describe the semantics of a game world and represent a series of assertions about its nature. Specifically, these concepts describe the things of significance to the game, about which we are inclined to collect information, and characteristics of (attributes) and associations between pairs of those entities (relationships). Most entities are in the plural, and thus require being stored in tables or collections.
+
+After defining the data model of the game world, game developers must define the dynamics of the game, that is how each game entity is updated at every tick of the game loop. The game dynamics are, at the core, a series of rules that define how each entity (or, better, each attribute of each entity) is updated during each tick. A major point of difference between games and databases lies in the frequency of the dynamics of the system: the game world is updated about once every sixtieth of a second to achieve a smooth simulation, instead of waiting for user-initiated events; indeed, a large number of changes in the game world are entirely automated and occur even without direct user interaction over time, for example because of physics or AI.
+
+Some of the game dynamics simply require to update "small" values, such as a position and a velocity from a velocity and acceleration respectively. Other game dynamics require more sophistication. For example, rules may be used to populate lists or other composite data-structures according to complex, deeply nested computations.
+
+Certain attributes of a Casanova game entities store "pointers" to other game entities. These attributes are marked as \texttt{ref}, thereby representing referential constraints (foreign keys) \cite{DATABASE_SYSTEM_IMPLEMENTATION} between different entities; with references we define attributes which contents are not to be updated during a tick.
+
+Rules are treated as transactional operations \cite{APPENDIX_D_11} in order to ensure the consistency of the game world. This means that all rules are evaluated on the game world at a certain time-step and then all their results are written, at the same time, into the new game world. This way all rules behave in a predictable way and no rule ever "sees" the game world halfway between different ticks of the simulation. Moreover, this enables a very important optimization: evaluating rules in parallel with different threads so as to speed up the simulation, thus freeing computational power to animate more entities or use more complex algorithms.
+
+Rules that recompute lists or collections also present an additional optimization opportunity on operations that compute a Cartesian product between two lists, which if it were naïvely computed would have quadratic complexity. By using optimization techniques such as a hash-join or similar the complexity becomes much lower. Our benchmarks \cite{APPENDIX_D_7} suggest improvements of an order of magnitude in the run-time efficiency of the entire simulation when applying query optimization techniques. Moreover, this process of optimization could be entirely optimized, whereas game developers still write such faster algorithms by hand every time they encounter the problem \cite{APPENDIX_D_HANDMADE_OPTIMIZATION_IN_GAMES}.
+
+Rules and queries are not always the best abstraction to represent the way a game world evolves itself over time. For this reason we have added to Casanova a scripting system, which is decidedly akin to a system of triggers and stored procedures (where triggers may also be timers or user actions).
+
+
+\section{Persistency, Saving Games \\ and Multiplayer Games}
+A game world requires some persistency. Persistency comes into play both in single-player games and multi-player games. Single-player games require persistency because the overall playing experience of a game takes longer than a single play session, and so the game state requires serialization on persistent memory. This process, known as \textit{save and load} allows a player to suspend the current state of the game on disk, in order to be able to resume playing the game later without losing his progress.
+
+A more complex case where the game world is persistent is that of multiplayer games. Multiplayer games have two different sets of problems to tackle: \textit{(i)} synchronizing the game world in real-time between different clients; and \textit{(ii)} reliably storing a persistent world and all the players’ data.
+
+Synchronization of the game world between many clients and the game server (or host) must happen in real-time, but each client needs a responsive experience. For this reason most modern games employ client-side prediction and lag-compensation algorithms \cite{APPENDIX_B_LATENCY_COMPENSATION}, that is all operations that need to modify the host’ game world but which are initiated locally by a client always appear to succeed on the client but are instead sent to and then validated by the host. This amounts to a form of eventual consistency \cite{APPENDIX_B_EVENTUAL_CONSISTENCY}, given that temporary misalignment is tolerated between host and client, but we offer guarantees that \textit{eventually} such a misalignment will be fixed by the system.
+
+The problem of storing a persistent, huge world for many players (massively multiplayer games such as EVE or World of Warcraft feature up to tens of thousands of concurrent active players) requires hybrid in-memory/on-disk databases with very quick access and supporting up to hundreds of thousands of concurrent accesses. To reduce the scope of these technical challenges the game world is sometimes segmented into different copies of the world, grouping players by geographical region, but other games such as EVE Online feature different techniques such as a hierarchical structure of distributed servers to avoid segmentation and offer a single persistent game world.
+
+
+% todo: write from the wiki pieces
+\begin{comment}
+\section{Match-making}
+In multiplayer video games, matchmaking is the process of connecting players together for online play sessions.
+
+TrueSkill is a Bayesian ranking algorithm developed by Microsoft Research and used in the Xbox matchmaking system built to address some perceived flaws in the Elo rating system. It is an extension of the Glicko rating system to multiplayer games.[1][2]
+
+TrueSkill maintains a belief on the skill of each player; every time a player plays a game, the system accordingly changes the perceived skill of the player and acquires more confidence about this perception.
+
+Published formulas for Trueskill are not complete, and some needed functions are simply shown as graphs. Some of the math is spelled out in the paper.
+
+A player's skill is represented as a normal distribution  characterized by a mean value of  (mu, representing perceived skill) and a variance of  (sigma, representing how much "confidence" the system has in the player's  value). As such  can be interpreted as the probability that the player's "true" skill is .
+
+On Xbox Live, players start with  and ;  always increases after a win and always decreases after a loss. The extent of actual updates depends on each player's  and on how "surprising" the outcome is to the system. Unbalanced games, for example, result in either negligible updates when the favorite wins, or huge updates when the favorite loses surprisingly.
+
+Factor graphs are used to "pack up" each team into  pairs on which the update formulas are run; the skill updates are then correctly distributed to each player.
+
+Player ranks are displayed as the conservative estimate of their skill, . This is conservative, because the system is 99\% sure that the player's skill is actually higher than what is displayed as their rank.
+
+The system can be used with arbitrary scales, but Microsoft uses a scale from 0 to 50 for Xbox Live. Hence, players start with a rank of . This means that a new player's defeat results in a large sigma loss, which partially or completely compensates their mu loss. This explains why people may gain ranks from losses.
+
+Another challenge that multiplayer games face is that of making use of the huge amount of data that can be gathered from players’ behavior through data-mining techniques. A common instance of this is the match-making problem \cite{APPENDIX_D_13}: given the preferences of the players who are currently waiting to start a game, determine the ideal group of players who all have similar skills, low-latency between each other, similar preferences, etc. Some games even feature team-play, and so the best teams must be found automatically.
+
+
+\section{Gameplay balancing}
+In game design, balance is the concept and the practice of tuning a game's rules, usually with the goal of preventing any of its component systems from being ineffective or otherwise undesirable when compared to their peers. An unbalanced system represents wasted development resources at the very least, and at worst can undermine the game's entire ruleset by making important roles or tasks impossible to perform.[1]
+
+Balancing and fairness
+
+Balancing does not necessarily mean making a game fair. This is particularly true of action games: Jaime Griesemer, design lead at Bungie, said in a lecture to other designers that "every fight in Halo is unfair".[2] This potential for unfairness creates uncertainty, leading to the tension and excitement that action games seek to deliver.[3][4][1]
+
+In these cases balancing is instead the management of unfair scenarios, with the ultimate goal of ensuring that all of the strategies which the game intends to support are viable.[2] The extent to which those strategies are equal to one another defines the character of the game in question.
+
+Simulation games can be balanced unfairly in order to be true to life. A wargame may cast the player into the role of a general who was defeated by an overwhelming force, and it is common for the abilities of teams in sports games to mirror those of the real-world teams they represent regardless of the implications for players who pick them.
+
+[edit]Difficulty level
+
+Digital games often allow players to influence their balance by offering a choice of "difficulty levels".[5] These affect how challenging the game is to play.
+
+In addition to altering the game's rules, difficulty levels can be used to alter what content is presented to the player. This usually takes the form of adding or removing challenging location or events, but some games also change their narrative to reward players who play them on higher difficulty levels (Max Payne 2) or end early as punishment for playing on easy (Castlevania).
+
+Difficulty selection is not always presented bluntly, particularly in competitive games where all players are affected equally and the standard "easy/hard" terminology no longer applies. Sometimes veiled language is used (Mario Kart offers "CC select"), while at other times there may be an array of granular settings instead of an overarching difficulty option.
+
+An alternative approach to difficulty levels is catering to players of all abilities at the same time, a technique that has been called "subjective difficulty".[6] This requires a game to provide multiple solutions or routes, each offering challenges appropriate to players of different skill levels (Super Mario Galaxy, Sonic Generations).
+
+Difficulty can also be managed by a third party or the game itself; see the Gamemaster section below.
+
+[edit]Pacing
+
+Balancing goals shift dramatically when players are contending with the game's environment and/or non-player characters. Such player versus environment games are usually balanced to tread the fine line of regularly challenging players' abilities without ever producing insurmountable or unfair obstacles.[4] This turns balancing into the management of dramatic structure,[3] generally referred to by game designers as "pacing".
+
+Pacing is also a consideration in competitive games, but the autonomy of players makes it harder to control.
+
+Similarly, game developers often need to understand the preferences of their players or if there are certain conditions in the game that favor certain players, in order to maintain a fun, balanced and fair experience for everyone. Discriminating useful patterns from previous games logs requires the ability to wade through huge data bases to make sense of their information. This can be achieved with data-mining techniques for the study of trajectories of data or clusters of user preferences.
+\end{comment}

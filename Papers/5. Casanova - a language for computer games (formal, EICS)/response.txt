@@ -1,0 +1,20 @@
+Relevance to EICS
+Our proposal is a domain-specific language oriented to game development, which we believe conforms to many conference topics as well as to interactive systems in the wider sense.
+
+Originality of the contribution
+This paper contains some similarities with our paper on the design of Casanova because it is indeed an evolution of it, being a formal specification of the language constructs, type system and translation semantics..
+Such a specification is a very important step in the process of designing a language - and one that requires a fairly large effort to produce - because:
+- It is a universal practice when designing a language of the ML family to provide a formal framework over which to reason [1,2]; this has been done also for industrial ML-based languages such as F#, and for other academic languages as in [3,4].
+- We need to ensure our language users are relying on a bug-free language; in the game development area this is quite novel. A formalization expresses clearly what can be expected from the language, and it also lets the language designers to reason on formal properties such as safety, soundness, etc.
+This paper also features a new study of possible optimizations, a quantitative assessment of their impact on game performance, a new description of input management, and preliminary ideas on integrated rendering and networking.
+Given these considerations, the fully original work in this paper ranges from page 3 (sec 4.1) to page 7 (4.3) and then pages 8 and 9. This amounts to 60% of the paper, or 66% if we exclude the references page; enough to conform to the ACM requirements.
+
+Benchmarks
+The gains are compared on a 1.6 GHz Core 2 Duo CPU with an nVidia GeForce 320M GPU. Each optimization is compared against the un-optimized program to show its effectiveness. Further benchmarks that compare our system with existing engines are underway.
+
+References
+1 Milner, Robin et al. The Definition of Standard ML
+2 Pierce, Benjamin. Types and Programming Languages
+3 Faxén, Karl-Filip. A static semantics for Haskell
+4 Jones, Mark P. Typing Haskell in Haskell
+

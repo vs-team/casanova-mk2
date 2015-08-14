@@ -1,0 +1,182 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% query definition and execution.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Query operators are not defined as a variant type. Rather, we define query operators as all those types which can be converted to a list. The type predicate that characterizes queries is the following:
+
+\begin{lstlisting}
+class Query q where
+  type Elem q :: *
+  run_query :: q -> [Elem q]
+\end{lstlisting}
+
+A type $q$ that represents a query that returns elements of type $Elem\ q$ can be converted (``executed" or ``run") by producing a list of elements of type $Elem\ q$. $Elem$ is a type function (a function from types to types []) while $run_{-}query$ is an actual function that is defined for all those types $q$ for which the predicate $Query\ q$ holds.
+
+The first query operators that we support are:
+\begin{itemize}
+\item projection (``select")
+\item filtering (``filter")
+\item joining (``join")
+\end{itemize}.
+
+All these operators will have their instances of the $Query$ predicate. An additional instance will be given for relations, that is for simple lists:
+
+\begin{lstlisting}
+instance Query [a] where
+  type Elem [a] = a
+  run_query l = l
+\end{lstlisting}
+
+A projection simply takes a source query and the fields to be selected.
+\begin{lstlisting}
+type Select source fields = Select source fields
+\end{lstlisting}
+
+A projection is a query when its source is a query and its fields represent a proper subset of the element of the source query:
+\begin{lstlisting}
+instance (Query source, Subset fields (Elem source)) => 
+          Query (Select source fields) where
+  type Elem (Select source fields) = 
+       Project fields (Elem source)
+  run_query (Select source fields) = 
+       run_query source |> map (project fields)
+\end{lstlisting}
+
+The projection operation requires a valid fields parameter; such a field must be a tuple of type-level naturals. When the fields tuple is empty, then we say that the projection of no fields of any tuple is the empty tuple:
+\begin{lstlisting}
+instance Tuple value => Subset () value where
+  type Project () value = ()
+  project () value = ()
+\end{lstlisting}
+
+When we have at least one field index to pick (the inductive case of projecting just one element), then we can say:
+\begin{lstlisting}
+instance (Natural n, Tuple value, 
+          n < Length value, Subset ns value) => 
+          Subset (n, ns) value where
+  type Project (n, ns) value = 
+       Nth n value , Project ns value
+  project (n, ns) value = 
+       nth n value, project ns value
+\end{lstlisting}
+
+Notice that we are assuming the existence of a series of predicates for determining whether or not a type variable is bound to:
+\begin{itemize}
+\item a type-level numeral ($Natural$ predicate)
+\item a tuple ($Tuple$ predicate)
+\end{itemize}.
+We also assume a predicate for comparing two type-level naturals ($<$); the $Length$ type function is available on $value$ since it is true that $Tuple\ value$. Finally, we freely use the comma operator for building and decomposing inductively defined tuples.
+
+Filtering queries require a source to be filtered and a statically known condition:
+\begin{lstlisting}
+type Filter source pred = Filter source pred
+\end{lstlisting}
+
+A filter is a proper query when its source is a query and its condition is a valid predicate on the elements of the source query:
+\begin{lstlisting}
+instance (Query source, 
+          Predicate pred (Elem source)) => 
+          Query (Filter source pred) where
+  type Elem (Filter source pred) = 
+       Elem source
+  run_query (Filter source pred) = 
+       run_query source |> filter (predicate pred)
+\end{lstlisting}
+
+A predicate is a boolean expression where each possible node has a different type; let us consider a small set of operators which can be easily extended:
+\begin{lstlisting}
+type True = True
+type And a b = And a b
+type Or a b = Or a b
+type Equals a b = Equals a b
+\end{lstlisting}
+
+The simplest instances that we give are for combining together the $True$, $Or$ and $And$ predicates:
+\begin{lstlisting}
+instance Predicate True value where
+  predicate True value = true
+
+instance (Predicate a value, 
+          Predicate b value) => 
+          Predicate (And a b) value where
+  predicate (And a b) value = 
+       predicate a value && predicate b value
+
+instance (Predicate a value, Predicate b value) => 
+          Predicate (Or a b) value where
+  predicate (Or a b) value = 
+       predicate a value || predicate b value
+\end{lstlisting}
+
+Another important type that we define is the item lookup; this type allows us to statically represent the lookup of the $n^{th}$ item of a tuple for comparing it with a specific value in the $Equals$ predicate:
+
+\begin{lstlisting}
+type Item n = Item n
+
+instance (Natural n, Tuple value, 
+          n < Length value, Nth n value == b, 
+          Predicate b value) => 
+          Predicate (Equals (Item n) b) value where
+  predicate (Equals (Item n) b) value = 
+       nth n value == b
+\end{lstlisting}
+
+Now we can give predicates such as:
+\begin{lstlisting}
+And(Equals(Item(0), "Joe"), Equals(Item(2), 21))
+\end{lstlisting}
+
+which can be applied to any tuple where the first item is a string and the third item is an integer.
+
+To make it easier writing conditions, we could even define type synonyms for our various predicates, such as:
+
+\begin{lstlisting}
+:&&: = And
+:||: = Or
+:==: = Equals
+\end{lstlisting}
+
+These synonyms would allow us to rewrite the above example as:
+
+\begin{lstlisting}
+(Item(0) :=: "Joe") :&&: (Item(2) :=: 21)
+\end{lstlisting}
+
+Which is quite more readable.
+
+The final query operator we define is the join operator. A join simply is constructed with two queries $q_1$ and $q_2$:
+
+\begin{lstlisting}
+type Join q1 q1 = Join q1 q2
+\end{lstlisting}
+
+A $Join$ is a query when both its parameters are queries and the elements of its sub-queries can be flattened into just one element:
+\begin{lstlisting}
+instance (Query source1, Query source2, 
+          CanFlatten (Elem source1) (Elem source2)) => 
+          Query (Join source1 source2) where
+  type Elem (Join source1 source2) = 
+       Flatten (Elem source1) (Elem source2)
+  run_query (Join source1 source2) = 
+       [flatten x y | x <- run_query source1, 
+                      y <- run_query source2]
+\end{lstlisting}
+
+The $CanFlatten$ predicate allows us to flatten the two tuples coming from the queries $source1$ and $source2$ into a single tuple:
+\begin{lstlisting}
+class CanFlatten value1 value2 where
+  type Flatten value1 value2 :: *
+  flatten :: value1 -> value2 -> Flatten value1 value2
+\end{lstlisting}
+
+We need just two predicates for flattening tuples: one for the base case of flattening an empty tuple with a non-empty tuple, and one for the inductive case:
+\begin{lstlisting}
+instance (Tuple value2) => CanFlatten () value2 where
+  type Flatten () value2 = value2
+  flatten () value2 = value2
+
+instance CanFlatten vs value2 => CanFlatten (v,vs) value2 where
+  type Flatten (v,vs) value2 = (v, Flatten vs value2)
+  flatten (v,vs) value2 = (v, flatten vs value2)
+\end{lstlisting}
+

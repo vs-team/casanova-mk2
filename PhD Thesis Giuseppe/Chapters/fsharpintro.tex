@@ -1,0 +1,230 @@
+Since game development is traditionally done with imperative programming languages belonging to the mainstream, that is C++, Java, C\#, Python, etc., we include here a brief introduction to the syntax and constructs underlying the Casanova language. This way we gently introduce unfamiliar readers with these underlying idioms. Casanova is based on a syntactic and semantic extension to the F\# language, so this introduction is valid both for Casanova basic concepts and F\# itself.
+
+The F\# language \cite{APPENDIX_F_FSHARP_MSDN} is a pragmatic functional language that guides (rather than forces, as other functional languages do) the developer towards functional idioms while still allowing him to use imperative constructs. This guidance is provided by offering shorter and cleaner syntactic constructs for immutable values, inline functions, and functional-style data-types, while variables, classes, inheritance, and other constructs are accessible but with a more verbose syntax.
+
+In Casanova we also rely heavily on an advanced feature of F\# that is known as \textit{monads} to define cooperative multi-threading and coroutines. This feature is explained by itself in Appendix \ref{chap:monads}.
+
+\section{let and fun}
+The main construct for defining values and functions in F\# is \texttt{let}. We can bind values to names by writing \texttt{let ID = EXPR}, where \texttt{EXPR} may be anything ranging from an integer, a list, a function, etc. F\# can also define expressions of function type with the syntax \texttt{fun ID -> EXPR}, and function expressions may be bound to identifiers to declare functions with the same \texttt{let} construct:
+
+\begin{lstlisting}
+let x = 5 // x is an integer
+let y = "string" // y is a string
+let l = [1..10] // l is a list of integers
+let f = fun x -> x + 1 // f is a function from int to int
+let z = f 10 // z is an integer, namely 11
+\end{lstlisting}
+
+There is also a shortcut for defining functions that shortens function declaration and binding by merging them with just one \texttt{let}:
+
+\begin{lstlisting}
+let g x = x + 1
+\end{lstlisting}
+
+F\# is a functional language. This means that functions may be passed as parameters to other functions just like any other parameter. For example, we could write a function that takes as input another one which is then integrated across an interval:
+
+\begin{lstlisting}
+let rec integrate f l u h = 
+  if l >= u then 0.0
+  else f(l) + integrate f (l+h) u h
+\end{lstlisting}
+
+Note in the above that the \texttt{integrate} function is considered to be a \textit{higher order function}, or HOF, because it takes as input a parameter of function type. Also, notice that the parameters of the integrate function are separated with spaces, instead of commas. This is known as \textit{Currying}, and it allows the passing of parameters one at a time. For example, we could define the unitary increment by only passing the \texttt{1} parameter to the \texttt{add} function:
+
+\begin{lstlisting}
+let add x y = x + y
+let incr = add 1
+\end{lstlisting}
+
+Sometimes, when we wish for all the parameters of a function to be passed together, then we use the familiar tuple-notation:
+
+\begin{lstlisting}
+let add(x,y) = x + y
+\end{lstlisting}
+
+Scoping in F\# is achieved through indentation; for example, we could define a choice function with conditionals as:
+
+\begin{lstlisting}
+let choose x =
+  if x = 0 then "zero"
+  elif x = 1 then "one"
+  elif x = 2 then "two"
+  else 
+    if x % 2 = 0 then "an even number"
+    else "an odd number"
+\end{lstlisting}
+
+which performs a cascading series of checks to return a string from an integer.
+
+Notice that, even though F\# does not require type annotations, it is not a dynamically typed language. Type annotations are inferenced by the compiler, so that the developer does not need to constantly tell the language obvious information on the types of symbols. This process is known as \textit{type inference}. Sometimes, for very complex programs, it may be needed to add type annotations, either because type inference fails or as a form of documentation. Type annotations take the form of \texttt{let ID : TYPEEXPR = EXPR}, and the compiler verifies that \textit{EXPR} is compatible with the declared type expression \texttt{TYPEEXPR}. For example, we could say:
+
+\begin{lstlisting}
+let x : int = 20
+let f : int -> int = fun a -> a * 2
+let g (b:int) : int = b + 1 
+\end{lstlisting}
+
+The compiler will check type annotations in order to ensure correctness. For example, the code below would result in a compiler error:
+
+\begin{lstlisting}
+let x : int = "20"
+\end{lstlisting}
+
+\section{Lists and sequences}
+F\# offers first-class support to lists and sequences. Lists are declared by listing a series of values between square brackets. The list that contains the integers ranging from \texttt{1} to \texttt{3} is usually defined as:
+
+\begin{lstlisting}
+let l = [1;2;3]
+let l = [1..3]
+\end{lstlisting}
+
+Lists in F\# may also be constructed with list comprehensions. List comprehensions allow us to define one or more loops that invoke the \texttt{yield} statement. Yielding adds a new value to the list. For example, we could create a list of even numbers as follows:
+
+\begin{lstlisting}
+let evens l u =  
+  [ for x = l to u do  
+      if x % 2 = 0 then
+        yield x ]
+\end{lstlisting}
+
+List comprehensions are a great way to consume other lists; for example, we could create the Cartesian product between two lists as follows:
+
+\begin{lstlisting}
+let cartesian l1 l2 =  
+  [ for x in l1 do   
+      for y in l2 do
+        yield x,y ]
+\end{lstlisting}
+
+
+Similar to lists are sequences; sequences are declared and used in the very same way as lists (writing \texttt{seq\{ ... \}} instead of \texttt{[]}), but with the important difference that they are lazy and thus their elements are not stored anywhere all together. For example, consider the following code:
+
+\begin{lstlisting}
+let cartesian_seq l1 l2 =  
+  seq{ for x in l1 do   
+         for y in l2 do
+           yield x,y }
+\end{lstlisting}
+
+Invoking \texttt{printf "\%A" (cartesian l1 l2)} has the same complexity as invoking \texttt{printf "\%A" (cartesian\_seq l1 l2)}, but the first version also allocates all the elements before printing them, while the second version does not and thus, for very long input lists, it is faster, starts printing sooner, and uses less memory.
+
+Lists and sequences may also be manipulated with the functions of the \texttt{List} and \texttt{Seq} modules respectively. These modules contain functions that transform, filter, zip, test predicates on, etc. the elements of input lists. For example, we may check if a list contains a value with the \texttt{exists} function:
+
+\begin{lstlisting}
+[1..10] |> List.exists (fun x -> x >= 5) // evaluates to true
+[1..10] |> List.exists (fun x -> x > 15) // evaluates to false
+\end{lstlisting}
+
+We refer to the official F\# documentation for the comprehensive set of such operators \cite{APPENDIX_F_FSHARP_MSDN}.
+
+
+\section{Basic type definitions}
+F\# allows the developer to group data together in tuples and lists. It commonly happens, though, that the data manipulated by a program is more structured than what can be captured by lists, tuples, and primitive types alone. For example, if we treat a 2D vector as a pair of floating point numbers, it may happen that a distracted developer swaps the two components of the pair, thereby using the y instead of the x and vice-versa. This can give way to very hard to find bugs. These problems are solved by correctly naming the portions of our data structures so that code becomes easier to read. Such a data structure is known as a \textit{record}, and is a simple but crucial data structure for organizing the thought around a piece of functionality. We declare a record as a type name and a series of labels, each with its own type: \texttt{type ID = { ID1 : TYPEEXPR; ID2 : TYPEEXPR; ... IDn : TYPEEXPR }}. For example, we could define a record to store a ball as:
+
+\begin{lstlisting}
+type Ball = {
+    Position : Vector2;
+    Velocity : Vector2;
+    Sprite   : DrawableSprite;
+  }
+\end{lstlisting}
+
+We define an expression of record type as \texttt{{ ID1 = expr1; ID2 = expr2; ... IDn = exprn}}. For example, we can create a ball as:
+
+\begin{lstlisting}
+let my_ball = 
+  {
+    Position = my_position
+    Velocity = my_velocity
+    Sprite   = my_sprite
+  }
+\end{lstlisting}
+
+We then access the items of a record with the dot operator, for example by writing \texttt{my\_ball.Position} to access a ball position.
+
+Records are little more than organized tuples where the items of a tuple are named. Sometimes it may be needed to define a datatype which can assume different shapes according to the information it represents. As an example, consider a building in an RTS which may either be a factory, an energy plant, or a research center. We model this in F\# as a \textit{discriminated union}, that is a single data type that may assume the value specified by one of its constructors. Discriminated unions are declared as \texttt{type ID = Cons1 of TYPEEXPR | Cons2 of TYPEEXPR | ... | ConsN of TYPEEXPR}. We could define our building data type as:
+
+\begin{lstlisting}
+type Building = 
+    Factory of UnitKind
+  | ResearchCenter of Research
+  | PowerPlant of int
+\end{lstlisting}
+
+Where \texttt{UnitKind} and \texttt{Research} are custom data-types that further specify what units or what research a building produces. We create an expression of a discriminated union type by writing the name of its constructor followed by the parameters for that constructor. For example, assuming that \texttt{Soldier} is a proper value of the \texttt{UnitKind} data-type, we could instance a building as:
+
+\begin{lstlisting}
+let my_building = Factory(Soldier)
+\end{lstlisting}
+
+We use discriminated unions by pattern matching them to see their shape. Pattern matching is done with the \texttt{match EXPR with} construct, which is similar to a \texttt{switch} statement but which applies to more than just elementary data types. For example, we could define a function which determines the energy output of a building as follows:
+
+\begin{lstlisting}
+let energy_yield building = 
+  match building with
+  | Factory u -> -10
+  | ResearchCenter r -> -2
+  | PowerPlant y -> y
+\end{lstlisting}
+
+
+\section{Variables}
+F\# allows the definition of values with the \texttt{mutable} keyword, that is we could define an integer \textit{variable} and modify it with the \texttt{<-} operator as follows:
+
+\begin{lstlisting}
+let mutable x = 100 // x has type integer
+x <- 10 // x has now value 10
+\end{lstlisting}
+
+Record (and class) fields may also be made mutable by writing them as:
+
+\begin{lstlisting}
+type Record = {
+    l1 : T1
+    mutable l2 : T2
+  }
+\end{lstlisting}
+
+Mutable values are somewhat limited. For example, if we pass a mutable value to a function then the function will receive it as a regular, non-modifiable value. Also, mutable values are allocated locally (on the stack or inside the data structure where they are declared) and never as pointers or references. This means that mutable values will not be captured by closure inside a function, or that when we create a list of mutable values then the list will simply copy their contents inside its various elements, which then are not mutable anymore. To be able to pass variables around and still let them retain their mutability, we can encapsulate them inside the specialized \texttt{Ref} datatype, which contains a single mutable value that is looked up with the \texttt{!} operator and assigned with the \texttt{:=} operator as in the following example:
+
+\begin{lstlisting}
+let x = ref 100 // x is a Ref<int> now, not just an integer
+print "%d" !x // print the value of x, that is 100
+x := 10 // x is now assigned to 10
+\end{lstlisting}
+
+Note that Casanova references are not variables, but rather pointers to other portions of the game world, and the same function of F\# references is performed by variables that use the \texttt{Var} data-type.
+
+\section{Units of measure}
+One last, important, feature of F\# is \textit{units of measure}. Datatypes may be designed so as to be taggable with a unit of measure that is then used to validate arithmetic operations with dimensional analysis. This comes useful in games, since many quantities represent physics-related data such as meters, meters per seconds, etc., and it also comes in handy to distinguish between the current value of an indicator (for example the health of a character) versus values that represent changes over time (for example the damage of a weapon expressed in health per second). Units of measure can be used on any type supporting them, and they are based on the same syntax used for generic type parameters:
+
+\begin{lstlisting}
+let x = 10.0<m> // x is in meters
+let v = -2.0<m/s> // v is in meters per second
+let dt = 0.1<s> // dt is in seconds
+let x' = x + v * dt // x' is in meters
+let y = x + v // COMPILER ERROR: cannot add meters and meters per second
+\end{lstlisting}
+
+Units of measure may be very useful, especially (but not exclusively) when working with physical quantities. For example, the Casanova library contains a definition of vectors that uses units of measure that make it impossible to perform physically meaningless operations such as adding a vector in meters to a vector in seconds.
+
+New units of measure may be defined in F\# as new datatypes with no definition:
+
+\begin{lstlisting}
+[<Measure>]
+type mm
+\end{lstlisting}
+
+The same attribute used for defining units of measure can be used to define regular datatypes with a unit of measure; for example, we could give a definition of 2D vectors with a unit of measure as:
+
+\begin{lstlisting}
+type Vector2<[<Measure>] 'u> = { X : float<'u>; Y : float<'u> }
+\end{lstlisting}
+
+Units of measure must be converted with explicit conversion operations; for example, we could convert a value in meters into one in kilometers as:
+
+\begin{lstlisting}
+let m_to_km x = x * 0.001<km/m>
+\end{lstlisting}
+
+where type inference would actually infer that the input value \texttt{x} is a floating point number in meters.

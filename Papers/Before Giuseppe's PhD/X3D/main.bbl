@@ -1,0 +1,111 @@
+\begin{thebibliography}{10}
+
+\bibitem{SCRIPTING_LUA}
+Games using lua as a scripting language.
+\newblock http://en.wikipedia.org/wiki/Category:Lua-scripted\_video\_games.
+
+\bibitem{UNITY_YIELD}
+Scripting in unity.
+\newblock http://unity3d.com/support/
+  documentation/ScriptReference/index.Coroutines\_26\_Yield.html.
+
+\bibitem{SCRIPTING_PYTHON}
+Bruce Dawson.
+\newblock Game scripting in python.
+\newblock http:// www.gamasutra.com/features/ 20020821/dawson\_ pfv.htm, 2002.
+\newblock Game Developers Conference Proceedings.
+
+\bibitem{GPU_GEMS_6}
+L.~H. de~Figueiredo, W.~Celes, and R.~Ierusalimschy.
+\newblock Programming advanced control mechanisms with lua coroutines.
+\newblock In {\em Game Programming Gems 6}, pages 357--369, 2006.
+
+\bibitem{OPT3}
+Jeffrey Dean, David Grove, and Craig Chambers.
+\newblock Optimization of object-oriented programs using static class hierarchy
+  analysis.
+\newblock In {\em ECOOP95  Object-Oriented Programming, 9th European
+  Conference, Denmark, August 711, 1995}, Lecture Notes in Computer Science.
+  Springer Berlin / Heidelberg.
+
+\bibitem{GAME_OO_HIERARCHY}
+Julian Gold.
+\newblock {\em Object-Oriented Game Development}.
+\newblock Pearson Addison Wesley, 2004.
+
+\bibitem{OPT1}
+T.~Kisuki, P.M.W. Knijnenburg, M.F.P. Oapos;Boyle, and H.~A.~G. Wijshoff.
+\newblock Iterative compilation in program optimization, 2000.
+
+\bibitem{X3D_TR1}
+G.~Maggiore, F.~Pittarello, and M.~Bugliesi.
+\newblock Compiling x3d for increased performance and safety.
+\newblock Technical Report 2011-6, Ca' Foscari - DAIS, 2011.
+
+\bibitem{FRIENDLY_FSHARP}
+Giuseppe Maggiore and Giulia Costantini.
+\newblock {\em Friendly F\# (fun with game programming)}.
+\newblock Smashwords.
+
+\bibitem{OPT2}
+H.~Masuhara, G.~Kiczales, and C.~Dutchyn.
+\newblock A compilation and optimization model for aspect-oriented programs.
+\newblock In {\em Compiler Construction}, volume 2622 of {\em Lecture Notes in
+  Computer Science}, pages 46--60. Springer Berlin / Heidelberg, 2003.
+
+\bibitem{MOGGI_MON}
+Eugenio Moggi.
+\newblock Notions of computation and monads.
+\newblock {\em Information and Computation}, 93:55--92, 1989.
+
+\bibitem{FSHARP}
+Don Syme.
+\newblock F\# - microsoft research.
+\newblock http://research.microsoft.com/en-us/um/cambridge/projects/fsharp/.
+
+\bibitem{SAFESCRIPTS1}
+Sam Tobin-Hochstadt and Matthias Felleisen.
+\newblock Interlanguage migration: from scripts to programs.
+\newblock In {\em Companion to the 21st ACM SIGPLAN symposium on
+  Object-oriented programming systems, languages, and applications}, OOPSLA
+  '06. ACM.
+
+\bibitem{PYTHON_COROUTINES}
+Guido Van~Rossum and Phillip Eby~J.
+\newblock Pep 342 - coroutines via enhanced generators.
+\newblock http://www.python.org/dev/peps/pep-0342/, 2010.
+
+\bibitem{COMPR_MON}
+Philip Wadler.
+\newblock Comprehending monads.
+\newblock In {\em Mathematical Structures in Computer Science}, pages 61--78,
+  1992.
+
+\bibitem{DECL_IMP}
+Philip Wadler.
+\newblock How to declare an imperative.
+\newblock {\em ACM Comput. Surv.}, 29(3):240--263, 1997.
+
+\bibitem{EFF_MON}
+Philip Wadler and Peter Thiemann.
+\newblock The marriage of effects and monads, 1998.
+
+\bibitem{SAFESCRIPTS2}
+Malcolm Wallace and Colin Runciman.
+\newblock Haskell and xml: generic combinators or type-based translation?
+\newblock {\em SIGPLAN Not.}, 1999.
+
+\bibitem{SGL}
+Walker White, Alan Demers, Christoph Koch, Johannes Gehrke, and Rajmohan
+  Rajagopalan.
+\newblock Scaling games to epic proportions.
+\newblock In {\em Proceedings of the 2007 ACM SIGMOD international conference
+  on Management of data}, SIGMOD '07, pages 31--42, New York, NY, USA, 2007.
+  ACM.
+
+\bibitem{BETTER_SCRIPTS_GAMES}
+Walker White, Christoph Koch, Johannes Gehrke, and Alan Demers.
+\newblock Better scripts, better games.
+\newblock {\em Queue}, 6:18--25, November 2008.
+
+\end{thebibliography}

@@ -1,0 +1,11 @@
+Notes and corrections:
+
+- about the link between Casanova and the problem statement, it has been emphasized in the last paragraph of 1.2
+
+- about going to the bare metal, added sentence "In the end though, Casanova is explicitly not aimed at AAA games, which are the only ones employing such aggressive optimizations techniques; for this reason Casanova emphasizes high-level abstraction at the expense of low-level optimization." to 10.3.1
+
+- about the opportunities for code optimization allowed to a developer by Casanova, Section 8.7 (Hand written optimizations) has been added from scratch
+
+- about game design patterns, added the final paragraph to 4.1
+
+- about the exclusion of UDK and Quake, it has been emphasized in 3.2.2 that they are excluded as their aim is AAA games, which we explicitly do not consider in the problem statement (our focus are indie-games and serious-games)

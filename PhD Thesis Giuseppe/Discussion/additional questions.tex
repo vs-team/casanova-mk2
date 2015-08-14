@@ -1,0 +1,112 @@
+\documentclass{beamer}
+\usetheme{Warsaw}
+\usepackage{nhtvslides}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{mathpartir}
+\lstset{language=CAML,
+basicstyle=\ttfamily\tiny,
+frame=shadowbox,
+breaklines=true,
+mathescape=true}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\begin{slide}{Failures in game development and technology}{Failures in game development have rarely been linked to issues of the development framework; the motivation link between Casanova and productivity is weakened in this respect}{
+\fontsize{8}{10}\selectfont
+\item The game \textbf{Star Wars: The Old Republic} encountered steep difficulties because of its engine. From Bioware’s James Ohlen talk at GDC 2013:
+\textit{Prior to launch, Star Wars had problems. [...] The HeroEngine in particular had extra problems; [...]
+All the basic elements of an MMO were a struggle. Building the auction house took four months and the best programmers in the company; the basic features of chat, guilds, PvP and others were still being developed throughout 2011 and took time away from innovation – meaning the team reserved their efforts for the story. This too caused problems, with the branching paths raising development costs even further, much more than the seemingly-expensive voice recording.}
+\item From a Gamasutra publishers poll: the highest cost in making games costs from developers. In particular, programmers are the most expensive employees overall. Technology is thus the central expense in making games.
+}\end{slide}
+
+\begin{slide}{Prototyping}{The link between prototyping and Casanova is not explored.}{
+\item Casanova is highly suitable for prototyping, thanks to
+\begin{itemize}
+\item rapid, highly effective development
+\item less attention to technological details
+\item readable, high-level resulting code; editable by designers (apparently, given some informal experiments)
+\item focus on automated optimization rather than manual optimization
+\item possible integration with more sophisticated game/physics engines
+\end{itemize}
+}\end{slide}
+
+\begin{slide}{To the bare metal}{How much does it take to go from the high-level to the bare metal?}{
+\item Compilation process generates (inlined) functions for:
+\begin{itemize}
+\item  update and draw
+\item game loop
+\item coroutines
+\item double buffering is implemented through arrays of length 2 for rules
+\item double buffering of Rule<List<T>> is done with arrays of length 2 containing preallocated chunks of memory
+\item drawing uses a default implementation that batches sprites and text; other implementations may be added easily
+\end{itemize}
+}\end{slide}
+
+\begin{slide}{Optimizing further}{What code optimization avenues are left open to experienced developers?}{
+\item Any, even though they are not aligned with the (implicit) style of Casanova programs, which emphasizes simplicity of code and relies on automated optimizations:
+\begin{itemize}
+\item optimizations that can fit into purely functional data structures can be applied to rules
+\item other, imperative-style, optimizations can make use of \texttt{Var<T>} and scripts
+\end{itemize}
+}\end{slide}
+
+\begin{slide}{Casanova and patterns}{How does the rule-script-draw design pattern for games compare to existing patterns used in games?}{
+\item Patterns in game design identifies \textit{design} patterns, unconcerned with implementation details. As such these patterns do not relate to the technical aspects of game development that Casanova focuses on. Examples of such patterns are:
+\begin{itemize}
+\item perceived chance of success (until the end)
+\item paper-rock-scissors
+\item (avoiding) analysis paralysis
+\item mutual/shared goals and reward
+\end{itemize}
+}\end{slide}
+\begin{slide}{Casanova and patterns}{How does the rule-script-draw design pattern for games compare to existing patterns used in games?}{
+\item Other studies, in particular \textit{Evaluation of oo design patterns in game dev}, focus on the application of traditional design patterns to games. They find that many design patterns lend themselves well to games, for example:
+\begin{itemize}
+\item strategy
+\item state (LOD)
+\item bridge (drawing a 3d model with a 2D impostor)
+\end{itemize}
+\item Industry consensus seems (informally) that a very useful design pattern is the ``component'' pattern
+}\end{slide}
+\begin{slide}{Casanova and patterns}{How does the rule-script-draw design pattern for games compare to existing patterns used in games?}{
+\item In general though, these patterns focus on some limited aspect of game development, and not on all-encompassing solutions such as those offered by Casanova. So while design patterns are a toolbox useful to build \textit{common parts} of games, Casanova is a single tool that allows to build \textit{whole} games.
+}\end{slide}
+
+\begin{slide}{Comparison with UDK}{How does Casanova compare to UDK and its scripting languages?}{
+\item Casanova is not a scripting language, that is it allows to build a full game from the ground up. UDK is a game development engine, where a limited set of the game dynamics can be parameterized through scripts.
+\item Unreal script supports interaction with the UnrealEngine graphics objects, plus (excerpt from the documentation):
+\item \textit{To provide Java-style programming simplicity, object-orientation, and compile-time error checking:}
+\begin{itemize}
+\item \textit{a pointerless environment with automatic garbage collection;}
+\item \textit{a simple single-inheritance class graph;}
+\item \textit{strong compile-time type checking;}
+\item \textit{a safe client-side execution ``sandbox''}
+\item \textit{and the familiar look and feel of C/C++/Java code.}
+\end{itemize}
+}\end{slide}
+\begin{slide}{Comparison with UDK}{How does Casanova compare to UDK and its scripting languages?}{
+\item \textit{major concepts of time, state, properties, and networking which traditional programming languages don't address.}
+\item \textit{This greatly simplifies UnrealScript code.}
+\item \textit{The major complication in C/C++ based AI and game logic programming lies in dealing with events that take a certain amount of game time to complete, and with events which are dependent on aspects of the object's state. In C/C++, this results in spaghetti-code that is hard to write, comprehend, maintain, and debug.}
+\item \textit{UnrealScript includes native support for time, state, and network replication which greatly simplify game programming.}
+}\end{slide}
+\begin{slide}{Comparison with UDK}{How does Casanova compare to UDK and its scripting languages?}{
+\item \textit{To enable rich, high level programming in terms of game objects and interactions rather than bits and pixels.}
+\item \textit{Where design tradeoffs had to be made in UnrealScript, I sacrificed execution speed for development simplicity and power.}
+\item \textit{After all, the low-level, performance-critical code in Unreal is written in C/C++ where the performance gain outweighs the added complexity.}
+\item \textit{UnrealScript operates at a level above that, at the object and interaction level, rather than the bits and pixels level}
+\item For added simplicity, Kismet is a visual, data-flow programming language used to build state machines that interact and generate new events. It is a limited, but very simple, layer built on top of UnrealScript.
+}\end{slide}
+
+\begin{slide}{Further assessment by comparison}{Expressiveness is not assessed by comparing Casanova to other frameworks over a set of game genres}{
+\item As much as it would be desirable, such a comparison would entail:
+\begin{itemize}
+\item building multiple games in Casanova *and* other languages and frameworks; this takes time that could be spent best on improving Casanova itself
+\item using existing open source implementations is problematic, as they are often built by amateur developers and with very little guarantees in terms of quality
+\item included is a comparison of tetris between Casanova, C\#, Java, C++, and Python
+\end{itemize}
+}\end{slide}
+
+\end{document}

@@ -1,0 +1,217 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% immutable.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The second implementation is based on the simple idea of executing two parallel loops: one for all the update calls and the other for all the draw calls. Of course this requires us to encode the current state of the game (the various entities and scores) in such a way that concurrent accesses are possible. To achieve this goal we do not really need to have strong synchronization between the last update and the last draw: we want the application to be robust enough so that the two loops may run at different speed without each one influencing the other. This is particularly desirable because a game that is ``GPU bound", that is a game where rendering the scene is particularly heavy, will not force the update loop to run slower while a game that has very complex logic will not be rendered too slowly.
+
+The various game screens (menu, victory and defeat) are exactly the same as before. The only changes in this implementation happen in the $GameScreen$ class. We will use a technique known as immutability. Immutability means that we will respect the contract that objects are all readonly, and modifying an object is impossible; rather we create copies of each object and said copies will incorporate the modification.
+
+The entity structure is indeed very similar to the previous one:
+\begin{lstlisting}
+struct Entity
+{
+  public float life, damage;
+  public Vector2 position, velocity;
+  public float drag;
+\end{lstlisting}
+
+The update function does not modify the entity, but rather it returns the updated entity:
+\begin{lstlisting}
+  public Entity Update(float dt)
+  {
+    var other = this;
+    other.position += velocity * dt;
+    other.velocity *= (1.0f - dt * drag);
+    return other;
+  }
+\end{lstlisting}
+
+Collision detection is identical to the previous implementation. Modifying a field of an entity returns a copy of the original entity with the field in question modified; as an example, consider the $SetLife$ method:
+\begin{lstlisting}
+  public Entity SetLife(float life)
+  {
+    var other = this;
+    other.life = life;
+    return other;
+  }
+\end{lstlisting}
+
+The state of the game is defined as a structure containing all the information pertaining to the current state of the game; notice that the $missed_{-}asteroids$ and $destroyed_{-}asteroids$ counters have not been promoted to the game state; single variables (the same could be said for $ship$, too) do not really pose challenges in terms of synchronization. Moreover, it is not a problem if a draw call draws the previous value of $missed_{-}asteroids$ and the updated value of $destroyed_{-}asteroids$, so we keep the state leaner by only including what we wish to synchronize:
+\begin{lstlisting}
+struct GameState
+{
+  public Entity ship;
+  public List<Entity> asteroids;
+  public List<Entity> projectiles;
+}
+\end{lstlisting}
+
+The $GameScreen$ class is once again derived from $DrawableGameComponent$:
+\begin{lstlisting}
+public class GameScreen : Microsoft.Xna.Framework.DrawableGameComponent
+\end{lstlisting}
+
+Its fields are of course a $GameState$ and the scoring counters:
+\begin{lstlisting}
+GameState game_state;
+int missed_asteroids;
+int destroyed_asteroids;
+\end{lstlisting}
+
+The initialize method starts by initializing the state of the game:
+\begin{lstlisting}
+missed_asteroids = 0;
+destroyed_asteroids = 0;
+
+game_state = new GameState()
+{
+  ship = new Entity()
+  {
+    damage = 50.0f,
+    life = 100.0f,
+    position = new Vector2(400, 440),
+    velocity = Vector2.Zero,
+    drag = 2.0f
+  },
+  asteroids = new List<Entity>(),
+  projectiles = new List<Entity>(),
+};
+\end{lstlisting}
+
+Rather than overriding the update function of the $DrawableGameComponent$ though, we define our own private variation that is invoked in a loop that is part of a thread. This thread is launched right away in the initialize function. The condition of the thread loop is a shared boolean variable that is set to false whenever the $GameScreen$ is disposed. Since we cannot rely anymore on a $GameTime$ value passed to the update function, we also have to perform our own timing here; we can even control the number of invocations to the update function separately, by inserting $Thread.Sleep$ calls when appropriate:
+\begin{lstlisting}
+new Thread(() =>
+{
+  var now = DateTime.Now;
+  while (running)
+  {
+    var now1 = DateTime.Now;
+    var dt = (now1 - now).TotalSeconds;
+    Update((float)dt);
+    now = now1;
+
+    if (dt < 20)
+      Thread.Sleep(30 - (int)dt);
+  }
+}).Start();
+\end{lstlisting}
+
+The update function invoked by the thread takes as input the current $\Delta\ t$ and has the job of creating a new and updated game state; we start by updating the ship. Notice that we are not modifying the ship from the current game state directly:
+\begin{lstlisting}
+var ship = game_state.ship;
+if (input.KeyboardState.IsKeyDown(Keys.Left))
+  ship.velocity -= Vector2.UnitX * dt * SHIP_VELOCITY;
+(** ... **)
+ship = ship.Update(dt);
+\end{lstlisting}
+
+We then invoke the $update_{-}entities$ function that, thanks to the use of LINQ (which allows us to query lists in an immutable fashion), allows us to obtain a \textit{lazy} collection of all the updated entities checked for collision against some other collection of entities. The laziness is a distinct advantage because generating a query does not actually allocate the resulting collection; this way we can control how and when the query will be actually executed. The asteroids are updated and checked for collisions against both the ship and the projectiles, while the projectiles are updated and checked for collisions against the asteroids:
+\begin{lstlisting}
+var asteroids = update_entities(dt, game_state.asteroids, asteroid_t,
+  game_state.projectiles.Concat(new[] { game_state.ship }), plasma_t);
+var projectiles = update_entities(dt, game_state.projectiles, plasma_t, game_state.asteroids, asteroid_t);
+\end{lstlisting}
+
+When we need to create a new projectile, then we invoke the various set functions in a cascading fashion. Then we add (still, lazily!) the new projectile to the collection of updated projectiles:
+\begin{lstlisting}
+if (this[Keys.Space])
+{
+  var p = ship.SetVelocity(-Vector2.UnitY * PROJECTILE_VELOCITY)
+              .SetLife(1.0f)
+              .SetDrag(0.0f)
+              .SetDamage(5.0f);
+  projectiles = projectiles.Concat(new[] { p });
+}
+\end{lstlisting}
+
+The same goes for generating asteroids:
+\begin{lstlisting}
+if ((float)random.NextDouble() <= ASTEROID_GENERATION_P)
+{
+  asteroids = asteroids.Concat(new[]{new Entity()
+  {
+    (** ... **)
+  }
+  });
+}
+\end{lstlisting}
+
+The state transitions are managed as we did before, by instancing and activating the proper $DrawableGameComponent$s:
+\begin{lstlisting}
+if (destroyed_asteroids >= 10)
+{
+  Game.Components.Add(new VictoryScreen(Game));
+  Game.Components.Remove(this);
+  this.Dispose();
+}
+(** ... **)
+\end{lstlisting}
+
+At this point we perform the actual execution of the queries that will return the updated asteroids and projectiles; we have to execute by hand (with a $for$ loop) the asteroids query because we have to count the removed asteroids for scoring purposes:
+\begin{lstlisting}
+var asteroids_list = new List<Entity>();
+foreach (var a in asteroids)
+{
+  if (a.life <= 0.0f)
+  {
+    if (Entity.collision(a, asteroid_t, ship, ship_t))
+      ship.life -= a.damage;
+    destroyed_asteroids++;
+  }
+  else if (a.position.Y >= ScreenHeight)
+    missed_asteroids++;
+  else
+    asteroids_list.Add(a);
+}
+\end{lstlisting}
+
+Finally, we create the new game state with the new asteroids and the new projectiles; the new projectiles can be generated directly from the query with the $ToList$ method:
+\begin{lstlisting}
+game_state = new GameState()
+{
+  ship = ship,
+  asteroids = asteroids_list,
+  projectiles = (from p in projectiles where p.life > 0.0f && p.position.Y >= - plasma_t.Height / 2 select p).ToList()
+};
+\end{lstlisting}
+
+The $update_{-}entities$ function allows us to achieve something we couldn't (at least not as easily) in the first implementation. In particular, it allows us to capture the general shape of collection traversal that is used for incorporating collisions damage into a collection of entities; gaining the capability of abstracting more and capturing more patterns is something to be valued because it greatly reduces the amount of boilerplate code:
+\begin{lstlisting}
+private IEnumerable<Entity> update_entities(float dt, 
+    IEnumerable<Entity> src1, Texture2D t1,
+    IEnumerable<Entity> src2, Texture2D t2)
+{
+  return from a in src1
+          let cs = from p in src2
+                  where Entity.collision(a, t1, p, t2)
+                  select p.damage
+          let d = cs.Sum()
+          select a.Update(dt).SetLife(a.life - d);
+}
+\end{lstlisting}
+
+The draw function simply takes the current state (after assigning it to a temporary variable, so that it will not change during the draw call) and draws it as we did before:
+\begin{lstlisting}
+public override void Draw(GameTime gameTime)
+{
+  spriteBatch.Begin();
+  var game_state = this.game_state;
+  game_state.asteroids.ForEach(a => draw(a, asteroid_t));
+  game_state.projectiles.ForEach(p => draw(p, plasma_t));
+  draw(game_state.ship, ship_t);
+
+  (** ... **)
+}
+\end{lstlisting}
+
+\subsection{Benchmarks}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

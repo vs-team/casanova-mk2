@@ -1,0 +1,72 @@
+\documentclass[a4paper]{article}
+\usepackage{anysize}
+\marginsize{1cm}{1cm}{1cm}{1cm}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc} 
+\lstset{language=haskell}
+\lstset{commentstyle=\textit}
+\lstset{mathescape=true}
+\lstset{backgroundcolor=,rulecolor=}
+\lstset{basicstyle=\ttfamily}
+%\linespread{2.0}
+
+\begin{document}
+
+\title{\bf Monadic Reference Counting}
+
+\author{Giuseppe Maggiore \quad
+		  Michele Bugliesi
+ \\ Universit\`a Ca' Foscari Venezia
+ \\ Dipartimento di Informatica 
+ \\ \{maggiore,bugliesi\}@dsi.unive.it
+}
+
+\date{}
+\maketitle
+
+\begin{abstract}
+In this paper we show how a powerful memory and resource management technique such as reference counting can be implemented transparently as a library through the use of monads. While this is interesting in itself, since garbage collectors are not always the best choice for all programs, our paper also shows how the bind and return operators can be used to correctly identify the lifetime of resources and references. Finally, we discuss how with a powerful enough type system and the use of a parameterized monad we can track various interesting properties about the state of stateful computations. In our case we track the set of resource-types that the program handles, but we argue that in other cases this technique could be used to track even more complex and interesting properties.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\input{intro} 
+
+\section{State Monad}
+\label{sec:state_monad}
+\input{state_monad} 
+
+\section{Reference}
+\label{sec:reference}
+\input{reference} 
+
+\section{Bind, return and lifetime}
+\label{sec:scoping_state_monad}
+\input{scoping_state_monad} 
+
+\section{Parametrized state monad}
+\label{sec:parametrized_state_monad}
+\input{parametrized_state_monad} 
+
+\section{Related work}
+\label{sec:related_work}
+\input{related_work} 
+
+\section{Conclusions and future work}
+\label{sec:conclusions}
+\input{conclusions} 
+
+\bibliographystyle{plain}
+\bibliography{references} 
+\cite{*}
+\nocite{}
+
+\end{document}

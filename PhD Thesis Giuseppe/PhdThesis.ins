@@ -1,0 +1,49 @@
+%% Installation batch file for the class PhdThesis to use with LaTeX2e
+%%
+%% This system is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+\input docstrip.tex
+\askforoverwritefalse
+\keepsilent
+\preamble
+
+Copyright (C) 1995-2012 Marco Comini <comini@dimi.uniud.it>.
+
+This class is the Phd Thesis format of the Computer Science Deartment of 
+the Pisa and Udine Universities -- Italy.
+
+This class is distributed in the hope that it will be useful, but WITHOUT 
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+FITNESS FOR A PARTICULAR PURPOSE.
+
+Direct use of code from this class in another class which is either sold 
+for profit, or not made freely available, is explicitly forbidden by the 
+author.
+
+\endpreamble
+\Msg{***********************************************************}
+\Msg{** Welcome to the installation of the `PhdThesis' class.}
+\Msg{***********************************************************}
+\generate{\file{PhdThesis.cls}{\from{PhdThesis.dtx}{class}}
+		  \file{PisaMstThesis.sdf}{\from{PhdThesis.dtx}{sdf,Pisa,Mst}}
+		  \file{PisaPhdThesis.sdf}{\from{PhdThesis.dtx}{sdf,Pisa,Phd}}
+          \file{SienaPhdThesis.sdf}{\from{PhdThesis.dtx}{sdf,Siena,Phd}}
+          \file{UdineBachThesis.sdf}{\from{PhdThesis.dtx}{sdf,Udine,Bach}}
+          \file{UdineMstThesis.sdf}{\from{PhdThesis.dtx}{sdf,Udine,Mst}}
+          \file{UdinePhdThesis.sdf}{\from{PhdThesis.dtx}{sdf,Udine,Phd}}
+          \file{UdinePhdThesisCR.sdf}{\from{PhdThesis.dtx}{sdf,Udine,Phd,CR}}
+          \file{ValenciaBachThesis.sdf}{\from{PhdThesis.dtx}{sdf,Valencia,Bach}}
+          \file{ValenciaMstThesis.sdf}{\from{PhdThesis.dtx}{sdf,Valencia,Mst}}
+          \file{ValenciaPhdThesis.sdf}{\from{PhdThesis.dtx}{sdf,Valencia,Phd}}
+          \file{VeneziaPhdThesis.sdf}{\from{PhdThesis.dtx}{sdf,Venezia,Phd}}
+}
+\Msg{************************************************************************}
+\Msg{** To finish the installation move `PhdThesis.cls' plus all the files}
+\Msg{** `.sdf', `.eps' and `.pdf' to a place where LaTeX will find it.}
+\Msg{** Then to get the documentation:}
+\Msg{**   `pdflatex PhdThesis.dtx && makeindex -s PhdThesis.ist PhdThesis &&}
+\Msg{      pdflatex PhdThesis.dtx && pdflatex PhdThesis.dtx'}
+\Msg{** Happy TeXing}
+\Msg{************************************************************************}
+\endbatchfile

@@ -1,0 +1,63 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{caption}
+\author{}
+\title{Lazy waiting: an optimized data-flow compiler for Casanova}
+\date{}
+
+\lstset
+{
+	breakatwhitespace = true,
+	breaklines = true
+	showstringspaces = false,
+	basicstyle = \footnotesize\ttfamily ,
+	frame = single
+}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+\input{introduction}
+
+\section{Case study}
+\label{sec:problem_statement}
+\input{problem}
+
+\section{Casanova overview}
+\label{sec:casanova}
+\input{casanova}
+
+\section{Concurrent operators}
+\label{sec:idea}
+\input{idea}
+
+\section{Operators optimization}
+\label{sec:details}
+\input{details}
+
+\section{Evaluation}
+\label{sec:evaluation}
+\input{evaluation}
+
+\section{Related works}
+\label{sec:related_works}
+\input{related_works}
+
+\section{Future works}
+\label{sec:future_works}
+\input{future_works}
+
+\section{Conlcusions}
+\label{sec:conclusions}
+\input{conclusions}
+
+
+\end{document}

@@ -1,0 +1,24 @@
+\frametitle{About actions}
+\begin{columns}
+\column{5cm}
+\large{C\#}
+\begin{lstlisting}
+class Ship {
+  public float Damage(World w) {
+    // use a spatial partitioning index to quickly find the
+    // adversary's ships close enough to this one to damage it
+    ...
+  }
+\end{lstlisting}
+\column{5cm}
+\large{Casanova}
+\begin{lstlisting}
+type Ship = {
+  ...
+  FightAction : TARGET Fleet
+                RESTRICTION <>Owner and
+                RADIUS < 150.0f
+                TRANSFER Life - 1.0
+}
+\end{lstlisting}
+\end{columns}

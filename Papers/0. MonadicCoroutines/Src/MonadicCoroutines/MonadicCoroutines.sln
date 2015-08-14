@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{4925A630-B079-445d-BCD4-3A9C94FE9307}") = "FSharp", "FSharp\FSharp.fsproj", "{B84069AF-FA6A-4BE7-B78A-F4F26F7F50A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "CSharp\CSharp.csproj", "{AD244001-BE96-457C-907A-26E82D363A3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD244001-BE96-457C-907A-26E82D363A3B}.Debug|x86.ActiveCfg = Debug|x86
+		{AD244001-BE96-457C-907A-26E82D363A3B}.Debug|x86.Build.0 = Debug|x86
+		{AD244001-BE96-457C-907A-26E82D363A3B}.Release|x86.ActiveCfg = Release|x86
+		{AD244001-BE96-457C-907A-26E82D363A3B}.Release|x86.Build.0 = Release|x86
+		{B84069AF-FA6A-4BE7-B78A-F4F26F7F50A8}.Debug|x86.ActiveCfg = Debug|x86
+		{B84069AF-FA6A-4BE7-B78A-F4F26F7F50A8}.Debug|x86.Build.0 = Debug|x86
+		{B84069AF-FA6A-4BE7-B78A-F4F26F7F50A8}.Release|x86.ActiveCfg = Release|x86
+		{B84069AF-FA6A-4BE7-B78A-F4F26F7F50A8}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = FSharp\FSharp.fsproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 120
+		$1.TabWidth = 2
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/plain
+	EndGlobalSection
+EndGlobal

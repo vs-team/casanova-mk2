@@ -1,0 +1,432 @@
+% http://bartoszmilewski.com/2009/10/21/what-does-haskell-have-to-do-with-c/
+% DSL Implementation in MetaOCaml, Template Haskell, and C++
+% A Comparison of C++ Concepts and Haskell Type Classes
+% C++ Template Metaprogramming with Embedded Haskell
+
+In this appendix, we discuss the conceptual prototypes that we used to define the Casanova semantic model. The ideas presented here could also be adapted in order to bring Casanova to other systems that feature similar meta-programming capabilities.
+
+We start by introducing Haskell type classes \cite{APPENDIX_E_HASKELL_TYPE_CLASSES}, which we used to understand how to explore data-types inductively to generate functions. We then outline how we could have used those for implementing Casanova, a project that we never finalized in practice because of the lack of (as perceived by us) high quality gaming libraries for Haskell. We then discuss C++ partial template specialization \cite{APPENDIX_E_PARTIAL_TEMPLATE_SPECIALIZATION}, a meta-programming feature that we have used to build a working prototype of Casanova in C++, together with a sample game for testing purposes.
+
+At a first glance, it may appear peculiar that C++ templates and Haskell type classes are lumped together in the same appendix. Interestingly though, there is evidence \cite{APPENDIX_E_TYPE_CLASSES_VS_TEMPLATES} that the expressive power of Haskell type classes may be matched by that of C++ templates with partial specialization. The biggest difference between the two may be that C++ templates do not offer a way to name the predicates that a type parameter must satisfy in order to be used in a given class (concepts \cite{APPENDIX_E_CONCEPTS} were proposed but then removed from the latest standard of the language). From our point of view this means that C++ offers a less constrained version of the same functionality, with more freedom to express complex patterns \footnote{without resorting to hacks such as some auxiliary type predicates as used in \cite{APPENDIX_E_HLISTS}}, but also with more problems associated to unforeseen interactions between different libraries.
+
+
+\section{Haskell and type classes}
+Type classes are constraints that are added to type variables in parametric polymorphic types. Such constraints are in the form \texttt{C a}, where \texttt{C} is a type class and \texttt{a} is a type variable. The constraint is such that all the operations that \texttt{C} defines must be supported by any type \texttt{a} that is used to instantiate the polymorphic type. This amounts to a form of ad-hoc polymorphism \cite{APPENDIX_E_AD_HOC_POLYMORPHISM}.
+
+A very simple usage of type classes, and historically one of their first uses in the Haskell programming language, was that of implementing overloaded arithmetic and equality operators without recurring to ad-hoc implementations such as the "eqtypes" of Standard ML. Type classes are now used in many different contexts beyond their original uses \cite{APPENDIX_E_USES_OF_TYPE_CLASSES}.
+
+\subsection{Overview}
+A type class is defined as a set of function or constant declarations, in the form of name and type pairs. The type class then represents a set of actual types that all support \textit{at least} those functions and constants.
+
+For example, we know that the equality class requires that a certain type supports the \texttt{(==)} equality operator. We define such class as:
+
+\begin{lstlisting}
+class Eq a where
+  (==) :: a -> a -> Bool
+\end{lstlisting}
+
+We could define integers as belonging to the equality type class by instancing the type class on the integer data-type and providing an implementation for the equality operator that explicitly uses the integer equality function:
+
+\begin{lstlisting}
+instance Eq Integer where 
+  x == y  =  integerEq x y
+\end{lstlisting}
+
+Type classes may also be used inductively; for example, given the definition for a binary tree, we may define equality for a tree in terms of the equality of its elements:
+
+\begin{lstlisting}
+instance (Eq a) => Eq (Tree a) where 
+  Leaf a         == Leaf b          =  a == b
+  (Branch l1 r1) == (Branch l2 r2)  =  (l1==l2) && (r1==r2)
+  _              == _               =  False
+\end{lstlisting}
+
+This ability to define type classes for parametric types in terms of the same classes applied to their parameters proves crucial in implementing Casanova.
+
+
+\subsection{Advanced uses}
+Type classes may operate on types of any kind \footnote{In type theory, a kind is the type of a type constructor. A kind system is essentially a simply typed lambda calculus "one level up", endowed with a primitive type, denoted \texttt{*} and called "type", which is the kind of any data type. \cite{APPENDIX_E_KIND}}, not just \texttt{*}. For example, the monad type class works on types of kind \texttt{* -> *}, such as \texttt{List}, \texttt{Maybe}, etc. which all expect exactly one type parameter:
+
+\begin{lstlisting}
+class Monad m where
+  (>>=) :: m a -> (a -> m b) -> m b
+  return :: a -> m a
+\end{lstlisting}
+
+Type classes can also be used with multiple type parameters, in order to define relations on types. For example, consider the definition of an algebraic multiplication system, where we want to support the following multiplication operations between matrices, vectors, and numbers:
+
+\begin{lstlisting}[language=Haskell]
+(*) :: Matrix -> Matrix -> Matrix
+(*) :: Matrix -> Vector -> Vector
+(*) :: Matrix -> Int -> Matrix
+(*) :: Int -> Matrix -> Matrix
+...
+\end{lstlisting}
+
+We may define a type class for this scenario as follows:
+
+\begin{lstlisting}[language=Haskell]
+class Mult a b c where
+  (*) :: a -> b -> c
+ 
+instance Mult Matrix Matrix Matrix where
+  {- ... -}
+ 
+instance Mult Matrix Vector Vector where
+  {- ... -}
+\end{lstlisting}
+
+Unfortunately we are missing an important aspect of the multiplication operator: the third parameter \textit{is determined} by the first two, without ambiguity. We can state this in Haskell by specifying the dependencies between the type parameters:
+
+\begin{lstlisting}[language=Haskell]
+class Mult a b c | a b -> c where
+  (*) :: a -> b -> c
+\end{lstlisting}
+
+Similarly, type families \cite{APPENDIX_E_TYPE_FAMILIES} allow us to define type-level computations that are performed at compile time. This may be used by a Casanova implementation to define the decorated version of the user-provided type for the game world with additional attributes for rendering, networking, etc.
+
+
+\subsection{Casanova in Haskell, a sketch}
+%Comparing Approaches to Generic Programming in Haskell, Ralf Hinze, Johan Jeuring, and Andres Löh
+
+Casanova requires us to apply functions such as \texttt{update} and \texttt{draw} generically to all data types. This requires a uniform representation of data types. Except for basic predefined types such as \texttt{Float}, \texttt{IO}, and \texttt{->}, every data type can be viewed as a labeled sum of possibly labeled products \cite{APPENDIX_E_STRUCTURE_REPRESENTATION}. We can thus define a series of data-types for this encoding that distinguish between sums and products of types with the possible addition of labels:
+
+\begin{lstlisting}
+data a :+: b = Inl a | Inr b
+data a :*: b = a :*: b
+data Unit = Unit
+data Con a = Con a
+data Label a = Label a
+\end{lstlisting}
+
+Notice that in Haskell a type constructor may be in operator form, so the above has defined two new parametric data types which are named \texttt{:+:} and \texttt{:*:}. We can now define arbitrary data-types in terms of the above definitions; for example, we may write lists or trees as:
+
+\begin{lstlisting}
+type List' a = Con Unit :+: Con (a :*: (List a))
+type Tree' a = Con Unit :+: 
+               Con a :+: 
+               Con (Tree a :*: (a :*: Tree a))
+\end{lstlisting}
+
+The set of types that can be defined with explicit structure-representation is isomorphic \cite{APPENDIX_E_STRUCTURE_REPRESENTATION} to the set of types, as witnessed by a so-called embedding-projection pair that is capable of converting values of a type into values of its structure-representation type and vice-versa. The embedding projection functions are the inverse of each other.
+
+For example, for the List data type we can define the conversion functions as:
+
+\begin{lstlisting}
+fromList :: List a -> List' a
+fromList Nil = Inl (Con Unit)
+fromList (Cons a as) = Inr (Con (a :*: (fromList as)))
+
+toList :: List' a -> List a
+toList (Inl (Con Unit)) = Nil
+toList (Inr (Con (a :*: as))) = Cons a (to List as)
+\end{lstlisting}
+
+Variants of Haskell, such as the Generic Haskell compiler, can automatically generate the translation of a type to its structure-representation type, together with the corresponding embedding-projection pair \cite{APPENDIX_E_GENERIC_HASKELL}.
+
+We can use instances on the structure-representation constructors to define, for example, the \texttt{update} function in Casanova so that the world is traversed one field at a time, treating separately Casanova references and rules. The world is represented by type parameter \texttt{w}, while entities are represented by type parameters that begin with \texttt{e}:
+
+\begin{lstlisting}[language=Haskell]
+update{|w :: *|} :: 
+  (update{|e|}) => w -> e -> float -> e
+
+update{|Unit|} w Unit dt = Unit
+update{|Int|} w x dt = x
+update{|Char|} w c dt = c
+update{|Rule e|} w (Rule e r) dt = 
+  Rule((r w (update{|e|} w e dt) dt) r)
+update{|Ref e|} w (Ref e) dt = Ref e
+
+update{|e1 :+: e2|} w (Inl e1) dt = 
+  Inl(update{|e1|} w e1 dt)
+update{|e1 :+: e2|} w (Inr e2) dt = 
+  Inr(update{|e2|} w e2 dt)
+
+encode{|e1 :*: e2|} w (e1 :*: e2) dt = 
+  update{|e1|} w w1 dt :*: update{|e2|} w w2 dt
+
+update{|Label l e|} w (Label e) dt = 
+  update{|e|} w e dt
+update{|Con c e|} w (Con e) = 
+  update{|e|} w e dt
+\end{lstlisting}
+
+Notice that in the above, the \texttt{update} function takes as input the game world and the current entity to be updated. The concrete update function is chosen first by the type of the entity (this choice happens statically at compile time), and secondly by the value of the entity in those cases where it may have multiple shapes, thus most notably when \texttt{e} is a sum type. When we encounter a rule, then we apply the function associated with that rule to the world (which is recursively passed on to all leaves) and to the update version of the current rule value itself.
+
+Similarly we can define the draw function, which we omit as it is almost identical, the main difference being that instead of applying rules it stores the list of active layers, to which it adds the various entities. The list of layers found in the game world is then drawn to screen.
+
+Noticeably, Casanova scripts can be implemented in Haskell with the very same monadic structure that we have described in the main work. We omit this one as well, in this case not because of its triviality (we argue monadic coroutines to not be trivial at all), but because the monad presented in F\# can be easily translated into its Haskell equivalent.
+
+
+\section{C++ and partial template specialization}
+Partial template specialization is used to specialize only some arguments in a class template. Alternatively, partial specialization may refer to the ability to specialize a class for certain values or shapes of some type arguments. This is opposed to explicit specialization of all arguments at the same time.  The choice of which specialization of a class to consider is done through pattern matching on the known arguments, choosing the more specific specialization possible at every step.
+
+Partial specialization is solved recursively; this means that templates may implement arbitrarily complex control flow structures such as conditionals, recursion, etc. Templates are so expressive that they form a Turing Complete programming language that is wholly executed at compile time \cite{APPENDIX_E_TEMPLATES_TURING_EQUIVALENCE}. Interestingly, the language they represent is a pure functional language with no side effects \cite{APPENDIX_E_TEMPLATES_ARE_PURE_FUNCTIONS}.
+
+For example, we could define a simple class that, through partial specialization, computes at compile time the factorial of a number (specified at compile time):
+
+\begin{lstlisting}[language=C++]
+template <int N> struct 
+Factorial {
+  static const int value = N * Factorial<N - 1>::value;
+};
+ 
+// Base case via template specialization:
+ 
+template <> struct 
+Factorial<0> {
+  static const int value = 1;
+};
+\end{lstlisting}
+
+In general partial template specialization may be used to recursively explore types with pattern matching on their shape. The exploration results in methods, values, and even new data-types that are generated. All of this happens at compile-time and thus has no cost on run-time efficiency.
+
+
+\subsection{Casanova rules}
+
+Casanova in C++, at its core, makes heavy use of partial template specialization to explore recursively the data-types that make up the world. The update function is performed by the static function \texttt{EntityUpdate::Update}, which takes as input the game world, the current entity, and the time delta. The entity \texttt{e} is assumed to have a general case with a single field of the entity called \texttt{fields} which type is in structure-representation format (as described in the previous sections):
+
+\begin{lstlisting}[language=C++]
+template<class W, class E>
+struct EntityUpdater
+{
+  static void Update(W &w, E &e, float dt) 
+  {
+    FieldsUpdater<W,E,decltype(e.fields)>::Update(w, e, e.fields, dt);
+  }
+};
+\end{lstlisting}
+
+Since rules are only applied at the level of the entity that contains them, it is the responsibility of the \texttt{FieldsUpdater} class to invoke the rule update functions. The class applies all the rules for the contents of the entity, and then invokes the entity updater on the updated fields. For example, the update for lists or pairs is implemented as:
+
+\begin{lstlisting}[language=C++]
+template<class W, class E, class X>
+struct FieldsUpdater<W,E,std::list<X>>
+{
+  static void Update(W &w, E &e, std::list<X> &l, float dt)
+  {
+    RuleApplier0<X,W,E,std::list<X>>::ApplyRule(w,e,l,dt);
+    for(auto i = l.begin(); i != l.end(); ++i)
+      EntityUpdater<W,X>::Update(w, *i, dt);
+  }
+};
+
+template<class W, class E, class X, class Y>
+struct FieldsUpdater<W,E,tuple2<X,Y>>
+{
+  static void Update(W &w, E &e, tuple2<X,Y> &f, float dt)
+  {
+    RuleApplier0<X,W,E,tuple2<X,Y>>::ApplyRule(w,e,f,dt);
+    RuleApplier1<Y,W,E,tuple2<X,Y>>::ApplyRule(w,e,f,dt);
+    EntityUpdater<W,X>::Update(w, f.item1, dt);
+    EntityUpdater<W,Y>::Update(w, f.item2, dt);
+  }
+};
+\end{lstlisting}
+
+The entity updater class is also partially specialized across the various forms supported for entities; rules, lists, pointers, etc:
+
+\begin{lstlisting}[language=C++]
+template<class W, class E>
+struct EntityUpdater<W,Rule<E>>
+{
+  static void Update(W &w, Rule<E> &e, float dt) 
+  {
+    EntityUpdater<W,E>::Update(w, *e, dt);
+  }
+};
+
+template<class W, class E>
+struct EntityUpdater<W,Reference<E>>
+{
+  static void Update(W &w, Reference<E> &e, float dt) {}
+};
+
+template<class W>
+struct EntityUpdater<W, int> 
+{ static void Update(W &w, int e, float dt) {} };
+
+template<class W, class E>
+struct EntityUpdater<W, ptr<E>>
+{
+  static void Update(W &w, ptr<E> &e, float dt) 
+  {
+    EntityUpdater<W,E>::Update(w, *e, dt);
+  }
+};
+
+template<class W, class E>
+struct EntityUpdater<W, list<E>>
+{
+  static void Update(W &w, list<E> &e, float dt) 
+  {
+    for(auto i = e.begin(); i != e.end(); ++i)
+      EntityUpdater<W,E>::Update(w, *i, dt);
+  }
+};
+
+template<class W, class E1, class E2>
+struct EntityUpdater<W, tuple2<E1,E2>>
+{
+  static void Update(W &w, tuple2<E1,E2> &e, float dt) 
+  {
+    EntityUpdater<W,E1>::Update(w, e.item1, dt);
+    EntityUpdater<W,E2>::Update(w, e.item2, dt);
+  }
+};
+\end{lstlisting}
+
+
+\subsection{Casanova scripts}
+Coroutines are implemented with separate classes for each operator supported: from \texttt{return}, to \texttt{yield}, to \texttt{parallel} and so on. All such classes also implement an interface that represents a generic script so that different scripts may also be lumped together by casting them to a common base type; if static information is available though, script execution is inlined by the compiler and may be faster.
+
+The common interface is name \texttt{IEventually} and represents a generic computation that will, eventually, return a result of type \texttt{A} after repeated invocations of the \texttt{Step} method. The computation may be restarted with the \texttt{Reset} method:
+
+\begin{lstlisting}[language=C++]
+template<class A>
+struct IEventually {
+  virtual Option<A> Step() = 0;
+  virtual void Reset() = 0;
+};
+\end{lstlisting}
+
+We return a result with the \texttt{Result} class:
+
+\begin{lstlisting}[language=C++]
+template<class A>
+struct Result : public IEventually<A> {
+  typedef A Returned;
+
+  A x;
+  Result() {}
+  Result(const A& x) : x(x) {}
+  virtual Option<A> Step() { return Option<A>(x); }
+  virtual void Reset() {}
+};
+\end{lstlisting}
+
+Similarly, \texttt{Yield} returns a result of type unit, but requires exactly two separate invocations of the \texttt{Step} method to do so:
+
+\begin{lstlisting}[language=C++]
+struct Yield : public IEventually<Unit> {
+  typedef Unit Returned;
+
+  bool done;
+  Yield();
+  Option<Unit> Step();
+  virtual void Reset() { done = false; }
+};
+\end{lstlisting}
+
+Most of the work done by our coroutine system though is performed by the sequentialization operator, called \texttt{Combine} (a variation of \texttt{bind}):
+
+\begin{lstlisting}[language=C++]
+template<class A, class B, class P, class K>
+struct Combine : public IEventually<B> {
+  typedef B Returned;
+
+  bool prog_done;
+  P prog;
+  K cont;
+  Combine() {}
+  Combine(const P& prog, const K& cont) : prog_done(false), prog(prog), cont(cont) {}
+
+  virtual Option<Returned> Step() {
+    if(prog_done)
+      return cont.Step();
+    else {
+      auto res = prog.Step();
+      if(res.HasValue)
+      {
+        prog_done = true;
+        return Step();
+      } else
+        return Option<Returned>();
+    }
+  }
+
+  virtual void Reset() 
+  {
+    prog_done = false;
+    prog.Reset();
+    cont.Reset();
+  }
+};
+\end{lstlisting}
+
+Notice that this version of the bind operator still takes as input a function for the continuation parameter, which will be passed as a lambda function.
+
+\subsection{Asteroids game}
+The world definition for the asteroids game defines all entities in terms of a field, called \texttt{fields}, which contains a single value of one of the predefined types such as tuple, rule, list, etc. This field is essentially the structure-representation of the entity itself. We then define properties with readable names to access the fields in a more programmer-friendly manner. Rules are named incrementally \texttt{Rule0}, \texttt{Rule1}, etc. and are referred to the fields inside \texttt{field}. For example, the asteroid entity is defined as:
+
+\begin{lstlisting}[language=C++]
+struct Asteroid {
+  tuple3<Rule<Vector2>, Vector2, Rule<ref<list<weak_ptr<Projectile>>>>> fields;
+  ptr<DrawableModel<PositionRule, CameraRule>> appearance;
+
+  static Vector3 ModelPosition( AsteroidsGameState& world, Asteroid &a, float dt );
+  static ptr<IDrawableCamera> ModelCamera( AsteroidsGameState& world, Asteroid &a, float dt );
+
+  const GetRuleProperty<Vector2>                         Position;
+  const GetTupleField1<Rule<Vector2>, 
+                 Vector2, 
+                 Rule<ref<list<weak_ptr<Projectile>>>>>  Velocity;
+  const GetRuleProperty<ref<list<weak_ptr<Projectile>>>> Colliders;
+
+  static Vector2                     Rule0( AsteroidsGameState &s,  Asteroid &e, float dt);
+  static list<weak_ptr<Projectile>>  Rule2( AsteroidsGameState &s,  Asteroid &e, float dt);
+
+  Asteroid(Vector2 position, Vector2 velocity);
+};
+\end{lstlisting}
+
+The main script is constructed (quite verbosely) in stages, since putting all the listing together created type-inference problems with the compiler; this happened because our prototype was built under an early version of the Microsoft C++ compiler for Visual Studio that did not support all the features of C++11, since the standard was (at the time) still under construction.
+
+We define the asteroid creation script, and then the projectile creation script, and we run them together in parallel in the \texttt{entities\_creation} script. We then define the user input scripts and run them in parallel, and the input scripts plus the entities creation scripts, when run in parallel, finally become the main script for the game:
+
+\begin{lstlisting}[language=C++]
+auto asteroids_creation = 
+  repeat(
+  wait_rand(0.1f, 1.0f) >>= *([=]() { 
+  world->AddAsteroid(
+    ptr<Asteroid>(
+      new Asteroid(
+        Vector2(((rand() % 800 - 400) / 25) * 25, 400), 
+        Vector2(0,-50 - rand() % 50)))); }));
+
+auto projectiles_creation = 
+  repeat(
+  wait_condition([=]() { return !KeyboardState::IsKeyDown(VK_SPACE); }) >>=
+  wait_condition([=]() { return KeyboardState::IsKeyDown(VK_SPACE); }) >>= *[=]() { 
+  world->AddProjectile(
+    ptr<Projectile>(
+      new Projectile(
+      Vector2(world->Cannon()->X(), -200), 
+        Vector2(0,200 + rand() % 20)))); });
+
+auto entities_creation = parallel(asteroids_creation, projectiles_creation);
+
+auto cannon_move_left = 
+  repeat(
+  wait_condition([=]() { return KeyboardState::IsKeyDown(VK_LEFT); }) >>= *[=]() { 
+    world->Cannon()->MoveLeft(); });
+
+auto cannon_move_right = 
+  repeat(
+  wait_condition([=]() { return KeyboardState::IsKeyDown(VK_RIGHT); }) >>= *[=]() { 
+    world->Cannon()->MoveRight(); });
+
+auto cannon_movement = parallel(cannon_move_left, cannon_move_right);
+
+return parallel(
+        entities_creation, 
+        cannon_movement)));
+\end{lstlisting}
+
+
+\subsection{Remarks}
+The implementation of Casanova in C++ works in practice, can be run and tested, and even achieves acceptable performance. It can be found in the textit{C++} folder under the sources in the Casanova website \cite{CASANOVA_CODEPLEX}. 
+
+This said, it is important to notice that the implementation is absolutely not intended as a high-quality implementation. There are better ways to use template meta-programming to achieve the same goal we did, and this implementation simply served us for the purpose of answering the question "Can it be done?", rather than offer code that could be used in practice. For this reason we have not implemented, among others, support for integer template parameters instead of hard-coded numbers for rules and tuples, we have not supported discriminated unions, and various other issues.
+
+The library is merely a proof of concept but could also be used as a stepping stone for a better implementation.

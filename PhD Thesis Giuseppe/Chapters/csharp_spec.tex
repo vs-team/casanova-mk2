@@ -1,0 +1,357 @@
+3. Basic concepts	55
+4. Types	79
+5. Variables	95
+6. Conversions	111
+7. Expressions	131
+8. Statements	227
+9. Namespaces	255
+10. Classes	265
+11. Structs	357
+12. Arrays	369
+13. Interfaces	375
+14. Enums	393
+16. Exceptions	403
+
+
+
+3. Basic concepts	55
+3.3 Declarations	56
+3.4 Members	58
+3.4.1 Namespace members	59
+3.4.2 Struct members	59
+3.4.3 Enumeration members	59
+3.4.4 Class members	59
+3.4.5 Interface members	60
+3.4.6 Array members	60
+3.4.7 Delegate members	60
+3.5 Member access	60
+3.5.1 Declared accessibility	60
+3.5.2 Accessibility domains	61
+3.5.3 Protected access for instance members	63
+3.5.4 Accessibility constraints	64
+3.6 Signatures and overloading	65
+3.7 Scopes	66
+3.7.1 Name hiding	69
+3.7.1.1 Hiding through nesting	69
+3.7.1.2 Hiding through inheritance	70
+3.8 Namespace and type names	71
+3.8.1 Fully qualified names	73
+3.9 Automatic memory management	74
+3.10 Execution order	76
+4. Types	79
+4.1 Value types	79
+4.1.1 The System.ValueType type	80
+4.1.2 Default constructors	80
+4.1.3 Struct types	81
+4.1.4 Simple types	81
+4.1.5 Integral types	82
+4.1.6 Floating point types	83
+4.1.7 The decimal type	84
+4.1.8 The bool type	85
+4.1.9 Enumeration types	85
+4.1.10 Nullable types	85
+4.2 Reference types	86
+4.2.1 Class types	86
+4.2.2 The object type	87
+4.2.3 The string type	87
+4.2.4 Interface types	87
+4.2.5 Array types	87
+4.2.6 Delegate types	87
+4.3 Boxing and unboxing	88
+4.3.1 Boxing conversions	88
+4.3.2 Unboxing conversions	89
+4.4 Constructed types	90
+4.4.1 Type arguments	91
+4.4.2 Open and closed types	91
+4.4.3 Bound and unbound types	91
+4.4.4 Satisfying constraints	91
+4.5 Type parameters	92
+5. Variables	95
+5.1 Variable categories	95
+5.1.1 Static variables	95
+5.1.2 Instance variables	95
+5.1.2.1 Instance variables in classes	96
+5.1.2.2 Instance variables in structs	96
+5.1.3 Array elements	96
+5.1.4 Value parameters	96
+5.1.5 Reference parameters	96
+5.1.6 Output parameters	97
+5.1.7 Local variables	97
+5.2 Default values	98
+5.3 Definite assignment	98
+5.3.1 Initially assigned variables	99
+5.3.2 Initially unassigned variables	99
+5.3.3 Precise rules for determining definite assignment	99
+5.3.3.1 General rules for statements	100
+5.3.3.2 Block statements, checked, and unchecked statements	100
+5.3.3.3 Expression statements	100
+5.3.3.4 Declaration statements	101
+5.3.3.5 If statements	101
+5.3.3.6 Switch statements	101
+5.3.3.7 While statements	101
+5.3.3.8 Do statements	102
+5.3.3.9 For statements	102
+5.3.3.10 Break, continue, and goto statements	102
+5.3.3.11 Throw statements	102
+5.3.3.12 Return statements	102
+5.3.3.13 Try-catch statements	103
+5.3.3.14 Try-finally statements	103
+5.3.3.15 Try-catch-finally statements	103
+5.3.3.16 Foreach statements	104
+5.3.3.17 Using statements	104
+5.3.3.18 Lock statements	105
+5.3.3.19 Yield statements	105
+5.3.3.20 General rules for simple expressions	105
+5.3.3.21 General rules for expressions with embedded expressions	105
+5.3.3.22 Invocation expressions and object creation expressions	106
+5.3.3.23 Simple assignment expressions	106
+5.3.3.24 && expressions	106
+5.3.3.25 || expressions	107
+5.3.3.26 ! expressions	108
+5.3.3.27 ?? expressions	108
+5.3.3.28 ?: expressions	109
+5.3.3.29 Anonymous functions	109
+6. Conversions	111
+6.1 Implicit conversions	111
+6.1.1 Identity conversion	111
+6.1.2 Implicit numeric conversions	111
+6.1.3 Implicit enumeration conversions	112
+6.1.4 Implicit nullable conversions	112
+6.1.5 Null literal conversions	112
+6.1.6 Implicit reference conversions	113
+6.1.7 Boxing conversions	113
+6.1.8 Implicit constant expression conversions	114
+6.1.9 Implicit conversions involving type parameters	114
+6.3 Standard conversions	119
+6.3.1 Standard implicit conversions	119
+6.3.2 Standard explicit conversions	120
+7. Expressions	131
+7.1 Expression classifications	131
+7.1.1 Values of expressions	132
+7.2 Operators	132
+7.2.1 Operator precedence and associativity	132
+7.2.2 Operator overloading	133
+7.2.3 Unary operator overload resolution	135
+7.2.4 Binary operator overload resolution	135
+7.2.5 Candidate user-defined operators	135
+7.2.6 Numeric promotions	136
+7.2.6.1 Unary numeric promotions	136
+7.2.6.2 Binary numeric promotions	136
+7.2.7 Lifted operators	137
+7.3 Member lookup	138
+7.3.1 Base types	139
+7.4 Function members	139
+7.4.1 Argument lists	142
+7.4.2 Type inference	144
+7.4.2.1 The first phase	145
+7.4.2.2 The second phase	145
+7.4.2.3 Input types	145
+7.4.2.4 Output types	145
+7.4.2.5 Dependence	145
+7.4.2.6 Output type inferences	145
+7.4.3 Overload resolution	148
+7.4.3.1 Applicable function member	149
+7.4.3.2 Better function member	149
+7.4.3.3 Better conversion from expression	150
+7.4.3.4 Better conversion from type	151
+7.4.3.5 Overloading in generic classes	151
+7.5 Primary expressions	153
+7.5.1 Literals	154
+7.5.2 Simple names	154
+7.5.2.1 Invariant meaning in blocks	156
+7.5.3 Parenthesized expressions	156
+7.5.4 Member access	157
+7.5.4.1 Identical simple names and type names	158
+7.5.5 Invocation expressions	160
+7.5.5.1 Method invocations	160
+7.5.5.3 Delegate invocations	163
+7.5.6 Element access	164
+7.5.6.1 Array access	164
+7.5.6.2 Indexer access	165
+7.5.7 This access	165
+7.5.8 Base access	166
+7.5.9 Postfix increment and decrement operators	166
+7.5.10 The new operator	167
+7.5.10.1 Object creation expressions	168
+7.5.10.2 Object initializers	169
+7.5.10.3 Collection initializers	171
+7.5.10.4 Array creation expressions	172
+7.6 Unary operators	181
+7.6.1 Unary plus operator	181
+7.6.2 Unary minus operator	181
+7.6.3 Logical negation operator	182
+7.6.4 Bitwise complement operator	182
+7.6.5 Prefix increment and decrement operators	183
+7.6.6 Cast expressions	183
+7.7 Arithmetic operators	184
+7.7.1 Multiplication operator	184
+7.7.2 Division operator	185
+7.7.3 Remainder operator	186
+7.7.4 Addition operator	187
+7.7.5 Subtraction operator	189
+7.8 Shift operators	191
+7.9 Relational and type-testing operators	192
+7.9.1 Integer comparison operators	192
+7.9.2 Floating-point comparison operators	193
+7.9.3 Decimal comparison operators	194
+7.9.4 Boolean equality operators	194
+7.9.5 Enumeration comparison operators	194
+7.9.6 Reference type equality operators	194
+7.9.7 String equality operators	196
+7.9.9 Equality operators and null	197
+7.10 Logical operators	198
+7.10.1 Integer logical operators	199
+7.10.2 Enumeration logical operators	199
+7.10.3 Boolean logical operators	199
+7.13 Conditional operator	202
+7.16 Assignment operators	219
+7.16.1 Simple assignment	220
+7.16.2 Compound assignment	222
+7.16.3 Event assignment	223
+7.17 Expression	223
+7.18 Constant expressions	223
+7.19 Boolean expressions	225
+8. Statements	227
+8.1 End points and reachability	227
+8.2 Blocks	229
+8.2.1 Statement lists	229
+8.3 The empty statement	230
+8.4 Labeled statements	230
+8.5 Declaration statements	231
+8.5.1 Local variable declarations	231
+8.5.2 Local constant declarations	232
+8.6 Expression statements	233
+8.7 Selection statements	233
+8.7.1 The if statement	233
+8.7.2 The switch statement	234
+8.8 Iteration statements	237
+8.8.1 The while statement	238
+8.8.2 The do statement	238
+8.8.3 The for statement	239
+8.8.4 The foreach statement	240
+8.9 Jump statements	242
+8.9.1 The break statement	243
+8.9.2 The continue statement	244
+8.9.3 The goto statement	244
+8.9.4 The return statement	245
+8.9.5 The throw statement	246
+8.10 The try statement	247
+8.13 The using statement	251
+8.14 The yield statement	253
+9. Namespaces	255
+9.1 Compilation units	255
+9.2 Namespace declarations	255
+9.4 Using directives	257
+9.4.2 Using namespace directives	260
+10. Classes	265
+10.1 Class declarations	265
+10.1.1 Class modifiers	265
+10.1.1.1 Abstract classes	266
+10.1.1.2 Sealed classes	266
+10.1.1.3 Static classes	266
+10.1.2 Partial modifier	267
+10.1.3 Type parameters	267
+10.1.4 Class base specification	268
+10.1.4.1 Base classes	268
+10.1.4.2 Interface implementations	269
+10.1.5 Type parameter constraints	270
+10.1.6 Class body	274
+10.3 Class members	279
+10.3.1 The instance type	281
+10.3.2 Members of constructed types	281
+10.3.9 Reserved member names	288
+10.3.9.1 Member names reserved for properties	289
+10.3.9.2 Member names reserved for events	289
+10.3.9.3 Member names reserved for indexers	289
+10.3.9.4 Member names reserved for destructors	290
+10.4 Constants	290
+10.5 Fields	291
+10.5.1 Static and instance fields	293
+10.5.4 Field initialization	296
+10.5.5 Variable initializers	296
+10.5.5.1 Static field initialization	297
+10.5.5.2 Instance field initialization	298
+10.6 Methods	299
+10.6.1 Method parameters	300
+10.6.1.1 Value parameters	301
+10.6.1.2 Reference parameters	302
+10.6.1.3 Output parameters	303
+10.6.2 Static and instance methods	306
+10.6.3 Virtual methods	306
+10.6.4 Override methods	308
+10.6.6 Abstract methods	311
+10.7 Properties	314
+10.7.1 Static and instance properties	315
+10.7.2 Accessors	316
+10.7.3 Automatically implemented properties	320
+10.7.4 Accessibility	321
+10.7.5 Virtual, sealed, override, and abstract accessors	322
+10.9 Indexers	329
+10.13 Destructors	345
+10.14 Iterators	347
+10.14.1 Enumerator interfaces	347
+10.14.2 Enumerable interfaces	347
+10.14.3 Yield type	347
+10.14.4 Enumerator objects	347
+10.14.4.1 The MoveNext method	348
+10.14.4.2 The Current property	349
+10.14.4.3 The Dispose method	349
+10.14.5 Enumerable objects	349
+10.14.5.1 The GetEnumerator method	350
+11. Structs	357
+11.1 Struct declarations	357
+11.1.1 Struct modifiers	357
+11.1.2 Partial modifier	358
+11.1.3 Struct interfaces	358
+11.1.4 Struct body	358
+11.2 Struct members	358
+11.3 Class and struct differences	358
+11.3.1 Value semantics	359
+11.3.2 Inheritance	360
+11.3.3 Assignment	360
+11.3.4 Default values	360
+11.3.5 Boxing and unboxing	361
+11.3.6 Meaning of this	362
+11.3.7 Field initializers	363
+11.3.8 Constructors	363
+11.3.9 Destructors	364
+11.3.10 Static constructors	364
+11.4 Struct examples	364
+11.4.1 Database integer type	364
+11.4.2 Database boolean type	366
+12. Arrays	369
+12.1 Array types	369
+12.1.1 The System.Array type	370
+12.1.2 Arrays and the generic IList interface	370
+12.2 Array creation	370
+12.3 Array element access	371
+12.4 Array members	371
+12.6 Array initializers	371
+13. Interfaces	375
+13.1 Interface declarations	375
+13.1.1 Interface modifiers	375
+13.1.2 Partial modifier	375
+13.1.3 Base interfaces	376
+13.1.4 Interface body	376
+13.2 Interface members	376
+13.2.1 Interface methods	378
+13.2.2 Interface properties	378
+13.2.3 Interface events	378
+13.2.4 Interface indexers	378
+13.2.5 Interface member access	379
+13.4 Interface implementations	381
+13.4.1 Explicit interface member implementations	382
+13.4.2 Uniqueness of implemented interfaces	384
+13.4.3 Implementation of generic methods	385
+13.4.4 Interface mapping	385
+13.4.5 Interface implementation inheritance	388
+13.4.7 Abstract classes and interfaces	391
+14. Enums	393
+14.1 Enum declarations	393
+14.2 Enum modifiers	393
+14.3 Enum members	394
+14.4 The System.Enum type	396
+14.5 Enum values and operations	396
+16. Exceptions	403
+16.1 Causes of exceptions	403
+16.2 The System.Exception class	403

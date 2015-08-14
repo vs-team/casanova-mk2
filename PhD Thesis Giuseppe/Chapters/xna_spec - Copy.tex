@@ -1,0 +1,200 @@
+Microsoft.Xna.Framework
+Microsoft.Xna.Framework.Audio
+Microsoft.Xna.Framework.Content
+Microsoft.Xna.Framework.GamerServices
+Microsoft.Xna.Framework.Graphics
+Microsoft.Xna.Framework.Input
+Microsoft.Xna.Framework.Media
+Microsoft.Xna.Framework.Net
+Microsoft.Xna.Framework.Storage
+
+
+Microsoft.Xna.Framework
+	BoundingFrustum	Defines a frustum and helps determine whether forms intersect with it.
+	Curve	Stores an arbitrary collection of 2D CurveKey points, and provides methods for evaluating features of the curve they define.
+	CurveKey	Represents a point in a multi-point curve.
+	CurveKeyCollection	Contains the CurveKeys making up a Curve.
+	DrawableGameComponent	A game component that is notified when it needs to draw itself.
+	FrameworkDispatcher	Processes XNA Framework event messages.
+	Game	Provides basic graphics device initialization, game logic, and rendering code.
+	GameComponent	Base class for all XNA Framework game components.
+	GameComponentCollection	A collection of game components.
+	GameComponentCollectionEventArgs	Arguments used with events from the GameComponentCollection.
+	GameServiceContainer	A collection of game services.
+	GameTime	 Snapshot of the game timing state expressed in values that can be used by variable-step (real time) or fixed-step (game time) games.
+	GameTimer	Manages a timer which updates a game by firing actions at specific times.
+	GameTimerEventArgs	A snapshot of the game timing state based on game time and not real time.
+	GameWindow	The system window associated with a Game.
+	GraphicsDeviceInformation	Holds the settings for creating a graphics device on Windows.
+	GraphicsDeviceManager	 Handles the configuration and management of the graphics device.
+	LaunchParameters	The start up parameters for launching a Windows Phone or Windows game.
+	MathHelper	Contains commonly used precalculated values.
+	PreparingDeviceSettingsEventArgs	Arguments for the GraphicsDeviceManager.PreparingDeviceSettings event.
+	SharedGraphicsDeviceManager	 Handles the configuration and management of a shared graphics device.
+	TitleContainer	Provides file stream access to the title's default storage location.
+	IDrawable	Defines the interface for a drawable game component.
+	IGameComponent	Defines an interface for game components.
+	IGraphicsDeviceManager	Defines the interface for an object that manages a GraphicsDevice.
+	IUpdateable	Defines an interface for a game component that should be updated in Game.Update.
+	BoundingBox	Defines an axis-aligned box-shaped 3D volume.
+	BoundingSphere	Defines a sphere.
+	Color	Represents a four-component color using red, green, blue, and alpha data.
+	Matrix	Defines a matrix.
+	Plane	Defines a plane.
+	Point	Defines a point in 2D space.
+	Quaternion	Defines a four-dimensional vector (x,y,z,w), which is used to efficiently rotate an object about the (x, y, z) vector by the angle theta, where w = cos(theta/2).
+	Ray	Defines a ray.
+	Rectangle	Defines a rectangle.
+	Vector2	Defines a vector with two components.
+	Vector3	Defines a vector with three components.
+	Vector4	Defines a vector with four components.
+Microsoft.Xna.Framework.Audio
+	AudioEngine	Represents the audio engine. Applications use the methods of the audio engine to instantiate and manipulate core audio objects.
+	AudioListener	Represents a 3D audio listener.
+	Cue	Defines methods for managing the playback of sounds.
+	DynamicSoundEffectInstance	 Provides properties, methods, and events for play back of the audio buffer.
+	InstancePlayLimitException	The exception that is thrown when there is an attempt to play more than the platform specific maximum SoundEffectInstance sounds concurrently.
+	Microphone	Provides properties, methods, and fields and events for capturing audio data with microphones.
+	NoAudioHardwareException	The exception that is thrown when no audio hardware is present, or when audio hardware is installed, but the device drivers for the audio hardware are not present or enabled.
+	NoMicrophoneConnectedException	The exception that is thrown when Microphone API calls are made on a disconnected microphone.
+	SoundBank	Represents a sound bank, which is a collection of cues.
+	SoundEffect	Provides a loaded sound resource.
+	SoundEffectInstance	Provides a single playing, paused, or stopped instance of a SoundEffect sound.
+	WaveBank	Represents a wave bank, which is a collection of wave files.
+Microsoft.Xna.Framework.Content
+	ContentLoadException	Exception used to report errors from the ContentManager.Load method.
+	ContentManager	 The ContentManager is the run-time component which loads managed objects from the binary files produced by the design time content pipeline. It also manages the lifespan of the loaded objects, disposing the content manager will also dispose any assets which are themselves IDisposable.
+Microsoft.Xna.Framework.GamerServices
+	Achievement	Describes a single achievement, including the achievement name, description, picture, and whether it has been achieved by the currently signed in gamer.
+	AchievementCollection	Collection holding the achievements belonging to a signed-in gamer.
+	AvatarAnimation	Provides methods and properties for animating an avatar using standard animations (for example, celebrate).
+	AvatarDescription	Provides access to the methods and properties of the description data for an avatar.
+	AvatarRenderer	Provides properties and methods for rendering a standard avatar.
+	FriendCollection	Represents the complete friends list of a local gamer.
+	FriendGamer	Provides the presence information of a friend of the local gamer.
+	GameDefaults	Describes a gamer's preferred settings.
+	Gamer	 Abstract base class for types that represent game players (profiles that have an associated gamertag). The concrete types SignedInGamer and NetworkGamer derive from this.
+	GamerCollection	Represents a collection of gamers. This collection cannot be modified and is updated automatically during the call to Update.
+	GamerPresence	Provides properties to set the rich presence state for a locally signed-in gamer profile.
+	GamerPrivilegeException	Thrown if a gamer services or multiplayer API is called without a valid, signed-in profile.
+	GamerPrivileges	Describes what operations a gamer is allowed to perform.
+	GamerProfile	 Profile settings describing information about a gamer such as the gamer's motto, reputation, and gamer picture. This data is accessible for both locally signed in profiles and remote gamers that you are playing with in a multiplayer session.
+	GamerServicesComponent	Wraps the functionality of the GamerServicesDispatcher.
+	GamerServicesDispatcher	Implements the Windows-specific portion of a GamerServicesDispatcher class.
+	GamerServicesNotAvailableException	Thrown if the gamer services system cannot be successfully initialized.
+	GameUpdateRequiredException	The exception thrown when a game (title) update is required in order to use Xbox LIVE.
+	Guide	Provides access to the Guide user interface.
+	GuideAlreadyVisibleException	Thrown if an attmept is made to display a component of the Guide user interface when a Guide component is already displayed.
+	InviteAcceptedEventArgs	Represents the arguments passed to an InviteAccepted event.
+	LeaderboardEntry	Class representing a single row of a leaderboard, holding all the information a specific gamer has uploaded to the board.
+	LeaderboardReader	Reads data from leaderboards.
+	LeaderboardWriter	Records leaderboard data for players in a NetworkSession.
+	NetworkException	Thrown if there is a network communication failure.
+	NetworkNotAvailableException	Thrown if a network connection is unavailable.
+	PropertyDictionary	Holds a set of properties used to define presence states or leaderboard column values.
+	SignedInEventArgs	Represents the arguments passed to a SignedIn event.
+	SignedInGamer	Represents a gamer (a profile that has an associated gamertag) on the local system.
+	SignedInGamerCollection	Represents a collection of gamers on the local system.
+	SignedInGamerExtensions	Provides additional services to Gamer Services for Xbox LIVE.
+	SignedOutEventArgs	Represents the arguments passed to a SignedOut event.
+Microsoft.Xna.Framework.Graphics
+  AlphaTestEffect	Contains a configurable effect that supports alpha testing.
+	BasicEffect	Contains a basic rendering effect.
+	BlendState	Contains blend state for the device.
+	DepthStencilState	Contains depth-stencil state for the device.
+	DeviceLostException	The exception that is thrown when the device has been lost, but cannot be reset at this time. Therefore, rendering is not possible.
+	DeviceNotResetException	The exception that is thrown when the device has been lost, but can be reset at this time.
+	DirectionalLight	Creates a DirectionalLight object.
+	DisplayMode	Describes the display mode.
+	DisplayModeCollection	Manipulates a collection of DisplayMode structures.
+	DualTextureEffect	Contains a configurable effect that supports two-layer multitexturing.
+	DynamicIndexBuffer	Describes the rendering order of the vertices in a vertex buffer.
+	DynamicVertexBuffer	Represents a list of 3D vertices to be streamed to the graphics device.
+	Effect	Used to set and query effects, and to choose techniques.
+	EffectAnnotation	Represents an annotation to an EffectParameter.
+	EffectAnnotationCollection	Manipulates a collection of EffectAnnotation objects.
+	EffectMaterial	 Contains an effect subclass which is used to load data for an EffectMaterialContent type.
+	EffectParameter	Represents an Effect parameter.
+	EffectParameterCollection	Manipulates a collection of EffectParameter objects.
+	EffectPass	Contains rendering state for drawing with an effect; an effect can contain one or more passes.
+	EffectPassCollection	Manipulates a collection of EffectPass objects.
+	EffectTechnique	Represents an effect technique.
+	EffectTechniqueCollection	Manipulates a collection of EffectTechnique objects.
+	EnvironmentMapEffect	Contains a configurable effect that supports environment mapping.
+	GraphicsAdapter	Provides methods to retrieve and manipulate graphics adapters.
+	GraphicsDevice	Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and creates shaders.
+	GraphicsDeviceExtensions	An extension of the GraphicsDevice class that enables primitive based rendering for an application that renders using both Silverlight and XNA.
+	GraphicsResource	Queries and prepares resources.
+	IndexBuffer	Describes the rendering order of the vertices in a vertex buffer.
+	Model	Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
+	ModelBone	Represents bone data for a model.
+	ModelBoneCollection	Represents a set of bones associated with a model.
+	ModelEffectCollection	Represents a collection of effects associated with a model.
+	ModelMesh	Represents a mesh that is part of a Model.
+	ModelMeshCollection	Represents a collection of ModelMesh objects.
+	ModelMeshPart	 Represents a batch of geometry information to submit to the graphics device during rendering. Each ModelMeshPart is a subdivision of a ModelMesh object. The ModelMesh class is split into multiple ModelMeshPart objects, typically based on material information.
+	ModelMeshPartCollection	Represents a collection of ModelMeshPart objects.
+	NoSuitableGraphicsDeviceException	Thrown when no available graphics device fits the given device preferences.
+	OcclusionQuery	Used to perform an occlusion query against the latest drawn objects.
+	PresentationParameters	Contains presentation parameters.
+	RasterizerState	Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
+	RenderTarget2D	Contains a 2D texture that can be used as a render target.
+	RenderTargetCube	Represents a cubic texture resource that will be written to at the end of a render pass.
+	ResourceCreatedEventArgs	Contains event data.
+	ResourceDestroyedEventArgs	Arguments for a ResourceDestroyed event.
+	SamplerState	Contains sampler state, which determines how to sample texture data.
+	SamplerStateCollection	Collection of SamplerState objects.
+	SkinnedEffect	Contains a configurable effect for rendering skinned character models.
+	SpriteBatch	Enables a group of sprites to be drawn using the same settings.
+	SpriteFont	Represents a font texture.
+	Texture	Represents a texture resource.
+	Texture2D	Represents a 2D grid of texels.
+	Texture3D	Represents a 3D volume of texels.
+	TextureCollection	Represents a collection of Texture objects.
+	TextureCube	Represents a set of six 2D textures, one for each face of a cube.
+	UIElementRenderer	An object for rendering a Silverlight UIElement into a texture.
+	VertexBuffer	Represents a list of 3D vertices to be streamed to the graphics device.
+	VertexDeclaration	A vertex declaration, which defines per-vertex data.
+Microsoft.Xna.Framework.Input
+	GamePad	Allows retrieval of user interaction with an Xbox 360 Controller and setting of controller vibration motors.
+	Keyboard	Allows retrieval of keystrokes from a keyboard input device.
+	Mouse	Allows retrieval of position and button clicks from a mouse input device.
+Microsoft.Xna.Framework.Media
+	MediaLibrary	Provides access to songs, playlists, and pictures in the device's media library.
+	MediaPlayer	Provides methods and properties to play, pause, resume, and stop songs. MediaPlayer also exposes shuffle, repeat, volume, play position, and visualization capabilities.
+	MediaQueue	Provides methods and properties to access and control the queue of playing songs.
+	MediaSource	Provides methods and properties to access the source or sources from which the media will be read.
+	Picture	Provides access to a picture in the media library.
+	PictureAlbum	Provides access to a picture album in the media library.
+	PictureAlbumCollection	A collection of picture albums in the media library.
+	PictureCollection	A collection of pictures in the media library.
+	Playlist	Provides access to a playlist in the media library.
+	PlaylistCollection	A collection of playlists in the media library.
+	Song	Provides access to a song in the song library.
+	SongCollection	A collection of songs in the song library.
+	Video	Represents a video.
+	VideoPlayer	Provides methods and properties to play back, pause, resume, and stop video. VideoPlayer also exposes repeat, volume, and play position information.
+Microsoft.Xna.Framework.Net
+	AvailableNetworkSession	Describes a multiplayer session that can be joined.
+	AvailableNetworkSessionCollection	Represents a collection of sessions available for joining.
+	GameEndedEventArgs	Represents the arguments passed to a GameEnded event.
+	GamerJoinedEventArgs	Represents the arguments passed to a GamerJoined event.
+	GamerLeftEventArgs	Represents the arguments passed to a GamerLeft event.
+	GameStartedEventArgs	Represents the arguments passed to a GameStarted event.
+	HostChangedEventArgs	Represents the arguments passed to a HostChanged event.
+	LocalNetworkGamer	Represents a local player in a network session.
+	NetworkGamer	 Represents a player in a network session.
+	NetworkMachine	 Represents a physical machine (such as single Xbox 360 console or Windows-based computer) that is participating in a multiplayer session. It can be used to detect when more than one NetworkGamer is playing on the same actual machine.
+	NetworkSession	Represents a multiplayer game session.
+	NetworkSessionEndedEventArgs	Represents the arguments passed to a SessionEnded event. These arguments are passed to event handlers when a session ends.
+	NetworkSessionJoinException	Thrown if an error was encountered while joining a session.
+	NetworkSessionProperties	Describes custom, game-specific information about a NetworkSession object.
+	PacketReader	Provides common functionality for efficiently reading incoming network packets.
+	PacketWriter	Provides common functionality for efficiently formatting outgoing network packets.
+	QualityOfService	 Describes the quality of the network connection between this machine and the host of a multiplayer session that was discovered with a matchmaking query.
+Microsoft.Xna.Framework.Storage
+	StorageContainer	Represents a logical collection of storage files.
+	StorageDevice	Represents a storage device for user data, such as a memory unit or hard drive.
+	StorageDeviceNotConnectedException	The exception that is thrown when the requested StorageDevice is not connected.
+
+

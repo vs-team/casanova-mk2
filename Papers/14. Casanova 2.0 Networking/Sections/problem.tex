@@ -1,0 +1,19 @@
+Networking in games presents a series of standard challenges that we now list and discuss. We will use these challenges as the main reference when doing the evaluation of our networking model. The evaluation, which is discussed in Section \ref{sec:evaluation}, will be a mixture of analytical discussion, user studies, and measured benchmarks.
+
+\subsection{Resource usage}
+Available bandwidth [] is quite limited. Noisy wireless networks, poor Internet connections, multiple users sharing a domestic connection, etc. mean that the total bandwidth available to an instance of the game is going to be quite limited. Similarly, latency may be significant for some transmissions, especially if a lot of data is being sent.
+
+The game needs to transmit as little data as possible, for example avoiding the transmission of every updated field, rather relying on mechanisms that locally predict the behaviour of remote entities such as interpolation and  extrapolation.
+
+Similarly, a game needs to be able to present a new, updated picture on the screen at a rate (between 30 and 60 times per second) that is fast enough to give a perception of smoothness. This means that computations for the update and drawing of said picture need to be completed before too much time has elapsed. If networking code is excessively expensive computationally, then it will be impossible for the game to run in real-time.
+
+\subsection{Reliability}
+Messages do not always arrive at destination. This may be a temporary issue, for example when some messages are simply lost during transmission. Also, the sudden disappearance from the network of an instance of the game is a common phenomenon. This happens because of unexpected, unintentional difficulties such as electrical interruptions, network cable disconnections, etc., but also because of intentional interruptions: a player may lose interest in the game, or need to leave the game to do something else. Even after a player disconnects, the game may need to keep running: either a new player may be added to fill in for the missing one, or the game will go on just for the remaining players. This means that games need to be resilient to loss of a single instance.
+
+\subsection{Expressive power}
+A system designed for building multi-player games should, first and foremost, be expressive enough to cover the definition of various games. Moreover, its semantics should be \textit{appropriate}, meaning that the various idioms of networked communication in games should be easy to express without abusing the available primitives. As such, a mechanism for dealing with networking should offer a simplified view of networking primitives. Such primitives need to be:
+\begin{itemize}
+\item \textit{few}, because we wish to capture the essential nature of the problem
+\item \textit{orthogonal}, because we wish the primitives to have no semantic overlap: each primitive cannot be replaced by the others
+\item \textit{intuitive}, because learning to use the system should not require deep understanding through a steep learning curve
+\end{itemize}

@@ -1,0 +1,69 @@
+\section{Objects}
+We now start with the characterization of objects in our system. The $Object$ predicate says that an object will be a record which supports methods and inheritance; of course all the object operators are expected to work in conjunction with the rest of the system. Since objects will reference themselves, to avoid recursive type definitions we give a predicate that allows us to freely add or remove some constructor from an object:
+\begin{lstlisting}
+class Recursive o where
+  type Rec o :: *
+  to :: o -> Rec o
+  from :: Rec o -> o
+\end{lstlisting}
+
+An object is required to support the $Recursive$ predicate:
+\begin{lstlisting}
+class (Record o st s, Recursive o, ro~Rec o) => Object o st s where
+  type Base o :: *
+  get_base :: Ref st s o -> Ref st s (Base o)
+
+  type Method ro st :: * -> * -> *
+  (<=|) :: Ref st s r -> Label r (Method ro st a b) -> a -> st s b
+\end{lstlisting}
+
+With respect to inheritance, it looks clear how we can instance coercion to take advantage (and make access more uniform) of the $base$ operations:
+\begin{lstlisting}
+instance Object o st s => Coercible (Ref st s o) (Ref st s (Base o)) where
+  coerce = get_base
+\end{lstlisting}
+
+We also add a further predicate that characterizes inheritance:
+\begin{lstlisting}
+class Inherits a b
+
+instance (Object o st s) => Inherits o (Base o)
+\end{lstlisting}
+
+Notice that methods are defined with a different operator than the selection operator for records. This can be addressed as follows: we define a new predicate for selecting something from a reference through a label:
+\begin{lstlisting}
+class Selectable st t s a where
+  type Selection s t a :: *
+  (<=) :: Ref st s t -> Label t a -> Selection s t a
+\end{lstlisting}
+
+We instance this predicate twice, one for field selection and one for method selection. Before doing so, though, we must be careful to disambiguate the last parameter in the record definition. For this purpose we add a $Field$ type function that represents a placeholder type that will distinguish fields from methods and inherited types:
+\begin{lstlisting}
+class (RefSt st s) => Record r st s where
+  type Label r :: * -> *
+  type FieldSlot a :: *
+  (<==) :: Ref st s r -> Label r (FieldSlot a) -> Ref st s a
+\end{lstlisting}
+
+In the case of simple mutable records we can easily add a trivial constructor for $FieldSlot$ such as:
+\begin{lstlisting}
+data Field a = Field a
+\end{lstlisting}
+
+Now we can instance the selection predicate:
+\begin{lstlisting}
+instance Record st r s => Selectable st r s (FieldSlot a) where
+  type Selection s r (Field a) = Ref st s a
+  (<=) = (<==)
+
+instance (Object st o s, ro~Rec o) => Selectable st o s (Method ro a b) where
+  type Selection s o (Method ro a b) = a -> st s b
+  (<=) = (<=|)
+\end{lstlisting}
+
+The final operation we wish to support is that of selecting a method or a field directly from any of the inherited classes of an object without explicit coercions:
+\begin{lstlisting}
+instance (Object st o s, bo~Base o, Selectable st bo s a) => Selectable st o s a where
+  type Selection s o a = Selection s bo a
+  (<=) = get_base . (<=)
+\end{lstlisting}

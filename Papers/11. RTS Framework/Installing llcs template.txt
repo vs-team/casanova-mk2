@@ -1,0 +1,11 @@
+
+    Download the Zipped files from Springer's site.
+    Extract the files anywhere on your computer.
+    Select the files splncs.bst, splncs_srt.bst, and splncs03.bst and cut them.
+    Make a folder named splncs under C:\Program Files\MiKTeX 2.9\bibtex\bst.
+    Paste the three files from Step 3 into the folder C:\Program Files\MiKTeX 2.9\bibtex\bst\splncs.
+    Now cut the remaining extracted files from Step 2.
+    Go to C:\Program Files\MiKTeX 2.9\tex\latex and create a new folder named llncs.
+    Paste the files from Step 6 into C:\Program Files\MiKTeX 2.9\tex\latex\llncs.
+    Go to Start -> All Programs -> MiKTeX 2.9 -> Maintenance(Admin) -> Settings(Admin).
+    Under the General tab click on Refresh FNDB.

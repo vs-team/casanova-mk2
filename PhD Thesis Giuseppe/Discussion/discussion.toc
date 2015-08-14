@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.26pt}
+\beamer@sectionintoc {1}{Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Making a game}{7}{0}{2}
+\beamer@sectionintoc {3}{Casanova}{18}{0}{3}
+\beamer@sectionintoc {4}{Evaluation}{46}{0}{4}
+\beamer@sectionintoc {5}{Future work \& conclusions}{57}{0}{5}
