@@ -1,3 +1,0 @@
-Managing the flow of time and the coordination of multiple components in games (and other highly interactive applications) is a challenging task. Therefore game development requires a lot of effort, even for (apparently) simple scenarios. To reduce the cost and effort of game development, we designed a new computer language called ``Casanova 2.'' Using a case study, we demonstrate that Casanova can be used to implement typical game scenario's using functional programming constructs. Our evaluation shows that Casanova 2 has both a high performance and a high usability.
-
-\keywords{Game development, Casanova 2, languages, functional programming}
