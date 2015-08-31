@@ -1,0 +1,46 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  Cubes   : [Cube]
+
+  rule Cubes = 
+    wait Input.GetKeyDown(KeyCode.Space)
+    yield Cube.Create() :: Cubes
+
+  rule Cubes =
+    [ for c in Cubes do
+      where (c.UnityCube.Destroyed = false)
+      select c ]    
+
+  Create() =
+    {
+      Cubes = Query<Cube>.Empty
+    }
+} 
+
+entity Cube = {
+  inherit UnityCube 
+  Factor      : float32
+  rule Scale =
+    yield 1.0f - Factor / 2.0f
+      
+  rule Factor = 
+    yield Factor + 0.02f
+
+  rule Destroyed = 
+    wait Factor >= 2.0f
+    yield true
+
+  rule Color = 
+    Color.Lerp(Color.white, Color.blue, Factor)
+
+  Create() = 
+    {
+      Base    = UnityCube.Instantiate()
+      Factor  = 0.0f
+    }
+}
+  

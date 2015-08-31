@@ -1,0 +1,25 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+open Cube
+
+
+worldEntity World = {
+  Cubes   : [Cube]
+
+  rule Cubes = 
+    wait Input.GetKeyDown(KeyCode.Space)
+    yield new Cube() :: Cubes
+
+  rule Cubes =
+    [ for c in Cubes do
+      where (c.UnityCube.Destroyed = false)
+      select c ]    
+
+  Create() =
+    {
+      Cubes = []
+    }
+} 
+

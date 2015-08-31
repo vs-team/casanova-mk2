@@ -1,0 +1,29 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  Cubes : [Cube]
+
+  rule Cubes =
+    wait 2.0f
+    yield (new Cube()) :: Cubes
+
+  Create() =
+    {
+      Cubes = []
+    }
+}
+
+
+entity Cube = {
+  inherit UnityCube
+  
+  
+  Create() =
+    {
+      UnityCube = UnityCube.Instantiate(new Vector3(UnityEngine.Random.Range(-3,3), UnityEngine.Random.Range(3,6), UnityEngine.Random.Range(-3,3)))
+    }
+    
+}

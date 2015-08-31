@@ -1,0 +1,11 @@
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\UnityEditor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\UnityEngine.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\UnityEngine.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\UnityEditor.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\obj\Debug\Assembly-CSharp.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\obj\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\obj\Debug\UnityVS.Paper sample - Copy.CSharp.csprojResolveAssemblyReference.cache

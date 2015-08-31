@@ -1,0 +1,56 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+game Pippo = {
+  
+  MainCamera      : MainCamera
+
+  Create() =
+    {
+      MainCamera = new MainCamera()
+    }
+}
+
+entity MainCamera = {
+  inherit UnityCamera
+
+  rule Rotation =
+    .&
+      wait Input.GetKey(KeyCode.RightArrow)
+      yield Quaternion.Euler(0.0f,60.0f * dt,0.0f) * UnityCamera.Rotation
+    .&
+      wait Input.GetKey(KeyCode.LeftArrow)
+      yield Quaternion.Euler(0.0f,-60.0f * dt,0.0f) * UnityCamera.Rotation 
+    .&
+      wait Input.GetKey(KeyCode.UpArrow)
+      yield UnityCamera.Rotation * Quaternion.Euler(-60.0f * dt,0.0f,0.0f)
+    .&
+      wait Input.GetKey(KeyCode.DownArrow)
+      yield UnityCamera.Rotation * Quaternion.Euler(60.0f * dt,0.0f,0.0f)
+      
+  rule Position =
+    .&
+      wait Input.GetKey(KeyCode.W)
+      let forward = UnityCamera.Forward
+      yield UnityCamera.Position + (new Vector3(forward.x,0.0f,forward.z) * 2.0f * dt)
+    .&
+      wait Input.GetKey(KeyCode.S)
+      let forward = UnityCamera.Forward
+      yield UnityCamera.Position - (new Vector3(forward.x,0.0f,forward.z) * 2.0f * dt)
+    .&
+      wait Input.GetKey(KeyCode.D)
+      let right = UnityCamera.Right
+      yield UnityCamera.Position + (new Vector3(right.x,0.0f,right.z)) * 2.0f * dt
+    .&
+      wait Input.GetKey(KeyCode.A)
+      let right = UnityCamera.Right
+      yield UnityCamera.Position - (new Vector3(right.x,0.0f,right.z)) * 2.0f * dt
+      
+
+  Create() =
+    {
+      Base = UnityCamera.CreateMainCamera()
+    }
+}

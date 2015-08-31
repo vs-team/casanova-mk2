@@ -1,0 +1,125 @@
+module Menu
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity Menu = {
+  inherit UnityMenu
+  ref StartButton : ButtonGUI
+  ref LessButton  : Option<ButtonGUI>
+  ref PlusButton  : Option<ButtonGUI>
+  ref PreviousMButton  : Option<ButtonGUI>
+  ref NextMButton  : Option<ButtonGUI>
+  ref BackButton  : ButtonGUI
+
+  rule CurrentScreenNumber,StartButton.IsPressed = 
+    wait StartButton.IsPressed
+    let next = (CurrentScreenNumber + 1)
+    Debug.Log("Going to next scene: " + next)
+    yield next ,false
+
+  rule CurrentScreenNumber, BackButton.IsPressed = 
+    wait BackButton.IsPressed
+    if CurrentScreenNumber = 0 then
+      Debug.Log("Quit")
+      yield -1, false
+    else
+      let previous = (CurrentScreenNumber - 1)
+      Debug.Log("Going to previous scene" + previous)
+      yield previous, false
+  
+  rule MapSelecter =
+    yield MapSelecter
+
+  rule MapName = 
+    Debug.Log(MapName)
+    yield MapName
+
+  rule MapSelectNumber, PreviousMButton.Value.IsPressed, NextMButton.Value.IsPressed = 
+    wait PreviousMButton.IsSome && NextMButton.IsSome
+    wait PreviousMButton.Value.IsPressed || NextMButton.Value.IsPressed
+    Debug.Log(MapSelectNumber)
+    if PreviousMButton.Value.IsPressed then
+      if MapSelectNumber = 1 then // first element
+        yield MapSelectNumber, false,false
+      else
+        yield (MapSelectNumber - 1), false, false
+    if NextMButton.Value.IsPressed then
+      yield (MapSelectNumber + 1), false, false
+
+  rule PlayerAmount = 
+    yield PlayerAmount
+
+  rule AmountOfPlayers, LessButton.Value.IsPressed, PlusButton.Value.IsPressed = 
+    wait LessButton.IsSome && PlusButton.IsSome
+    wait LessButton.Value.IsPressed || PlusButton.Value.IsPressed
+    let Minus = (AmountOfPlayers - 1)
+    let Plus = (AmountOfPlayers + 1)
+    if PlusButton.Value.IsPressed then 
+      if AmountOfPlayers < 4 then
+        Debug.Log("Players become " + Plus)
+        yield Plus, false, false
+    if LessButton.Value.IsPressed then 
+      if AmountOfPlayers > 1 then
+        Debug.Log("Players become " + Minus)
+        yield Minus, false, false
+
+  rule PreviousMButton = 
+    if CurrentScreenNumber = 1 then 
+      let PreviousM = new ButtonGUI("Canvas/PreviousM")
+      Debug.Log("PreviousM Created")
+      yield Some PreviousM
+      wait false
+    else
+      Debug.Log("PreviousM Destroyed")
+      yield None
+
+  rule NextMButton = 
+    if CurrentScreenNumber = 1 then 
+      let NextM = new ButtonGUI("Canvas/NextM")
+      Debug.Log("NextMButton Created")
+      yield Some NextM
+      wait false
+    else
+      Debug.Log("NextMButton Destroyed")
+      yield None 
+
+  rule PlusButton = 
+    if CurrentScreenNumber = 1 then 
+      let PlusB = new ButtonGUI("Canvas/MoreP")
+      Debug.Log("PlusButton Created")
+      yield Some PlusB
+      wait false
+    else
+      Debug.Log("PlusButton Destroyed")
+      yield None    
+
+  rule LessButton = 
+    if CurrentScreenNumber = 1 then 
+      let LessB = new ButtonGUI("Canvas/LessP")
+      Debug.Log("LessButton Created")
+      yield Some LessB
+      wait false
+    else
+      Debug.Log("LessButton Destroyed")
+      yield None    
+
+  Create()=    
+  {  
+    StartButton = new ButtonGUI("Canvas/Play")
+    BackButton  = new ButtonGUI("Canvas/Back")
+    LessButton  = None 
+    PreviousMButton = None
+    NextMButton = None
+    PlusButton  = None 
+  }
+}
+
+entity ButtonGUI = {
+  inherit UnityButton
+
+  Create(n : string) =
+  {
+    UnityButton = UnityButton.Find(n)
+  }
+}

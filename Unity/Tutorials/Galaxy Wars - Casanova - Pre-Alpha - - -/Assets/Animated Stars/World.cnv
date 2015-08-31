@@ -1,0 +1,266 @@
+// Change PlanetInfo when changing commanders of a planet, or make commanderstats always add up to the planets.
+// Add defense and attack/research into battle formula, after 3D battles are done.
+
+module Game
+//todo: owner check mergeships
+open "UnityEngine.dll"
+open UnityEngine
+open GameConstants
+open Player
+open Planet
+open Battle
+open Ship
+open UI
+
+worldEntity World = {
+  Constants : GameConstants
+  Planets : [Planet]
+  Links : [Link]
+  SelectionManager : SelectionManager
+  ref SelectedPlanets : [Planet]
+  ref TargetedPlanet : Option<Planet>
+  InputMonitor : InputController
+  Ships : [Ship]
+  Commanders : [Commander]
+  ResourceBar : ResourceBar
+  MainCamera : MainCamera
+                                                            
+  rule SelectedPlanets =
+    [for p in Planets do
+     where p.Selected
+     select p]
+
+  rule TargetedPlanet =
+    let x =
+      [for a in Planets do
+       where a.Targeted
+       select a]
+    if x.Count > 0 then
+      yield Some x.Head
+    else yield None
+ 
+  Create()= 
+    let constants = new GameConstants()
+    let unityPlanets = UnityPlanet.FindAllPlanets()
+    let unityLinks = UnityLink.FindLinks()
+    UnityRouting.findRouter(unityPlanets, unityLinks)
+    let commanders = [new Commander(1, constants.Aggressive); new Commander(2, constants.Defensive)]
+
+    let MinPlanetPositionX =
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.x < p.Position.x && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.x)]
+
+    let MinPlanetPositionY = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.y < p.Position.y && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.y)]
+
+    let MinPlanetPositionZ = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.z < p.Position.z && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.z)]
+
+    let MaxPlanetPositionX = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.x > p.Position.x && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.x)]
+
+    let MaxPlanetPositionZ = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.z > p.Position.z && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.z)]
+    
+    let planets = 
+      [ for p in unityPlanets do
+        let ps = p.startingCommander
+        let (tempStartingCommander:[Commander]) = 
+            [ for c in commanders do
+              where (c.CommanderNumber = ps)
+              select (c) ]
+        let owner = if tempStartingCommander.Count = 0 then None else Some (tempStartingCommander.Head)
+        select(new Planet(constants, p, (UnityRouting.getHopTable(p, unityPlanets)), owner))]
+
+    let links1 = [for l in unityLinks do
+                   for p in planets do
+                   for q in planets do
+                   where (l.startPlanet = p.UnityPlanet && l.endPlanet = q.UnityPlanet)
+                   select (new Link(l, p, q))]      
+    let links2 = [for l in unityLinks do
+                   for p in planets do
+                   for q in planets do
+                   where (l.startPlanet = p.UnityPlanet && l.endPlanet = q.UnityPlanet)
+                   select (new Link(l, q, p))]
+    let links3 = links1 @ links2
+   
+    {    
+     Constants = constants
+     Planets = planets
+     Links = links3
+     SelectionManager = new SelectionManager()
+     SelectedPlanets = []
+     TargetedPlanet = None
+     InputMonitor = new InputController()
+     Ships = []
+     Commanders = commanders
+     ResourceBar = new ResourceBar(commanders)
+     MainCamera = new MainCamera(MinPlanetPositionX.Head, MinPlanetPositionY.Head ,   MinPlanetPositionZ.Head ,   MaxPlanetPositionX.Head ,   MaxPlanetPositionZ.Head) // (MinX, MinZ, Ypos, MaxX, MaxZ)
+    }
+}
+
+entity InputController = {
+  inherit UnityController
+  
+  Create() = {
+  Base = new UnityController()
+  }
+}
+entity SelectionManager = {
+  
+  SelectionRectangle : Option<SelectionRectangle>
+  ref SelectionRectangleToDestroy : Option<SelectionRectangle>
+
+  rule SelectionRectangle, SelectionRectangleToDestroy = 
+    
+    wait SelectionRectangle.IsNone && Input.GetMouseButton(0)
+    let p = world.InputMonitor.MousePositionInWorld
+    wait 0.1f
+    if SelectionRectangle.IsNone && Input.GetMouseButton(0) then
+      yield (Some (SelectionRectangle.Create(world, p))), None
+      wait (Input.GetMouseButtonUp(0))
+      let rect = SelectionRectangle
+      yield None, rect
+      yield None, None
+
+  rule SelectionRectangleToDestroy.Value.Destroyed = 
+    wait SelectionRectangleToDestroy.IsSome
+    yield true
+
+  Create()=
+  {
+    SelectionRectangle = None
+    SelectionRectangleToDestroy = None
+  }
+
+}
+entity SelectionRectangle = {
+  inherit UnitySelectionRectangle
+  StartPosition : Vector3
+  EndPosition   : Vector3
+
+  rule Position, Scale = 
+    let StartX  = 
+      if StartPosition.x > EndPosition.x then EndPosition.x
+      else  StartPosition.x
+    let DestinationX = 
+      if StartPosition.x > EndPosition.x then StartPosition.x
+      else EndPosition.x
+    let ENDP = EndPosition.ToString()
+    //Debug.Log(ENDP)
+    let STARTP = StartPosition.ToString()
+    Debug.Log(STARTP)
+
+    let StartZ  = 
+      if StartPosition.z > EndPosition.z then EndPosition.z
+      else  StartPosition.z
+    let DestinationZ = 
+      if StartPosition.z > EndPosition.z then StartPosition.z
+      else EndPosition.z
+    let NewP = new Vector3((DestinationX - StartX)/2.0f + StartX, Position.y, (DestinationZ - StartZ) / 2.0f + StartZ)
+    let NewS = new Vector3((DestinationX - StartX), Scale.y, (DestinationZ - StartZ))
+    yield NewP, NewS
+
+  rule EndPosition = 
+    yield world.InputMonitor.MousePositionInWorld
+
+  Create(world : World, StartP : Vector3) = 
+    {
+      Base = UnitySelectionRectangle.Instantiate(StartP)
+      StartPosition = StartP
+      EndPosition = StartP
+    }
+}
+
+entity MainCamera = {
+  inherit UnityCamera
+  MinX : float
+  MinY : float
+  MinZ : float
+  MaxX : float
+  MaxZ : float
+//  minimum : Vector3
+//  maximum : Vector3
+
+
+  rule CameraPosition = // between boundary. should be based on map planet position values
+    Debug.Log("minx = " + MinX.ToString())
+    Debug.Log("miny = " + MinY.ToString())
+    Debug.Log("minz = " + MinZ.ToString())
+    Debug.Log("maxx = " + MaxX.ToString())
+    Debug.Log("maxz = " + MaxZ.ToString())
+    wait Input.GetKey("left") || Input.GetKey("right") || Input.GetKey("up") || Input.GetKey("down") || (Input.GetAxis("Mouse ScrollWheel") <> 0)// || Input.GetAxis()
+    if Input.GetKey("left") then
+      let xNew = CameraPosition.x - 0.5f
+      let yNew = CameraPosition.y
+      let zNew = CameraPosition.z
+      yield new Vector3 (xNew, yNew, zNew)
+    if Input.GetKey("right") then
+      let xNew = CameraPosition.x + 0.5f
+      let yNew = CameraPosition.y
+      let zNew = CameraPosition.z
+      yield new Vector3 (xNew, yNew, zNew)
+    if Input.GetKey("up") then
+      let xNew = CameraPosition.x
+      let yNew = CameraPosition.y
+      let zNew = CameraPosition.z + 0.2f
+      yield new Vector3 (xNew, yNew, zNew)
+    if Input.GetKey("down") then
+      let xNew = CameraPosition.x
+      let yNew = CameraPosition.y
+      let zNew = CameraPosition.z - 0.2f
+      yield new Vector3 (xNew, yNew, zNew)
+    if (Input.GetAxis("Mouse ScrollWheel") > 0) then
+      let xNew = CameraPosition.x
+      let yNew = CameraPosition.y - 0.8f
+      let zNew = CameraPosition.z - 0.1f
+      yield new Vector3 (xNew, yNew, zNew)
+    if (Input.GetAxis("Mouse ScrollWheel") < 0) then
+      let xNew = CameraPosition.x
+      let yNew = CameraPosition.y + 0.8f
+      let zNew = CameraPosition.z + 0.1f
+      yield new Vector3 (xNew, yNew, zNew)
+
+
+  Create(Xmin : float, Ymin : float, Zmin : float, Xmax : float, Zmax : float) = // MinX, MinZ, Y, MaxX, MaxZ
+  {
+    MinX = Xmin
+    MinY = Ymin
+    MinZ = Zmin
+    MaxX = Xmax
+    MaxZ = Zmax
+    Base = UnityCamera.CreateMainCamera()
+//    minimum = new Vector3(MinX, Y, MinZ)
+//    maximum = new Vector3(MaxX, Y, MaxZ)
+  }
+
+}

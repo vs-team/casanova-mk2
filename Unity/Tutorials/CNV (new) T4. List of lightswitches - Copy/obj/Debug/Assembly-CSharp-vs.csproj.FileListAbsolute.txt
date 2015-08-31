@@ -1,0 +1,24 @@
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\UnityEditor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\UnityEngine.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\nunit.framework.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\obj\Debug\Assembly-CSharp.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches\obj\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\UnityEditor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\UnityEngine.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\nunit.framework.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\obj\Debug\Assembly-CSharp.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\CNV (new) T4. List of lightswitches - Copy\obj\Debug\Assembly-CSharp.pdb

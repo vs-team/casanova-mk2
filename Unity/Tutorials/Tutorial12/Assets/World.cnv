@@ -1,0 +1,124 @@
+module Fight
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+    Archers           : [Archer]
+    Warriors          : [Warrior]
+    RandomGenerator   : System.Random
+
+    Create() =
+      {
+        Archers         = [new Archer()]
+        Warriors        = [new Warrior()]
+        RandomGenerator = new System.Random()
+      }
+
+    rule Archers,Warriors =
+      let livingArchers =
+        [for a in Archers do
+         where (a.Fighter.Health > 0)
+         select (a)]
+      let livingWarriors =
+        [for w in Warriors do
+         where (w.Fighter.Health > 0)
+         select (w)]
+      yield livingArchers,livingWarriors
+}
+
+entity Archer = {
+  Fighter         : Fighter
+
+  rule Fighter.CurrentTarget =
+    wait Fighter.CurrentTarget.IsNone
+    if world.Warriors.Length > 0  then
+      yield Some (world.Warriors.Head)
+    else
+      yield None
+
+  Create () =
+    {
+      Fighter = new Fighter(100,10,3.0f,2.0f,100.0f,true,"Archer")
+    }
+}
+
+entity Warrior = {
+  Fighter         : Fighter
+
+  rule Fighter.CurrentTarget =
+    wait Fighter.CurrentTarget.IsNone
+    if world.Archers.Length > 0  then
+      yield Some (world.Archers.Head)
+    else
+      yield None
+
+  Create () =
+    {
+      Fighter = new Fighter(150,15,1.5f,1.0f,10.0f,false,"Warrior")
+    }
+}
+
+entity Fighter = {
+  inherit UnityBob
+
+  Health                  : int
+  DamageDie               : int
+  MovementSpeed           : float32
+  AttackSpeed             : float32
+  AttackRange             : float32
+  HitSpeed                : float32
+  Name                    : string
+  ref CurrentTarget       : Option<Fighter>
+  AllowFleeing            : bool
+
+
+    
+  rule Position = Position + Velocity * dt
+    
+
+  rule Velocity,CurrentTarget.Value.Health =
+    !| CurrentTarget.IsNone =>
+        yield Vector3.zero,CurrentTarget.Value.Health
+    !| Health <= 0 =>
+        //Utils.Print(Name + " : Dead")
+        yield Vector3.zero,CurrentTarget.Value.Health
+    !| (Vector3.Distance(Position - CurrentTarget.Value.Position) <= AttackRange) && (CurrentTarget.Value.Health > 0) =>
+        let distance = Vector3.Distance(Position - CurrentTarget.Value.Position)
+        let r = world.RandomGenerator.Next(100)
+        let targetVector = Vector3.Normalize(Target.Position - Position)
+        let velocity = MovementSpeed * targetVector
+        .| r < 50 && distance < 35.0f && AllowFleeing =>
+          yield 0.0f - velocity,CurrentTarget.Value.Health
+          //Utils.Print(Name + " : Retreating ")
+          wait 1.0f
+        .| _ =>
+            let next_r = world.RandomGenerator.Next(DamageDie)
+            let r = 1 + next_r
+            //Utils.Print(Name + " : Attacking " + " Damage = " + r + " Enemy health = " + world.LeftWarrior.Health)
+            yield Velocity,CurrentTarget.Value.Health - r
+            wait AttackSpeed
+    !|  CurrentTarget.Value.Health > 0 =>
+        let targetVector = Vector3.Normalize(Target.Position - Position)
+        let velocity =  targetVector * MovementSpeed
+        wait 1.0f
+        //Utils.Print(Name + " : Moving" + " Pos1 = " + Pos1)
+        yield velocity,CurrentTarget.Value.Health
+    !| _ =>
+        //Utils.Print(Name + " Idling...")
+        yield Vector3.zero,CurrentTarget.Value.Health
+
+  Create(health : int,damageDie : int,movementSpeed : float32,attackSpeed : float32,attackRange : float32,allowFleeing : bool,unityName : string) =
+    {
+      Health          = health
+      DamageDie       = damageDie
+      MovementSpeed   = movementSpeed
+      AttackSpeed     = attackSpeed
+      AttackRange     = attackRange
+      Name            = unityName
+      Base            = UnityBob.Find(unityName)
+      CurrentTarget   = None
+      Targeted        = false
+      AllowFleeing    = allowFleeing
+    }
+}

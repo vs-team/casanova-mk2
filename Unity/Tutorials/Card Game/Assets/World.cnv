@@ -1,0 +1,58 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+worldEntity World = {
+  
+  userInput : InputBox
+  wordList : [(string*string)]
+  Testcard : Card
+  
+  
+
+  Create()=
+    {
+      userInput = InputBox.Create()
+      wordList = FileReader.getWords()
+      Testcard = Card.Create(wordList.[2])
+    }
+
+    
+}
+
+entity InputBox = {
+    inherit TextField
+
+    Enter : bool
+    Result : string
+
+    rule Enter, Result, Text =
+      wait Input.GetKeyDown(KeyCode.Return)
+      yield true, Text, ""
+ 
+    rule Text =
+      wait Input.inputString <> ""
+      if Input.inputString = "\b" && Text.Length > 0 then
+        yield Text.Substring(0, Text.Length-1)
+      else
+        yield Text + Input.inputString
+
+    Create() = 
+      {
+        TextField = TextField.Instantiate()
+        Enter = false
+        Result = "" 
+      }
+}
+
+entity Card = { 
+  inherit UnityCard
+
+  Create(hello : (string*string)) =
+    {
+      Base = UnityCard.instantiate(hello)
+    }
+
+  }

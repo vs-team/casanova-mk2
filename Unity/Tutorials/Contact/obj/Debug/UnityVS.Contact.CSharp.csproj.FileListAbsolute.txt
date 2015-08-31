@@ -1,0 +1,11 @@
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\UnityEditor.dll
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\UnityEngine.dll
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\UnityEngine.xml
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\UnityEditor.xml
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\obj\Debug\UnityVS.Contact.CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\obj\Debug\Assembly-CSharp.dll
+C:\Users\Francesco\Documents\Casanova\Unity\Tutorials\Contact\obj\Debug\Assembly-CSharp.pdb

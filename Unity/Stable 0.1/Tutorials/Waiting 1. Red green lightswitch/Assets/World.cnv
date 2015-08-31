@@ -1,0 +1,20 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+scene World = {
+  inherit UnityCube
+                            
+  rule Color = 
+    wait 0.5f
+    yield Color.green
+    wait 0.5f
+    yield Color.red
+
+   Create() =
+    {
+      Base = UnityCube.Find()
+    }
+}

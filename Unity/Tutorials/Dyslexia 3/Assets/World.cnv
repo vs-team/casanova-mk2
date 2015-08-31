@@ -1,0 +1,248 @@
+﻿module DyslexiaDetector
+open "UnityEngine.dll"
+open UnityEngine
+open Track
+
+scene World =
+  { 
+    inherit UnityAudio //, Track
+    Fox  : Animal
+    Bird : Animal
+    CurrentTrack : Option<Item>
+    CurrentCheckpoint : Option<Transform>
+    Foreground        : UnityBackground
+    Background        : UnityBackground
+    AnimationEnd      : bool
+    Button            : Button    
+    PauseButton       : PauseButton
+    RunningTutorial   : bool
+    StopGame          : bool
+    PauseMenu         : Option<PauseMenu>
+
+
+    rule PauseMenu, Time.timeScale =
+      wait PauseButton.Pressed
+      yield Some (PauseMenu.Create()), 0.0f
+      UnityAudio.Pause()
+      wait not PauseButton.Pressed
+
+    rule PauseMenu.Value.Destroyed, PauseMenu, Time.timeScale =
+      wait PauseMenu.IsSome && PauseMenu.Value.Resume
+      UnityAudio.Resume()
+      yield true, None, 1.0f
+
+    rule CurrentCheckpoint, Bird.Walk, Bird.Position, Bird.Destination =
+      for item in Foreground.CheckPoints do
+        wait not StopGame
+        yield Some item, true, Bird.Position, Bird.Destination
+        wait Fox.Walk
+        wait not Fox.Walk
+        yield CurrentCheckpoint, Bird.Walk, Bird.Enter, item.position
+        wait Vector3.Distance(Bird.Position, item.position) < 0.1f
+        yield CurrentCheckpoint, false, Bird.Destination, Bird.Destination
+        wait Bird.Sing
+        wait not Bird.Sing
+        wait Button.Yes || Button.No
+        yield CurrentCheckpoint, true, Bird.Position, Bird.Exit
+        wait Vector3.Distance(Bird.Position, Bird.Exit) < 0.1f
+        yield None, false, Bird.Exit, Bird.Destination
+
+    rule AnimationEnd, Fox.Walk, Fox.Sing, Bird.Sing, Foreground.RotatingVelocity, Background.RotatingVelocity =
+      wait AnimationEnd
+      yield AnimationEnd, true, false, false, -7.0f, -2.0f
+      wait CurrentCheckpoint.IsSome && Vector3.Distance(Fox.Position, CurrentCheckpoint.Value.position) < 1.5f
+      yield AnimationEnd, false, false, false, 0.0f, 0.0f
+      wait not Bird.Walk
+      yield AnimationEnd, false, true, false, 0.0f, 0.0f
+      UnityAudio.Play(CurrentTrack.Value.ItemName)
+      wait ClipLength / 2.0f
+      yield AnimationEnd, false, false, true, Foreground.RotatingVelocity, Background.RotatingVelocity
+      wait ClipLength / 2.0f
+      yield AnimationEnd, false, false, false, Foreground.RotatingVelocity, Background.RotatingVelocity
+      let item = CurrentTrack.Value
+      wait Button.Yes || Button.No
+      if item.Answer || RunningTutorial then
+        UnityAudio.Play("cheer")
+      else
+        UnityAudio.Play("boo")
+      wait Bird.Walk
+      wait not Bird.Walk
+      yield false, Fox.Walk, Fox.Sing, Bird.Sing, Foreground.RotatingVelocity, Background.RotatingVelocity
+
+    rule CurrentTrack, AnimationEnd, Button.Yes, Button.Index, Button.AnimationNumber, Button.Texture, RunningTutorial, StopGame =
+      for item in TrackManager.CurrentTutorial do
+        yield Some item, true, Button.Yes, Button.Index, Button.AnimationNumber, Button.Texture, true, StopGame
+        wait Bird.Sing
+        wait not Bird.Sing
+        wait 2.0f
+        let texture =
+          if item.IsSame then "yes_frames"
+          else "no_frames"
+        yield CurrentTrack, AnimationEnd, Button.Yes, 0, 5, texture, RunningTutorial, StopGame
+        for i in [0..Button.AnimationNumber - 1] do
+          yield CurrentTrack, AnimationEnd, Button.Yes, i, Button.AnimationNumber, Button.Texture, RunningTutorial, StopGame
+          wait 0.15f
+        yield None, true, true, 0, 1, "both_up", RunningTutorial, StopGame
+        yield CurrentTrack, AnimationEnd, false, Button.Index, Button.AnimationNumber, Button.Texture, RunningTutorial, StopGame
+        wait not AnimationEnd
+        yield CurrentTrack, true, Button.Yes, Button.Index, Button.AnimationNumber, Button.Texture, RunningTutorial, StopGame
+
+      for item1 in TrackManager.CurrentExperiment do
+        yield Some item1, true, Button.Yes, Button.Index, Button.AnimationNumber, Button.Texture, RunningTutorial, StopGame
+        yield CurrentTrack, true, Button.Yes, Button.Index, Button.AnimationNumber, Button.Texture, false, StopGame
+        wait not AnimationEnd
+        yield CurrentTrack, true, Button.Yes, Button.Index, Button.AnimationNumber, Button.Texture, RunningTutorial, StopGame
+      
+
+      let elems = TrackManager.ItemsToPlay
+      //if (elems.Count > 0) then
+      TrackManager.SaveAll()
+      TrackManager.MoveNextExperiment()
+      Application.LoadLevel("End")
+        
+      //Application.Quit()
+      
+
+
+    rule CurrentTrack.Value.Answer, CurrentTrack.Value.ResponceTime =
+      wait not RunningTutorial
+      wait CurrentTrack.IsSome && Fox.Sing
+      wait Bird.Sing
+      wait not Bird.Sing
+      let t0 = DateTime.Now
+      wait (Button.Yes || Button.No) && (not Bird.Sing)
+      let t1 = DateTime.Now
+      let dt = t1.Subtract(t0)
+      yield Button.Yes, dt.TotalSeconds
+
+
+    Create() =
+      {
+        StopGame = false
+        RunningTutorial = true    
+        PauseMenu       = None
+        AnimationEnd = false
+        Button = Button.Create()
+        PauseButton = PauseButton.Create()
+        CurrentCheckpoint = None
+        Foreground = UnityBackground.Find("GroundMid", 0.0f)
+        Background = UnityBackground.Find("GroundBack", 0.0f)
+        CurrentTrack = None
+        //Track = tracks_manager //new Track(@"Assets\\Resources\\tracks.csv")
+        UnityAudio = UnityAudio.Find()        
+        Fox  = Animal.Create("Fox", "fox_walking", 4, "fox_singing", 15, new Vector3(-0.4f, -7.9f, -0.7f), new Vector3(-0.4f, -7.9f, -0.7f), new Vector3(-0.4f, -7.9f, -0.7f))
+        Bird = Animal.Create("Bird", "bird_flying", 4, "bird_singing", 12, new Vector3(3.0f, -7.9f, 2.0f), new Vector3(-3.0f, -7.9f, 2.0f), new Vector3(3.0f, -7.9f, 2.0f))
+      }
+  }
+
+entity Button =
+  {
+    inherit UnityYesNo
+    Yes : bool
+    No  : bool
+
+
+    rule Texture, No =
+      yield "both_up", false
+      wait not world.RunningTutorial && Input.GetMouseButtonDown(0) && IsNoPressed
+      yield "No_down", true
+      wait 0.1f
+
+    rule Texture, Yes =
+      yield "both_up", false
+      wait not world.RunningTutorial && Input.GetMouseButtonDown(0) && IsYesPressed
+      yield "Yes_down", true
+      wait 0.1f
+
+    Create() =
+      {
+        UnityYesNo = UnityYesNo.Find(1)
+        Yes = false
+        No  = false
+      }
+  }
+
+entity PauseButton =
+  {
+    inherit UnityPause
+    Pressed : bool
+    
+    rule Texture, Pressed =
+      yield "PauseButton", false
+      wait Input.GetMouseButtonDown(0) && IsPausePressed
+      yield "PauseButton_down", true
+      wait 0.1f
+
+    Create() =
+      {
+        UnityPause = UnityPause.Find()
+        Pressed = false
+      }
+  }
+
+entity PauseMenu =
+  {
+    inherit UnityPauseMenu
+
+
+    Create() =
+      {
+        UnityPauseMenu = UnityPauseMenu.Instantiate()
+      }
+  }
+
+entity Animal =
+  {
+    inherit UnityAnimal
+    Walk : bool
+    Sing : bool
+
+    WalkTexture       : string
+    WalkTextureFrames : int
+
+    SingTexture       : string
+    SingTextureFrames : int
+
+    Enter             : Vector3
+    Exit              : Vector3
+    Destination       : Vector3
+
+    rule Position = Position + Velocity * dt      
+    rule Velocity = 
+      wait 0.0f
+      if Vector3.Distance(Position, Destination) > 0.1f then
+        yield Destination - Position
+      else yield Vector3.zero
+
+
+
+    rule AnimationIndex, AnimationNumber, AnimalTexture =
+      yield 0, WalkTextureFrames, WalkTexture
+      wait Walk
+      while(Walk) do
+        for i in [0..WalkTextureFrames - 1] do
+          yield i, AnimationNumber, AnimalTexture 
+          wait 0.15f
+
+      yield 0, SingTextureFrames, SingTexture
+      wait Sing
+      while(Sing) do
+        for i in [0..SingTextureFrames - 1] do
+          yield i, AnimationNumber, AnimalTexture 
+          wait 0.08f
+
+    Create(animal : string, walkTexture : string, walkTextureFrames : int, singTexture : string, singTextureFrames : int, enter : Vector3, exit : Vector3, destination : Vector3) =
+      {
+        Enter             = enter
+        Exit              = exit
+        Destination       = destination
+        WalkTexture       = walkTexture
+        WalkTextureFrames = walkTextureFrames
+        SingTexture       = singTexture
+        SingTextureFrames = singTextureFrames
+        UnityAnimal = UnityAnimal.Find(animal, walkTextureFrames, enter)
+        Walk = false
+        Sing = false
+      }
+  }
+

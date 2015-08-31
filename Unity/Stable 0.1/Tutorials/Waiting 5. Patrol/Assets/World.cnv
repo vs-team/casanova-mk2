@@ -1,0 +1,22 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+scene World = {
+  inherit UnityBob
+
+  rule Velocity, CurrentAnimation = 
+    for c in Checkpoints do
+      let dir0 = c - Position
+      yield dir0, BobAnimation.Walk
+      wait Vector3.Dot(dir0, c - Position) < 0.0f
+      yield Vector3.zero, BobAnimation.Idle
+      wait 1.0f
+
+  Create() =
+    {
+      Base = UnityBob.Find()
+    }
+}

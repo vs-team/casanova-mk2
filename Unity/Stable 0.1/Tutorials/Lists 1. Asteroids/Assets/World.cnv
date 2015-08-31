@@ -1,0 +1,137 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  Planets               :   [Planet]
+  MainCamera            :   GameCamera
+
+  rule Planets =
+    .| Planets.Count < 20 =>
+        let posx = Random.Range(175.0f,200.0f)
+        let posz = Random.Range(175.0f,200.0f)
+        let posx = if UnityEngine.Random.value > 0.5f then posx else posx * -1.0f
+        let posz = if UnityEngine.Random.value > 0.5f then posz else posz * -1.0f
+        let mass = Random.Range(3.0f,350.0f)
+        let position = new Vector3(posx,0.0f,posz)
+        let velocity = Vector3.Normalize(position * -1.0f) * (Random.Range(1.0f,6.0f))
+        let rotv = new Vector3(Random.Range(-50.0f,50.0f),Random.Range(-50.0f,50.0f),Random.Range(-50.0f,50.0f))
+        let newPlanet = new Planet(position,mass,velocity,rotv)
+        yield (newPlanet :: Planets)
+    .| _ =>
+        wait 1.0f
+        let posx = Random.Range(175.0f,200.0f)
+        let posz = Random.Range(175.0f,200.0f)
+        let posx = if UnityEngine.Random.value > 0.5f then posx else posx * -1.0f
+        let posz = if UnityEngine.Random.value > 0.5f then posz else posz * -1.0f
+        let mass = Random.Range(3.0f,350.0f)
+        let position = new Vector3(posx,0.0f,posz)
+        let velocity = Vector3.Normalize(position * -1.0f) * (Random.Range(1.0f,6.0f))
+        let rotv = new Vector3(Random.Range(-50.0f,50.0f),Random.Range(-50.0f,50.0f),Random.Range(-50.0f,50.0f))
+        let newPlanet = new Planet(position,mass,velocity,rotv)
+        yield (newPlanet :: Planets)
+
+  rule Planets =
+    [for p in Planets do
+      where (not p.OutOfBounds)
+      select (p)]
+
+  Create() =
+    let planets =
+      [for i in [1..50] do
+        let pos = new Vector3(Random.Range(-140.0f,140.0f),0.0f,Random.Range(-140.0f,140.0f))
+        let mass = Random.Range(3.0f,350.0f)
+        let rotv = new Vector3(Random.Range(-50.0f,50.0f),Random.Range(-50.0f,50.0f),Random.Range(-50.0f,50.0f))
+        select (new Planet(pos,mass,Vector3.zero,rotv))]
+    {
+      Planets             = planets
+      MainCamera          = new GameCamera()
+    }
+}
+
+entity GameCamera = {
+  inherit UnityCamera
+
+  rule CameraPosition =
+    let sensitivity = 1.0f
+    .&
+      wait Input.GetKey(KeyCode.A) && CameraPosition.x > -100.0f
+      let adjustment = System.Math.Max(-100.0f,sensitivity * -1.0f)
+      yield CameraPosition + (new Vector3(adjustment,0.0f,0.0f))
+    .&
+      wait Input.GetKey(KeyCode.D) && CameraPosition.x < 100.0f
+      let adjustment = System.Math.Min(100.0f,sensitivity)
+      yield CameraPosition + (new Vector3(sensitivity,0.0f,0.0f))
+    .&
+      wait Input.GetKey(KeyCode.S) && CameraPosition.z > -100.0f
+      let adjustment = System.Math.Max(-100.0f,sensitivity * -1.0f)
+      yield CameraPosition + (new Vector3(0.0f,0.0f,adjustment))
+    .&
+      wait Input.GetKey(KeyCode.W) && CameraPosition.z < 100.0f
+      let adjustment = System.Math.Min(100.0f,sensitivity)
+      yield CameraPosition + (new Vector3(0.0f,0.0f,adjustment))
+
+  rule CameraSize =
+    let sensitivity = 0.5f
+    .&
+      wait Input.GetKey(KeyCode.DownArrow) && CameraSize <= 75.0f
+      yield System.Math.Min(75.0f,CameraSize + sensitivity)
+    .&
+      wait Input.GetKey(KeyCode.UpArrow) && CameraSize >= 5.0f
+      yield System.Math.Max(5.0f,CameraSize - sensitivity)
+        
+  Create () =
+  {
+    Base = UnityCamera.CreateMainCamera()
+  }
+}
+
+entity Planet = {
+  inherit UnityPlanet
+
+  Velocity                : Vector3
+  RotationVelocity        : Vector3
+  Acceleration            : Vector3
+  Mass                    : float32
+  OutOfBounds             : bool
+
+  rule Position = Position + Velocity * dt
+
+  rule Velocity = Velocity + Acceleration * dt
+
+  rule Rotation = Quaternion.Euler(RotationVelocity * dt) * Rotation
+
+  rule OutOfBounds = Position.x > 250.0f || Position.z > 250.0f || Position.x < -250.0f || Position.z < -250.0f
+
+  rule Destroyed =
+    wait OutOfBounds
+    yield true
+
+  rule Acceleration =
+    let g = 6.673f * Mathf.Pow(10.0f,-3.0f)
+    let accelerations =
+      [for planet in world.Planets do
+        where (planet <> this)
+        let r = Vector3.Distance(this.Position,planet.Position)
+        let acc = g * planet.Mass / (r * r)
+        select (Vector3.Normalize(planet.Position - this.Position) * acc)]
+    if accelerations.Count > 0 then
+      [for a in accelerations do
+        select a
+        sum]
+    else
+      Vector3.zero
+    
+
+  Create(pos : Vector3,m : float32,velocity : Vector3,rotationVelocity : Vector3) =
+    {
+      Velocity            = velocity
+      RotationVelocity    = rotationVelocity
+      Mass                = m
+      Acceleration        = Vector3.zero
+      OutOfBounds         = false
+      Base                = UnityPlanet.Instantiate(pos,m)
+    }
+}
+

@@ -1,0 +1,111 @@
+module GUIBase
+
+entity CnvButton = {
+  inherit UnityButton
+
+  Create(n : string) =
+  {
+    UnityButton = UnityButton.GetButton(n)
+  }
+}
+
+entity CnvSelectionBox = {
+  inherit UnitySelectionBox
+
+  Create(n : string) =
+  {
+    UnitySelectionBox = UnitySelectionBox.GetBox(n)
+  }
+}
+
+entity CnvText = {
+  inherit UnityText
+
+  Create(n : string) =
+  {
+    UnityText = UnityText.GetText(n)
+  }
+}
+
+entity IconInstantiation = {
+  Position        : Vector3
+  ImageName       : string
+  ParentPath      : string
+
+  Create (position : Vector3, imageName : string, parentPath : string) =
+    {
+      Position    = position
+      ImageName   = imageName
+      ParentPath  = parentPath
+    }
+}
+
+entity CnvIcon = {
+  inherit UnityIcon
+
+  Create (n : string,instantiate : Option<IconInstantiation>) =
+    let icon =
+      if instantiate.IsSome then
+        UnityIcon.Instantiate(n,instantiate.Value.ImageName,instantiate.Value.ParentPath,instantiate.Value.Position)
+      else
+        UnityIcon.GetIcon(n)
+    {
+      UnityIcon = icon
+    }
+}
+
+entity CnvFrame = {
+  inherit UnityFrame
+
+  Create (n : string,offsetX : Option<float32>,offsetY : Option<float32>) =
+    let offsetX = if offsetX.IsNone then 0.0f else offsetX.Value
+    let offsetY = if offsetY.IsNone then 0.0f else offsetY.Value
+    {
+      UnityFrame = UnityFrame.GetFrame(n,offsetX,offsetY)
+    }
+}
+
+entity CnvToggle = {
+  inherit UnityToggle
+
+  Create(n : string) =
+    {
+      UnityToggle = UnityToggle.GetToggle(n)
+    }
+}
+
+entity CnvPanel = {
+  inherit UnityPanel
+  
+  Create (n : string) =
+    {
+      UnityPanel = UnityPanel.GetPanel(n)
+    }
+}
+
+entity CnvInputField = {
+  inherit UnityInputField
+
+  Create (n : string) =
+    {
+      UnityInputField = UnityInputField.Find(n)
+    }
+}
+
+entity CnvComboBox = {
+  inherit ComboBox
+
+  Create (n : string) =
+    {
+      ComboBox = ComboBox.Find(n)
+    }
+}
+
+entity CnvComboList = {
+  inherit ComboList
+
+  Create (n : string) =
+    {
+      ComboList = ComboList.Find(n)
+    }
+}

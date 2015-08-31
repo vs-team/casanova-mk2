@@ -1,0 +1,45 @@
+module UI
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+entity ResourceBar = { // Creates the scoreboard with every player in it
+  
+  PlayerStats : [ResourceText]
+
+  Create(coms : [Commander]) = 
+    let playerstats = [for i in [1..coms.Count] do
+                       select (new ResourceText(coms.[i - 1], i - 1, coms.Count))]
+    {
+        PlayerStats = playerstats
+    }
+}
+
+entity ResourceText = { // Show the stats of a player
+    
+  PlayerStats     : TextGUI
+  ref Player      : Commander
+
+  rule PlayerStats.Text =
+    let attack = Player.Attack.ToString()
+    let defense = Player.Defense.ToString()
+    let production = Player.Production.ToString()
+    let research = Player.Research.ToString()
+    yield Player.Name + "\t" + attack + " " + defense + " " + production + " " + research
+  
+  Create(n : Commander, i : int, maxPlayers : int) =
+  {
+    PlayerStats = new TextGUI("Prefabs/PlayerStats", "PlayerStatGUI/StatsPanel", i, maxPlayers)
+    Player = n
+  }
+}
+
+entity TextGUI = {
+  inherit UnityText
+  
+  Create(n : string, canvasName : string, i : int, maxPlayers : int) =
+  {
+    Base = UnityText.Instantiate(n, canvasName, i, maxPlayers)
+  }
+}

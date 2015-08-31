@@ -1,0 +1,927 @@
+module GameLogic
+
+entity Player = {
+  Name                    : string
+  Index                   : int
+  Resources               : GameResources
+  Color                   : Color
+  Symbols                 : System.Collections.Generic.List<int>
+  SpentActions            : int
+  ReceivedMessages        : [Message]
+  ref ReceivedTrades      : [Trade]
+  Drones                  : [Drone]
+  Objectives              : [Objective]
+  ref MiningDrones        : [Drone]
+  ref IdlingDrones        : [Drone]
+
+  //debug cheat, remove when you are done
+  (*rule Resources =
+    wait Input.GetKeyDown(KeyCode.C) && (not world.BusyDrones) && world.CurrentPlayer = this
+    yield new GameResources(5000,5000,5000,5000)*)
+
+  //Initialize the objectives
+  rule Objectives =
+    let randomizedTaskResources = GameUtils.RandomizeResources(world.GameConstants.TotalObjectiveResources,4)
+    let objectiveUranium = randomizedTaskResources.[0]
+    let objectivePlutonium = randomizedTaskResources.[1]
+    let objectiveOil = randomizedTaskResources.[2]
+    let objectiveIron = randomizedTaskResources.[3]
+    let miningObjective = new Objective(Some(new GameResources(objectiveUranium,objectivePlutonium,objectiveOil,objectiveIron)),this) 
+    yield [miningObjective]
+    wait false
+  
+  //Create the starting drones
+  rule Drones =
+    let homePlanetList =
+      [for system in world.StarSystems do
+       for planet in system.Planets do
+       where (planet.Owner.IsSome && planet.Owner.Value = this)
+       select (planet)]
+    if homePlanetList.Count > 0 then
+      let homePlanet = homePlanetList.Head
+      let startingDrone1 = new Drone(this,new Vector3(homePlanet.Position.x + 5.0f,homePlanet.Position.y,homePlanet.Position.z))
+      //let startingDrone2 = new Drone(this,new Vector3(homePlanet.Position.x + 10.0f,homePlanet.Position.y,homePlanet.Position.z))
+      yield [startingDrone1]
+      wait false
+    else
+      yield Drones
+
+
+  //Update player's resources when resources are sent from the message creation window.
+  rule Resources =
+    wait world.GUI.MessageMenu.SendButton.Clicked && world.CurrentPlayer = this
+    let payedUranium    = GameUtils.StringToInt(world.GUI.MessageMenu.UraniumInputField.Text)
+    let payedPlutonium  = GameUtils.StringToInt(world.GUI.MessageMenu.PlutoniumInputField.Text)
+    let payedOil        = GameUtils.StringToInt(world.GUI.MessageMenu.OilInputField.Text)
+    let payedIron       = GameUtils.StringToInt(world.GUI.MessageMenu.IronInputField.Text)
+    yield new GameResources(Resources.Uranium - payedUranium,Resources.Plutonium - payedPlutonium,Resources.Oil - payedOil,Resources.Iron - payedIron)
+
+
+  //Update player's resources when resources are sent back from the log window.
+  rule Resources =
+    wait world.GUI.LogMenu.SendButton.Clicked && world.CurrentPlayer = this
+    let payedUranium    = GameUtils.StringToInt(world.GUI.LogMenu.UraniumInputField.Text)
+    let payedPlutonium  = GameUtils.StringToInt(world.GUI.LogMenu.PlutoniumInputField.Text)
+    let payedOil        = GameUtils.StringToInt(world.GUI.LogMenu.OilInputField.Text)
+    let payedIron       = GameUtils.StringToInt(world.GUI.LogMenu.IronInputField.Text)
+    yield new GameResources(Resources.Uranium - payedUranium,Resources.Plutonium - payedPlutonium,Resources.Oil - payedOil,Resources.Iron - payedIron)
+
+
+  //Update resources if there is a drone which mined some resources
+  rule Resources =
+    wait MiningDrones.Count > 0
+    let totalUranium =
+      [for drone in MiningDrones do
+        let gather = drone.GatherAction.Value
+        let resources = gather.MinedResources.Value
+        select (drone.GatherAction.Value.MinedResources.Value.Uranium)
+        sum]
+    let totalPlutonium =
+      [for drone in MiningDrones do
+        select (drone.GatherAction.Value.MinedResources.Value.Plutonium)
+        sum]
+    let totalOil =
+      [for drone in MiningDrones do
+        select (drone.GatherAction.Value.MinedResources.Value.Oil)
+        sum]
+    let totalIron =
+      [for drone in MiningDrones do
+        select (drone.GatherAction.Value.MinedResources.Value.Iron)
+        sum]
+
+    yield new GameResources(Resources.Uranium + totalUranium, Resources.Plutonium + totalPlutonium, Resources.Oil + totalOil, Resources.Iron + totalIron)
+    wait MiningDrones.Count = 0
+
+  //Mining drones are drone which have a gather action and have mined some resources
+  rule MiningDrones =
+      [for drone in Drones do
+       where (drone.GatherAction.IsSome &&
+              drone.GatherAction.Value.MinedResources.IsSome)
+       select (drone)]
+
+  //Idling drone are dron which do not have an action
+  rule IdlingDrones =
+    [for drone in Drones do
+     where (drone.ScanAction.IsNone && drone.GatherAction.IsNone && (not drone.ActionSpent))
+     select (drone)]
+    
+
+  //Maybe it is better to put the new messages in a field updated by its own rule and wait for it to change. Same for trades.
+  rule ReceivedMessages =
+    wait world.CurrentPlayer = this
+    let currentPlayer = world.CurrentPlayer
+    let newMessages =
+      [for message in world.GUI.MessageMenu.OutgoingMessages do
+       where (message.Receiver = this)
+       select (message)]
+    let updatedMessages = newMessages @ ReceivedMessages
+    yield newMessages @ ReceivedMessages
+    wait currentPlayer <> world.CurrentPlayer
+
+  rule ReceivedTrades =
+    wait world.CurrentPlayer = this
+    let currentPlayer = world.CurrentPlayer
+    let newTrades =
+      [for trade in world.GUI.LogMenu.Trades do
+       where (trade.Receiver = this)
+       select (trade)]
+    let updatedTrades = newTrades @ ReceivedTrades
+    yield newTrades @ ReceivedTrades
+    wait currentPlayer <> world.CurrentPlayer
+  
+
+  //When a player receives new trades we upadate his resources.
+  rule ReceivedTrades,Resources =
+    wait ReceivedTrades.Count > 0
+    Debug.Log(this.Name + " received new trades. Updating resources...")
+    Debug.Log(ReceivedTrades.Count)
+    let receivedUranium =
+      [for trade in ReceivedTrades do
+       select (trade.Resources.Uranium)
+       sum]
+    let receivedPlutonium =
+      [for trade in ReceivedTrades do
+       select (trade.Resources.Plutonium)
+       sum]
+    let receivedOil =
+      [for trade in ReceivedTrades do
+       select (trade.Resources.Oil)
+       sum]
+    let receivedIron =
+      [for trade in ReceivedTrades do
+       select (trade.Resources.Iron)
+       sum]
+    Debug.Log(receivedUranium)
+    Debug.Log(receivedPlutonium)
+    Debug.Log(receivedOil)
+    Debug.Log(receivedIron)
+    yield ReceivedTrades,new GameResources(Resources.Uranium + receivedUranium,Resources.Plutonium + receivedPlutonium,Resources.Oil + receivedOil,Resources.Iron + receivedIron)
+    wait dt
+    yield [],Resources
+
+  rule SpentActions =
+    wait world.CurrentPlayer = this
+    yield 0
+    wait world.CurrentPlayer <> this
+    
+
+  Create(index : int, constants : GameConstants, symbolSet : [int]) =
+    let randomizedResources = GameUtils.RandomizeResources(constants.MaximumStartingResources,4)
+    let uranium = randomizedResources.[0]
+    let plutonium = randomizedResources.[1]
+    let oil = randomizedResources.[2]
+    let iron = randomizedResources.[3]
+    let symbols   = 
+      if symbolSet.Count = 0 then 
+        [for x in GameUtils.randomDistinctIntList(10,0,constants.SymbolCount) do
+         select x] 
+      else symbolSet
+    {
+      Name                  = "Player" + (GameUtils.IntToString(index + 1))
+      Index                 = index
+      Resources             = new GameResources(uranium,plutonium,oil,iron)
+      Color                 = GameUtils.AssignColor(index)
+      Symbols               = symbols
+      SpentActions          = 0
+      ReceivedMessages      = []
+      ReceivedTrades        = []
+      Drones                = []
+      MiningDrones          = []
+      Objectives            = []
+      IdlingDrones          = []
+    }
+}
+
+entity Trade = {
+  ref Receiver            : Player
+  Resources               : GameResources
+
+  Create(receiver : Player, resources : GameResources) =
+    {
+      Receiver    = receiver
+      Resources   = resources
+    }
+}
+
+entity Message = {
+  Name                    : string
+  ref Sender              : Player
+  ref Receiver            : Player
+  MessageContent          : [int]
+  Images                  : [int]
+  Read                    : bool
+
+  rule Read =
+    wait world.GUI.LogMenu.SelectedMessage.IsSome && world.GUI.LogMenu.SelectedMessage.Value = this
+    yield true
+    wait false
+
+  Create (receiver : Player, sender : Player, content : [int], images : [int], name : string) =
+    {
+      Name            = name
+      Sender          = sender
+      Receiver        = receiver
+      MessageContent  = content
+      Images          = images
+      Read            = false
+    }
+}
+
+entity Objective =
+  {
+    MiningTask        : Option<GameResources>
+    ref Owner         : Player
+    Text              : string
+    Completed         : bool
+
+    rule Completed =
+      wait MiningTask.IsSome
+      yield Owner.Resources.Uranium >= this.MiningTask.Value.Uranium &&
+            Owner.Resources.Plutonium >= this.MiningTask.Value.Plutonium &&
+            Owner.Resources.Oil >= this.MiningTask.Value.Oil &&
+            Owner.Resources.Iron >= this.MiningTask.Value.Iron
+
+    rule Text =
+      wait MiningTask.IsSome
+      yield
+        "- Collect at least " + GameUtils.IntToString(this.MiningTask.Value.Uranium) + " Uranium, " + GameUtils.IntToString(this.MiningTask.Value.Plutonium) + 
+        " Plutonium, " + GameUtils.IntToString(this.MiningTask.Value.Iron) + " Iron, " + GameUtils.IntToString(this.MiningTask.Value.Oil) + " Oil" 
+
+
+    Create(miningTask : Option<GameResources>, owner : Player) =
+      {
+        MiningTask        = miningTask
+        Owner             = owner
+        Text              = ""
+        Completed         = false
+      }
+  }
+
+
+entity GameResources = {
+  Uranium                     : int
+  Plutonium                   : int
+  Oil                         : int
+  Iron                        : int
+
+  Create(u : int,p : int,o : int,i : int) =
+    {
+      Uranium     = u
+      Plutonium   = p
+      Oil         = o
+      Iron        = i
+    }
+}
+
+entity Effect = {
+  inherit UnityEffect
+
+  Velocity          : Vector3
+  ScaleVariation    : Vector3
+  Fading            : bool
+  Lifetime          : float32
+  Deleted           : bool
+
+  rule Position,Rotation =
+    wait not Destroyed
+    let rotation = Quaternion.LookRotation(Velocity)
+    yield Position + Velocity * dt,rotation
+
+  rule Scale =
+    wait not Destroyed
+    yield Scale + (ScaleVariation * dt)
+
+  rule Alpha = 
+    wait not Destroyed && Fading
+    yield Alpha - 1.0f / Lifetime * dt
+
+  rule Destroyed =
+    wait Lifetime
+    yield true
+
+  rule Deleted =
+    wait Destroyed
+    wait dt
+    yield true
+
+  Create (material : string, position : Vector3, scale : Vector3, velocity : Vector3, scaleVariation : Vector3, fading : bool, lifetime : float32) =
+    let startingRotation = Quaternion.LookRotation(velocity)
+    {
+      UnityEffect     = UnityEffect.Instantiate(material,position,startingRotation,scale)
+      Velocity        = velocity
+      ScaleVariation  = scaleVariation
+      Fading          = fading
+      Lifetime        = lifetime
+      Deleted         = false
+    }
+}
+
+entity BaseAction = {
+  Duration              : int
+  ref Target            : Planet
+  InteractionDistance   : float32
+  InProgress            : bool
+  ref Caller            : Drone
+
+  Create (duration : int, target : Planet, distance : float32, caller : Drone) =
+    {
+      Duration            = duration
+      Target              = target
+      InteractionDistance = distance
+      InProgress          = false
+      Caller              = caller
+    }
+}
+
+entity Gather = {
+  Action          : BaseAction
+  MinedResources  : Option<GameResources>
+  MiningRate      : int      
+  Effects         : [Effect]
+
+  //filter deleted effects
+  rule Effects =
+    [for effect in Effects do
+     where (not effect.Deleted)
+     select (effect)]
+
+  //Gather action:
+  //  - If the action is still in progress (multiturn action), the current player is the owner of the attached drone, and the drone has not spent an action we execute the action
+  //  - We stop the action if the planet is exhausted.
+  //  - We wait to be at range
+  //  - We create the beam effect
+  //  - We generate the collected resources
+  //  - We wait that the player and the planet update their resources
+  //  - We update the action status
+  rule Action.Duration,Action.InProgress,Effects,MinedResources =
+    let caller = Action.Caller
+    //Debug.Log(Action.Duration)
+    //Debug.Log(caller.Owner.Name)
+    //Debug.Log(caller.ActionSpent)
+    wait Action.Duration > 0 && world.CurrentPlayer = caller.Owner && (not caller.ActionSpent)
+    if this.Action.Target.Resources.Uranium <= 0 && 
+       this.Action.Target.Resources.Plutonium <= 0 && 
+       this.Action.Target.Resources.Oil <= 0 &&
+       this.Action.Target.Resources.Iron <= 0 then
+
+       yield 0,false,[],None
+    else
+      //Debug.Log("Gathering...")
+      let target = Action.Target
+      let resources = target.Resources
+      let interactionDistance = Action.InteractionDistance
+      wait Vector3.Distance(caller.Position,target.Position) <= interactionDistance
+      yield Action.Duration,true,Effects,MinedResources
+      //place visual effects here
+      for i in [1..20] do
+        let forward = caller.Forward
+        let newEffects =
+          [for j in [1..3] do
+           let randomVelocity = (GameUtils.RotateVector(Random.Range(-25.0f,25.0f),forward,Vector3.up)) * 9.0f
+           select (new Effect("UnitTextures/Material/particle",
+                               caller.Position + forward * 1.5f,
+                               new Vector3(0.025f,0.025f,0.025f),
+                               randomVelocity,
+                               new Vector3(0.0f,0.0f,0.0f),
+                               true,
+                               0.25f))]
+        yield Action.Duration,Action.InProgress,newEffects @ Effects,MinedResources
+        wait 0.1f
+
+      wait Effects.Count = 0
+
+      let collectedUranium      = Mathf.Min(MiningRate,resources.Uranium)
+      let collectedPlutonium    = Mathf.Min(MiningRate,resources.Plutonium)
+      let collectedOil          = Mathf.Min(MiningRate,resources.Oil)
+      let collectedIron         = Mathf.Min(MiningRate,resources.Iron)
+   
+    
+      yield Action.Duration,false,Effects,(Some(new GameResources(collectedUranium,collectedPlutonium,collectedOil,collectedIron)))
+      let target = Action.Target
+      let caller = Action.Caller
+      let owner =  caller.Owner
+      let targetResources = target.Resources
+      let playerResources = owner.Resources
+      let playerTrades    = owner.ReceivedTrades
+      wait targetResources <> target.Resources && playerResources <> owner.Resources
+      Debug.Log("Resetting mined resources...")
+      yield Action.Duration - 1,Action.InProgress,Effects,None
+
+  Create(target : Planet, caller : Drone, miningRate : int) =
+    {
+      Action          = new BaseAction(3, target, 5.0f, caller)
+      MinedResources  = None
+      MiningRate      = miningRate
+      Effects         = []
+    }
+
+}
+
+entity Scan = {
+
+  Action          : BaseAction
+  Effects         : [Effect]
+
+  rule Effects =
+    [for effect in Effects do
+     where (not effect.Deleted)
+     select (effect)]
+
+  //Perform the scan action
+  rule Action.Duration,Action.InProgress,Effects =
+    let caller = Action.Caller
+    wait Action.Duration > 0 && world.CurrentPlayer = caller.Owner && (not caller.ActionSpent)
+    let target = Action.Target
+    let interactionDistance = Action.InteractionDistance
+    wait Vector3.Distance(caller.Position,target.Position) <= interactionDistance
+    yield Action.Duration,true,Effects
+    for i in [1..6] do
+      let forward = caller.Forward
+      let newEffect = new Effect("UnitTextures/Material/radio_wave",
+                                 caller.Position + forward * 1.5f,
+                                 new Vector3(0.25f,0.25f,0.25f),
+                                 caller.Forward * 3.0f,
+                                 new Vector3(0.25f,0.0f,0.25f),
+                                 true,
+                                 2.0f)
+      yield Action.Duration,Action.InProgress,newEffect :: Effects
+      wait 0.25f
+    wait Effects.Count = 0
+    yield Action.Duration - 1,false,Effects
+
+
+  Create(target : Planet, caller : Drone) =
+    {
+      Action  = new BaseAction(1,target,5.0f,caller)
+      Effects = []
+    }
+}
+
+entity Drone = {
+  inherit UnityDrone
+
+  RotationVelocity            : Vector3
+  Speed                       : float32
+  MoveDistance                : float32
+  ActionSpent                 : bool
+  Busy                        : bool
+  ref Owner                   : Player
+  ScanAction                  : Option<Scan>
+  GatherAction                : Option<Gather>
+  Id                          : int
+
+  //reset spent action at each new turn
+  rule ActionSpent =
+    wait world.CurrentPlayer = Owner
+    let currentPlayer = world.CurrentPlayer
+    yield false
+    wait currentPlayer <> world.CurrentPlayer
+  
+
+  //Other players' drone are hidden for the current player
+  rule Visible =
+    let currentPlayer = world.CurrentPlayer 
+    yield Owner = currentPlayer
+    wait currentPlayer <> world.CurrentPlayer
+  
+
+  //The action is removed when the duration has elapsed
+  rule ScanAction =
+    wait ScanAction.IsSome && ScanAction.Value.Action.Duration = 0
+    wait 0.1f
+    yield None
+
+  rule GatherAction =
+    wait GatherAction.IsSome && GatherAction.Value.Action.Duration = 0
+    wait 0.1f
+    yield None
+    
+  //The action is removed when the order is cancelled
+  rule ScanAction =
+    wait ScanAction.IsSome && 
+         world.GUI.PlanetMenu.CancelOrders.Clicked && 
+         Owner = world.CurrentPlayer && 
+         this.ScanAction.Value.Action.Target = world.SelectedPlanet.Value
+    yield None
+
+  rule GatherAction =
+    wait (GatherAction.IsSome && 
+         world.GUI.PlanetMenu.CancelOrders.Clicked && 
+         Owner = world.CurrentPlayer &&
+         this.GatherAction.Value.Action.Target = world.SelectedPlanet.Value)
+    yield None
+
+  //When the button interface is clicked we assign a new action
+  rule ScanAction =
+    wait ScanAction.IsNone && 
+         GatherAction.IsNone &&
+         not ActionSpent &&
+         world.GUI.PlanetMenu.ScanForResources.Clicked && 
+         Owner = world.CurrentPlayer
+   
+    yield Some(new Scan(world.SelectedPlanet.Value,this))
+
+
+  rule GatherAction =
+    wait ScanAction.IsNone &&
+         GatherAction.IsNone &&
+         world.GUI.PlanetMenu.Mine.Clicked &&
+         Owner = world.CurrentPlayer
+    
+    yield Some(new Gather(world.SelectedPlanet.Value,this,world.GameConstants.MiningRate))
+
+  
+  //move the drone when it is out of range with respect to its target
+  rule Position,Rotation,ActionSpent,Busy =
+    wait ScanAction.IsSome  &&    
+         (Vector3.Distance(Position,ScanAction.Value.Action.Target.Position) > ScanAction.Value.Action.InteractionDistance) && 
+         (not ActionSpent)
+    let startPosition = Position
+    let currentAction = ScanAction.Value.Action
+    while Vector3.Distance(Position,currentAction.Target.Position) > currentAction.InteractionDistance &&
+          Vector3.Distance(startPosition,Position) < MoveDistance do
+      
+      let direction = Vector3.Normalize(currentAction.Target.Position - Position)
+      let velocity = direction * Speed
+      let updatedPos = Position + velocity * dt
+      let updatedRot = Quaternion.LookRotation(velocity)
+      yield updatedPos,updatedRot,true,true
+
+    let outOfRange = Vector3.Distance(Position,currentAction.Target.Position) > currentAction.InteractionDistance
+    yield Position,Rotation,outOfRange,(not outOfRange)
+
+  rule Position,Rotation,ActionSpent,Busy =
+    wait GatherAction.IsSome  &&    
+         (Vector3.Distance(Position,GatherAction.Value.Action.Target.Position) > GatherAction.Value.Action.InteractionDistance) && 
+         (not ActionSpent)
+    let startPosition = Position
+    let currentAction = GatherAction.Value.Action
+    while Vector3.Distance(Position,currentAction.Target.Position) > currentAction.InteractionDistance &&
+          Vector3.Distance(startPosition,Position) < MoveDistance do
+      
+      let direction = Vector3.Normalize(currentAction.Target.Position - Position)
+      let velocity = direction * Speed
+      let updatedPos = Position + velocity * dt
+      let updatedRot = Quaternion.LookRotation(velocity)
+      yield updatedPos,updatedRot,true,true
+
+    let outOfRange = Vector3.Distance(Position,currentAction.Target.Position) > currentAction.InteractionDistance
+    yield Position,Rotation,outOfRange,(not outOfRange)
+
+  //busy status when in range
+  rule Rotation,ActionSpent,Busy =
+    wait ScanAction.IsSome && (Vector3.Distance(Position,ScanAction.Value.Action.Target.Position) <= ScanAction.Value.Action.InteractionDistance) && (not ActionSpent)
+    let lookDirection = ScanAction.Value.Action.Target.Position - Position
+    let rotation = Quaternion.LookRotation(lookDirection) 
+    yield rotation,true,true
+    wait ScanAction.IsNone || (not ScanAction.Value.Action.InProgress)
+    yield Rotation,true,false
+
+  rule Rotation,ActionSpent,Busy =
+    wait GatherAction.IsSome && (Vector3.Distance(Position,GatherAction.Value.Action.Target.Position) <= GatherAction.Value.Action.InteractionDistance) && (not ActionSpent)
+    let lookDirection = GatherAction.Value.Action.Target.Position - Position
+    let rotation = Quaternion.LookRotation(lookDirection) 
+    yield rotation,true,true
+    wait GatherAction.IsNone || (not GatherAction.Value.Action.InProgress)
+    yield Rotation,true,false
+        
+  rule OwnerColor =
+    yield Owner.Color
+    wait false
+
+  Create(owner : Player,pos : Vector3) =
+    {
+      RotationVelocity        = new Vector3(0.0f,4.0f,0.0f)
+      Speed                   = 7.5f
+      MoveDistance            = 15.0f
+      ActionSpent             = false
+      Busy                    = false
+      Owner                   = owner
+      ScanAction              = None
+      GatherAction            = None
+      UnityDrone              = UnityDrone.Instantiate(pos)
+      Id                      = Random.Range(1,1000000)
+    }
+}
+
+entity Planet = {
+  inherit UnityPlanet
+
+  RotationVelocity            : Vector3
+  RevolutionVelocity          : float32
+  Center                      : Vector3
+  Resources                   : GameResources
+  ref ScannedBy               : [Player]
+  ref Owner                   : Option<Player>
+  ref MiningDrones            : [Drone]
+
+  //mouse click selection
+  rule Selected, world.SelectedPlanet =
+    wait Input.GetMouseButtonDown(0) && (not world.GUI.OnGUI) && (not world.GamePaused)
+    if UnityPlanet.ClickedOver then
+      yield true, Some this
+    else
+      if world.SelectedPlanet.IsSome && world.SelectedPlanet.Value <> this then
+        yield false, world.SelectedPlanet
+      else
+        yield false,None
+
+  //Set the icon colour to the owner colour
+  rule UnityPlanet.OwnerColor =
+    if Owner.IsNone then
+      new Color(0,0,0,0)
+    else
+      Owner.Value.Color
+
+  //Set the targeting icon colour to the targeting player's colour
+  rule UnityPlanet.TargetingPlayerColor =
+    let targetingDrones =
+      [for drone in world.CurrentPlayer.Drones do
+       where ((drone.ScanAction.IsSome && drone.ScanAction.Value.Action.Target = this) ||
+              (drone.GatherAction.IsSome && drone.GatherAction.Value.Action.Target = this))
+       select (drone)]
+    if targetingDrones.Count = 0 then
+      new Color(0,0,0,0)
+    else
+      world.CurrentPlayer.Color
+
+  //the owner always knows the resources on the planet
+  rule ScannedBy =
+    wait Owner.IsSome
+    let currentOwner = Owner.Value
+    yield currentOwner :: ScannedBy
+    wait Owner.IsNone || currentOwner <> Owner.Value
+
+  rule Rotation =
+    wait (not world.GamePaused)
+    yield Quaternion.Euler(RotationVelocity * dt) * Rotation
+
+  rule RevolutionVelocity =
+    wait (not world.GamePaused)
+    UnityPlanet.Revolute(UnityPlanet,Center,RevolutionVelocity * dt)
+    yield RevolutionVelocity
+
+  //The current player drone is scanning the planet.
+  rule ScannedBy =
+    let scanningDrones =
+      [for drone in world.CurrentPlayer.Drones do
+       where  (drone.ScanAction.IsSome && drone.ScanAction.Value.Action.Target = this && 
+              (Vector3.Distance(Position,drone.Position) <= drone.ScanAction.Value.Action.InteractionDistance) && 
+              drone.ScanAction.Value.Action.Duration = 0)
+       select (drone)]
+    let newScanners =
+      if scanningDrones.Count > 0 then
+        scanningDrones.Head.Owner :: ScannedBy
+      else
+        ScannedBy
+    newScanners
+    //this rule updates the resources after gathering action
+
+  //Mining drones just like in the player entity.
+  rule MiningDrones =
+    [for drone in world.CurrentPlayer.MiningDrones do
+     where (drone.GatherAction.IsSome && Vector3.Distance(drone.Position,this.Position) <= drone.GatherAction.Value.Action.InteractionDistance)
+     select (drone)]
+
+  //Update the planet resources when there is a mining drone.
+  rule Resources = 
+    wait MiningDrones.Count > 0
+
+    let totalUranium =
+      [for drone in MiningDrones do
+       select (drone.GatherAction.Value.MinedResources.Value.Uranium)
+       sum]
+    let totalPlutonium =
+      [for drone in MiningDrones do
+       select (drone.GatherAction.Value.MinedResources.Value.Plutonium)
+       sum]
+    let totalOil =
+      [for drone in MiningDrones do
+       select (drone.GatherAction.Value.MinedResources.Value.Oil)
+       sum]
+    let totalIron =
+      [for drone in MiningDrones do
+       select (drone.GatherAction.Value.MinedResources.Value.Iron)
+       sum]
+
+    yield new GameResources(Resources.Uranium - totalUranium,Resources.Plutonium - totalPlutonium,Resources.Oil - totalOil,Resources.Iron - totalIron)
+    wait MiningDrones.Count = 0
+     
+  Create(pos : Vector3,center : Vector3,owner : Option<Player>) =
+    let plutonium = GameUtils.SpawnResource()
+    let uranium   = GameUtils.SpawnResource()
+    let iron      = GameUtils.SpawnResource()
+    let oil       = GameUtils.SpawnResource()
+    {
+      RotationVelocity      = new Vector3(0.0f,Random.Range(3.0f,7.0f),0.0f)
+      RevolutionVelocity    = 0.0f//Random.Range(0.5f,2.5f)
+      UnityPlanet           = UnityPlanet.Instantiate(pos)
+      Center                = center
+      Resources             = new GameResources(uranium,plutonium,oil,iron)
+      ScannedBy             = []
+      Owner                 = owner
+      MiningDrones          = []
+    }
+}
+
+entity Star = {
+  inherit UnityStar
+  
+  Create(pos : Vector3) =
+    {
+      UnityStar         = UnityStar.Instantiate(pos)
+    }
+}
+
+entity StarSystem = {
+  Star        : Star
+  Planets     : [Planet]
+
+  Create(starPosition : Vector3, constants : GameConstants, owner : Option<Player>) =  
+    let star = new Star(starPosition)
+    let maxPlanets = Random.Range(constants.MinPlanetsPerSystem,constants.MaxPlanetsPerSystem)
+    let ownerIndex = if owner.IsSome then Random.Range(0,maxPlanets) else -1
+    //GameUtils.printMsg(GameUtils.IntToString(ownerIndex))
+    let randomPositions =
+      [for i in [1..maxPlanets] do
+       let minr = constants.MinDistanceFromStar + (i - 1) * constants.MinDistanceBetweenPlanets
+       let posx = Random.Range(minr,minr + 2.0f)
+       let posz = Random.Range(minr,minr + 2.0f)
+       let posx = if Random.Range(0.0f,1.0f) > 0.5f then posx else posx * -1.0f
+       let posz = if Random.Range(0.0f,1.0f) > 0.5f then posz else posz * -1.0f
+       let posx = starPosition.x + posx
+       let posz = starPosition.z + posz
+       select (new Vector3(posx,0.0f,posz))]
+    let generatedPlanets = 
+      [for i in [1..randomPositions.Count] do
+       let startingOwner = if ownerIndex > -1 && ownerIndex = i - 1 then owner else None
+       select (new Planet(randomPositions.[i - 1],starPosition,startingOwner))] 
+    {
+      Star      = star
+      Planets   = generatedPlanets
+    }
+}
+
+entity GameCamera = {
+  inherit UnityCamera
+
+  Sensitivity         : float32
+  MouseSensitivity    : float32
+  MousePosition       : Vector3
+  ScreenWidth         : int
+  ScreenHeight        : int
+  BoundaryX           : int
+  BoundaryY           : int
+
+  rule MousePosition  = Input.mousePosition
+  rule ScreenWidth    = Screen.width
+  rule ScreenHeight   = Screen.height 
+
+  rule Sensitivity =
+    let size = CameraSize 
+    yield size * 0.1f
+    wait size <> CameraSize
+
+  rule CameraPosition =
+    let currentPlayer = world.CurrentPlayer
+    !| currentPlayer <> world.CurrentPlayer =>
+        yield CameraPosition
+
+    !| _ =>
+        for drone in world.CurrentPlayer.Drones do
+          wait world.GUI.QuickBar.DroneButton.Clicked
+          yield new Vector3(drone.Position.x,CameraPosition.y,drone.Position.z)
+
+
+  rule CameraPosition =
+    let currentPlayer = world.CurrentPlayer
+    wait world.GUI.QuickBar.HomeButton.Clicked
+    let playerPlanets =
+      [for system in world.StarSystems do
+       for planet in system.Planets do
+       where (planet.Owner.IsSome && planet.Owner.Value = world.CurrentPlayer)
+       select (planet)]
+    let homePlanet = playerPlanets.Head
+    yield new Vector3(homePlanet.Position.x,CameraPosition.y,homePlanet.Position.z)
+
+  rule CameraPosition =
+    let currentPlayer = world.CurrentPlayer
+    wait currentPlayer.Drones.Count > 0
+    yield new Vector3(currentPlayer.Drones.Head.Position.x,CameraPosition.y,currentPlayer.Drones.Head.Position.z)
+    wait currentPlayer <> world.CurrentPlayer
+
+  (*rule CameraPosition =
+    let currentPlayer = world.CurrentPlayer
+    let playerPlanets =
+      [for system in world.StarSystems do
+       for planet in system.Planets do
+       where (planet.Owner.IsSome && planet.Owner.Value = world.CurrentPlayer)
+       select (planet)]
+
+    if playerPlanets.Count > 0 then
+      let capitalPlanet = playerPlanets.Head
+      yield new Vector3(capitalPlanet.Position.x,CameraPosition.y,capitalPlanet.Position.z)
+    else
+      yield CameraPosition
+
+    wait currentPlayer <> world.CurrentPlayer*)
+
+  rule CameraPosition =
+    let starPositionsList =
+      [for s in world.StarSystems do
+       select (s.Star.Position)]
+    let minBoundX =
+      [for p in starPositionsList do
+       select (p.x)
+       min]
+    let maxBoundX =
+      [for p in starPositionsList do
+       select (p.x)
+       max]
+    let minBoundZ =
+      [for p in starPositionsList do
+       select (p.z)
+       min]
+    let maxBoundZ =
+      [for p in starPositionsList do
+       select (p.z)
+       max]
+    .&
+      wait Input.GetKey(KeyCode.A) && (not world.GamePaused) && CameraPosition.x > minBoundX
+      let adjustment = Sensitivity * -1.0f
+      yield CameraPosition + (new Vector3(adjustment,0.0f,0.0f))
+    .&
+      wait Input.GetKey(KeyCode.D) && (not world.GamePaused) && CameraPosition.x < maxBoundX
+      let adjustment = Sensitivity
+      yield CameraPosition + (new Vector3(adjustment,0.0f,0.0f))
+    .&
+      wait Input.GetKey(KeyCode.S) && (not world.GamePaused) && CameraPosition.z > minBoundZ
+      let adjustment = Sensitivity * -1.0f
+      yield CameraPosition + (new Vector3(0.0f,0.0f,adjustment))
+    .&
+      wait Input.GetKey(KeyCode.W) && (not world.GamePaused) && CameraPosition.z < maxBoundZ
+      let adjustment = Sensitivity
+      yield CameraPosition + (new Vector3(0.0f,0.0f,adjustment))
+    .&
+      wait MousePosition.x < BoundaryX && (not world.GamePaused) && CameraPosition.x > minBoundX && (not world.GUI.OnGUI)
+      let adjustment = Sensitivity * -1.0f
+      yield CameraPosition + (new Vector3(adjustment,0.0f,0.0f))
+    .&
+      wait MousePosition.x > ScreenWidth - BoundaryX && (not world.GamePaused) && CameraPosition.x < maxBoundX && (not world.GUI.OnGUI)
+      let adjustment = Sensitivity
+      yield CameraPosition + (new Vector3(adjustment,0.0f,0.0f))
+    .&
+      wait MousePosition.y < BoundaryY && (not world.GamePaused) && CameraPosition.z > minBoundZ && (not world.GUI.OnGUI)
+      let adjustment = Sensitivity * -1.0f
+      yield CameraPosition + (new Vector3(0.0f,0.0f,adjustment))
+    .&
+      wait MousePosition.y > ScreenHeight - BoundaryY && (not world.GamePaused) && CameraPosition.z < maxBoundZ && (not world.GUI.OnGUI)
+      let adjustment = Sensitivity
+      yield CameraPosition + (new Vector3(0.0f,0.0f,adjustment))
+
+
+  rule CameraSize =
+    let sensitivity = 0.5f
+    let maxHeight = 100.0f
+    let minHeight = 5.0f
+    .&
+      wait Input.GetKey(KeyCode.DownArrow) && CameraSize <= maxHeight && (not world.GamePaused)
+      yield System.Math.Min(maxHeight,CameraSize + sensitivity)
+    .&
+      wait Input.GetKey(KeyCode.UpArrow) && CameraSize >= minHeight && (not world.GamePaused)
+      yield System.Math.Max(minHeight,CameraSize - sensitivity)
+    .&
+      wait Input.GetAxis("Mouse ScrollWheel") < 0.0f && CameraSize <= maxHeight && (not world.GamePaused)
+      let delta = Input.GetAxis("Mouse ScrollWheel")
+      yield System.Math.Min(maxHeight,CameraSize - delta * MouseSensitivity)
+    .&
+      wait Input.GetAxis("Mouse ScrollWheel") > 0.0f && CameraSize >= minHeight && (not world.GamePaused)
+      let delta = Input.GetAxis("Mouse ScrollWheel")
+      yield System.Math.Max(minHeight,CameraSize - delta * MouseSensitivity)
+       
+  Create () =
+    {
+      Sensitivity = 0.25f
+      MouseSensitivity = 12.0f
+      MousePosition = Vector3.zero
+      ScreenWidth = Screen.width
+      ScreenHeight = Screen.height
+      BoundaryX = ScreenWidth / 25
+      BoundaryY = ScreenHeight / 25
+      UnityCamera = UnityCamera.CreateMainCamera()
+    }
+}
+
+entity Minimap = {
+  inherit UnityMinimap
+
+  rule Position =
+    let cameraPosition = world.MainCamera.CameraPosition
+    yield cameraPosition
+    wait cameraPosition <> world.MainCamera.CameraPosition
+
+  Create() =
+    {
+      UnityMinimap = UnityMinimap.CreateMinimap()
+    }
+}

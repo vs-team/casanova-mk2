@@ -1,0 +1,152 @@
+module Ship
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+entity Ship = {
+  inherit UnityShip
+  
+  ref Owner : Commander
+  AmountOfShips : int
+  ref Target : Planet
+  ref FinalTarget : Planet
+  ref Source : Planet
+  InitialPosition : Vector3
+
+  rule Position = 
+    yield InitialPosition
+    wait false
+
+  rule MiniMapColor =
+      let commander_number = Owner.CommanderNumber
+      yield new Color((0.2f * commander_number), 0.1f, 0.3f, 1)
+      wait false
+  
+  rule ShipOwnerText =
+    if (not Destroyed) then
+      yield "" + AmountOfShips + " Ships    " + this.Target.Name + "-" + this.FinalTarget.Name
+
+  rule ShipOwnerTextRotation =
+    let cameraRotation = world.MainCamera.Rotation.x
+    yield new Vector3(cameraRotation,ShipOwnerTextRotation.y,ShipOwnerTextRotation.z)
+  
+  Create(o : Commander,pos : Vector3, amount:int, final_target : Planet,target : Planet, source : Planet, BaseShip : Option<UnityShip>) = 
+  let unityShip =
+    if BaseShip.IsSome then BaseShip.Value
+    else UnityShip.Instantiate(pos, target.Position)
+  {
+    Owner = o 
+    InitialPosition = pos
+    Base = unityShip
+    AmountOfShips = amount
+    FinalTarget = final_target
+    Target = target
+    Source = source
+  }
+}
+
+entity DefendingShip = {
+
+  Strength : float32
+  BaseShip : Ship
+  
+  Create(baseship : Ship) = {
+    Strength = 0.0f
+    BaseShip = baseship
+  }
+}
+
+entity AttackingShip = { // first Traveling, after Imbound, then Attacking
+  Strength : float32
+  BaseShip : Ship
+  ref Target : Planet
+  
+  rule BaseShip.Destroyed =
+    if (Target.Owner.IsSome && BaseShip.Owner = Target.Owner.Value) then
+      yield true  
+      
+  rule BaseShip.ExplodeAndDestroyed =
+    if (BaseShip.AmountOfShips = 0 && Target.Owner.IsSome) then
+      yield true  
+      
+  rule BaseShip.AmountOfShips =
+    if Target.Battle.Value.ShipsToMerge.Count > 0 then
+      let ships_to_add = 
+        [for i in Target.Battle.Value.ShipsToMerge do
+          where (not i.BaseShip.Destroyed && BaseShip.Source = i.BaseShip.Source)
+          select (i.BaseShip.AmountOfShips)  
+          sum]
+      let res1 = ships_to_add.ToString()
+      Debug.Log("merge " + res1)
+      yield BaseShip.AmountOfShips + ships_to_add
+    
+  Create(baseship : Ship, target : Planet) = {
+    Strength = 0.0f
+    BaseShip = baseship
+    Target = target
+  }
+}
+
+entity LandingShip = {
+  BaseShip : Ship
+  
+  rule BaseShip.Destroyed, BaseShip.Target.LandedShips, BaseShip.AmountOfShips  = //remove ship from link, amount to put on planet ,remove amount of ships on link
+    if BaseShip.AmountOfShips = 0 || (BaseShip.Target.Owner.IsSome && BaseShip.Owner = BaseShip.Target.Owner.Value) then
+      yield true, BaseShip.AmountOfShips + BaseShip.Target.LandedShips, 0   
+      
+  Create(baseship : Ship) = {
+
+    BaseShip = baseship
+  }
+}
+
+entity MergingShip = {
+  BaseShip :  Ship
+  
+  rule BaseShip.Destroyed =
+    yield true
+
+  Create(baseship : Ship)={
+
+    BaseShip = baseship
+  }
+}
+
+entity TravelingShip = {
+
+  ref Source : Planet
+  ref Target : Planet
+  Velocity : Vector3
+  BaseShip : Ship
+
+  rule Velocity, BaseShip.Position, Target = 
+    wait Source.PlanetStats.IsSome
+    let direction = (Target.Position - BaseShip.Position) // The ship moves faster based on the research stat
+    let direction = 
+      if Target.Owner.IsSome && Target.Owner.Value = BaseShip.Owner && Target.PlanetStats.Value.Research > Source.PlanetStats.Value.Research then // Take the fastest speed if both planets are yours
+        direction.normalized * (2.5f + 0.35f * Target.PlanetStats.Value.Research)
+      else
+        direction.normalized * (2.5f + 0.35f * Source.PlanetStats.Value.Research) 
+    yield direction, BaseShip.Position, Target
+    wait Vector3.Dot(direction, (Target.Position - BaseShip.Position)) < 0.0f // wait for the direction to be equal
+    let next_hop =
+      [for n in Target.Neighbours do
+       for q in world.Planets do
+       where (n.Item1 = Target.UnityPlanet && n.Item2 = q.UnityPlanet)
+       select q]
+    let next_hop = 
+      if next_hop.Count >  0 then next_hop.Head
+      else Target
+    yield Vector3.zero, Target.Position, next_hop
+
+  rule BaseShip.Position =
+      yield BaseShip.Position + Velocity * dt
+      
+  Create(n : Planet, s : Planet, baseship : Ship)={
+   BaseShip = baseship
+   Target = n
+   Source = s
+   Velocity = new Vector3(1.0f, 1.0f, 1.0f)
+  }
+}

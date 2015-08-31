@@ -1,0 +1,45 @@
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\UnityEditor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\UnityEditor.Graphs.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\UnityEngine.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\nunit.framework.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\obj\Debug\Assembly-CSharp-Editor-vs.csprojResolveAssemblyReference.cache
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\obj\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Asteroids shooter\obj\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\UnityEditor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\UnityEditor.Graphs.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\UnityEngine.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\nunit.framework.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\obj\Debug\Assembly-CSharp-Editor-vs.csprojResolveAssemblyReference.cache
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\obj\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample\obj\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\obj\Debug\Assembly-CSharp-Editor-vs.csprojResolveAssemblyReference.cache
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\obj\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\obj\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\UnityEditor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\UnityEditor.Graphs.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\UnityEngine.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\nunit.framework.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Paper sample - Copy\Temp\bin\Debug\Assembly-CSharp.pdb

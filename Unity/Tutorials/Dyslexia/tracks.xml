@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Tests>
+  <Test>
+    <Tutorial>
+      <Item>chain8cL_diff</Item>
+    </Tutorial>
+    <Actual>
+      <Item>chain8cL_diff</Item>
+    </Actual>
+  </Test>
+  <Test>
+    <Actual>
+      <Item>chain8cL_diff</Item>
+    </Actual>
+  </Test>
+</Tests>

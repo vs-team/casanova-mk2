@@ -1,0 +1,22 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NextGame.cs">
+    <Files>
+      <File FileName="Assets\Action.cs" Line="27" Column="954" />
+      <File FileName="Assets\MenuScript.cs" Line="80" Column="1712" />
+      <File FileName="Assets\Track.cs" Line="243" Column="1552" />
+      <File FileName="Assets\World.cs" Line="1531" Column="559" />
+      <File FileName="Assets\quit_action.cs" Line="21" Column="936" />
+      <File FileName="Assets\EndScript.cs" Line="97" Column="1705" />
+      <File FileName="Assets\NextGame.cs" Line="31" Column="936" />
+      <File FileName="Assets\UnityPauseMenu.cs" Line="94" Column="1724" />
+      <File FileName="Assets\Skip.cs" Line="30" Column="936" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\mohamed\Desktop\Dyslexia\Assets\NextGame.cs" line="11" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

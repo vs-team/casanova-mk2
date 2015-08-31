@@ -1,0 +1,120 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  Seed    : System.Random
+  StarSystem : [StarSystem]
+
+  Create() =
+    let star_systems =
+      [for i in [0..10] do
+       for j in [0..10] do
+       where (i < 2 || j > 5)
+       select (new StarSystem())]
+    {
+      Seed    = new System.Random()
+      StarSystem   = star_systems
+    }
+}
+
+entity StarSystem = {
+  
+  Planets : [Planet]  
+  Ships   : [Ship]
+  
+  rule Ships =
+    wait 0.1f
+    yield
+      [for p1 in Planets do
+       for p2 in Planets do
+       where (p1 <> p2 && p1.Selected && p2.Targeted)
+       select (new Ship(p1, p2))] @ Ships
+    wait 10.0f
+
+  rule Ships = 
+    [for s in Ships do
+     where (not s.Arrived && not s.Destroyed)
+     select s]
+
+  rule Planets =
+    yield 
+      [for p in PointGenerator.GeneratePoints(50) do
+        select (new Planet(p, this))]
+    wait false
+
+  Create() =   
+    {
+      Ships   = []
+      Planets = []
+    }
+
+}
+
+entity Planet = {
+  inherit UnitySphere
+  ref StarSystem : StarSystem 
+  ref LandedShips : [Ship]
+
+
+  Selected : bool
+  Targeted : bool
+
+  rule LandedShips =
+    [for s in StarSystem.Ships do
+     where (s.Arrived && (s.Target = this))
+     select s]
+
+
+  rule Selected =    
+    while (not Selected) do
+      wait 1.0f
+      yield world.Seed.NextDouble() > 0.8f
+    wait world.Seed.Next(1, 5)
+    yield false
+    
+  rule Targeted =    
+    while (not Targeted) do
+      wait 1.0f
+      yield world.Seed.NextDouble() > 0.8f
+    wait world.Seed.Next(1, 5)
+    yield false
+
+  Create(p : Vector3, starSystem : StarSystem) = {
+    LandedShips = []
+    Selected    = false
+    StarSystem  = starSystem
+    Targeted    = false
+    UnitySphere = UnitySphere.Instantiate(p)
+  }
+}
+
+
+entity Ship = {
+  inherit UnityCube
+  Velocity : Vector3
+  ref Target  : Planet
+  Arrived     : bool
+
+  rule Arrived, Position, Velocity, Destroyed =
+    wait Vector3.Distance(Position, Target.Position) < 5.0f
+    yield true, Target.Position, Vector3.zero, true
+
+
+  rule Position = Position + Velocity * dt
+  
+
+
+  Create(source : Planet, target : Planet) = 
+    let velocity = target.Position - source.Position
+    let velocity_normalized = velocity.normalized
+    {
+      Arrived   = false
+      Target    = target
+      Velocity  = velocity_normalized * 10.0f
+      UnityCube = UnityCube.Instantiate(source.Position)
+    }
+}
+
+

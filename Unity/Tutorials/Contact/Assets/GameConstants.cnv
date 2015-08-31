@@ -1,0 +1,52 @@
+module GameConstants
+
+entity GameConstants = {
+    MinDistanceFromStar               : float32
+    MinDistanceBetweenPlanets         : float32
+    MinDistanceBetweenStarSystems     : float32
+    MinPlanetsPerSystem               : int
+    MaxPlanetsPerSystem               : int
+    MaxStarSystems                    : int
+    PlayerCount                       : int
+    TurnDuration                      : int
+    SharedSymbols                     : bool
+    SymbolCount                       : int
+    PlayerSymbolCount                 : int
+    MessagePreviewSize                : int
+    ImageSelectionSize                : int
+    PreviewIconSize                   : float
+    UraniumConversionValue            : int
+    PlutoniumConversionValue          : int
+    OilConversionValue                : int
+    IronConversionValue               : int
+    MessageMaximumCost                : float32
+    MiningRate                        : int
+    MaximumStartingResources          : int
+    TotalObjectiveResources           : int
+
+    Create() =
+      {
+        MinDistanceFromStar                 = 3.0f
+        MinDistanceBetweenPlanets           = 5.0f
+        MinDistanceBetweenStarSystems       = 25.0f
+        MinPlanetsPerSystem                 = 3
+        MaxPlanetsPerSystem                 = 6
+        MaxStarSystems                      = GameSettings.MapSize
+        PlayerCount                         = GameSettings.PlayerCount
+        TurnDuration                        = GameSettings.TurnDuration
+        SharedSymbols                       = true
+        SymbolCount                         = 30
+        PlayerSymbolCount                   = 4
+        MessagePreviewSize                  = 21
+        ImageSelectionSize                  = 4
+        PreviewIconSize                     = 40.0f
+        UraniumConversionValue              = 10
+        PlutoniumConversionValue            = 20
+        OilConversionValue                  = 1
+        IronConversionValue                 = 3
+        MessageMaximumCost                  = GameUtils.IntToFloat(GameSettings.MaxMessageCost)
+        MiningRate                          = GameSettings.MiningRate
+        MaximumStartingResources            = GameSettings.StartingResources
+        TotalObjectiveResources             = GameSettings.WinTotalResources
+      }
+}

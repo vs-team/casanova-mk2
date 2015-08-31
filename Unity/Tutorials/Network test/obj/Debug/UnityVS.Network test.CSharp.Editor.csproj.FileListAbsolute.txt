@@ -1,0 +1,19 @@
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\obj\Debug\UnityVS.Network test.CSharp.Editor.csprojResolveAssemblyReference.cache
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEditor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEditor.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEngine.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityVS.VersionSpecific.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEngine.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEditor.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEditor.UI.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.xml
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\obj\Debug\Assembly-CSharp-Editor.dll
+C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Network test\obj\Debug\Assembly-CSharp-Editor.pdb

@@ -1,0 +1,15 @@
+- StarSystem bonuses, applied to planets
+- ATK and DEF used in battles
+
+- Targetable selected planets
+- Controlable # of sendable units 
+	all when control is pressed
+	otherwise half 
+
+- Camera controls finetuning, min-max values
+- Moving camera with both mouse and keyboard gives double speed
+- Mouse camera movement is faster than keyboard camera movement on a low resolution
+
+- Splitscreen?
+
+

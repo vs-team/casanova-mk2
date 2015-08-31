@@ -1,0 +1,15 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  inherit UnityCube
+
+  rule Position = Position + new Vector3(0.1f,0.0f,0.0f)
+
+  Create() =
+  {
+    Base = UnityCube.Find()
+  }
+}

@@ -1,0 +1,36 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  inherit UnityCube
+  A : int
+  B : int
+  C : [(int * int)]
+
+  rule C =
+    yield     
+      [for i in [0..1] do
+       select (i,i)]
+  rule A =
+    wait 1.0f
+    yield A + 1
+
+
+  rule B =
+    wait A > 10
+    yield B + 1
+
+
+  rule Position = 
+    Position + new Vector3(0.1f,0.0f,0.0f)
+
+  Create() =
+    {
+      Base = UnityCube.Find()
+      A = 1
+      B = 0
+      C = [] 
+    }
+}

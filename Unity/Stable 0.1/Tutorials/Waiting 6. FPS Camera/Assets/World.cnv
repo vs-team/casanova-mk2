@@ -1,0 +1,41 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  
+  MainCamera      : MainCamera
+
+  Create() =
+    {
+      MainCamera = new MainCamera()
+    }
+}
+
+entity MainCamera = {
+  inherit UnityCamera
+
+  rule Rotation = Quaternion.Euler(0.0f,Input.GetAxis("Mouse X") * 4.0f,0.0f) * UnityCamera.Rotation * Quaternion.Euler(Input.GetAxis("Mouse Y") * -4.0f,0.0f,0.0f)
+      
+  rule Acceleration = 
+    let s = 750.0f
+    .&
+      wait Input.GetKey(KeyCode.W)
+      yield Forward * s
+    .&
+      wait Input.GetKey(KeyCode.S)
+      yield Forward * -1.0f * s
+    .&
+      wait Input.GetKey(KeyCode.D)
+      yield Right * s
+    .&
+      wait Input.GetKey(KeyCode.A)
+      yield Right * -1.0f * s
+      
+
+  Create() =
+    {
+      Base = UnityCamera.Find()
+    }
+}

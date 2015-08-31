@@ -1,0 +1,27 @@
+module Cube
+
+entity Cube = {
+  inherit UnityCube 
+
+  Factor      : float32
+
+  rule Factor = 
+    yield Factor + 0.02f
+
+  rule Scale =
+    yield 1.0f - Factor / 2.0f
+
+  rule Destroyed = 
+    wait Factor >= 2.0f
+    yield true
+
+  rule Color = 
+    Color.Lerp(Color.white, Color.blue, Factor)
+
+  Create() = 
+    {
+      UnityCube    = UnityCube.Instantiate()
+      Factor  = 0.0f
+    }
+}
+  

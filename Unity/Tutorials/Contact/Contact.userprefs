@@ -1,0 +1,20 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UnityMenu.cs">
+    <Files>
+      <File FileName="Assets\GameUtils.cs" Line="1" Column="1" />
+      <File FileName="Assets\ComboBox.cs" Line="1" Column="1" />
+      <File FileName="Assets\UnityInputField.cs" Line="1" Column="1" />
+      <File FileName="Assets\UnityButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\UnityIcon.cs" Line="1" Column="1" />
+      <File FileName="Assets\ComboList.cs" Line="1" Column="1" />
+      <File FileName="Assets\UnityStar.cs" Line="1" Column="1" />
+      <File FileName="Assets\UnitySelectionBox.cs" Line="1" Column="1" />
+      <File FileName="Assets\UnityMenu.cs" Line="41" Column="4166" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

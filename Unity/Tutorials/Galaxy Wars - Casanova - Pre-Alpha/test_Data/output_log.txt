@@ -1,0 +1,23 @@
+Initialize engine version: 4.6.1f1 (d1db7a1b5196)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvumdshim.dll 9.18.13.3523]
+    Renderer: NVIDIA GeForce GT 740M  
+    Vendor:   NVIDIA
+    VRAM:     1988 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Default GameObject Tag: Player already registered
+ 
+(Filename:  Line: 67)
+
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Gebruiker\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\test_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Gebruiker\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\test_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Gebruiker\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\test_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Gebruiker\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\test_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Gebruiker\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Gebruiker\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.045 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.

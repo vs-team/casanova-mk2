@@ -1,0 +1,13 @@
+ParsedToBasic00:00:00.0200000 
+
+BasicToTyped00:00:07.0300098 
+
+TypedToOptimizedQuery00:00:00 
+
+OptimizedQueryToStateMachines00:00:00.0400001 
+
+StateMachinesToIntermediate00:00:00.0200000 
+
+IntermediateToCSharp00:00:00.0500001 
+
+WriteAllText00:00:00 

@@ -1,0 +1,20 @@
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\Assembly-UnityScript.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEditor.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEditor.UI.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEngine.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityVS.VersionSpecific.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEngine.xml
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEditor.xml
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEditor.UI.xml
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.xml
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\obj\Debug\UnityVS.Galaxy Wars - Casanova - Pre-Alpha - 2.CSharp.Editor.csprojResolveAssemblyReference.cache
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\obj\Debug\Assembly-CSharp-Editor.dll
+C:\Users\Windows\Casanova\Unity\Tutorials\Galaxy Wars - Casanova - Pre-Alpha - 2\obj\Debug\Assembly-CSharp-Editor.pdb

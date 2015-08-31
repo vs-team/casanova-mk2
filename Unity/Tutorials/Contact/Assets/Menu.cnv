@@ -1,0 +1,159 @@
+module Menu
+
+open "UnityEngine.dll"
+open UnityEngine
+open GUIBase
+
+worldEntity Menu = {
+  Planet                        : MenuPlanet
+  StartingResourcesField        : CnvInputField
+  TurnDurationField             : CnvInputField
+  PlayerCountField              : CnvInputField
+  WinConditionField             : CnvInputField
+  MessageCostField              : CnvInputField
+  MiningRateField               : CnvInputField
+  MapSizeField                  : CnvInputField
+  MapSeedField                  : CnvInputField
+  PlayButton                    : CnvButton
+  QuitButton                    : CnvButton
+  LoadingText                   : CnvText
+  BlackScreen                   : CnvPanel
+  Loading                       : bool
+
+  rule StartingResourcesField.MaxValue,StartingResourcesField.MinValue =
+    yield 9000,0
+    wait false
+
+  rule TurnDurationField.MaxValue,TurnDurationField.MinValue =
+    yield 600,30
+    wait false
+
+  rule PlayerCountField.MaxValue,PlayerCountField.MinValue =
+    yield 100,2
+    wait false
+
+  rule WinConditionField.MaxValue,WinConditionField.MinValue =
+    yield 9000,100
+    wait false
+
+  rule MessageCostField.MaxValue,MessageCostField.MinValue =
+    yield 5000,0
+    wait false
+
+  rule MiningRateField.MaxValue,MiningRateField.MinValue =
+    yield 5000,1
+    wait false
+
+  rule MapSizeField.MaxValue,MapSizeField.MinValue =
+    yield 1000,2
+    wait false
+
+  rule MapSeedField.MaxValue,MapSeedField.MinValue =
+    yield 100000,0
+    wait false
+
+  rule StartingResourcesField.Text =
+    yield GameUtils.IntToString(500)
+    wait false
+
+  rule TurnDurationField.Text =
+    yield GameUtils.IntToString(120)
+    wait false
+
+  rule PlayerCountField.Text =
+    yield GameUtils.IntToString(4)
+    wait false
+
+  rule WinConditionField.Text =
+    yield GameUtils.IntToString(500)
+    wait false
+
+  rule MessageCostField.Text =
+    yield GameUtils.IntToString(300)
+    wait false
+
+  rule MiningRateField.Text =
+    yield GameUtils.IntToString(25)
+    wait false
+
+  rule MapSizeField.Text =
+    yield GameUtils.IntToString(4)
+    wait false
+
+  rule MapSeedField.Text =
+    yield GameUtils.IntToString(Random.Range(0,100000))
+    wait false
+
+  rule PlayButton.Clicked =
+    wait PlayButton.Clicked
+    let startingResources = GameUtils.StringToInt(StartingResourcesField.Text)
+    let turnDuration = GameUtils.StringToInt(TurnDurationField.Text)
+    let playerCount = GameUtils.StringToInt(PlayerCountField.Text)
+    let winCondition = GameUtils.StringToInt(WinConditionField.Text)
+    let messageCost = GameUtils.StringToInt(MessageCostField.Text)
+    let miningRate = GameUtils.StringToInt(MiningRateField.Text)
+    let mapSize = GameUtils.StringToInt(MapSizeField.Text)
+    let mapSize = Mathf.Max(mapSize,playerCount)
+    let mapSeed = GameUtils.StringToInt(MapSeedField.Text)
+    GameSettings.SetParameters(startingResources,turnDuration,playerCount,winCondition,messageCost,miningRate,mapSize,mapSeed)
+    //GameSettings.Print()
+    wait LoadingText.Alpha = 1.0f && BlackScreen.Alpha = 1.0f
+    yield false
+    Application.LoadLevel("contact")
+
+  rule QuitButton.Clicked =
+    wait QuitButton.Clicked && (not Loading)
+    yield false
+    Application.Quit()
+
+  rule LoadingText.Alpha =
+    yield 0.0f
+    wait false
+
+  rule LoadingText.Alpha,BlackScreen.Alpha,Loading =
+    wait PlayButton.Clicked
+    yield LoadingText.Alpha,BlackScreen.Alpha,true
+    let lifetime = 2.0f
+    while BlackScreen.Alpha < 1.0f do
+      yield 0.0f,BlackScreen.Alpha + 1.0f / lifetime * dt,Loading
+    yield 1.0f,1.0f,Loading
+    wait false
+    
+
+
+  Create() =
+    {
+      Planet                                = new MenuPlanet("MenuPlanet")
+      StartingResourcesField                = new CnvInputField("MenuUI/StartingResourcesText/InputField")
+      TurnDurationField                     = new CnvInputField("MenuUI/TurnDurationText/InputField")
+      PlayerCountField                      = new CnvInputField("MenuUI/PlayerCountText/InputField")
+      WinConditionField                     = new CnvInputField("MenuUI/WinConditionText/InputField")
+      MessageCostField                      = new CnvInputField("MenuUI/MessageCostText/InputField")
+      MiningRateField                       = new CnvInputField("MenuUI/MiningRateText/InputField")
+      MapSizeField                          = new CnvInputField("MenuUI/MapSizeText/InputField")
+      MapSeedField                          = new CnvInputField("MenuUI/MapSeedText/InputField")
+      PlayButton                            = new CnvButton("MenuUI/PlayButton")
+      QuitButton                            = new CnvButton("MenuUI/QuitButton")
+      LoadingText                           = new CnvText("MenuUI/LoadingText")
+      BlackScreen                           = new CnvPanel("MenuUI/LoadingCanvas/LoadingScreen")
+      Loading                               = false
+    }
+}
+
+entity MenuPlanet = {
+  inherit UnityPlanet
+
+  RotationVelocity : Vector3
+
+  rule Rotation = Quaternion.Euler(RotationVelocity * dt) * Rotation
+
+  rule OwnerColor,TargetingPlayerColor =
+    yield new Color(0, 0, 0, 0), new Color(0,0,0,0)
+    wait false
+
+  Create(n : string) =
+    {
+      RotationVelocity = new Vector3(0.0f, 3.0f, 0.0f)
+      UnityPlanet = UnityPlanet.Find(n)
+    }
+}

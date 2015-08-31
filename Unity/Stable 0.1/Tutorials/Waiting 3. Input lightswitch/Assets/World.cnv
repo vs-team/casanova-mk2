@@ -1,0 +1,28 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  inherit UnityCube
+  Factor : float32
+  
+  rule Factor = 
+    wait Input.GetKeyDown(KeyCode.Space)
+    while (Factor < 1.0f) do
+      yield Factor + 0.02f
+    wait Input.GetKeyDown(KeyCode.Space)
+    while (Factor > 0.0f) do
+      yield Factor - 0.02f
+    wait 1.0f
+
+  rule Color = 
+    Color.Lerp(Color.white, Color.blue, Factor)
+
+  Create() = 
+    {
+      Base    = UnityCube.Find()
+      Factor  = 0.0f
+    }
+}
+ 

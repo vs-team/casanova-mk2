@@ -1,0 +1,526 @@
+module Planet
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+entity Planet = { // The defense takes place here
+  inherit UnityPlanet
+  ref ShipsToForward : [Ship]
+  PlanetStats : Option<PlanetInfo>
+  LandedShips : int
+  InboundShips : [Ship]
+  LandingShips : [LandingShip]
+  ShipToSend : [TravelingShip]
+  ref Neighbours : [(UnityPlanet*UnityPlanet)]
+  Selected : bool
+  Targeted : bool
+  ref Owner : Option<Commander>
+  Constants : GameConstants
+  Battle : Option<Battle>
+  ref StarSystem : Option<StarSystem>
+  Auto_Hop_Timer : bool
+  ActiveHopsCounter : int
+
+  rule Auto_Hop_Timer = 
+    wait 3.0f
+    yield true
+    yield false
+
+  rule ShipToSend, LandedShips =  
+    if Selected && LandedShips > 0 && world.TargetedPlanet.IsSome && Battle.IsNone && not world.InputMonitor.ShiftKey then
+      let amount_of_ships =
+        if world.InputMonitor.ControlKey then LandedShips
+        else (int) ((LandedShips + 1) / 2) //ships_to_send add later
+      let target = world.TargetedPlanet.Value
+      let next_hop = [for h in this.Neighbours do
+                      for q in world.Planets do
+                      where (h.Item1 = world.TargetedPlanet.Value.UnityPlanet && h.Item2 = q.UnityPlanet)
+                      select (q)]
+      yield [new TravelingShip(next_hop.Head,this,new Ship(Owner.Value,Position,amount_of_ships,world.TargetedPlanet.Value, next_hop.Head, this, None))], LandedShips - amount_of_ships
+      yield [], LandedShips
+
+  rule ShipsToForward = // ships to send
+    if Owner.IsSome && Battle.IsNone && InboundShips.Count > 0 then
+        yield
+          [for i in InboundShips do
+           where (i.Owner = Owner.Value && i.FinalTarget <> this)
+           select (i)]
+        yield [] 
+
+  rule Selected, Targeted =
+    if world.InputMonitor.LeftMouseButton && not world.InputMonitor.ControlKey then // single select
+      if OnMouseOver && Owner.IsSome then                                    // TBD: Multiple input controllers, right now 1 player can click all owned planets
+            yield true,false
+      else yield false,Targeted // if you do not click on a planet, then you deselect
+    else if world.InputMonitor.LeftMouseButton && world.InputMonitor.ControlKey && OnMouseOver && Owner.IsSome then
+      if Selected then
+        yield false,false // Ctrl + click deselect
+      else yield true,false  // Ctrl + click add
+    else yield Selected,Targeted
+
+  rule Selected = 
+    wait world.SelectionManager.SelectionRectangle.IsSome && world.SelectionManager.SelectAll
+    let selecRec = world.SelectionManager.SelectionRectangle.Value.UnitySelectionRectangle
+    let isInRec = (Position.x > (selecRec.Position.x - selecRec.Scale.x / 2.0f)) && (Position.x < (selecRec.Position.x + selecRec.Scale.x / 2.0f)) && 
+                  (Position.z > (selecRec.Position.z - selecRec.Scale.z / 2.0f)) && (Position.z < (selecRec.Position.z + selecRec.Scale.z / 2.0f))
+    if not world.InputMonitor.ControlKey then // new select
+      if isInRec && Owner.IsSome then
+        yield true
+      else yield false
+    else if world.InputMonitor.ControlKey && isInRec && Owner.IsSome then
+      if Selected then
+        yield Selected // keep selected planets
+      else 
+        yield true
+    else yield Selected
+
+  rule Targeted =
+    if world.SelectedPlanets.Count > 0 then
+      if world.InputMonitor.RightMouseButton then
+        if OnMouseOver && not Selected then
+            yield true // make it a target
+            yield false // undo targeting. 
+        else 
+            yield false // if you do not click on a planet, then you deselect the current target. 
+      else yield Targeted
+    else
+      yield false
+
+   rule ActionLight =
+     yield (Selected||Targeted)
+    
+   rule Battle =
+     let inbounds = 
+        [for s in InboundShips do
+          where (Owner.IsNone || (s.Owner.CommanderNumber <> Owner.Value.CommanderNumber)) // neutral or enemy
+          select s] 
+     if Battle.IsNone && inbounds.Count > 0 then
+       let StartBattle = new Battle(this) 
+       yield Some StartBattle
+       wait Battle.Value.AttackingShips.Count = 0
+       yield Battle
+       yield None
+
+   rule Battle.Value.StopAnimation = 
+     wait Battle.IsSome
+     wait Battle.Value.AttackingShips.Count = 0
+     yield true
+     wait Battle.IsNone
+
+
+   rule LandingShips =
+    if Owner.IsSome then
+      yield
+      [for i in InboundShips do
+       where (i.Owner = Owner.Value && i.FinalTarget = this) // your own planet
+       select (new LandingShip(i))]
+(*
+   rule InboundShips =
+    wait Battle.IsSome
+    if Battle.Value.ShipsToMerge.Count > 0 then
+      let x = 
+        [for i in InboundShips do
+          let i_do_not_know =
+              [for s in Battle.Value.ShipsToMerge do
+              where (s.BaseShip.Source = i.Source)
+              select i]
+          where (i_do_not_know.Count = 0)
+          select i]
+      yield x
+*)
+
+   rule Battle.Value.ShipsToMerge =
+    wait Battle.IsSome
+    yield 
+      [for i in InboundShips do
+        let ships_to_merge =
+          [for i2 in Battle.Value.AttackingShips do
+            where (i.Source = i2.BaseShip.Source)
+            select i2.BaseShip]
+        where (ships_to_merge.Count > 0)
+        select (new MergingShip(i))]
+
+   rule LightColor =  
+     if Targeted then
+      yield Color.red
+     if Selected then
+      yield Color.white
+     yield LightColor
+  
+    rule InboundShips = // still incorrect right? 
+      let is1 =
+        [for l in world.Links do
+         for s in l.ShipsToRemove do 
+         where(s.Target = this)
+         select s.BaseShip]
+      let is2 =
+         [for ss in StarSystem.Value.Links do
+          for s in ss.ShipsToRemove do
+          where(s.Target = this)
+          select s.BaseShip]
+      yield is1@is2
+
+    rule PlanetStats =
+      wait Owner.IsSome && PlanetStats.IsNone
+      let planetType = Random.Range(0,3)
+      let pStats =
+       if planetType = 0 then
+         new PlanetInfo(this, Constants.Asteroid)
+       elif planetType = 1 then
+         new PlanetInfo(this, Constants.MineralPlanet)
+       else
+         new PlanetInfo(this, Constants.EarthPlanet)
+      yield Some pStats
+
+    rule MiniMapColor =
+      if Owner.IsSome then
+        let owner = Owner.Value
+        let commander_number = owner.CommanderNumber
+        yield new Color((0.2f * commander_number), 0.1f, 0.3f, 1)
+        let C = MiniMapColor
+        wait commander_number <> Owner.Value.CommanderNumber
+
+    rule StarSystem =
+      let ss =
+        [for ss1 in world.StarSystems do
+         for p in ss1.Planets do
+         where(p = this)
+         select ss1]
+      yield Some ss.Head
+      wait false
+
+    Create(constants : GameConstants, p : UnityPlanet, n : [(UnityPlanet*UnityPlanet)], c : Option<Commander> ) =
+        {
+        Base = p
+        PlanetStats = None
+        LandedShips = 0
+        Battle = None
+        LandingShips = []
+        InboundShips = []
+        ShipToSend = []
+        Neighbours = n
+        ShipsToForward = []
+        Selected = false
+        Targeted = false
+        Owner = c
+        Constants = constants
+        StarSystem = None
+        Auto_Hop_Timer = false
+        ActiveHopsCounter = 0
+        }
+}
+
+entity Link = {
+  inherit UnityLink
+
+  ref Source : Planet
+  ref Target : Planet
+  TravelingShips : [TravelingShip]
+  ref ShipsToRemove : [TravelingShip]
+  SourcesReversed : bool
+  AutoHopActive : bool
+  
+  rule UnitySourcesReversed, AutoHopActive, UnityAutoHopActive , Source.ActiveHopsCounter = // undo autohop
+    wait world.InputMonitor.RightMouseButton
+    if (world.InputMonitor.ShiftKey && Source.Selected && AutoHopActive && world.TargetedPlanet.IsNone) then
+      yield SourcesReversed, false, false, Source.ActiveHopsCounter - 1
+    wait world.InputMonitor.RightMouseButtonUp
+
+  rule TravelingShips, Source.LandedShips = // send ships when autohop is active
+    wait Source.Auto_Hop_Timer && AutoHopActive
+    let amount_of_active_targets = Source.ActiveHopsCounter
+    let amount_of_ships_to_send_per_target = (int) (Source.LandedShips / amount_of_active_targets)
+    if amount_of_ships_to_send_per_target > 0 then
+      Debug.Log(Source.ActiveHopsCounter)
+      yield (new TravelingShip(Target,Source,new Ship(Source.Owner.Value,Source.Position,amount_of_ships_to_send_per_target,Target, Target, Source, None))) :: TravelingShips, Source.LandedShips - amount_of_ships_to_send_per_target
+  
+  rule UnitySourcesReversed, AutoHopActive, UnityAutoHopActive , Source.ActiveHopsCounter = // create autohop
+    wait world.AutoHopManager.IsSome && world.AutoHopManager.Value.IsDone
+    if world.AutoHopManager.Value.IntermediateHops.Count = 1 then 
+      let ahm_ih_2 = world.AutoHopManager.Value.IntermediateHops
+      if (ahm_ih_2.Head.Item1 = Source && ahm_ih_2.Head.Item2 = Target) then
+        Debug.Log("I am link': " + Source.Name + ", " + Target.Name + "AHA " + AutoHopActive)
+        if AutoHopActive = true then
+          yield SourcesReversed, false, false, Source.ActiveHopsCounter - 1
+        else
+          yield SourcesReversed, true, true, Source.ActiveHopsCounter + 1
+    else
+      let elems =
+        [for a in world.AutoHopManager.Value.IntermediateHops do
+          where (a.Item1 = Source && a.Item2 = Target)
+          select (a)]
+      if (elems.Count > 0) then 
+        Debug.Log("I am link: " + Source.Name + ", " + Target.Name)
+        yield SourcesReversed, true, true, Source.ActiveHopsCounter + 1
+
+  rule TravelingShips =
+    if Source.ShipsToForward.Count > 0 then
+     let query =
+       [for s in Source.ShipsToForward do
+        where(s.Target.Name = Source.Name)
+        select s]
+
+     let next_hops =
+       [for s in query do
+        for h in Source.Neighbours do
+        for q in world.Planets do
+        where (h.Item1 = s.FinalTarget.UnityPlanet && h.Item2 = q.UnityPlanet)
+        select (q, s)]
+
+     let ships_to_send =
+       [for s in query do
+        for next_hop in next_hops do
+        where (s = next_hop.Item2 && next_hop.Item1.Name = Target.Name)
+        select (new TravelingShip(next_hop.Item1,Source,new Ship(Source.Owner.Value,Source.Position,s.AmountOfShips, s.FinalTarget, next_hop.Item1, Source, Some s.UnityShip)))] 
+     yield ships_to_send @ TravelingShips
+  
+  rule TravelingShips =
+     yield
+     [for s in Source.ShipToSend do
+       where (s.Target = Target)
+       select s] @ TravelingShips
+     
+  rule TravelingShips =
+   yield
+    [for s in TravelingShips do 
+      where (Vector3.Distance(s.BaseShip.Position, Target.Position) > 1.5f)
+      select s] 
+
+  rule ShipsToRemove =
+   yield 
+    [for s in TravelingShips do 
+      where (Vector3.Distance(s.BaseShip.Position, Target.Position) <= 1.5f)
+      select s]
+
+  Create(l : UnityLink, p1 : Planet, p2 : Planet, are_sources_reversed : bool) = 
+    {
+      Base = l
+      Source = p1
+      Target = p2
+      TravelingShips = []
+      ShipsToRemove = []
+      AutoHopActive = false
+      SourcesReversed = are_sources_reversed
+    }
+}
+
+entity AutoHopManager = {
+
+  Sources            : [Planet]
+  Target            : Planet
+  IntermediateHops  : [(Planet*Planet)] 
+  Temp              : Option<Planet>
+  IsDone            : bool
+
+  rule IntermediateHops, Temp, IsDone =  
+    for s in Sources do
+      yield IntermediateHops, Some s, IsDone
+      let temp_in_IntermediateHops = 
+        [for i in IntermediateHops do
+         where (i.Item1 = Temp.Value)
+         select i]
+      while (Target <> Temp.Value && Temp.Value.Owner = s.Owner && temp_in_IntermediateHops.Count = 0) do
+        let next_hop =
+          [for h in Temp.Value.Neighbours do
+           for p in world.Planets do
+           where (h.Item1 = Target.UnityPlanet && p.UnityPlanet = h.Item2)
+           select (p)]
+        let next_hop = next_hop.Head
+        if next_hop.Owner = s.Owner then
+          let lst = [Temp.Value, next_hop] @ IntermediateHops
+          Debug.Log(Temp.Value.Name + " -> " + next_hop.Name)
+          yield lst, Some next_hop, IsDone
+        else
+          yield IntermediateHops, Some next_hop, IsDone
+    yield IntermediateHops, Temp, true
+    wait false
+
+  Create(sources : [Planet], target : Planet) = 
+  {
+    Sources = sources
+    Target = target
+    Temp = None
+    IsDone = false
+    IntermediateHops = []
+  }
+}
+
+entity PlanetInfo = {
+  inherit UnityStat
+  
+  ref Planet        : Planet
+
+  Attack            : float32
+  Defense           : float32
+  Productivity      : float32
+  Research          : float32
+
+  StatModifiers     : PlanetStatModifier // In GameConstants.cnv
+
+  UpgradeState      : Option<int> // If research is happening
+  AttackState       : float32 // The current state of the stat, used for research, depending on ResearchOn, ResearchOff and ResearchNeutral
+  DefenseState      : float32
+  ProductivityState : float32
+  ResearchState     : float32
+
+  ResearchOn        : float32 // When the stat is being researched
+  ResearchOff       : float32 // When the stat isn't being researched
+  ResearchNeutral   : float32 // When no research has been selected
+  ResearchCost      : float32 // The penalty to the other stats when changing research
+
+  rule Enabled =
+    yield Planet.Owner.IsSome
+
+  rule UpgradeState = // Determine the research by pressing numeric keys
+    if Planet.Selected && world.InputMonitor.Alpha0 then
+      yield None
+    elif Planet.Selected && world.InputMonitor.Alpha1 then
+      yield Some 1
+    elif Planet.Selected && world.InputMonitor.Alpha2 then
+      yield Some 2
+    elif Planet.Selected && world.InputMonitor.Alpha3 then
+      yield Some 3
+    elif Planet.Selected && world.InputMonitor.Alpha4 then
+      yield Some 4
+
+  rule AttackText, DefenseText, ProductivityText, ResearchText = // Show planetstats above the planets
+    let AttackRound = Mathf.Round(Attack * 10.0f) / 10.0f
+    let DefenseRound = Mathf.Round(Defense * 10.0f) / 10.0f
+    let ProductivityRound = Mathf.Round(Productivity * 10.0f) / 10.0f
+    let ResearchRound = Mathf.Round(Research * 10.0f) / 10.0f
+    yield AttackRound.ToString(), DefenseRound.ToString(), ProductivityRound.ToString(), ResearchRound.ToString()
+
+  rule NextShipInText = // Show the productiontime of 1 ship
+    if Planet.Owner.IsSome then
+      let res = 3.0f / (1.0f + 0.05f * Productivity)
+      yield res.ToString("0.##") // 2 decimals
+    else
+      yield ""
+
+  rule OwnerText =
+    if Planet.Owner.IsSome then
+      let owner = Planet.Owner.Value
+      let commander_number = Planet.Owner.Value.CommanderNumber
+      yield "Commander " + commander_number + ", Name " + Planet.Name
+    else // if no owner, then neutral
+      yield "Neutral"
+
+  rule ShipCountText =
+     if Planet.Owner.IsSome then
+       yield "Ships " + Planet.LandedShips
+
+  rule AttackState, DefenseState, ProductivityState, ResearchState = // Determine which stat is being researched
+    if UpgradeState.IsSome && UpgradeState.Value = 1 then
+      yield ResearchOn, ResearchOff, ResearchOff, ResearchOff
+    elif UpgradeState.IsSome && UpgradeState.Value = 2 then
+      yield ResearchOff, ResearchOn, ResearchOff, ResearchOff
+    elif UpgradeState.IsSome && UpgradeState.Value = 3 then
+      yield ResearchOff, ResearchOff, ResearchOn, ResearchOff
+    elif UpgradeState.IsSome && UpgradeState.Value = 4 then
+      yield ResearchOff, ResearchOff, ResearchOff, ResearchOn
+    elif UpgradeState.IsNone then
+      yield ResearchNeutral, ResearchNeutral, ResearchNeutral, ResearchNeutral
+
+  rule Attack, Defense, Productivity, Research = // Calculate the stats for next frame
+    let attack = Attack + StatModifiers.AtkDelta * dt * AttackState
+    let defense = Defense + StatModifiers.DefDelta * dt * DefenseState
+    let productivity = Productivity + StatModifiers.ProdDelta * dt * ProductivityState
+    let research = Research + StatModifiers.ResDelta * dt * ResearchState
+    yield attack, defense, productivity, research
+
+  rule Attack = // Enforce the boundaries of the stats
+    if Attack < StatModifiers.AtkMin then
+      yield StatModifiers.AtkMin
+    elif Attack > StatModifiers.AtkMax then
+      yield StatModifiers.AtkMax
+
+  rule Defense =
+    if Defense < StatModifiers.DefMin then
+      yield StatModifiers.DefMin
+    elif Defense > StatModifiers.DefMax then
+      yield StatModifiers.DefMax
+
+  rule Productivity =
+    if Productivity < StatModifiers.ProdMin then
+      yield StatModifiers.ProdMin
+    elif Productivity > StatModifiers.ProdMax then
+      yield StatModifiers.ProdMax
+
+  rule Research =
+    if Research < StatModifiers.ResMin then
+      yield StatModifiers.ResMin
+    elif Research > StatModifiers.ResMax then
+      yield StatModifiers.ResMax
+
+  rule Attack, Defense, Productivity, Research = // Reduce stats when changing research
+    wait UpgradeState.IsSome
+    let state = UpgradeState.Value
+    yield Attack + ResearchCost, Defense + ResearchCost, Productivity + ResearchCost, Research + ResearchCost
+    wait (UpgradeState.IsNone || (UpgradeState.IsSome && UpgradeState.Value <> state))
+
+  rule ResearchOn, ResearchOff, ResearchCost = // Speed up research, slow down stat decay and decrease the cost of changing research, based on the research stat
+    let on =   0.25f + 0.01f * Research
+    let off = -0.25f + 0.01f * Research
+    let cost = -0.5f + 0.01f * Research
+    yield on, off, cost
+
+  rule Planet.LandedShips = // Determine productiontime of 1 ship
+     if Planet.Owner.IsSome && Planet.Battle.IsNone then
+       wait 3.0f / (1.0f + 0.05f * Productivity) // and size of planet
+       yield Planet.LandedShips + 1
+
+  rule Rotation =
+    let cameraRotation = world.MainCamera.Rotation.x
+    yield new Vector3(cameraRotation,Rotation.y,Rotation.z)
+
+   Create(p : Planet, psm : PlanetStatModifier) = 
+    {
+     Planet = p
+     Base = UnityStat.FindStat(p.UnityPlanet)
+     StatModifiers = psm
+
+     Attack =       p.Owner.Value.Attack
+     Defense =      p.Owner.Value.Defense
+     Productivity = p.Owner.Value.Production
+     Research =     p.Owner.Value.Research
+        
+     ResearchOn =       0.25f
+     ResearchOff =     -0.25f
+     ResearchNeutral = -0.1f
+     ResearchCost =    -0.5f
+
+     UpgradeState =      None
+     AttackState =       ResearchNeutral
+     DefenseState =      ResearchNeutral
+     ProductivityState = ResearchNeutral
+     ResearchState =     ResearchNeutral
+
+    }
+}
+
+entity StarSystem = {
+  inherit UnityStarSystem
+  Links : [Link]
+  ref Planets : [Planet]
+
+  Create(ss : UnityStarSystem, Planets_3 : [Planet], Links1 : [Link]) =
+
+  let planets_1 =
+    [for ss_p in ss.Planets_2 do
+     for p in Planets_3 do
+     where(p.UnityPlanet = ss_p)
+     select p]
+
+  let links0 =
+    [for l in Links1 do
+     for p in planets_1 do
+     where(l.SSLink = false && (l.Source = p))
+     select l]
+
+  {
+      Base = ss
+      Planets = planets_1
+      Links = links0
+    }
+}

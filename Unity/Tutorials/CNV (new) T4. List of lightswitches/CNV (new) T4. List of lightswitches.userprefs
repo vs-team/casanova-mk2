@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Tutorial13\Assets\UnityLink.cs">
+    <Files>
+      <File FileName="..\Tutorial13\Assets\World.cs" Line="680" Column="3" />
+      <File FileName="..\Tutorial13\Assets\UnityLink.cs" Line="34" Column="503" />
+      <File FileName="..\Tutorial13\Assets\UnityPlanet.cs" Line="86" Column="537" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\mohamed\Documents\Casanova\Unity\Tutorials\Tutorial13\Assets\World.cs" line="598" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

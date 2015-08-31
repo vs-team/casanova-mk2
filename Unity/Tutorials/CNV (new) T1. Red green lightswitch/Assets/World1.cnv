@@ -1,0 +1,42 @@
+module Game1
+
+open "UnityEngine.dll"
+open UnityEngine
+open ToImport
+
+scene World1 = {
+  inherit UnityCube                         
+  
+  myA : A
+
+  rule myA =
+    if myA.B.C.Elem > 0 then
+      yield myA
+    else yield A.Create()
+                 
+  rule UnityCube.Color =   
+    wait 0.5f
+    yield Color.green
+    wait 0.5f
+    yield Color.red
+    
+
+   Create() =
+    {
+      Base = UnityCube.Find()
+      myA = new A()
+    }
+}
+
+
+entity A = {
+  B : B
+  rule B =
+    if B.C.Elem > 0 then
+      yield B
+    else yield B.Create()
+
+  Create() = {
+    B = new B()
+  }
+}

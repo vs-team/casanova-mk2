@@ -1,0 +1,399 @@
+// Number of the map: MapSelectNumber % 4
+// use this number, to set the map active in Game.Unity
+
+
+module Game
+//todo: owner check mergeships
+open "UnityEngine.dll"
+open UnityEngine
+open GameConstants
+open Player
+open Planet
+open Battle
+open Ship
+open UI
+open Animation
+
+worldEntity World = {
+  Constants : GameConstants
+  Planets : [Planet]
+  Links : [Link]
+  StarSystems : [StarSystem]
+  SelectionManager : SelectionManager
+  ref SelectedPlanets : [Planet]
+  ref TargetedPlanet : Option<Planet>
+//  ref AutoHopTargeted : Option<Planet>
+  AutoHopManager : Option<AutoHopManager>
+  InputMonitor : InputController
+  Ships : [Ship]
+  ref AllLinks : [Link]
+  Commanders : [Commander]
+  ResourceBar : ResourceBar
+  MainCamera : MainCamera
+  MiniMap : MiniMap
+                                                            
+  rule SelectedPlanets =
+    [for p in Planets do
+     where p.Selected
+     select p]
+
+  rule TargetedPlanet =
+    let x =
+      [for a in Planets do
+       where a.Targeted
+       select a]
+    if x.Count > 0 then
+      yield Some x.Head
+      yield TargetedPlanet
+    else yield None
+ 
+  rule AutoHopManager = 
+    wait InputMonitor.ShiftKey && InputMonitor.RightMouseButton
+    yield AutoHopManager
+    if SelectedPlanets.Count > 0 && TargetedPlanet.IsSome then
+      let z = new AutoHopManager(SelectedPlanets, TargetedPlanet.Value)
+      yield Some z
+      wait AutoHopManager.Value.IsDone
+      yield None
+      
+  Create()= 
+    let AmountOfPlayers = UnityMenu.AmountOfPlayers
+    let constants = new GameConstants()
+    // before this one, one map has to be set active
+    let unityPlanets = UnityPlanet.FindAllPlanets(AmountOfPlayers)
+    let unityLinks = UnityLink.FindLinks()
+    let unityStarSystem = UnityStarSystem.FindAllStarSystems()
+    UnityRouting.findRouter(unityPlanets, unityLinks)
+    let Types = constants.Aggressive // Neutral/Aggressive/Defensive
+    let commanders = 
+      [for a in [1..AmountOfPlayers] do
+       select (new Commander(a, Types))]
+
+    let MinPlanetPositionX = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.x < p.Position.x && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.x)]
+
+    let MinPlanetPositionY = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.y < p.Position.y && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.y)]
+
+    let MinPlanetPositionZ = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.z < p.Position.z && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.z)]
+
+    let MaxPlanetPositionX = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.x > p.Position.x && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.x)]
+
+    let MaxPlanetPositionZ = 
+      [for p in unityPlanets do
+       let other = 
+         [for p1 in unityPlanets do
+          where (p1.Position.z > p.Position.z && (p <> p1))
+          select p1]
+       where (other.Count = 0)
+       select (p.Position.z)]
+
+    let camera = new MainCamera(MinPlanetPositionX.Head, MaxPlanetPositionX.Head, MinPlanetPositionY.Head, MinPlanetPositionZ.Head, MaxPlanetPositionZ.Head)
+    
+    let planets = 
+      [for p in unityPlanets do
+       let owner = 
+         if p.IsStartingPlanet && p.CommanderIndex > -1 then
+           Some commanders.[p.CommanderIndex] 
+         else 
+           None
+       select (new Planet(constants, p, (UnityRouting.getHopTable(p, unityPlanets)), owner))]
+
+    let links1 = [for l in unityLinks do
+                   for p in planets do
+                   for q in planets do
+                   where (l.startPlanet = p.UnityPlanet && l.endPlanet = q.UnityPlanet)
+                   select (new Link(l, p, q, false))]      
+    let links2 = [for l in unityLinks do
+                   for p in planets do
+                   for q in planets do
+                   where (l.startPlanet = p.UnityPlanet && l.endPlanet = q.UnityPlanet)
+                   select (new Link(l, q, p, true))]
+    let links3 = links1 @ links2
+    let SSlinks = 
+      [for link in links3 do
+       where (link.SSLink)
+       select link]
+   
+    let star_systems = UnityStarSystem.FindAllStarSystems()
+    
+    let casanova_star_systems =
+      [for ss in star_systems do
+       select(new StarSystem(ss, planets, links3))]
+
+    {    
+     Constants = constants
+     Planets = planets
+     StarSystems = casanova_star_systems
+     Links = SSlinks
+     AllLinks = links3
+     SelectionManager = new SelectionManager()
+     SelectedPlanets = []
+     TargetedPlanet = None
+     //AutoHopTargeted = None
+     InputMonitor = new InputController()
+     Ships = []
+     AutoHopManager = None
+     Commanders = commanders
+     ResourceBar = new ResourceBar(commanders)
+     MainCamera = camera
+     MiniMap = new MiniMap(MinPlanetPositionX.Head, MinPlanetPositionY.Head ,   MinPlanetPositionZ.Head ,   MaxPlanetPositionX.Head ,   MaxPlanetPositionZ.Head)
+    }
+}
+
+entity InputController = {
+  inherit UnityController
+  
+  Create() = {
+  Base = new UnityController()
+  }
+}
+entity SelectionManager = {
+  
+  SelectionRectangle : Option<SelectionRectangle>
+  ref SelectionRectangleToDestroy : Option<SelectionRectangle>
+  SelectAll : bool
+
+  rule SelectionRectangle, SelectionRectangleToDestroy, SelectAll = 
+    
+    wait SelectionRectangle.IsNone && Input.GetMouseButton(0)
+    let p = world.InputMonitor.MousePositionInWorld
+    wait 0.1f
+    if SelectionRectangle.IsNone && Input.GetMouseButton(0) then
+      yield (Some (SelectionRectangle.Create(world, p))), None, false
+      wait (Input.GetMouseButtonUp(0))
+      let rect = SelectionRectangle
+      yield SelectionRectangle, None, true
+      yield None, rect, false
+      yield None, None, false
+
+  rule SelectionRectangleToDestroy.Value.Destroyed = 
+    wait SelectionRectangleToDestroy.IsSome
+    yield true
+
+  Create()=
+  {
+    SelectionRectangle = None
+    SelectionRectangleToDestroy = None
+    SelectAll = false
+  }
+
+}
+entity SelectionRectangle = {
+  inherit UnitySelectionRectangle
+  StartPosition : Vector3
+  EndPosition   : Vector3
+
+  rule Position, Scale = 
+    let StartX  = 
+      if StartPosition.x > EndPosition.x then EndPosition.x
+      else  StartPosition.x
+    let DestinationX = 
+      if StartPosition.x > EndPosition.x then StartPosition.x
+      else EndPosition.x
+
+    let StartZ  = 
+      if StartPosition.z > EndPosition.z then EndPosition.z
+      else  StartPosition.z
+    let DestinationZ = 
+      if StartPosition.z > EndPosition.z then StartPosition.z
+      else EndPosition.z
+    let NewP = new Vector3((DestinationX - StartX)/2.0f + StartX, Position.y, (DestinationZ - StartZ) / 2.0f + StartZ)
+    let NewS = new Vector3((DestinationX - StartX), Scale.y, (DestinationZ - StartZ))
+    yield NewP, NewS
+
+  rule EndPosition = 
+    yield world.InputMonitor.MousePositionInWorld
+
+  Create(world : World, StartP : Vector3) = 
+    {
+      Base = UnitySelectionRectangle.Instantiate(StartP)
+      StartPosition = StartP
+      EndPosition = StartP
+    }
+}
+entity MiniMap = {
+  inherit UnityMiniMap 
+  MinX : float
+  MinY : float
+  MinZ : float
+  MaxX : float
+  MaxZ : float
+  cameraSizeOffset : float
+
+  rule CameraSize, CameraPosition = 
+    let midX = (MinX + MaxX) / 2.0f
+    let midY = MinY + 2.0f
+    let midZ = (MinZ + MaxZ) / 2.0f
+    let position = new Vector3(midX, midY, midZ) // maxx - minx, miny + 3.0f, maxz - minz
+    let width = MaxX - MinX
+    let height = MaxZ - MinZ
+
+    let SizeW = width / 2.0f
+    let SizeH = height / 2.0f
+    if SizeW > SizeH then 
+      yield SizeW + cameraSizeOffset, position
+    else 
+      yield SizeH + cameraSizeOffset, position
+
+  rule Hide =
+    wait world.InputMonitor.Tab 
+    yield not Hide
+
+  Create(Xmin : float, Ymin : float, Zmin : float, Xmax : float, Zmax : float) = 
+  {
+    MinX = Xmin
+    MinY = Ymin
+    MinZ = Zmin
+    MaxX = Xmax
+    MaxZ = Zmax
+    cameraSizeOffset = 4.0f
+    Base = UnityMiniMap.CreateMiniMapCamera() 
+  }
+}
+
+
+entity MainCamera = {
+  inherit UnityCamera
+  ScreenWidth : int
+  ScreenHeight : int
+  BoundaryX : int
+  BoundaryY : int
+  CameraMovementSensitivity : float
+  MinX : float
+  MaxX : float
+  MinY : float
+  MaxY : float
+  MinZ : float
+  MaxZ : float
+  RotationDegree : float
+  ZoomSensitivity : int
+  MaxZoomLevel : int
+  IsZooming : bool
+  ZoomLevel : int
+  ZoomFactor : float
+
+  rule Position =
+    .&
+      wait world.InputMonitor.W
+      let newPosition = Position + new Vector3(0.0f,0.0f,10.0f) * dt
+      let biggestFloat = Mathf.Min(MaxZ,newPosition.z)
+      yield new Vector3(newPosition.x,newPosition.y,biggestFloat)
+    .&
+      wait world.InputMonitor.S
+      let newPosition = Position - new Vector3(0.0f,0.0f,10.0f) * dt
+      let biggestFloat = Mathf.Max(MinZ,newPosition.z)
+      yield new Vector3(newPosition.x,newPosition.y,biggestFloat)
+    .&
+      wait world.InputMonitor.D
+      let newPosition = Position + new Vector3(10.0f,0.0f,0.0f) * dt
+      let biggestFloat = Mathf.Min(MaxX,newPosition.x)
+      yield new Vector3(biggestFloat,newPosition.y,newPosition.z)
+    .&
+      wait world.InputMonitor.A
+      let newPosition = Position - new Vector3(10.0f,0.0f,0.0f) * dt
+      let biggestFloat = Mathf.Max(MinX,newPosition.x)
+      yield new Vector3(biggestFloat,newPosition.y,newPosition.z)
+    .&
+      wait world.InputMonitor.MousePositionOnScreen.x < BoundaryX && Position.x > MinX
+      let adjustment = CameraMovementSensitivity * -1.0f
+      yield Position + (new Vector3(adjustment,0.0f,0.0f))
+    .&
+      wait world.InputMonitor.MousePositionOnScreen.x > ScreenWidth - BoundaryX && Position.x < MaxX
+      let adjustment = CameraMovementSensitivity
+      yield Position + (new Vector3(adjustment,0.0f,0.0f))
+    .&
+      wait world.InputMonitor.MousePositionOnScreen.y < BoundaryY && Position.z > MinZ
+      let adjustment = CameraMovementSensitivity * -1.0f
+      yield Position + (new Vector3(0.0f,0.0f,adjustment))
+    .&
+      wait world.InputMonitor.MousePositionOnScreen.y > ScreenHeight - BoundaryY && Position.z < MaxZ
+      let adjustment = CameraMovementSensitivity
+      yield Position + (new Vector3(0.0f,0.0f,adjustment))
+
+  rule Position,ZoomLevel,ZoomFactor,IsZooming,Rotation =
+    .&
+      wait not IsZooming && ZoomLevel < 3 && (world.InputMonitor.MinusKey || world.InputMonitor.MouseScrollDown)
+      yield Position,ZoomLevel + 1,0.0f,true,Rotation
+      let levelLength = ((MaxY - MinY) / (float)MaxZoomLevel)
+      let nextY = levelLength * ZoomLevel + MinY
+      let prevRotation = Rotation.x
+      let prevY = Position.y
+      let nextRotation = Rotation.x + RotationDegree
+      while ZoomFactor < 1.0f do
+        let newRotation = Mathf.Lerp(prevRotation,nextRotation,ZoomFactor)
+        let newY = Mathf.Lerp(prevY,nextY,ZoomFactor)
+        yield new Vector3(Position.x,newY,Position.z),ZoomLevel,ZoomFactor + dt * ZoomSensitivity,IsZooming,new Vector3(newRotation,Rotation.y,Rotation.z)
+      yield new Vector3(Position.x,nextY,Position.z),ZoomLevel,ZoomFactor,false,new Vector3(nextRotation,Rotation.y,Rotation.z)
+    .&
+      wait not IsZooming && ZoomLevel > 0 && (world.InputMonitor.PlusKey || world.InputMonitor.MouseScrollUp)
+      yield Position,ZoomLevel - 1,0.0f,true,Rotation
+      let levelLength = ((MaxY - MinY) / (float)MaxZoomLevel)
+      let nextY = levelLength * ZoomLevel + MinY
+      let prevY = Position.y
+      let prevRotation = Rotation.x
+      let nextRotation = Rotation.x - RotationDegree
+      while ZoomFactor < 1.0f do
+        let newRotation = Mathf.Lerp(prevRotation,nextRotation,ZoomFactor)
+        let newY = Mathf.Lerp(prevY,nextY,ZoomFactor)
+        yield new Vector3(Position.x,newY,Position.z),ZoomLevel,ZoomFactor + dt * ZoomSensitivity,IsZooming,new Vector3(newRotation,Rotation.y,Rotation.z)
+      yield new Vector3(Position.x,nextY,Position.z),ZoomLevel,ZoomFactor,false,new Vector3(nextRotation,Rotation.y,Rotation.z)
+
+  Create(minX : float, maxX : float, minY : float, minZ : float, maxZ : float) = // MinX, MinZ, Y, MaxX, MaxZ
+  let maxY = MinY + 80.0f
+  let MinX = new Vector2(MinX,0.0f)
+  let MaxX = new Vector2(MaxX,0.0f)
+  let xDistance = Vector2.Distance(MinX,MaxX)
+  let cameraX = MinX.x + xDistance / 2.0f
+  let MinZ = new Vector2(MinZ,0.0f)
+  let MaxZ = new Vector2(MaxZ,0.0f)
+  let zDistance = Vector2.Distance(MinZ,MaxZ)
+  let cameraZ = MinZ.x + zDistance / 2.0f
+  {
+    Base = UnityCamera.CreateMainCamera(new Vector3(cameraX,maxY,cameraZ))
+    CameraMovementSensitivity = 0.25f
+    ZoomSensitivity = 10
+    ScreenWidth = Screen.width
+    ScreenHeight = Screen.height
+    BoundaryX = ScreenWidth / 25
+    BoundaryY = ScreenHeight / 25
+    MaxZoomLevel = 3
+    IsZooming = false
+    ZoomLevel = 3
+    RotationDegree = 7.0f
+    ZoomFactor = 0.0f
+    MinX = minX
+    MaxX = maxX
+    MinY = minY + 5.0f
+    MaxY = maxY
+    MinZ = minZ
+    MaxZ = maxZ
+  }
+
+}

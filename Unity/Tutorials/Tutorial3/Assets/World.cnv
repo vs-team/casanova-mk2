@@ -1,0 +1,18 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  inherit UnityCube
+
+  Velocity : Vector3
+
+  rule Position = Position + Velocity * dt
+
+  Create() =
+  {
+    Velocity = new Vector3(3.0f,0.5f,1.0f)
+    Base = UnityCube.Find()
+  }
+}

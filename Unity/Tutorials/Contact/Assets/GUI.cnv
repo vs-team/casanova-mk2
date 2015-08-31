@@ -1,0 +1,896 @@
+module GUI
+
+entity GameUI = {
+    MainMenu              : MainMenu
+    PlanetMenu            : PlanetMenu
+    ResourceBar           : ResourceBar
+    MessageMenu           : MessageMenu
+    LogMenu               : LogMenu
+    QuickBar              : QuickBar
+    ObjectiveWindow       : ObjectiveWindow
+    VictoryWindow         : VictoryWindow
+    FadeScreen            : FadeScreen
+    OnGUI                 : bool
+
+    rule OnGUI = 
+      (MainMenu.Active && MainMenu.OnMenu) || (PlanetMenu.Active && PlanetMenu.OnMenu) || (MessageMenu.Active && MessageMenu.OnMenu) || (LogMenu.Active && LogMenu.OnMenu) ||
+      (QuickBar.Active && QuickBar.OnMenu)
+
+
+    Create(constants : GameConstants, players : [Player]) =
+      {
+        MainMenu            = new MainMenu()
+        PlanetMenu          = new PlanetMenu()
+        ResourceBar         = new ResourceBar()
+        MessageMenu         = new MessageMenu(constants, players)
+        LogMenu             = new LogMenu(constants, players)
+        QuickBar            = new QuickBar()
+        ObjectiveWindow     = new ObjectiveWindow()
+        VictoryWindow       = new VictoryWindow()
+        FadeScreen          = new FadeScreen()
+        OnGUI               = false
+      }
+}
+
+entity SelectableImage = {
+  inherit CnvSelectionBox
+
+  ImageIndex        : int
+  Selected          : bool
+
+  rule Selected =
+    wait world.GUI.MessageMenu.CloseButton.Clicked || world.GUI.MessageMenu.ClearButton.Clicked
+    yield false
+
+  rule CnvSelectionBox.Active =
+    yield ImageIndex < world.GameConstants.ImageSelectionSize
+    wait ImageIndex >= world.GameConstants.ImageSelectionSize
+
+  rule CnvSelectionBox.ImageName =
+    wait ImageIndex < world.GameConstants.ImageSelectionSize && Selected
+    let stringIndex = "Images/image" + (GameUtils.IntToString(ImageIndex + 1))
+    yield stringIndex + "_selected"
+    wait not Selected
+
+  rule CnvSelectionBox.ImageName =
+    wait ImageIndex < world.GameConstants.ImageSelectionSize && (not Selected)
+    yield "Images/image" + (GameUtils.IntToString(ImageIndex + 1))
+    wait Selected
+
+  rule Selected,CnvSelectionBox.Clicked =
+    wait ImageIndex < world.GameConstants.ImageSelectionSize && CnvSelectionBox.Clicked
+    yield not Selected,false
+
+  Create(n : string,imageIndex : int) =
+    {
+      ImageIndex           = imageIndex
+      Selected             = false
+      CnvSelectionBox      = new CnvSelectionBox(n)
+    }
+}
+
+entity KeyboardButton = {
+  inherit CnvButton
+
+  SymbolIndex       : int
+
+  rule CnvButton.Active =
+    yield SymbolIndex < world.GameConstants.PlayerSymbolCount
+    wait SymbolIndex >= world.GameConstants.PlayerSymbolCount
+
+  rule world.GUI.MessageMenu.MessageEcho,CnvButton.Clicked =
+    wait SymbolIndex < world.GameConstants.PlayerSymbolCount && CnvButton.Clicked 
+    if world.GUI.MessageMenu.MessageEcho.Count <= world.GameConstants.MessagePreviewSize - 1 then
+      let playerSymbols = world.CurrentPlayer.Symbols
+      yield world.GUI.MessageMenu.MessageEcho @ [playerSymbols.[SymbolIndex]],false
+    else
+      yield world.GUI.MessageMenu.MessageEcho,false
+    //GameUtils.printMsg("Echo size = " + GameUtils.IntToString(world.GUI.MessageMenu.MessageEcho.Count))
+
+  rule CnvButton.ImageName =
+    wait SymbolIndex < world.GameConstants.PlayerSymbolCount
+    //GameUtils.printMsg("Updating keyboard symbols for " + world.CurrentPlayer.Name + "...")
+    let currentPlayer = world.CurrentPlayer
+    let playerSymbols = currentPlayer.Symbols
+    let newImageIndex = playerSymbols.[SymbolIndex]
+    let stringIndex = GameUtils.IntToString(newImageIndex + 1)
+    let newImageName = "Symbols/symbol" + (stringIndex)
+    yield newImageName
+    wait currentPlayer <> world.CurrentPlayer
+
+  Create(n : string,symbolIndex : int) =
+    {
+      SymbolIndex = symbolIndex
+      CnvButton   = new CnvButton(n)
+    }
+}
+
+entity PreviewIcon = {
+  inherit CnvIcon
+
+  IconIndex     : int
+
+  rule CnvIcon.Active =
+    yield false
+    wait false
+
+  //change the icon symbol dinamically according to the message echo. If the symbol position is greater than the echo
+  //size then the symbol is deactivated (better performance than dinamically allocating and deallocating new objects).
+  rule CnvIcon.ImageName,CnvIcon.Active =
+    wait IconIndex < world.GUI.MessageMenu.MessageEcho.Count
+    let echo = world.GUI.MessageMenu.MessageEcho
+    let symbolIndex = echo.[IconIndex]
+    //GameUtils.printMsg("(" + (GameUtils.IntToString(IconIndex)) + "," + (GameUtils.IntToString(world.GUI.MessageMenu.MessageEcho.Count)) + ")")
+    let spriteName = "Symbols/symbol" + (GameUtils.IntToString(symbolIndex + 1))
+    yield spriteName,true
+    wait IconIndex >= world.GUI.MessageMenu.MessageEcho.Count
+
+  rule CnvIcon.Active =
+    wait IconIndex >= world.GUI.MessageMenu.MessageEcho.Count
+    //GameUtils.printMsg("Deleting icon " + GameUtils.IntToString(IconIndex))
+    yield false
+    wait IconIndex < world.GUI.MessageMenu.MessageEcho.Count
+
+
+  Create (n : string, index : int, instantiate : Option<IconInstantiation>) =
+    {
+      IconIndex = index
+      CnvIcon = new CnvIcon(n,instantiate)
+    }
+}
+
+entity FadeScreen = {
+  FadePanel         : CnvPanel
+  FadeOutOver       : bool
+
+  rule FadePanel.Alpha,FadeOutOver =
+    wait world.GUI.VictoryWindow.VictoryCinematicOver
+    let lifetime = 2.0f
+    while (FadePanel.Alpha < 1.0f) do
+      yield FadePanel.Alpha + 1.0f / lifetime * dt,false
+    yield 1.0f,true
+    wait false
+
+  Create() =
+    {
+      FadePanel       = new CnvPanel("FadeCanvas/FadeScreen")
+      FadeOutOver     = false
+    }
+}
+
+entity VictoryWindow = {
+  VictoryText                : CnvText
+  VictoryCinematicOver       : bool
+
+  rule VictoryText.Alpha =
+    yield 0.0f
+    wait false
+
+  rule VictoryText.Text,VictoryText.Alpha,VictoryCinematicOver =
+    wait world.Winner.IsSome
+    let lifetime = 0.5f
+    yield world.Winner.Value.Name + " has won the game!",0.0f,false
+    while (VictoryText.Alpha < 1.0f) do
+      yield VictoryText.Text,VictoryText.Alpha + 1.0f / lifetime * dt,false
+    yield VictoryText.Text,1.0f,false
+    wait 1.0f
+    while (VictoryText.Alpha > 0.0f) do
+      yield VictoryText.Text,VictoryText.Alpha - 1.0f / lifetime * dt,false
+    yield VictoryText.Text,0.0f,false
+    wait 0.5f
+    yield VictoryText.Text,VictoryText.Alpha,true
+    wait false
+
+  Create() =
+    {
+      VictoryText     = new CnvText("UICanvas/VictoryCanvas/Text")
+      VictoryCinematicOver = false
+    }
+}
+
+entity ObjectiveWindow = {
+  ObjectiveText              : CnvText
+
+  rule ObjectiveText.Alpha =
+    yield 0.0f
+    wait false
+
+  rule ObjectiveText.Alpha =
+    wait 0.0f //Mudy should fix the let bug
+    let currentPlayer = world.CurrentPlayer
+    wait currentPlayer <> world.CurrentPlayer
+    yield 0.0f
+
+  rule ObjectiveText.Text,ObjectiveText.Alpha =
+    let lifetime = 0.5f
+    wait Input.GetKeyDown(KeyCode.O)
+    let textList =
+      [for objective in world.CurrentPlayer.Objectives do
+        select (objective.Text)]
+    let objectiveText = GameUtils.ConcatenateStrings(textList)
+    if (ObjectiveText.Alpha = 0.0f) then
+      yield objectiveText,0.0f
+      while (ObjectiveText.Alpha < 1.0f) do
+        yield ObjectiveText.Text,ObjectiveText.Alpha + 1.0f/ lifetime * dt
+      yield ObjectiveText.Text,1.0f
+    else
+      yield objectiveText,ObjectiveText.Alpha
+      while (ObjectiveText.Alpha > 0.0f) do
+        yield ObjectiveText.Text,ObjectiveText.Alpha - 1.0f / lifetime * dt
+      yield ObjectiveText.Text,0.0f
+    
+
+  Create() =
+    {
+      ObjectiveText      = new CnvText("UICanvas/ObjectiveCanvas/ObjectiveText")
+    }
+}
+
+entity QuickBar = {
+  inherit UnityMenu
+
+  LogButton         : CnvButton
+  HomeButton        : CnvButton
+  MessageButton     : CnvButton
+  SkipTurnButton    : CnvButton
+  DroneButton       : CnvButton
+
+  rule HomeButton.Clicked =
+    wait HomeButton.Clicked
+    let cameraPosition = world.MainCamera.CameraPosition
+    wait cameraPosition <> world.MainCamera.CameraPosition
+    yield false
+
+  rule LogButton.Clicked =
+    wait LogButton.Clicked && world.GUI.LogMenu.Active
+    yield false
+
+  rule MessageButton.Clicked =
+    wait MessageButton.Clicked && world.GUI.MessageMenu.Active
+    yield false
+
+  rule SkipTurnButton.Disabled =
+    let busyDrones =
+      [for drone in world.CurrentPlayer.Drones do
+       where (drone.Busy)
+       select (drone)]
+    busyDrones.Count > 0
+
+  rule SkipTurnButton.Clicked =
+    wait SkipTurnButton.Clicked
+    let currentPlayer = world.CurrentPlayer
+    wait currentPlayer <> world.CurrentPlayer
+    yield false
+
+  rule DroneButton.Clicked =
+    wait DroneButton.Clicked
+    let cameraPosition = world.MainCamera.CameraPosition
+    wait cameraPosition <> world.MainCamera.CameraPosition
+    yield false
+
+  rule LogButton.ImageName =
+    let playerMessages = world.CurrentPlayer.ReceivedMessages
+    let unreadMessages =
+      [for message in playerMessages do
+       where (not message.Read)
+       select (message)]
+    let spriteName =
+      if unreadMessages.Count > 0 then
+        "ResourcesUI/envelope_new"
+      else
+        "ResourcesUI/envelope"
+    spriteName
+
+  Create () =
+    {
+      LogButton         = new CnvButton("UICanvas/QuickBarCanvas/LogButton")
+      HomeButton        = new CnvButton("UICanvas/QuickBarCanvas/HomeButton")
+      MessageButton     = new CnvButton("UICanvas/QuickBarCanvas/MessageButton")
+      SkipTurnButton    = new CnvButton("UICanvas/QuickBarCanvas/SkipTurnButton")
+      DroneButton       = new CnvButton("UICanvas/QuickBarCanvas/DroneButton")
+      UnityMenu         = UnityMenu.GetMenu("UICanvas/QuickBarCanvas")
+    }
+}
+
+entity TextLogIcon = {
+  inherit CnvIcon
+
+  IconIndex         : int
+
+  rule CnvIcon.Active =
+    yield false
+    wait false
+
+  //change the icon symbol dinamically according to the message echo. If the symbol position is greater than the echo
+  //size then the symbol is deactivated (better performance than dinamically allocating and deallocating new objects).
+  rule CnvIcon.ImageName,CnvIcon.Active =
+    wait world.GUI.LogMenu.SelectedMessage.IsSome && IconIndex < world.GUI.LogMenu.SelectedMessage.Value.MessageContent.Count
+    let selectedMessage = world.GUI.LogMenu.SelectedMessage.Value
+    let messageContent = selectedMessage.MessageContent
+    let symbolIndex = messageContent.[IconIndex]
+    //GameUtils.printMsg("(" + (GameUtils.IntToString(IconIndex)) + "," + (GameUtils.IntToString(world.GUI.MessageMenu.MessageEcho.Count)) + ")")
+    let spriteName = "Symbols/symbol" + (GameUtils.IntToString(symbolIndex + 1))
+    yield spriteName,true
+    wait world.GUI.LogMenu.SelectedMessage.IsNone || selectedMessage <> world.GUI.LogMenu.SelectedMessage.Value
+
+  rule CnvIcon.Active =
+    wait world.GUI.LogMenu.SelectedMessage.IsNone || IconIndex >= world.GUI.LogMenu.SelectedMessage.Value.MessageContent.Count
+    yield false
+    wait world.GUI.LogMenu.SelectedMessage.IsSome && IconIndex < world.GUI.LogMenu.SelectedMessage.Value.MessageContent.Count
+
+  Create (n : string, index : int, instantiate : Option<IconInstantiation>) =
+    {
+      IconIndex = index
+      CnvIcon = new CnvIcon(n,instantiate)
+    }
+}
+
+entity ImageLogIcon = {
+  inherit CnvIcon
+
+  IconIndex         : int
+
+  rule CnvIcon.Active =
+    yield false
+    wait false
+
+  //change the icon symbol dinamically according to the message echo. If the symbol position is greater than the echo
+  //size then the symbol is deactivated (better performance than dinamically allocating and deallocating new objects).
+  rule CnvIcon.ImageName,CnvIcon.Active =
+    wait world.GUI.LogMenu.SelectedMessage.IsSome && IconIndex < world.GUI.LogMenu.SelectedMessage.Value.Images.Count
+    let selectedMessage = world.GUI.LogMenu.SelectedMessage.Value
+    let images = selectedMessage.Images
+    let symbolIndex = images.[IconIndex]
+    //GameUtils.printMsg("(" + (GameUtils.IntToString(IconIndex)) + "," + (GameUtils.IntToString(world.GUI.MessageMenu.MessageEcho.Count)) + ")")
+    let spriteName = "Images/image" + (GameUtils.IntToString(symbolIndex + 1))
+    yield spriteName,true
+    wait world.GUI.LogMenu.SelectedMessage.IsNone || selectedMessage <> world.GUI.LogMenu.SelectedMessage.Value
+
+  rule CnvIcon.Active =
+    wait world.GUI.LogMenu.SelectedMessage.IsNone || IconIndex >= world.GUI.LogMenu.SelectedMessage.Value.Images.Count
+    yield false
+    wait world.GUI.LogMenu.SelectedMessage.IsSome && IconIndex < world.GUI.LogMenu.SelectedMessage.Value.Images.Count
+
+  Create (n : string, index : int, instantiate : Option<IconInstantiation>) =
+    {
+      IconIndex = index
+      CnvIcon = new CnvIcon(n,instantiate)
+    }
+}
+
+
+entity LogMenu = {
+  inherit UnityMenu
+
+  MessagePreview        : [TextLogIcon]
+  ImagePreview          : [ImageLogIcon]
+  CloseButton           : CnvButton
+  MessageList           : CnvComboList
+  UraniumInputField     : CnvInputField
+  PlutoniumInputField   : CnvInputField
+  IronInputField        : CnvInputField
+  OilInputField         : CnvInputField
+  SendButton            : CnvButton
+  Trades                : [Trade]
+  ref SelectedMessage   : Option<Message>
+
+  rule Active =
+    yield false
+    wait false
+
+  rule UraniumInputField.MaxValue,UraniumInputField.MinValue =
+    let playerUranium = world.CurrentPlayer.Resources.Uranium
+    yield playerUranium,0
+    wait playerUranium <> world.CurrentPlayer.Resources.Uranium
+
+  rule PlutoniumInputField.MaxValue,PlutoniumInputField.MinValue =
+    let playerPlutonium = world.CurrentPlayer.Resources.Plutonium
+    yield playerPlutonium,0
+    wait playerPlutonium <> world.CurrentPlayer.Resources.Plutonium
+
+  rule IronInputField.MaxValue,IronInputField.MinValue =
+    let playerIron = world.CurrentPlayer.Resources.Iron
+    yield playerIron,0
+    wait playerIron <> world.CurrentPlayer.Resources.Iron
+
+  rule OilInputField.MaxValue,OilInputField.MinValue =
+    let playerOil = world.CurrentPlayer.Resources.Oil
+    yield playerOil,0
+    wait playerOil <> world.CurrentPlayer.Resources.Oil
+
+  rule SendButton.Disabled =
+    SelectedMessage.IsNone || 
+    (GameUtils.StringToInt(UraniumInputField.Text) <= 0 &&
+     GameUtils.StringToInt(PlutoniumInputField.Text) <= 0 &&
+     GameUtils.StringToInt(OilInputField.Text) <= 0 &&
+     GameUtils.StringToInt(IronInputField.Text) <= 0)
+
+
+  rule Trades =
+    wait not world.Log.WritingLog
+    let playerTrades =
+      [for player in world.Players do
+       for trade in player.ReceivedTrades do
+       select(trade)]
+    let filteredTrades =
+      [for t1 in Trades do
+       let receivedTrades =
+         [for t2 in playerTrades do
+          where (t1 = t2)
+          select(t1)]
+       where(receivedTrades.Count = 0)
+       select(t1)]
+    yield filteredTrades
+
+  rule Trades,SendButton.Clicked =
+    wait SendButton.Clicked
+    //Debug.Log("Sending Trade to " + (SelectedMessage.Value.Sender.Name))
+    let sentUranium         = GameUtils.StringToInt(UraniumInputField.Text)
+    let sentPlutonium       = GameUtils.StringToInt(PlutoniumInputField.Text)
+    let sentOil             = GameUtils.StringToInt(OilInputField.Text)
+    let sentIron            = GameUtils.StringToInt(IronInputField.Text)
+    let receiver            = SelectedMessage.Value.Sender
+    let sentResources       = new GameResources(sentUranium,sentPlutonium,sentOil,sentIron)
+    let newTrade            = new Trade(receiver,sentResources)
+    //Debug.Log(newTrade.Receiver.Name)
+    //Debug.Log(newTrade.Resources.Uranium)
+    //Debug.Log(newTrade.Resources.Plutonium)
+    //Debug.Log(newTrade.Resources.Oil)
+    //Debug.Log(newTrade.Resources.Iron)
+    wait dt
+    yield newTrade ::Trades,false
+
+  rule MessageList =
+    ComboList.Reset(MessageList.ComboList)
+    //Debug.Log("------------------")
+    //Debug.Log(world.CurrentPlayer.Name)
+    //ComboList.printComboList(MessageList.ComboList)
+    let currentMessages = world.CurrentPlayer.ReceivedMessages
+    for message in currentMessages do
+      //Debug.Log("Adding button to combo list")
+      ComboList.AddButton(MessageList.ComboList,message.Name)
+    yield MessageList
+    wait currentMessages <> world.CurrentPlayer.ReceivedMessages
+
+  rule SelectedMessage =
+    wait MessageList.SelectionName <> ""
+    let messageName = MessageList.SelectionName
+    let selectedMessageList =
+      [for message in world.CurrentPlayer.ReceivedMessages do
+       where (message.Name = MessageList.SelectionName)
+       select (message)]
+    let selectedMessage = selectedMessageList.Head
+    yield Some selectedMessage
+    wait messageName <> MessageList.SelectionName
+
+  rule SelectedMessage =
+    wait MessageList.SelectionName = ""
+    yield None
+    wait MessageList.SelectionName <> ""
+  
+  rule Active,CloseButton.Clicked =
+    wait CloseButton.Clicked
+    yield false,false
+
+  rule Active =
+    wait world.GUI.QuickBar.LogButton.Clicked
+    yield true
+
+  Create (constants : GameConstants, players : [Player]) =
+    let messageFrame  = new CnvFrame("UICanvas/LogWindowCanvas/FrameCanvas/MessagePreviewFrame/Background",Some 5.0f,Some 5.0f)
+    let imageFrame    = new CnvFrame("UICanvas/LogWindowCanvas/FrameCanvas/ImagePreviewFrame/Background", Some 5.0f, Some 5.0f) 
+    let symbolsPerLine = GameUtils.FloatToInt(Mathf.Floor((messageFrame.Width - 2.0f * messageFrame.OffsetX) / 40.0f))
+    let imagesPerLine  = GameUtils.FloatToInt(Mathf.Floor((messageFrame.Width - 2.0f * messageFrame.OffsetX) / 40.0f))
+    let messageOrigin = messageFrame.Origin
+    let imageOrigin = imageFrame.Origin  
+    let messagePreview =
+      [for i in [1..constants.MessagePreviewSize] do
+       let spriteName = "Symbols/symbol1"
+       let cellX = (i - 1) % symbolsPerLine
+       let cellY = (i - 1) / symbolsPerLine
+       let offsetX = messageOrigin.x + messageFrame.OffsetX + cellX * (constants.PreviewIconSize)
+       let offsetY = messageOrigin.y - (messageFrame.OffsetY + cellY * (constants.PreviewIconSize))
+       let parentPath = "UICanvas/LogWindowCanvas/FrameCanvas/MessagePreviewFrame"
+       let instantiationParams = new IconInstantiation(new Vector3(offsetX,offsetY,0.0f),spriteName,parentPath)
+       select (new TextLogIcon("SymbolIcon",(i - 1),Some instantiationParams))]
+    let symbolsPerLine = GameUtils.FloatToInt(Mathf.Floor((imageFrame.Width - 2.0f * imageFrame.OffsetX) / 40.0f))
+    let imagesPerLine  = GameUtils.FloatToInt(Mathf.Floor((imageFrame.Width - 2.0f * imageFrame.OffsetX) / 40.0f))
+    let imagePreview =
+      [for i in [1..constants.ImageSelectionSize] do
+       let spriteName = "Images/image1"
+       let cellX = (i - 1) % symbolsPerLine
+       let cellY = (i - 1) / symbolsPerLine
+       let offsetX = imageOrigin.x + imageFrame.OffsetX + cellX * (constants.PreviewIconSize)
+       let offsetY = imageOrigin.y - (imageFrame.OffsetY + cellY * (constants.PreviewIconSize))
+       let parentPath = "UICanvas/LogWindowCanvas/FrameCanvas/ImagePreviewFrame"
+       let instantiationParams = new IconInstantiation(new Vector3(offsetX,offsetY,0.0f),spriteName,parentPath)
+       select (new ImageLogIcon("ImageIcon",(i - 1),Some instantiationParams))]
+    {
+      MessagePreview = messagePreview
+      ImagePreview = imagePreview
+      CloseButton = new CnvButton("UICanvas/LogWindowCanvas/CloseButton")
+      MessageList = new CnvComboList("UICanvas/LogWindowCanvas/MessageLog")
+      UnityMenu = UnityMenu.GetMenu("UICanvas/LogWindowCanvas")
+      UraniumInputField = new CnvInputField("UICanvas/LogWindowCanvas/UraniumInputField")
+      PlutoniumInputField = new CnvInputField("UICanvas/LogWindowCanvas/PlutoniumInputField")
+      OilInputField = new CnvInputField("UICanvas/LogWindowCanvas/OilInputField")
+      IronInputField = new CnvInputField("UICanvas/LogWindowCanvas/IronInputField")
+      SendButton = new CnvButton("UICanvas/LogWindowCanvas/SendButton")
+      Trades = []
+      SelectedMessage = None
+    }
+}
+
+
+entity MessageMenu = {
+  inherit UnityMenu
+
+  KeyboardButtons           : [KeyboardButton]
+  ImageSelection            : [SelectableImage]
+  ref CurrentSelection      : [int]
+  DeleteButton              : CnvButton
+  ClearButton               : CnvButton
+  CloseButton               : CnvButton
+  SendButton                : CnvButton
+  Receivers                 : CnvComboBox
+  MessageEcho               : [int]
+  OutgoingMessages          : [Message]
+  MessageFrame              : CnvFrame
+  MessagePreview            : [PreviewIcon]
+  CostIcon                  : CnvIcon
+  Payment                   : float
+  Cost                      : float
+  UraniumInputField         : CnvInputField
+  PlutoniumInputField       : CnvInputField
+  IronInputField            : CnvInputField
+  OilInputField             : CnvInputField
+
+  rule Active =
+    yield false
+    wait false
+
+  rule Active =
+    wait world.GUI.QuickBar.MessageButton.Clicked
+    yield true
+
+  rule CurrentSelection =
+    [for image in ImageSelection do
+     where(image.Selected)
+     select(image.ImageIndex)]
+
+  rule OutgoingMessages =
+    wait world.Log.WritingLog
+    let playerMessages =
+      [for player in world.Players do
+       for message in player.ReceivedMessages do
+       select (message)]
+    let filteredMessages =
+      [for m1 in OutgoingMessages do
+        let receivedMessages =
+          [for m2 in playerMessages do
+            where (m1 = m2)
+            select (m1)]
+        where (receivedMessages.Count = 0)
+        select (m1)]
+    yield filteredMessages
+    
+
+  rule Receivers =
+    let players = world.Players
+    for p in players do
+      ComboBox.AddButton(Receivers.ComboBox, p.Name)
+    yield Receivers
+    wait players.Count < world.Players.Count
+
+  rule Active,MessageEcho =
+    let currentPlayer = world.CurrentPlayer
+    wait currentPlayer <> world.CurrentPlayer
+    yield false,[]
+
+  rule Active,MessageEcho,CloseButton.Clicked =
+    wait CloseButton.Clicked
+    yield false,[],false
+
+  rule MessageEcho,ClearButton.Clicked =
+    wait ClearButton.Clicked
+    yield [],false
+
+  rule SendButton.Clicked,OutgoingMessages =
+    wait SendButton.Clicked
+    let messageName = world.CurrentPlayer.Name + " => " + Receivers.SelectionName + " : " + (GameUtils.Date())
+    let receiver =
+      [for player in world.Players do
+       where (player.Name = Receivers.SelectionName)
+       select (player)]
+    let images =
+      [for image in ImageSelection do
+       where (image.Selected)
+       select (image.ImageIndex)]
+    let receiver = receiver.Head
+    let newMessage = new Message(receiver, world.CurrentPlayer, MessageEcho, images, messageName)
+    wait dt
+    yield false,newMessage :: OutgoingMessages
+
+  rule SendButton.Disabled =
+    let currentPayment = Payment
+    let currentCost = Cost
+    let receiver = Receivers.SelectionName
+    yield Payment < Cost || MessageEcho.Count = 0 || receiver = world.CurrentPlayer.Name
+    wait currentPayment <> Payment || currentCost <> Cost || receiver <> Receivers.SelectionName || world.CurrentPlayer.MiningDrones.Count > 0
+
+  rule UraniumInputField.MaxValue,UraniumInputField.MinValue =
+    let playerUranium = world.CurrentPlayer.Resources.Uranium
+    yield playerUranium,0
+    wait playerUranium <> world.CurrentPlayer.Resources.Uranium
+
+  rule PlutoniumInputField.MaxValue,PlutoniumInputField.MinValue =
+    let playerPlutonium = world.CurrentPlayer.Resources.Plutonium
+    yield playerPlutonium,0
+    wait playerPlutonium <> world.CurrentPlayer.Resources.Plutonium
+
+  rule IronInputField.MaxValue,IronInputField.MinValue =
+    let playerIron = world.CurrentPlayer.Resources.Iron
+    yield playerIron,0
+    wait playerIron <> world.CurrentPlayer.Resources.Iron
+
+  rule OilInputField.MaxValue,OilInputField.MinValue =
+    let playerOil = world.CurrentPlayer.Resources.Oil
+    yield playerOil,0
+    wait playerOil <> world.CurrentPlayer.Resources.Oil
+    
+    
+
+  rule Payment =
+    let uraniumInput        = UraniumInputField.Text
+    let plutoniumInput      = PlutoniumInputField.Text
+    let ironInput           = IronInputField.Text
+    let oilInput            = OilInputField.Text
+    let uraniumPayment      = GameUtils.StringToFloat(uraniumInput) //* (GameUtils.IntToFloat(world.GameConstants.UraniumConversionValue))
+    let plutoniumPayment    = GameUtils.StringToFloat(plutoniumInput) //* (GameUtils.IntToFloat(world.GameConstants.PlutoniumConversionValue))
+    let ironPayment         = GameUtils.StringToFloat(ironInput) //* (GameUtils.IntToFloat(world.GameConstants.IronConversionValue))
+    let oilPayment          = GameUtils.StringToFloat(oilInput) //* (GameUtils.IntToFloat(world.GameConstants.OilConversionValue))
+    yield uraniumPayment + plutoniumPayment + ironPayment + oilPayment
+    wait uraniumInput <> UraniumInputField.Text || plutoniumInput <> PlutoniumInputField.Text || ironInput <> IronInputField.Text || oilInput <> OilInputField.Text
+  
+  rule CostIcon.Text,Cost =
+    let currentEcho = MessageEcho
+    let currentPayment = Payment
+    let currentSelection = CurrentSelection
+
+    let cost =
+      if MessageEcho.Count = 0 || currentSelection.Count = 0 then
+        0.0f
+      else
+        Mathf.Round(world.GameConstants.MessageMaximumCost /  GameUtils.Factorial(currentSelection.Count))
+
+
+    yield (GameUtils.FloatToString(Payment)) + "/" + (GameUtils.FloatToString(cost)),cost
+    wait currentEcho <> MessageEcho || currentSelection <> CurrentSelection || currentPayment <> Payment
+
+  rule MessageEcho,DeleteButton.Clicked =
+    wait DeleteButton.Clicked
+    if MessageEcho.Count > 0 then
+      let modifiedEcho =
+        [for i in [1..MessageEcho.Count - 1] do
+         select (MessageEcho.[i])]
+      yield modifiedEcho,false
+    else
+      yield MessageEcho,false
+
+  Create(constants : GameConstants, players : [Player]) =
+    let messageFrame = new CnvFrame("UICanvas/MessageWindowCanvas/FrameCanvas/MessagePreviewFrame/Background",Some 5.0f,Some 5.0f)
+    let symbolsPerLine = GameUtils.FloatToInt(Mathf.Floor((messageFrame.Width - 2.0f * messageFrame.OffsetX) / 40.0f))
+    let origin = messageFrame.Origin
+    let keyboard =
+      [for i in [1..10] do
+       let name = "UICanvas/MessageWindowCanvas/KeyboardButton" + (GameUtils.IntToString(i - 1))
+       select (new KeyboardButton(name,(i - 1)))]
+    let imageSelection =
+      [for i in [1..40] do
+       let name = "UICanvas/MessageWindowCanvas/Image" + (GameUtils.IntToString(i - 1))
+       select (new SelectableImage(name,(i - 1)))]
+    let preview =
+      [for i in [1..constants.MessagePreviewSize] do
+       let spriteName = "Symbols/symbol1"
+       let cellX = (i - 1) % symbolsPerLine
+       let cellY = (i - 1) / symbolsPerLine
+       let offsetX = origin.x + messageFrame.OffsetX + cellX * (constants.PreviewIconSize)
+       let offsetY = origin.y - (messageFrame.OffsetY + cellY * (constants.PreviewIconSize))
+       let parentPath = "UICanvas/MessageWindowCanvas/FrameCanvas/MessagePreviewFrame"
+       let instantiationParams = new IconInstantiation(new Vector3(offsetX,offsetY,0.0f),spriteName,parentPath)
+       select (new PreviewIcon("SymbolIcon",(i - 1),Some instantiationParams))]
+    let playerNames =
+      [for p in players do
+       select (p.Name)]
+    {
+      KeyboardButtons     = keyboard
+      ImageSelection      = imageSelection
+      CurrentSelection    = []
+      DeleteButton        = new CnvButton("UICanvas/MessageWindowCanvas/DeleteButton")
+      ClearButton         = new CnvButton("UICanvas/MessageWindowCanvas/ClearButton")
+      UnityMenu           = UnityMenu.GetMenu("UICanvas/MessageWindowCanvas")
+      MessageEcho         = []
+      OutgoingMessages    = []
+      Receivers           = new CnvComboBox("UICanvas/MessageWindowCanvas/Receivers")
+      CloseButton         = new CnvButton("UICanvas/MessageWindowCanvas/CloseButton")
+      SendButton          = new CnvButton("UICanvas/MessageWindowCanvas/SendButton")
+      MessageFrame        = messageFrame
+      MessagePreview      = preview
+      Cost                = 0.0f
+      Payment             = 0.0f
+      CostIcon            = new CnvIcon("UICanvas/MessageWindowCanvas/MessageCostIcon",None)
+      UraniumInputField   = new CnvInputField("UICanvas/MessageWindowCanvas/UraniumInputField")
+      PlutoniumInputField = new CnvInputField("UICanvas/MessageWindowCanvas/PlutoniumInputField")
+      IronInputField      = new CnvInputField("UICanvas/MessageWindowCanvas/IronInputField")
+      OilInputField       = new CnvInputField("UICanvas/MessageWindowCanvas/OilInputField")
+    }
+}
+
+entity MainMenu = {
+  inherit UnityMenu
+
+  Back          : CnvButton
+  GameMenu      : CnvButton
+  Exit          : CnvButton
+
+  rule Active =
+    yield false
+    wait false
+
+  rule Exit.Clicked =
+    wait Exit.Clicked
+    wait dt
+    wait not world.Log.WritingLog
+    yield false
+    Application.Quit()
+
+  rule GameMenu.Clicked =
+    wait GameMenu.Clicked
+    wait dt
+    wait not world.Log.WritingLog
+    yield false
+    Application.LoadLevel("menu")
+
+  rule Back.Clicked,Active,OnMenu =
+    wait Back.Clicked
+    yield false,false,false
+  
+
+  rule Active =
+    wait Input.GetKeyDown(KeyCode.Escape)
+    yield (not Active)
+
+  Create() =
+    {
+      Back          = new CnvButton("UICanvas/MainMenuCanvas/ReturnGameButton")
+      GameMenu      = new CnvButton("UICanvas/MainMenuCanvas/GameMenuButton")
+      Exit          = new CnvButton("UICanvas/MainMenuCanvas/QuitButton")
+      UnityMenu     = UnityMenu.GetMenu("UICanvas/MainMenuCanvas")
+    }
+}
+
+entity ResourceBar = {
+  UraniumIcon       : CnvIcon
+  PlutoniumIcon     : CnvIcon
+  OilIcon          : CnvIcon
+  IronIcon           : CnvIcon
+
+  rule UraniumIcon.Text,PlutoniumIcon.Text,OilIcon.Text,IronIcon.Text =
+    let uranium     = GameUtils.IntToString(world.CurrentPlayer.Resources.Uranium)
+    let plutonium   = GameUtils.IntToString(world.CurrentPlayer.Resources.Plutonium)
+    let oil         = GameUtils.IntToString(world.CurrentPlayer.Resources.Oil)
+    let iron        = GameUtils.IntToString(world.CurrentPlayer.Resources.Iron)
+    uranium,plutonium,oil,iron
+
+  Create() =
+    {
+      UraniumIcon       = new CnvIcon("UICanvas/PlayerResourcesCanvas/UraniumIcon",None)
+      PlutoniumIcon     = new CnvIcon("UICanvas/PlayerResourcesCanvas/PlutoniumIcon",None)
+      IronIcon          = new CnvIcon("UICanvas/PlayerResourcesCanvas/IronIcon",None)
+      OilIcon           = new CnvIcon("UICanvas/PlayerResourcesCanvas/OilIcon",None)
+    }
+}
+
+entity PlanetMenu = {
+  inherit UnityMenu
+
+  SendMessage       : CnvButton
+  ScanForResources  : CnvButton
+  Mine              : CnvButton
+  CancelOrders      : CnvButton
+  UraniumIcon       : CnvIcon
+  PlutoniumIcon     : CnvIcon
+  IronIcon          : CnvIcon
+  OilIcon           : CnvIcon
+
+
+  rule Active = world.SelectedPlanet.IsSome
+
+  rule CancelOrders.Clicked =
+    wait CancelOrders.Clicked
+    wait dt
+    yield false
+
+  rule CancelOrders.Disabled =
+    wait world.SelectedPlanet.IsSome
+    let busyDrones =
+      [for drone in world.CurrentPlayer.Drones do
+       where (drone.Busy)
+       select (drone)]
+    let targetingDrones =
+      [for drone in world.CurrentPlayer.Drones do
+       where ((drone.ScanAction.IsSome && drone.ScanAction.Value.Action.Target = world.SelectedPlanet.Value) ||
+              (drone.GatherAction.IsSome && drone.GatherAction.Value.Action.Target = world.SelectedPlanet.Value))
+       select (drone)]
+    yield busyDrones.Count > 0 || targetingDrones.Count = 0
+
+  rule Mine.Clicked =
+    wait Mine.Clicked
+    wait dt
+    yield false
+
+  rule Mine.Disabled =
+    wait world.SelectedPlanet.IsSome
+    let currentScanner =
+      [for player in world.SelectedPlanet.Value.ScannedBy do
+       where (world.CurrentPlayer = player)
+       select (player)]
+    yield currentScanner.Count = 0 || 
+          (world.SelectedPlanet.Value.Resources.Uranium = 0 &&
+           world.SelectedPlanet.Value.Resources.Plutonium = 0 &&
+           world.SelectedPlanet.Value.Resources.Oil = 0 &&
+           world.SelectedPlanet.Value.Resources.Iron = 0)
+
+  rule ScanForResources.Clicked =
+    wait ScanForResources.Clicked
+    wait dt
+    yield false
+
+  rule ScanForResources.Disabled = 
+    wait world.SelectedPlanet.IsSome
+    let currentScanner =
+      [for player in world.SelectedPlanet.Value.ScannedBy do
+       where (world.CurrentPlayer = player)
+       select (player)]
+    yield currentScanner.Count > 0
+    
+
+  rule world.GUI.MessageMenu.Active,SendMessage.Clicked =
+    wait SendMessage.Clicked
+    yield true,false
+
+  rule SendMessage.Disabled =
+    world.SelectedPlanet.IsNone || (world.SelectedPlanet.IsSome && (world.SelectedPlanet.Value.Owner.IsNone || world.SelectedPlanet.Value.Owner.Value = world.CurrentPlayer))
+
+
+  rule UraniumIcon.Text,PlutoniumIcon.Text,IronIcon.Text,OilIcon.Text =
+    wait world.SelectedPlanet.IsSome
+    let p = world.SelectedPlanet.Value
+    let currentScanner =
+      [for player in p.ScannedBy do
+       where (player = world.CurrentPlayer)
+       select (player)]
+    let scannedByCurrentPlayer = currentScanner.Count > 0
+    if scannedByCurrentPlayer then
+      let uranium = GameUtils.IntToString(p.Resources.Uranium)
+      let plutonium = GameUtils.IntToString(p.Resources.Plutonium)
+      let iron = GameUtils.IntToString(p.Resources.Iron)
+      let oil = GameUtils.IntToString(p.Resources.Oil)
+      yield uranium,plutonium,iron,oil
+    else
+      yield "?","?","?","?"
+
+
+  Create() =
+    {
+      SendMessage       = new CnvButton("UICanvas/PlanetMenuCanvas/MessageButton")
+      ScanForResources  = new CnvButton("UICanvas/PlanetMenuCanvas/ResourcesButton")
+      Mine              = new CnvButton("UICanvas/PlanetMenuCanvas/MineButton")
+      CancelOrders      = new CnvButton("UICanvas/PlanetMenuCanvas/OrderButton")
+      UnityMenu         = UnityMenu.GetMenu("UICanvas/PlanetMenuCanvas")
+      UraniumIcon       = new CnvIcon("UICanvas/PlanetMenuCanvas/UraniumIcon",None)
+      PlutoniumIcon     = new CnvIcon("UICanvas/PlanetMenuCanvas/PlutoniumIcon",None)
+      IronIcon          = new CnvIcon("UICanvas/PlanetMenuCanvas/IronIcon",None)
+      OilIcon           = new CnvIcon("UICanvas/PlanetMenuCanvas/OilIcon",None)
+    }
+}

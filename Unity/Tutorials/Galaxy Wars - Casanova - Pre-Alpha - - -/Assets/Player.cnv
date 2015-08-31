@@ -1,0 +1,64 @@
+module Player
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+entity Commander = {
+
+    CommanderNumber : int
+    Name       : string    
+    Attack     : float32                    // Stats are currently only dependent by Factions
+    Defense    : float32
+    Production : float32
+    Research   : float32
+    ref Allies : [Commander]
+    Faction    : Faction
+
+
+    Create(i : int, f : Faction) = {
+      CommanderNumber = i
+      Name = "Player " + (i.ToString())
+      Faction = f
+      Attack = f.Attack
+      Defense = f.Defense
+      Production = f.Production
+      Research = f.Research
+      Allies = []
+    }
+}
+
+entity Faction = {
+  inherit UnityFaction
+
+  FactionType : FactionType
+  Attack      : float32
+  Defense     : float32
+  Production  : float32
+  Research    : float32
+
+  Create(n : FactionType, atk : float32, def : float32, prod : float32, res : float32) = 
+    {
+      FactionType = n
+      Attack = atk
+      Defense = def
+      Production = prod
+      Research = res
+    }
+}
+
+entity FactionType = {
+  Neutral       : Option<int>
+  Aggressive    : Option<int>
+  Defensive     : Option<int>
+
+  Create(n : int) =
+    let neutral = if (n = 0) then Some n else None
+    let aggressive = if (n = 1) then Some n else None
+    let defensive = if (n = 2) then Some n else None  
+    {
+      Neutral = neutral
+      Aggressive = aggressive
+      Defensive = defensive
+    }
+}

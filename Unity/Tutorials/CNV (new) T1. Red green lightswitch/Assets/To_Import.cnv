@@ -1,0 +1,15 @@
+module ToImport
+
+entity B = {
+  C : D
+  Create() = {
+    C = new D()
+  }
+}
+
+entity D = {
+  Elem : int
+  Create() = {
+    Elem = 1
+  }
+}

@@ -1,0 +1,121 @@
+Initialize engine version: 4.6.1f1 (d1db7a1b5196)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [igdumdim32.dll 10.18.14.4170]
+    Renderer: Intel(R) HD Graphics Family
+    Vendor:   Intel
+    VRAM:     1792 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=1 INTZ=1 RAWZ=0 NULL=1 RESZ=1 SlowINTZ=0
+Default GameObject Tag: Player already registered
+ 
+(Filename:  Line: 67)
+
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.118 seconds
+desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Platform assembly: C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\mohamed\Desktop\Tutorials\Galaxy Wars - Casanova - Pre-Alpha\build_Data\Managed\System.dll (this message is harmless)
+0	60.87818	68.96326	8	60.96326	60.87818	60.96326	68.96326	26.43909	42.43909	68.87817	68.87817	68.96326	60.96326	45.43909	45.43909	68.96326	34.43909	8	16	60.96326
+60.87818	0	60.96326	60.87818	52.96326	8	52.96326	60.96326	34.43909	18.43909	8	16	60.96326	52.96326	37.43909	37.43909	60.96326	26.43909	52.87818	52.87818	52.96326
+68.96326	60.96326	0	68.96326	8	60.96326	16	69.04835	42.52417	42.52417	68.96326	68.96326	8	61.04835	23.52417	45.52417	69.04835	34.52417	60.96326	60.96326	61.04835
+8	60.87818	68.96326	0	60.96326	60.87818	60.96326	68.96326	26.43909	42.43909	68.87817	68.87817	68.96326	60.96326	45.43909	45.43909	68.96326	34.43909	16	8	60.96326
+60.96326	52.96326	8	60.96326	0	52.96326	8	61.04835	34.52417	34.52417	60.96326	60.96326	16	53.04835	15.52417	37.52417	61.04835	26.52417	52.96326	52.96326	53.04835
+60.87818	8	60.96326	60.87818	52.96326	0	52.96326	60.96326	34.43909	18.43909	16	8	60.96326	52.96326	37.43909	37.43909	60.96326	26.43909	52.87818	52.87818	52.96326
+60.96326	52.96326	16	60.96326	8	52.96326	0	61.04835	34.52417	34.52417	60.96326	60.96326	8	53.04835	15.52417	37.52417	61.04835	26.52417	52.96326	52.96326	53.04835
+68.96326	60.96326	69.04835	68.96326	61.04835	60.96326	61.04835	0	42.52417	42.52418	68.96326	68.96326	69.04835	16	45.52417	23.52417	8	34.52418	60.96326	60.96326	8
+26.43909	34.43909	42.52417	26.43909	34.52417	34.43909	34.52417	42.52417	0	16	42.43909	42.43909	42.52417	34.52417	19	19	42.52417	7.999999	18.43909	18.43909	34.52417
+42.43909	18.43909	42.52417	42.43909	34.52417	18.43909	34.52417	42.52418	16	0	26.43909	26.43909	42.52417	34.52418	19	19	42.52417	8.000001	34.43909	34.43909	34.52418
+68.87817	8	68.96326	68.87817	60.96326	16	60.96326	68.96326	42.43909	26.43909	0	8	68.96326	60.96326	45.43909	45.43909	68.96326	34.43909	60.87818	60.87818	60.96326
+68.87817	16	68.96326	68.87817	60.96326	8	60.96326	68.96326	42.43909	26.43909	8	0	68.96326	60.96326	45.43909	45.43909	68.96326	34.43909	60.87818	60.87818	60.96326
+68.96326	60.96326	8	68.96326	16	60.96326	8	69.04835	42.52417	42.52417	68.96326	68.96326	0	61.04835	23.52417	45.52417	69.04835	34.52417	60.96326	60.96326	61.04835
+60.96326	52.96326	61.04835	60.96326	53.04835	52.96326	53.04835	16	34.52417	34.52418	60.96326	60.96326	61.04835	0	37.52417	15.52417	8	26.52418	52.96326	52.96326	8
+45.43909	37.43909	23.52417	45.43909	15.52417	37.43909	15.52417	45.52417	19	19	45.43909	45.43909	23.52417	37.52417	0	22	45.52417	11	37.43909	37.43909	37.52417
+45.43909	37.43909	45.52417	45.43909	37.52417	37.43909	37.52417	23.52417	19	19	45.43909	45.43909	45.52417	15.52417	22	0	23.52417	11	37.43909	37.43909	15.52417
+68.96326	60.96326	69.04835	68.96326	61.04835	60.96326	61.04835	8	42.52417	42.52417	68.96326	68.96326	69.04835	8	45.52417	23.52417	0	34.52417	60.96326	60.96326	16
+34.43909	26.43909	34.52417	34.43909	26.52417	26.43909	26.52417	34.52418	7.999999	8.000001	34.43909	34.43909	34.52417	26.52418	11	11	34.52417	0	26.43909	26.43909	26.52418
+8	52.87818	60.96326	16	52.96326	52.87818	52.96326	60.96326	18.43909	34.43909	60.87818	60.87818	60.96326	52.96326	37.43909	37.43909	60.96326	26.43909	0	8	52.96326
+16	52.87818	60.96326	8	52.96326	52.87818	52.96326	60.96326	18.43909	34.43909	60.87818	60.87818	60.96326	52.96326	37.43909	37.43909	60.96326	26.43909	8	0	52.96326
+60.96326	52.96326	61.04835	60.96326	53.04835	52.96326	53.04835	8	34.52417	34.52418	60.96326	60.96326	61.04835	8	37.52417	15.52417	16	26.52418	52.96326	52.96326	0
+
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Planet7	Planet6	Planet6	Planet5	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet6	Planet5	Planet6
+Planet17	Planet1	Planet17	Planet17	Planet17	Planet3	Planet17	Planet17	Planet17	Planet17	Planet4	Planet3	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17
+Planet16	Planet16	Planet14	Planet16	Planet16	Planet16	Planet16	Planet16	Planet16	Planet16	Planet16	Planet16	Planet15	Planet16	Planet16	Planet16	Planet16	Planet16	Planet16	Planet16	Planet16
+Planet7	Planet8	Planet8	Planet5	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet8	Planet7	Planet8	Planet8
+Planet18	Planet18	Planet14	Planet18	Planet16	Planet18	Planet13	Planet18	Planet18	Planet18	Planet18	Planet18	Planet14	Planet18	Planet18	Planet18	Planet18	Planet18	Planet18	Planet18	Planet18
+Planet17	Planet1	Planet17	Planet17	Planet17	Planet3	Planet17	Planet17	Planet17	Planet17	Planet1	Planet2	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17	Planet17
+Planet18	Planet18	Planet16	Planet18	Planet16	Planet18	Planet13	Planet18	Planet18	Planet18	Planet18	Planet18	Planet15	Planet18	Planet18	Planet18	Planet18	Planet18	Planet18	Planet18	Planet18
+Planet11	Planet11	Planet11	Planet11	Planet11	Planet11	Planet11	Planet9	Planet11	Planet11	Planet11	Planet11	Planet11	Planet12	Planet11	Planet11	Planet12	Planet11	Planet11	Planet11	Planet11
+Planet6	Planet21	Planet21	Planet8	Planet21	Planet21	Planet21	Planet21	Planet19	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet6	Planet8	Planet21
+Planet21	Planet1	Planet21	Planet21	Planet21	Planet3	Planet21	Planet21	Planet21	Planet17	Planet1	Planet3	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21
+Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet4	Planet2	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1	Planet1
+Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet4	Planet2	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3	Planet3
+Planet13	Planet13	Planet14	Planet13	Planet14	Planet13	Planet13	Planet13	Planet13	Planet13	Planet13	Planet13	Planet15	Planet13	Planet13	Planet13	Planet13	Planet13	Planet13	Planet13	Planet13
+Planet20	Planet20	Planet20	Planet20	Planet20	Planet20	Planet20	Planet12	Planet20	Planet20	Planet20	Planet20	Planet20	Planet10	Planet20	Planet20	Planet12	Planet20	Planet20	Planet20	Planet11
+Planet21	Planet21	Planet16	Planet21	Planet16	Planet21	Planet13	Planet21	Planet21	Planet21	Planet21	Planet21	Planet13	Planet21	Planet18	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21
+Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet21	Planet11	Planet21	Planet21	Planet21	Planet21	Planet21	Planet10	Planet21	Planet20	Planet10	Planet21	Planet21	Planet21	Planet11
+Planet10	Planet10	Planet10	Planet10	Planet10	Planet10	Planet10	Planet9	Planet10	Planet10	Planet10	Planet10	Planet10	Planet10	Planet10	Planet10	Planet12	Planet10	Planet10	Planet10	Planet9
+Planet19	Planet17	Planet18	Planet19	Planet18	Planet17	Planet18	Planet20	Planet19	Planet17	Planet17	Planet17	Planet18	Planet20	Planet18	Planet20	Planet20	Planet21	Planet19	Planet19	Planet20
+Planet7	Planet19	Planet19	Planet7	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet6	Planet8	Planet19
+Planet5	Planet19	Planet19	Planet5	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet19	Planet6	Planet8	Planet19
+Planet20	Planet20	Planet20	Planet20	Planet20	Planet20	Planet20	Planet9	Planet20	Planet20	Planet20	Planet20	Planet20	Planet10	Planet20	Planet20	Planet9	Planet20	Planet20	Planet20	Planet11
+
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Battle created
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+1
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+Battle created
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+1
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+1
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+
+0
+ 
+(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
+

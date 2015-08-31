@@ -1,0 +1,28 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  inherit UnityBall
+
+  Velocity                : Vector3
+  Gravity                 : Vector3
+  FrictionCoefficient     : float32
+
+  rule Velocity = Velocity + Gravity * dt
+  rule Position = Position + Velocity * dt
+
+  rule Position,Velocity =
+    wait Position.y < 0.0f
+    yield (new Vector3(Position.x,0.0f,Position.z)), 
+          (new Vector3(Velocity.x, Velocity.y * -1.0f, Velocity.z) * FrictionCoefficient)
+
+  Create() =
+  {
+    Velocity                = new Vector3(3.0f,0.5f,1.0f)
+    Gravity                 = new Vector3(0.0f,-9.81f,0.0f)
+    FrictionCoefficient     = 0.9f
+    Base                    = UnityBall.Find()
+  }
+}

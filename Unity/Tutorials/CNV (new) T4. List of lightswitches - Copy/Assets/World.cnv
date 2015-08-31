@@ -1,0 +1,73 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+
+
+  Cubes     : [Cube]
+  Seed      : System.Random
+  Timer     : bool
+  ref DelayedCubes : [Cube]
+
+  rule Cubes = 
+    wait 2.0f
+    yield 
+      [for i in [0..500] do
+       select (Cube.Create(new Vector3(-100.0f, -40.0f + i * 2.0f, 80.0f)))] @ Cubes
+
+  rule Timer =
+    wait 2.0f
+    yield true
+    yield false
+
+  rule Cubes, DelayedCubes =
+    wait 1.0f
+    yield Cubes @ DelayedCubes, [] 
+
+  rule DelayedCubes =
+    [ for c in Cubes do
+      where (c.DelayFactor > 0.7f)
+      select c ]
+      
+  rule Cubes =
+    [ for c in Cubes do
+      where ((not (DelayedCubes.Contains(c))) && c.UnityCube.Destroyed = false)
+      select c ]    
+
+  Create() =
+    {
+      Cubes         = []
+      DelayedCubes  = []
+      Seed          = new System.Random(0)
+      Timer         = false
+    }
+} 
+
+entity Cube = {
+  inherit UnityCube 
+  DelayFactor : float32
+  Velocity : Vector3
+
+
+  rule DelayFactor =
+    wait world.Timer
+    yield ((float32) world.Seed.NextDouble()) 
+
+
+  rule Destroyed = 
+    wait Position.x >= 100.0f
+    yield true
+  
+  rule Position = Position + Velocity * dt
+
+  Create(p : Vector3) =
+    let q = [1]
+    {
+      Velocity = new Vector3(5.0f, 0.0f, 0.0f)
+      Base    = UnityCube.Instantiate(p, q)
+      DelayFactor = 0.0f
+    }
+}
+  

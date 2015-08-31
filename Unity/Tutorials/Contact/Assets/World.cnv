@@ -1,0 +1,239 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+open GameConstants
+open GUI
+open GUIBase
+open GameLogic
+open System.Collections.Generic
+
+worldEntity World = {
+  GUI                   : GameUI
+  MainCamera            : GameCamera
+  Minimap               : Minimap
+  StarSystems           : [StarSystem]
+  GameConstants         : GameConstants
+  ref SelectedPlanet    : Option<Planet>
+  GamePaused            : bool
+  Players               : [Player]
+  ref CurrentPlayer     : Player
+  BusyDrones            : bool
+  TurnDuration          : int
+  TimerText             : CnvText
+  ref Winner            : Option<Player>
+  Log                   : LogGenerator
+  GameOver              : bool
+  WritingLog            : bool
+
+  //log rules
+  rule Log.WritingLog =
+    wait this.GUI.PlanetMenu.CancelOrders.Clicked
+    yield true
+    LogGenerator.Write(Log,world.CurrentPlayer.Name + "," + "Cancel drone order,None,None," + (GameUtils.Date()))
+    yield false
+    wait not (this.GUI.PlanetMenu.CancelOrders.Clicked)
+
+  rule Log.WritingLog =
+    wait this.GUI.PlanetMenu.Mine.Clicked
+    yield true
+    LogGenerator.Write(Log,world.CurrentPlayer.Name + "," + "Mine resources,None,None," + (GameUtils.Date()))
+    yield false
+    wait not (this.GUI.PlanetMenu.Mine.Clicked)
+
+  rule Log.WritingLog =
+    wait this.GUI.PlanetMenu.ScanForResources.Clicked
+    yield true
+    LogGenerator.Write(Log,world.CurrentPlayer.Name + "," + "Scan planet,None,None," + (GameUtils.Date()))
+    yield false
+    wait not (this.GUI.PlanetMenu.ScanForResources.Clicked)
+
+  rule Log.WritingLog =
+    wait this.GUI.MessageMenu.SendButton.Clicked
+    let receiver =
+      [for player in world.Players do
+       where (player.Name = world.GUI.MessageMenu.Receivers.SelectionName)
+       select (player)]
+    let images =
+      [for image in world.GUI.MessageMenu.ImageSelection do
+       where (image.Selected)
+       select (image.ImageIndex)]
+    let echo = 
+      [for e in world.GUI.MessageMenu.MessageEcho do
+       select(e)]
+    let receiver = receiver.Head
+    yield true
+    LogGenerator.Write(Log,world.CurrentPlayer.Name + "," + "Send message," + receiver.Name + "," + "Message = " +
+                       (GameUtils.IntListToString(echo)) + " Images = " + (GameUtils.IntListToString(images)) + "," + (GameUtils.Date()))
+    yield false
+    wait (not this.GUI.MessageMenu.SendButton.Clicked)
+
+  rule Log.WritingLog =
+    wait this.GUI.LogMenu.SendButton.Clicked
+    let sentUranium         = GameUtils.StringToInt(world.GUI.LogMenu.UraniumInputField.Text)
+    let sentPlutonium       = GameUtils.StringToInt(world.GUI.LogMenu.PlutoniumInputField.Text)
+    let sentOil             = GameUtils.StringToInt(world.GUI.LogMenu.OilInputField.Text)
+    let sentIron            = GameUtils.StringToInt(world.GUI.LogMenu.IronInputField.Text)
+    let receiver            = world.GUI.LogMenu.SelectedMessage.Value.Sender
+    yield true
+    LogGenerator.Write(Log,world.CurrentPlayer.Name + "," + "Send resources," + receiver.Name + "," + "Uranium: " + 
+                       (GameUtils.IntToString(sentUranium)) + " Plutonium: " + (GameUtils.IntToString(sentPlutonium)) + " Oil: " + (GameUtils.IntToString(sentOil)) + 
+                       " Iron: " + (GameUtils.IntToString(sentIron)) + "," + (GameUtils.Date()))
+    yield false
+    wait (not this.GUI.LogMenu.SendButton.Clicked)
+
+  rule Log.WritingLog =
+    wait this.GUI.FadeScreen.FadeOutOver
+    yield true
+    LogGenerator.SaveLog(Log,"Log.csv")
+    yield false
+    wait false
+
+  rule Log.WritingLog =
+    wait world.GUI.MainMenu.Exit.Clicked
+    yield true
+    LogGenerator.SaveLog(Log, "Log.csv")
+    yield false
+
+  rule Log.WritingLog =
+    wait world.GUI.MainMenu.GameMenu.Clicked
+    yield true
+    LogGenerator.SaveLog(Log,"Log.csv")
+    yield false
+ 
+  // when the fade out animation is over wait for the log to finish writing and then load the menu
+  rule GameOver =
+    wait this.GUI.FadeScreen.FadeOutOver
+    yield true
+    wait 0.1f
+    wait (not Log.WritingLog)
+    Application.LoadLevel("menu")
+
+  //Find out if there is a winner, i.e. a player who completed all his objectives.
+  rule Winner =
+    let winnerList =
+      [for player in Players do
+       let completedObjectives =
+          [for objective in player.Objectives do
+           where (objective.Completed)
+           select (objective)]
+       where (player.Objectives.Count > 0 && player.Objectives.Count = completedObjectives.Count)
+       select (player)]
+
+    if winnerList.Count > 0 then
+      yield Some (winnerList.Head)
+    else
+      yield None
+
+  
+      
+  
+  //prevent selection and deselection when the game is paused
+  rule SelectedPlanet =
+    wait GamePaused && SelectedPlanet.IsSome
+    let prevSelection = SelectedPlanet
+    yield None
+    wait not GamePaused
+    yield prevSelection
+
+  rule TimerText.Text = CurrentPlayer.Name + " : " + GameUtils.IntToString(TurnDuration)
+
+
+  //A drone is busy when its state is busy, i.e. is performing an action during its turn.
+  rule BusyDrones =
+    let busyDrones =
+      [for drone in CurrentPlayer.Drones do
+       where (drone.Busy)
+       select (drone)]
+    busyDrones.Count > 0
+  
+  //Skip the turn when the skip button is pressed
+  rule TurnDuration,CurrentPlayer =
+    wait this.GUI.QuickBar.SkipTurnButton.Clicked
+    let currentPlayerIndex = (CurrentPlayer.Index + 1) % Players.Count
+    let currentPlayer = Players.[currentPlayerIndex]
+    yield GameConstants.TurnDuration,currentPlayer
+
+  //change the active player and reset the timer
+  rule TurnDuration,CurrentPlayer =
+    wait not GamePaused
+    yield TurnDuration,CurrentPlayer
+    wait 1.0f
+    let remainingTime = TurnDuration - 1
+    if remainingTime < 0 then
+      //wait for the units to end their current actions
+      wait not BusyDrones
+
+      //update the current player
+      let currentPlayerIndex = (CurrentPlayer.Index + 1) % Players.Count
+      let currentPlayer = Players.[currentPlayerIndex]
+      yield GameConstants.TurnDuration,currentPlayer
+    else
+      yield remainingTime,CurrentPlayer
+
+  Create() =
+    //set the map seed
+    GameUtils.SetSeed(GameSettings.MapSeed)
+
+    //init gameplay constants
+    let constants = new GameConstants()
+    //let playerColors = GameUtils.randomDistinctColors(constants.PlayerCount)
+
+    //GameUtils.printMsg("Constants initialized")
+
+    //same random symbols for each player
+    let symbolSet = 
+      if constants.SharedSymbols then
+        [for x in GameUtils.randomDistinctIntList(10,0,constants.SymbolCount) do
+         select x]
+      else []
+
+    //create players
+    let players =
+      [for i in [1..constants.PlayerCount] do
+       select (new Player(i - 1,constants,symbolSet))]
+
+    //GameUtils.printMsg("Players successfully generated")
+    let maxStarSystems = Mathf.Max(constants.MaxStarSystems,constants.PlayerCount)
+
+    //create system random positions
+    let randomPositions =
+      [for i in[1..maxStarSystems] do
+       let minr = constants.MinDistanceFromStar + constants.MaxPlanetsPerSystem * constants.MinDistanceBetweenPlanets + (i - 1) * constants.MinDistanceBetweenStarSystems
+       let posx = Random.Range(minr,minr + 20.0f)
+       let posz = Random.Range(minr,minr + 20.0f)
+       let posx = if Random.Range(0.0f,1.0f) > 0.5f then posx else posx * -1.0f
+       let posz = if Random.Range(0.0f,1.0f) > 0.5f then posz else posz * -1.0f
+       select (new Vector3(posx,0.0f,posz))]
+
+    //GameUtils.printMsg("Star system positions successfully generated")
+    
+    //create star systems
+    let randomSystemIndices = GameUtils.randomDistinctIntList(constants.PlayerCount, 0, maxStarSystems)
+    let generatedSystems =
+      [for i in [1..randomPositions.Count] do
+       let owner = if GameUtils.Contains(randomSystemIndices,i - 1) then Some (players.[GameUtils.FindIndex(randomSystemIndices,i - 1)]) else None
+       select (new StarSystem(randomPositions.[i - 1],constants,owner))]
+    
+    //GameUtils.printMsg(GameUtils.IntListToString(randomSystemIndices))
+
+    let firstPlayer = players.[0]
+    {
+      GameConstants       = constants
+      MainCamera          = new GameCamera()
+      Minimap             = new Minimap()
+      StarSystems         = generatedSystems
+      SelectedPlanet      = None
+      GUI                 = new GameUI(constants, players)
+      GamePaused          = false
+      Players             = players
+      CurrentPlayer       = firstPlayer
+      BusyDrones          = false
+      TurnDuration        = constants.TurnDuration
+      TimerText           = new CnvText("UICanvas/TimerCanvas/TimerText")
+      Winner              = None
+      Log                 = LogGenerator.CreateLog()
+      GameOver            = false
+      WritingLog          = false
+    }
+}

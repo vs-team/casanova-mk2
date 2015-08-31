@@ -1,0 +1,284 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  
+  Game1 : PatrolLighSwitch 
+  Game2 : BoidsSimulation
+  Create() =
+    {
+      Game1 = new PatrolLighSwitch()
+      Game2 = new BoidsSimulation()
+    }
+}
+
+entity BoidsSimulation = {
+  BoidsLeader : BoidsLeader
+  Boids : [Boid]
+
+  rule Boids =
+    [for b in Boids do
+     where (not b.Destroyed)
+     select b]
+  rule Boids = 
+    wait 0.1f
+    yield new Boid(BoidsLeader.Position) :: Boids
+
+  Create() = {
+    BoidsLeader = BoidsLeader()
+    Boids = []
+  }
+}
+
+entity BoidsLeader = {
+  inherit UnityBall
+  Velocity : Vector3
+  IsPressed : bool
+
+  rule Velocity = 
+    !| IsPressed =>
+      yield Vector3.zero
+    !| _ =>
+      yield new Vector3(0.0f, 1.0f, 0.0f)
+      wait 3.0f
+      yield new Vector3(0.0f, -1.0f, 0.0f)
+      wait 3.0f
+
+  rule Position = Position + Velocity * dt
+
+  rule Position =
+    wait IsPressed
+    yield MousePosition
+    
+  rule IsPressed, Color =
+    if(Input.GetMouseButton(0)) then
+      if ClickedOver || IsPressed then
+        yield true, Color.red
+      else yield false, Color.green
+    else
+      yield false, Color.green
+      
+
+  Create() = 
+  {
+    Base      = UnityBall.Find("/BoidPatrol")
+    Velocity  = Vector3.zero    
+    IsPressed = false
+  }
+
+}
+
+entity Boid = {
+  inherit UnityBall  
+  Velocity : Vector3
+  Acceleration : Vector3
+  Ray      : float32
+  MaxSpeed : float32
+  MaxForce : float32
+  Steer    : Vector3
+  Separation : Vector3
+  Align    : Vector3
+
+
+  rule Position = Position + Velocity * dt
+
+  rule Acceleration =
+    yield Separation * 2.0f + Align + Steer
+  rule Velocity =
+    let v = Velocity + Acceleration
+    let acc = Vector3.zero 
+    let v =
+      if v.magnitude > MaxSpeed then
+        v.Normalize()
+        v * MaxSpeed 
+      else v
+
+    yield v
+
+  rule Steer =
+    let slowdown = false
+    let target = world.Game2.BoidsLeader.Position
+
+    let desired = target  - Position // A vector pointing from the location to the target
+    let d = desired.magnitude // Distance from the target is the magnitude of the vector
+
+    // If the distance is greater than 0, calc steering (otherwise return zero vector)
+    if d > 0 then
+
+      // Normalize desired
+      desired.Normalize();
+
+      // Two options for desired vector magnitude (1 -- based on distance, 2 -- maxspeed)
+      let desired = 
+        if (d < 4.0f) then
+          desired * MaxSpeed * (d/4.0f) // This damping is somewhat arbitrary
+        else desired  * MaxSpeed 
+
+      // Steering = Desired minus Velocity
+      let steer = desired - Velocity
+
+      if steer.magnitude > MaxForce then
+        steer.Normalize()
+        yield steer * MaxForce // Limit to maximum steering force
+      else 
+        yield steer
+
+    else yield new Vector3(0,0,0)
+
+ // For every nearby boid in the system, calculate the average velocity
+ rule Align =
+
+    let neighbordist = 3.0f;
+
+    let new_align =
+      [for other in world.Game2.Boids do
+     
+        let d = Vector3.Distance(Position, other.Position)
+        where ((d > 0) && (d < neighbordist))
+        select other.Velocity]
+
+
+    if (new_align.Count > 0) then
+      let sum =
+        [for a in new_align do
+         select a
+         sum]
+
+      let sum = sum / (float32) new_align.Count
+      if sum.magnitude > MaxForce then
+        sum.Normalize()
+        yield sum * MaxForce
+      else 
+        yield sum
+
+    else yield new Vector3(0,0,0)
+
+
+  rule Separation =
+    let desiredseparation = 5.0f
+    let separations_count =
+
+      // For every boid in the system, check if it's too close
+      [for other in world.Game2.Boids do
+        let d = Vector3.Distance(other.Position, Position)
+        // If the distance is greater than 0 and less than an arbitrary amount (0 when you are yourself)
+        // Calculate vector pointing away from neighbor
+        let diff = Position - other.Position
+        let diff = Vector3.Normalize(diff)
+        where ((d > 0) && (d < desiredseparation))      
+        select (diff / d)]
+    let separations =
+      [for s in separations_count do
+       select s
+       sum]
+    if separations_count.Count > 0 then separations / (float32) separations_count.Count
+    else Vector3.zero
+    
+
+  rule Destroyed =
+    wait 10.0f
+    yield true
+
+
+  Create(leader : Vector3) = {
+    Velocity = Vector3.up
+    UnityBall = UnityBall.Instantiate(leader)
+    Ray      = 1.0f
+    Steer    = Vector3.zero
+    MaxSpeed = 2.0f
+    Align    = Vector3.zero
+    MaxForce = 2.0f
+    Acceleration = Vector3.zero
+    Separation = Vector3.zero
+  }
+}
+
+entity PatrolLighSwitch = {
+  Patrol : PatrolCube
+  LightSwitch : LightSwitch
+  Create() =
+    {
+      Patrol = PatrolCube(this)
+      LightSwitch = LightSwitch(this)
+
+    }
+}
+
+
+entity PatrolCube = {
+  inherit UnityCube
+  Velocity : Vector3
+  Checkpoints : [Vector3]
+  ref PatrolLighSwitch : PatrolLighSwitch
+
+  rule Position = Position + Velocity * dt * 0.5f
+  rule Position, Velocity, Color, PatrolLighSwitch.LightSwitch.PatrolWaiting = 
+    let _color = Color
+    !| (Vector3.Distance(Position, PatrolLighSwitch.LightSwitch.Position) <= 1.005f && PatrolLighSwitch.LightSwitch.Stop) =>
+      let ls = PatrolLighSwitch.LightSwitch.Position
+      yield new Vector3(Position.x, ls.y, 0.0f), Vector3.zero, Color, Some 5.0f
+      while true do 
+        yield Position, Velocity, Color.gray, PatrolLighSwitch.LightSwitch.PatrolWaiting
+        wait 1.0f
+        yield Position, Velocity, _color, PatrolLighSwitch.LightSwitch.PatrolWaiting
+        wait 1.0f
+        
+    !| _ =>
+      yield Position, Velocity, _color, None
+      for c in Checkpoints do
+        let dir0 = c - Position
+        yield Position, dir0, Color, PatrolLighSwitch.LightSwitch.PatrolWaiting
+        wait Vector3.Dot(dir0, c - Position) < 0.0f
+        yield c, Vector3.zero, Color, PatrolLighSwitch.LightSwitch.PatrolWaiting
+        wait 1.0f
+    
+
+  Create(patrolLighSwitch : PatrolLighSwitch) =
+    let checkpoints = [new Vector3(-4.0f, 4.0f, 0.0f);
+                       new Vector3(-8.0f, 4.0f, 0.0f);
+                       new Vector3(-8.0f, -4.0f, 0.0f);
+                       new Vector3(-4.0f, -4.0f, 0.0f);]
+    {
+      Base = UnityCube.Find("/Cube3")
+      Checkpoints = checkpoints
+      Velocity    = Vector3.zero
+      PatrolLighSwitch = patrolLighSwitch
+    }
+
+}
+
+entity LightSwitch = {
+  inherit UnityCube
+  Stop : bool
+  ref PatrolLighSwitch : PatrolLighSwitch
+  PatrolWaiting : Option<float32>
+  Factor    : float32
+  
+  rule Factor, Color = 
+    yield Factor, Color.red
+    wait PatrolWaiting.IsSome
+    let max_time = PatrolWaiting.Value
+    yield max_time, Color
+    while(Stop) do
+      yield Factor - dt, Color.Lerp(Color.green, Color.red, Factor / max_time)
+    wait Stop
+
+  rule Stop =
+    yield true
+    wait PatrolWaiting.IsSome
+    wait PatrolWaiting.Value
+    yield false
+    wait 3.0f
+
+
+  Create(patrolLighSwitch : PatrolLighSwitch) =
+    {
+      Base = UnityCube.Find("/Lighswitch")
+      PatrolLighSwitch = patrolLighSwitch
+      Stop = true
+      Factor = 0.0f
+      PatrolWaiting = None
+    }
+}

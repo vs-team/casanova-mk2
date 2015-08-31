@@ -1,0 +1,3 @@
+hallo;hello
+doei;bye
+zielig;sad

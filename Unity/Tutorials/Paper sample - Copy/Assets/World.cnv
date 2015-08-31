@@ -1,0 +1,50 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  Elems : [Elem]
+  Seed  : System.Random
+  rule Elems =
+    [for e in Elems do
+     where (not e.Counter)
+     select e]
+  rule Elems =
+    wait 5.0f
+    yield 
+      [for i in [0..50] do
+       select (new Elem(Seed))] + Elems
+  Create() =  
+    let seed = new System.Random(0)
+    let elems =
+      [for i in [0..1000] do
+       select (new Elem(seed))]
+    {
+      Elems   = elems
+      Seed    = seed
+    }
+}
+entity Elem = {
+  inherit UnityCube
+  V        : int
+  Velocity : Vector3
+  Counter  : bool
+  rule Counter, Destroyed =
+    wait V = 0
+    yield false, false
+    wait (((float32) world.Seed.NextDouble()) * 2.0f + 5.0f)
+    yield true, true
+  rule Position = Position + Velocity * dt
+  rule Velocity, V =
+    wait (((float32) world.Seed.NextDouble()) * 6 + 8.0f)
+    yield (new Vector3(((float32) world.Seed.NextDouble()) * 10.0f - 5.0f, 
+                       ((float32) world.Seed.NextDouble()) * 10.0f - 5.0f, 0.0f)), 0
+  Create(Seed : System.Random) = 
+    {
+      UnityCube = UnityCube.Instantiate(new Vector3(((float32) Seed.NextDouble()) * 500 - 250.0f, ((float32) Seed.NextDouble()) * 300 - 150.0f, 0.0f))
+      V         = -1
+      Counter   = false
+      Velocity  = Vector3.zero
+    }
+}

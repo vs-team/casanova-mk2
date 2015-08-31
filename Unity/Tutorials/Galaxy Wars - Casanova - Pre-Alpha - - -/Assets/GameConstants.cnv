@@ -1,0 +1,62 @@
+module GameConstants
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+entity GameConstants = {
+
+  Neutral       : Faction
+  Aggressive    : Faction
+  Defensive     : Faction
+
+  Asteroid      : PlanetStatModifier
+  MineralPlanet : PlanetStatModifier
+  EarthPlanet   : PlanetStatModifier
+
+  Create() = 
+    {
+      Neutral       = new Faction(new FactionType(0),6.0f,6.0f,6.0f,6.0f) // FactionType, atk, def, prod, res
+      Aggressive    = new Faction(new FactionType(1),9.0f,3.0f,7.0f,5.0f)
+      Defensive     = new Faction(new FactionType(2),4.0f,8.0f,5.0f,7.0f)
+
+      Asteroid      = new PlanetStatModifier(1.0f ,10.0f,1.0f ,1.0f ,18.0f,1.0f ,2.0f ,5.0f ,1.0f ,1.0f ,5.0f ,1.0f ) // atkmin, atkmax, atkdelta, defmin, defmax, defdelta, prodmin, prodmax, proddelta, resmin, resmax, resdelta
+      MineralPlanet = new PlanetStatModifier(1.0f ,10.0f,1.0f ,1.0f ,5.0f ,1.0f ,3.0f ,20.0f,1.0f ,1.0f ,18.0f,1.0f )
+      EarthPlanet   = new PlanetStatModifier(1.0f ,10.0f,1.0f ,1.0f ,10.0f,1.0f ,1.0f ,10.0f,1.0f ,1.0f ,10.0f,1.0f )
+    }
+}
+
+entity PlanetStatModifier = { // Constructor for all the different planettypes there will be. Contains stat limits & research modifiers.
+
+  AtkMin    : float32 // The minimum amount possible
+  AtkMax    : float32 // The maximum amount possible
+  AtkDelta  : float32 // The speed bonus to research of the stat. 1.18f increases atk researchspeed by 18%
+  DefMin    : float32
+  DefMax    : float32
+  DefDelta  : float32
+  ProdMin   : float32
+  ProdMax   : float32
+  ProdDelta : float32
+  ResMin    : float32
+  ResMax    : float32
+  ResDelta  : float32
+
+  Create(atkMin  : float32, atkMax  : float32, atkDelta  : float32,
+         defMin  : float32, defMax  : float32, defDelta  : float32,
+         prodMin : float32, prodMax : float32, prodDelta : float32,
+         resMin  : float32, resMax  : float32, resDelta  : float32) =
+        {
+            AtkMin    = atkMin
+            AtkMax    = atkMax
+            AtkDelta  = atkDelta
+            DefMin    = defMin
+            DefMax    = defMax
+            DefDelta  = defDelta
+            ProdMin   = prodMin
+            ProdMax   = prodMax
+            ProdDelta = prodDelta
+            ResMin    = resMin
+            ResMax    = resMax
+            ResDelta  = resDelta
+        }
+}

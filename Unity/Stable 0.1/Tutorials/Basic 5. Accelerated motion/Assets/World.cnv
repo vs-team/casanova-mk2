@@ -1,0 +1,43 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  inherit UnityBall
+
+  Velocity                : Vector3
+  Acceleration            : Vector3
+
+  rule Position = Position + Velocity * dt
+
+  rule Velocity = Velocity * 0.99f
+  rule Velocity = Velocity + Acceleration * dt
+
+  rule Acceleration = Acceleration * 0.5f
+
+  rule Acceleration =
+    let a = 200.0f
+    .&
+      wait Input.GetKey(KeyCode.W)
+      yield Acceleration + (new Vector3(0.0f,1.0f,0.0f)) * dt * a
+    
+    .&
+      wait Input.GetKey(KeyCode.D)
+      yield Acceleration + (new Vector3(1.0f,0.0f,0.0f)) * dt * a
+    
+    .&
+      wait Input.GetKey(KeyCode.S)
+      yield Acceleration + (new Vector3(0.0f,-1.0f,0.0f)) * dt * a
+    
+    .&
+      wait Input.GetKey(KeyCode.A)
+      yield Acceleration + (new Vector3(-1.0f,0.0f,0.0f)) * dt * a
+
+  Create() =
+  {
+    Velocity                = new Vector3(0.0f,0.0f,0.0f)
+    Acceleration            = new Vector3(0.0f,0.0f,0.0f)
+    Base                    = UnityBall.Find()
+  }
+}

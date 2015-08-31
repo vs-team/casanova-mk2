@@ -1,0 +1,116 @@
+module Battle
+
+open "UnityEngine.dll"
+open UnityEngine
+
+entity Battle = {
+  inherit UnityBattle
+
+  AttackingShips : [AttackingShip]
+  ref Planet : Planet
+  ref NextPossibleOwner : Option<Commander>
+  ShipsToMerge : [MergingShip]
+  ref SmallestFleet : Option<AttackingShip>
+ 
+  rule UnityAttackingShips =
+    yield 
+    [for s in AttackingShips do
+      select s.BaseShip.UnityShip]
+
+  rule Destroyed =
+      wait AttackingShips.Count = 0
+      yield false
+      yield true
+
+ // lower the amount of ships, with the damage
+  rule SmallestFleet.Value.BaseShip.AmountOfShips = 
+    wait 1.0f
+    let RandomNumber = Random.Range(3,7)
+    let DamageFormula = ((Planet.LandedShips * 10) * RandomNumber) / 500 // DEFENDING FORMULA
+    let res = (int) DamageFormula 
+    let Damage = res + 1 
+    if SmallestFleet.IsSome && SmallestFleet.Value.BaseShip.AmountOfShips > Damage then
+      yield SmallestFleet.Value.BaseShip.AmountOfShips - Damage
+    else 
+      yield 0
+
+ // get the smallestfleet (link with least amount of ships, from the same owner)
+  rule SmallestFleet = 
+    if AttackingShips.Count > 0 then
+      let smallest = 
+        [for a in AttackingShips do 
+         let other = 
+            [for b in AttackingShips do
+             where (b.BaseShip.AmountOfShips < a.BaseShip.AmountOfShips && (a <> b)) // and were source is the same
+             select b]
+         where (other.Count = 0)
+         select a]
+      yield Some smallest.Head // get the first element
+    else
+      yield None
+
+  rule Planet.LandedShips, Planet.Owner =
+    let debug2 = AttackingShips.Count.ToString()
+    //Debug.Log("attackingships count " + debug2)
+    let AmountOfAttackingShips = 
+      [for i in AttackingShips do 
+       where (NextPossibleOwner.IsSome && (i.BaseShip.Owner = NextPossibleOwner.Value))
+       select i.BaseShip.AmountOfShips
+       sum]
+    if Planet.LandedShips > 0 && AttackingShips.Count > 0 then
+      wait 1.0f
+      let RandomNumber = Random.Range(3.0f,7.0f)
+      let FlankingBonus = 1.0f + 0.3f * AttackingShips.Count - 0.3f // 1=1; 2=2; 3=3; 4=4 etc, but this should change
+      let DamageFormula = (float) AmountOfAttackingShips * 6.0f * RandomNumber * FlankingBonus / 500.0f // ATTACKING FORMULA
+      Debug.Log("Predamage " + ((float) AmountOfAttackingShips * 6.0f * RandomNumber * FlankingBonus))
+      let FlankingBonusDebug = FlankingBonus.ToString()
+      Debug.Log("FlankingBonus " + FlankingBonus)
+      let res = (int) DamageFormula
+      let Damage = res + 1
+      //Debug.Log("Damage " + Damage)
+      if Planet.LandedShips > Damage then // if damage is greater than landedships, so it doesn't get below zero
+        yield Planet.LandedShips - Damage, Planet.Owner
+      else
+        yield 0, Planet.Owner
+    else
+      if Planet.LandedShips = 0 && AttackingShips.Count > 0 && NextPossibleOwner.IsSome then
+        let new_attackingShips = 
+          [for i in AttackingShips do
+           where (not (i.BaseShip.Owner = NextPossibleOwner.Value))
+           select i] // ally, add AttackingShips to this rule
+        if new_attackingShips.Count > 0 then
+          yield AmountOfAttackingShips, Some NextPossibleOwner.Value
+        else 
+          yield AmountOfAttackingShips, Some NextPossibleOwner.Value
+
+  rule AttackingShips =
+    let inbounds = Planet.InboundShips.Count.ToString()
+    //Debug.Log("inboundships count " + inbounds)
+    yield 
+        [for s in Planet.InboundShips do
+          where (Planet.Owner.IsNone || (s.Owner.CommanderNumber <> Planet.Owner.Value.CommanderNumber)) // neutral or enemy
+          select (new AttackingShip(s, s.Target))] @ AttackingShips 
+
+  rule AttackingShips = 
+    let filter = 
+      [for a in AttackingShips do
+      where (not a.BaseShip.Destroyed)
+      select a]
+    yield filter 
+
+
+
+  rule NextPossibleOwner = 
+    wait AttackingShips.Count > 0    
+    yield Some AttackingShips.Head.BaseShip.Owner
+    wait AttackingShips.Count > 0 && (AttackingShips.Head.BaseShip.Owner <> NextPossibleOwner.Value)
+
+  Create(n : Planet) = {
+    UnityBattle = UnityBattle.Instantiate(n.Position)
+    AttackingShips = []
+    Planet = n
+    NextPossibleOwner = None
+    ShipsToMerge = []
+    SmallestFleet = None
+  }
+}

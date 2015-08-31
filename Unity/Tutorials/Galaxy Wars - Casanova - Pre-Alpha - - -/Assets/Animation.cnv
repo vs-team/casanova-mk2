@@ -1,0 +1,261 @@
+//flocking / boids
+//IN ORDER TO COMPILE THIS FILE CERTAIN PARTS OF UnityBattle.cs HAVE TO BE COMMENTED AND AFTER COMPILING BE UNCOMMENTED AGAIN!!!!
+module Animation
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity Animation = {
+  inherit UnityCube
+  StopAnimation : bool
+  Lasers : [Laser]
+  AttackingShips : [Ship]
+  ObjectsToAvoid : [Container]
+  Target : Vector3
+  InitialTarget : Vector3
+  Factor : float32
+  Explorer : UnityCube
+
+  rule Lasers =
+    [for l in Lasers do
+     where (not l.Destroyed)
+     select l]
+
+  rule Lasers =
+    wait not world.StopAnimation
+    if AttackingShips.Count > 0 then
+      yield new Laser(InitialTarget ,AttackingShips.Head.Position) :: Lasers
+      wait 1.0f
+
+  rule ObjectsToAvoid =
+    let attackingships_containers =
+      [for ship in AttackingShips do
+       select (new Container(ship.Position, ship.Velocity))]
+    yield (new Container(InitialTarget, new Vector3(0.01f,0.0f,0.01f))) :: attackingships_containers
+
+  rule Factor =
+    yield Factor + dt
+
+  rule Target =
+    yield new Vector3(Mathf.Cos(Factor) + InitialTarget.x, InitialTarget.y, Mathf.Sin(Factor) + InitialTarget.z)
+
+  rule ObjectsToAvoid =
+    Debug.Log("ANIMATION")
+    yield ObjectsToAvoid
+
+  rule Explorer.Position =
+    yield Target
+    
+
+  Create(target : Vector3)= 
+    {    
+      StopAnimation = false
+      Lasers = []
+      AttackingShips = []
+      Target = target
+      Factor = 0.0f
+      InitialTarget = target
+      Explorer = UnityCube.Find()
+      ObjectsToAvoid = []
+    }
+
+
+}
+
+entity Container = {
+  Position : Vector3
+  Velocity : Vector3
+
+  Create(p : Vector3, v : Vector3) = {
+    Position = p
+    Velocity = v
+  }
+}
+
+entity Laser = {
+  inherit UnityLaser
+  Target : Vector3
+  Velocity : Vector3
+  MaxSpeed : float
+    
+  rule Velocity =
+      let temp = Target - Position
+      temp.Normalize()
+      yield temp * MaxSpeed
+
+  rule Position =
+      yield Position + Velocity * dt
+
+  rule IsCollided =
+    wait Vector3.Distance(Position, Target) < 0.5f
+    yield true
+
+  rule Destroyed = 
+    wait world.AttackingShips.Count = 0 || world.StopAnimation
+    yield true
+
+  Create(pos : Vector3, target : Vector3) = {
+    Base = UnityLaser.Instantiate(pos,target)
+    Target = target
+    Velocity = Vector3.zero
+    MaxSpeed = 4.0f
+  }
+}
+
+entity Ship = {
+  inherit UnityShip
+  Velocity : Vector3
+  Acceleration : Vector3
+  Steer : Vector3
+  Separation : Vector3
+  Align    : Vector3
+  MaxForce : float32
+  MaxSpeed : float32
+  rule Position = 
+      yield Position + Velocity * dt
+(*
+
+  rule Acceleration =
+    yield Separation * 1.5f + Align + Steer
+  rule Velocity =
+    let v = Velocity + Acceleration
+    let acc = Vector3.zero 
+    let v =
+      if v.magnitude > MaxSpeed then
+        v.Normalize()
+        v * MaxSpeed 
+      else v
+    yield v
+
+  rule Steer =
+    let desired = world.Target - Position
+    let d = desired.magnitude    
+    if d > 2.0f then
+      desired.Normalize()
+      let desired = 
+        if (d < 5.0f) then
+          desired * MaxSpeed * (d/5.0f)
+        else 
+          desired * MaxSpeed
+      
+      let steer = desired - Velocity
+        
+      if steer.magnitude > MaxForce then
+        steer.Normalize()
+        yield steer * MaxForce
+      else
+        yield steer
+    else
+      yield new Vector3(0,0,0)
+      
+  rule Align =
+    let neighbour_dist = 6.0f;
+    
+    let new_align =
+      [for elem in world.ObjectsToAvoid do
+       let d = Vector3.Distance(Position, elem.Position)
+       where ((d > 0) && (d < neighbour_dist))
+       select elem.Velocity]
+
+    if (new_align.Count > 0) then
+      let sumships =
+        [for a in new_align do
+          select a
+          sum]
+
+      let sumships = sumships / (float32) new_align.Count
+      if sumships.magnitude > MaxForce then
+        sumships.Normalize()
+        yield sumships * MaxForce
+      else 
+        yield sumships
+
+    else yield new Vector3(0,0,0) 
+
+  rule Separation =
+    let desiredseparation = 3.0f
+    let separations_count =
+
+      // For every boid in the system, check if it's too close
+      [for elem in world.ObjectsToAvoid do
+        let d = Vector3.Distance(elem.Position, Position)
+        // If the distance is greater than 0 and less than an arbitrary amount (0 when you are yourself)
+        // Calculate vector pointing away from neighbor
+        let diff = Position - elem.Position
+        let diff = Vector3.Normalize(diff)
+        where ((d > 0) && (d < desiredseparation))      
+        select (diff / d)]
+    let separations =
+      [for s in separations_count do
+        select s
+        sum]
+
+
+    let separations_all = separations  
+    if separations_count.Count > 0 then
+      yield separations / (float32) separations_count.Count 
+    else
+      yield separations
+*)
+
+  rule Velocity = 
+    let MaxSpeed = 2.0f
+    let target = world.Target
+    let target_dir = Vector3.Normalize(target - Position)
+
+    let target_distance = Vector3.Distance(Position, target)
+    let repulsions =
+      [for elem in world.ObjectsToAvoid do          
+        let distance = Vector3.Distance(elem.Position, Position)       
+        let strength = 5.0f - Mathf.Lerp(0.0f,5.0f,(distance / 3.0f))
+        let y = Vector3.Normalize(Position - elem.Position)
+        let away =  
+          if Vector3.Distance(Position, elem.Position) <= 1.5f then new Vector3(UnityEngine.Random.value - 0.5f, 0.0f, UnityEngine.Random.value - 0.5f)
+          else new Vector3(y.x, 0.0f, y.z)
+        select (away * strength)
+        sum]
+     
+    let diff = target - Position
+    let normalized_repulsions =
+      if repulsions.magnitude < 0.1f then
+        repulsions
+      else 
+        Vector3.Normalize(repulsions)
+
+    let _velocity = 
+      if target_distance < 0.1f then
+        normalized_repulsions * MaxSpeed
+      else
+        diff.normalized * MaxSpeed + normalized_repulsions * MaxSpeed
+
+    yield Vector3.Lerp(Velocity, _velocity, dt)
+
+  rule Rotation =
+    yield ((world.InitialTarget - Position))// * 0.1f) + ((world.Target - Position) * 0.9f) 
+(*
+  rule Scale =
+    wait 0.1f
+    yield 1.0f
+    wait 0.1f
+    yield 0.5f
+*)
+  //Flocking around target planet
+
+  
+  rule world.Lasers =
+    wait 1.0f
+    wait not world.StopAnimation
+    yield new Laser(Position,world.InitialTarget) :: world.Lasers
+ 
+  
+
+  Create(ship : UnityShip) = {
+    Velocity      = Vector3.up
+    Acceleration  = Vector3.zero
+    Steer         = Vector3.zero
+    Align         = Vector3.zero
+    Separation    = Vector3.zero
+    MaxForce      = 2.0f
+    MaxSpeed      = 2.0f
+    Base          = ship
+  }
+}

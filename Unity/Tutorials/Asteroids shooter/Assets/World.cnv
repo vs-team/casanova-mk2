@@ -1,0 +1,111 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  Ship : Ship  
+  Projectiles : [Projectile]
+  Asteroids : [Asteroid]
+
+
+
+
+
+  rule Asteroids =
+    wait 1.0f
+    yield new Asteroid() :: Asteroids
+
+    
+  rule Projectiles =
+    wait Input.GetKeyDown(KeyCode.Space)
+    yield new Projectile(Ship.Position) :: Projectiles  
+
+  rule Asteroids, Projectiles =
+    [for a in Asteroids do
+     where (not a.Destroyed)
+     select a],
+    [for p in Projectiles do
+     where (not p.Destroyed)
+     select p]
+
+  Create() =
+    {
+      Ship = new Ship()
+      Asteroids = []
+      Projectiles = []
+    }
+}
+
+entity Asteroid = {
+  inherit UnityAsteroid
+  Velocity : Vector3
+  
+  rule Position = Position + Velocity * dt
+
+  
+  rule Destroyed =
+    let colliding_projectiles =
+      [for p in world.Projectiles do
+       where (Vector3.Distance(Position, p.Position) < 1.0f)
+       select p]
+    if colliding_projectiles.Count > 0 then
+      wait dt
+      yield true
+
+  rule Destroyed =
+    wait Position.y < -4.0f
+    yield true
+
+  Create() =
+  {
+    Velocity      = new Vector3(0.0f, UnityEngine.Random.value * -1.0f, 0.0f)
+    UnityAsteroid = UnityAsteroid.Instantiate(new Vector3(-7.0f + (UnityEngine.Random.value * 17.0f), 4.0f, 0.0f))
+  }
+}
+
+entity Projectile = {
+  inherit UnityProjectile
+
+  Velocity : Vector3
+
+  rule Position = Position + Velocity * dt
+
+  rule Destroyed =
+    let colliding_asteroids =
+      [for a in world.Asteroids do
+       where (Vector3.Distance(Position, a.Position) < 1.0f)
+       select a]
+    if colliding_asteroids.Count > 0 then
+      wait dt
+      yield true
+
+    
+  rule Destroyed =
+    wait Position.y > 4.0f
+    yield true
+
+
+
+  Create(p : Vector3) =
+  {
+    Velocity        = new Vector3(0.0f, 1.0f, 0.0f)
+    UnityProjectile = UnityProjectile.Instantiate(p)
+  }
+}
+
+entity Ship = {
+  inherit UnityShip
+  rule Position =
+    wait Input.GetKey(KeyCode.A)
+    yield Position + new Vector3(-3.0f, 0.0f, 0.0f) * dt
+  
+  rule Position =
+    wait Input.GetKey(KeyCode.D)
+    yield Position + new Vector3(3.0f, 0.0f, 0.0f) * dt
+
+  Create() =
+  {
+    UnityShip   = UnityShip.Find()
+  }
+}

@@ -1,0 +1,160 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  Planets               : [Planet]
+  Links                 : [Link]
+  ref SelectedPlanets   : Option<Planet>
+
+  Create() =
+    let unityPlanets = UnityPlanet.FindAllPlanets()
+    let planets =
+      [for p in unityPlanets do
+        select (new Planet(p))]
+    let links =
+      [ for p1 in planets do
+        for p2 in planets do
+        where (p1 <> p2)
+        select (new Link(p1,p2))]
+    {
+      Planets = planets
+      Links = links
+      SelectedPlanets = None
+    }
+}
+
+entity Link = {
+  
+  Active          : bool
+  ref Start       : Planet
+  ref End         : Planet
+  Ships           : [Ship]
+
+  rule Active =
+    wait Start.Selected && End.Targeted
+    yield not Active
+    wait not Start.Selected || not End.Targeted
+
+  rule Ships =
+    wait Active
+    wait 2.0f
+    wait Start.UnityPlanet.Ships > 0
+    yield Ship.Create(Start, End) :: Ships
+
+  rule Ships =
+    [for t in Ships do
+     where (t.Destroyed = false)
+     select t]
+
+  Create(p1 : Planet,p2 : Planet) =    
+    {
+      Active  = false
+      Start   = p1
+      End     = p2
+      Ships  = []
+    }
+  }
+
+
+entity Ship = {
+  inherit UnityShip
+  ref Start           : Planet
+  ref End             : Planet
+  ReachedDestination  : bool
+  ref ClosestObject   : Collider
+
+  rule ClosestObject, closestPlanetName =
+    for p in PlanetsAndStars do
+      if p <> ClosestObject then
+        let closest_planet_distance = Vector3.Distance(ClosestObject.Position, Position)
+        let p_distance = Vector3.Distance(p.Position, Position)
+        if closest_planet_distance > p_distance then
+          yield p, p.gameObject.transform.name
+
+
+  rule Velocity, alpha, dist, avoidance =
+    wait ClosestObject.Position <> Start.Position && ClosestObject.Position <> End.Position
+    let target_dir = Vector3.Normalize(End.Position - Position)
+    let closest_planet_dir = Vector3.Normalize(Position - ClosestObject.Position)
+    
+    let avoidance_dir = closest_planet_dir - target_dir * Vector3.Dot(target_dir, closest_planet_dir)
+
+    let closest_planet_distance = Vector3.Distance(ClosestObject.Position , Position)
+    
+    let alpha = 1.0f - Mathf.Clamp(closest_planet_distance / (ClosestObject.Radius + 2.0f), 0.0f, 1.0f)
+
+    yield Vector3.Lerp(target_dir, avoidance_dir.normalized, alpha), alpha, closest_planet_distance, avoidance_dir
+    
+  
+  rule Position = Position + Velocity * dt      
+
+  rule ReachedDestination = Vector3.Dot(Velocity, End.Position - Position) < 0.0f
+
+  rule Start.UnityPlanet.Ships, End.UnityPlanet.Ships =
+    yield Start.UnityPlanet.Ships - 1, End.UnityPlanet.Ships
+    wait ReachedDestination
+    yield Start.UnityPlanet.Ships, End.UnityPlanet.Ships + 1
+    wait Destroyed
+
+  rule Velocity, Destroyed =
+    wait ReachedDestination
+    yield Vector3.zero, true
+
+  rule Scale =
+    while(Scale < 1.0f) do
+      yield Mathf.Min(1.0f, Scale + dt * 10.0f)
+    wait Vector3.Distance(End.Position, Position) < 1.0f
+    while(true) do
+      yield Mathf.Max(0.0f, Scale - dt * 10.0f)
+
+  Create(p1 : Planet,p2 : Planet) =
+    let v = (p2.Position - p1.Position)
+    {
+      ReachedDestination = false
+      Base  = UnityShip.Instantiate(p1.UnityPlanet.Position + v.normalized, p2.UnityPlanet.Position, v)
+      Start = p1
+      End   = p2
+      ClosestObject = new Collider()
+    }
+}
+
+entity Planet = {
+  inherit UnityPlanet
+
+  Targeted      : bool
+
+
+
+  rule Selected, world.SelectedPlanets, Targeted =
+    wait Input.GetMouseButtonDown(0)
+    if UnityPlanet.ClickedOver then
+      yield true, Some this, false
+    else
+      if world.SelectedPlanets.IsSome then
+        yield false, world.SelectedPlanets, false
+
+  rule Targeted =
+    wait Input.GetMouseButtonDown(1)
+    let connections =
+      [for l in world.Links do
+       where (l.End = this && l.Start.Selected)
+       select (l)]
+    if UnityPlanet.ClickedOver && Targeted then
+      yield true
+    elif UnityPlanet.ClickedOver && not Targeted && connections.Count > 0 then
+      yield true
+
+  rule Ships =
+    wait 1.0f
+    yield Ships + 1
+
+  Create(p : UnityPlanet) =
+  {
+    Base = p
+    Targeted = false
+  }
+
+}
+

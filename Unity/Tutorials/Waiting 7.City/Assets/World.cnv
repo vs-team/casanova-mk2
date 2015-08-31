@@ -1,0 +1,70 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  
+  MainCamera      : MainCamera
+
+  Create() =
+    {
+      MainCamera = new MainCamera()
+    }
+}
+
+entity MainCamera = {
+  inherit UnityCamera
+
+  Speed : Vector3
+  Jumping : bool
+  SprintFactor : float32
+
+  rule Rotation = Quaternion.Euler(0.0f,Input.GetAxis("Mouse X") * 4.0f,0.0f) * UnityCamera.Rotation *  Quaternion.Euler(Input.GetAxis("Mouse Y") * -4.0f,0.0f,0.0f)
+  
+  rule SprintFactor =
+    wait Input.GetKey(KeyCode.LeftShift)
+    yield 2.0f
+
+  rule SprintFactor =
+    wait Input.GetKeyUp(KeyCode.LeftShift)
+    yield 1.0f
+
+  rule Speed,Jumping = 
+    let s = 5.0f
+    .&
+      wait Input.GetKeyDown(KeyCode.Space) && (not Jumping)
+      yield Speed + (new Vector3(0.0f,Up.y * 12.5f,0.0f)) * dt,true
+      wait Grounded
+      yield Speed,false
+    .&
+      wait not Grounded
+      yield Speed - new Vector3(0.0f,0.5f,0.0f) * dt,Jumping
+    .&
+      wait Input.GetKey(KeyCode.W) && Grounded
+      yield Speed + new Vector3(Forward.x,0.0f,Forward.z) * SprintFactor * s * dt,Jumping
+    .&
+      wait Input.GetKey(KeyCode.S) && Grounded
+      yield Speed + new Vector3(Forward.x,0.0f,Forward.z) * -1.0f * s * dt,Jumping
+    .&
+      wait Input.GetKey(KeyCode.D) && Grounded
+      yield Speed + new Vector3(Right.x,0.0f,Right.z) * s * dt,Jumping
+    .&
+      wait Input.GetKey(KeyCode.A) && Grounded
+      yield Speed + new Vector3(Right.x,0.0f,Right.z) * -1.0f * s * dt,Jumping
+
+  rule Speed =
+    wait Speed.magnitude > 0.0f && Grounded
+    yield Speed * 0.5f * dt
+
+  rule Move = Speed
+      
+
+  Create() =
+    {
+      Speed = Vector3.zero
+      Jumping = false
+      SprintFactor = 1.0f
+      UnityCamera = UnityCamera.Find()
+    }
+}

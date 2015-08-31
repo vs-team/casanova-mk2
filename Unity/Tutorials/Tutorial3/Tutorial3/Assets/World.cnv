@@ -1,0 +1,43 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+scene World = {
+  inherit UnityCube
+
+  Velocity : Vector3
+
+  rule Position = Position + Velocity * dt
+  
+//make the octagon
+  rule Velocity =
+    wait 1.0f 
+    yield UnityCube.RotateAround(45.0f, Vector3.forward, Velocity)
+
+//go up when the up arrow key is pressed
+  rule Velocity = 
+    while Input.GetKey(KeyCode.UpArrow) do
+      yield Position + Vector3(0.0f, 0.1f, 0.0f)
+
+//go right when the right arrow key is pressed
+  rule Velocity =
+    while Input.GetKey(KeyCode.RightArrow) do
+      yield Position + Vector3(0.1f, 0.0f, 0.0f)
+
+//go down when the down arrow key is pressed
+  rule Velocity =    
+    while Input.GetKey(KeyCode.DownArrow) do
+      yield Position + Vector3(0.0f, -0.1f, 0.0f)
+    
+//go left when the left arrow key is pressed
+  rule Velocity =
+    while Input.GetKey(KeyCode.LeftArrow) do
+      yield Position + Vector3(-0.1f, 0.0f, 0.0f)
+    
+  Create() =
+  {
+    Velocity = new Vector3(1.0f,0.0f,0.0f)
+    Base = UnityCube.Find()
+  }
+}

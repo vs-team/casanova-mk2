@@ -1,0 +1,9 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  Cnt       : int
+  rule Cnt = Cnt + 1
+}
