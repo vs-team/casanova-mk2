@@ -1,0 +1,24 @@
+﻿module game
+
+worldEntity Test2 = 
+  {
+    X : bool
+    Y : bool
+    Seed : Random
+
+    rule X = 
+      wait 1
+      yield true
+      yield false
+
+    rule Y = 
+      wait X
+      yield Y
+
+    Create() =
+      {
+        Seed = new Random()
+        X = false
+        Y = false
+      }
+  }

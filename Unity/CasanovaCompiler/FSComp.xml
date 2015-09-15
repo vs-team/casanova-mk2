@@ -2,18 +2,6 @@
 <doc>
 <assembly><name>FSComp</name></assembly>
 <members>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
 <member name="M:FSComp.SR.valueIsNotAccessible(System.String)">
 <summary>
  The value &apos;%s&apos; is not accessible from this code location
@@ -7426,15 +7414,6 @@
  The %s definitions in the signature and implementation are not compatible because an abbreviation is being hidden by a signature. The abbreviation must be visible to other CLI languages. Consider making the abbreviation visible in the signature.
  (Originally from C:\Users\Henry\Desktop\3.0\Sep2012\src\fsharp\FSComp.txt:152)
 </summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
 </member>
 </members>
 </doc>
