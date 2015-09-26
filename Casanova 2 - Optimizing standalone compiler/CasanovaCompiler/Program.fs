@@ -94,6 +94,14 @@ let main argv =
         parameters.GenerateInMemory <- true
         parameters.OutputAssembly <- output_assembly
 
+
+        let possible_dlls_to_add_folder = IO.Path.Combine(folder, "DllsToImport")
+
+        if Directory.Exists(possible_dlls_to_add_folder) then 
+            for dll in Directory.GetFiles(possible_dlls_to_add_folder, "*.dll") do
+                //let referenced_assembly = IO.Path.Combine(possible_dlls_to_add_folder, dll)
+                do parameters.ReferencedAssemblies.Add(dll) |> ignore
+
         if Common.is_running_unity then
           let referenced_assembly = IO.Path.Combine(compiler_folder, "UnityEngine.dll")
           let gui_assembly        = IO.Path.Combine(compiler_folder, "UnityEngine.UI.dll")

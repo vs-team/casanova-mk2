@@ -628,7 +628,9 @@ and traverse_state_machine_expr (expr  : IntermediateAST.TypedExpression)
 
 //  tp, [A1,...,An]_state
 //  [A1]_state, ..., [An]_state
-  |tp, IntermediateAST.Tuple(b) -> raise tp.Position "Tuple not supported inside a rule state machine yet"
+  |tp, IntermediateAST.Tuple(b) ->
+  
+     raise tp.Position "Tuple not supported inside a rule state machine yet"
 
 //  tp, [id]_state
   |_, IntermediateAST.Id(id) -> 
