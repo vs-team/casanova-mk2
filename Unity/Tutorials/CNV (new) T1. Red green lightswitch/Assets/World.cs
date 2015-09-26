@@ -5,15 +5,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Game {public class World : MonoBehaviour{
-  void OnApplicationQuit() { file.Close(); }public static int frame;
+public static int frame;
 void Update () { Update(Time.deltaTime, this); 
  frame++; }
 public bool JustEntered = true;
 
-System.IO.StreamWriter file;
+
 public void Start()
 	{
-file = new System.IO.StreamWriter(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(),"test.csv"));		myA = new A();
+		myA = new A();
 		UnityCube = UnityCube.Find();
 		
 }
@@ -21,35 +21,15 @@ file = new System.IO.StreamWriter(System.IO.Path.Combine(System.IO.Directory.Get
   set{UnityCube.Color = value; }
  }
 	public UnityCube UnityCube;
-	public UnityEngine.Animation animation{  get { return UnityCube.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityCube.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityCube.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityCube.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityCube.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityCube.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityCube.enabled; }
   set{UnityCube.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityCube.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityCube.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityCube.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityCube.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityCube.hideFlags; }
   set{UnityCube.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityCube.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityCube.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityCube.isActiveAndEnabled; }
  }
 	public System.Collections.Generic.List<System.Int32> lst{  get { return UnityCube.lst; }
   set{UnityCube.lst = value; }
@@ -57,16 +37,6 @@ file = new System.IO.StreamWriter(System.IO.Path.Combine(System.IO.Directory.Get
 	public A myA;
 	public System.String name{  get { return UnityCube.name; }
   set{UnityCube.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityCube.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityCube.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityCube.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityCube.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityCube.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityCube.tag; }
   set{UnityCube.tag = value; }
@@ -86,8 +56,7 @@ var t = System.DateTime.Now;
 		myA.Update(dt, world);
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
-var t1 = System.DateTime.Now;
-file.WriteLine((t1 - t).Milliseconds + "," + (t1 - init_time).Seconds);	}
+	}
 
 
 
@@ -276,4 +245,4 @@ frame = World.frame;
 
 
 }
-}    
+}          

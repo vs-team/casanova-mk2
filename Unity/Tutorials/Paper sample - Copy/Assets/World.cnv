@@ -12,15 +12,15 @@ scene World = {
      select e]
   rule Elems =
     wait 5.0f
-    yield 
-      [for i in [0..50] do
+    yield    
+      [for i in [0..500] do
        select (new Elem(Seed))] + Elems
   Create() =  
     let seed = new System.Random(0)
     let elems =
-      [for i in [0..1000] do
+      [for i in [0..5000] do
        select (new Elem(seed))]
-    {
+    { 
       Elems   = elems
       Seed    = seed
     }

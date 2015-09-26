@@ -5,15 +5,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Game {public class World : MonoBehaviour{
-  void OnApplicationQuit() { file.Close(); }public static int frame;
+public static int frame;
 void Update () { Update(Time.deltaTime, this); 
  frame++; }
 public bool JustEntered = true;
 
-System.IO.StreamWriter file;
+
 public void Start()
 	{
-file = new System.IO.StreamWriter(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(),"test.csv"));		Game2 = new BoidsSimulation();
+		Game2 = new BoidsSimulation();
 		Game1 = new PatrolLighSwitch();
 		
 }
@@ -35,8 +35,7 @@ var t = System.DateTime.Now;
 		Game2.Update(dt, world);
 
 
-var t1 = System.DateTime.Now;
-file.WriteLine((t1 - t).Milliseconds + "," + (t1 - init_time).Seconds);	}
+	}
 
 
 
@@ -149,48 +148,18 @@ public BoidsLeader()
  }
 	public UnityBall UnityBall;
 	public UnityEngine.Vector3 Velocity;
-	public UnityEngine.Animation animation{  get { return UnityBall.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityBall.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityBall.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityBall.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityBall.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityBall.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityBall.enabled; }
   set{UnityBall.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityBall.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityBall.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityBall.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityBall.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityBall.hideFlags; }
   set{UnityBall.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityBall.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityBall.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityBall.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityBall.name; }
   set{UnityBall.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityBall.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityBall.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityBall.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityBall.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityBall.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityBall.tag; }
   set{UnityBall.tag = value; }
@@ -429,48 +398,18 @@ public Boid(UnityEngine.Vector3 leader)
 	public UnityEngine.Vector3 Steer;
 	public UnityBall UnityBall;
 	public UnityEngine.Vector3 Velocity;
-	public UnityEngine.Animation animation{  get { return UnityBall.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityBall.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityBall.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityBall.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityBall.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityBall.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityBall.enabled; }
   set{UnityBall.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityBall.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityBall.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityBall.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityBall.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityBall.hideFlags; }
   set{UnityBall.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityBall.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityBall.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityBall.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityBall.name; }
   set{UnityBall.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityBall.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityBall.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityBall.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityBall.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityBall.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityBall.tag; }
   set{UnityBall.tag = value; }
@@ -768,48 +707,18 @@ public PatrolCube(PatrolLighSwitch patrolLighSwitch)
  }
 	public UnityCube UnityCube;
 	public UnityEngine.Vector3 Velocity;
-	public UnityEngine.Animation animation{  get { return UnityCube.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityCube.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityCube.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityCube.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityCube.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityCube.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityCube.enabled; }
   set{UnityCube.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityCube.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityCube.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityCube.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityCube.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityCube.hideFlags; }
   set{UnityCube.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityCube.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityCube.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityCube.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityCube.name; }
   set{UnityCube.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityCube.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityCube.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityCube.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityCube.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityCube.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityCube.tag; }
   set{UnityCube.tag = value; }
@@ -1069,48 +978,18 @@ public LightSwitch(PatrolLighSwitch patrolLighSwitch)
  }
 	public System.Boolean Stop;
 	public UnityCube UnityCube;
-	public UnityEngine.Animation animation{  get { return UnityCube.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityCube.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityCube.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityCube.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityCube.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityCube.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityCube.enabled; }
   set{UnityCube.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityCube.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityCube.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityCube.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityCube.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityCube.hideFlags; }
   set{UnityCube.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityCube.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityCube.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityCube.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityCube.name; }
   set{UnityCube.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityCube.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityCube.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityCube.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityCube.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityCube.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityCube.tag; }
   set{UnityCube.tag = value; }
@@ -1243,4 +1122,4 @@ return;	}
 
 
 }
-}  
+}         

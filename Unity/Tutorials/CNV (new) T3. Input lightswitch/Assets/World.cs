@@ -4,7 +4,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class World : MonoBehaviour{
+namespace Game {public class World : MonoBehaviour{
 public static int frame;
 void Update () { Update(Time.deltaTime, this); 
  frame++; }
@@ -21,48 +21,18 @@ public void Start()
  }
 	public System.Single Factor;
 	public UnityCube UnityCube;
-	public UnityEngine.Animation animation{  get { return UnityCube.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityCube.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityCube.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityCube.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityCube.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityCube.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityCube.enabled; }
   set{UnityCube.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityCube.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityCube.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityCube.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityCube.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityCube.hideFlags; }
   set{UnityCube.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityCube.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityCube.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityCube.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityCube.name; }
   set{UnityCube.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityCube.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityCube.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityCube.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityCube.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityCube.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityCube.tag; }
   set{UnityCube.tag = value; }
@@ -73,12 +43,15 @@ public void Start()
   set{UnityCube.useGUILayout = value; }
  }
 	public System.Single count_down1;
+
+System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
 var t = System.DateTime.Now;		this.Rule0(dt, world);
 
 		this.Rule1(dt, world);
 
 	}
+
 	public void Rule0(float dt, World world) 
 	{
 	Color = Color.Lerp(Color.white,Color.blue,Factor);
@@ -111,7 +84,7 @@ return;	}else
 
 	goto case 7;	}
 	case 7:
-	Factor = ((Factor) + (0.02f));
+	Factor = ((Factor) + (dt));
 	s1 = 6;
 return;
 	case 5:
@@ -132,7 +105,7 @@ return;	}else
 
 	goto case 3;	}
 	case 3:
-	Factor = ((Factor) - (0.02f));
+	Factor = ((Factor) - (dt));
 	s1 = 2;
 return;
 	case 0:
@@ -158,4 +131,4 @@ return;	}
 
 
 }
-  
+}    

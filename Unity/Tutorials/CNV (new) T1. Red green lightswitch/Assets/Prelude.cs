@@ -246,4 +246,4 @@ public class RuleTable
   }
 }
 
-                                                                                                                                                                                 
+                                                                                                                                                                                             

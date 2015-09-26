@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+
 public class UnityCube : MonoBehaviour
 {
+  Lidgren.Network.NetClient client;
+      
   public Color Color
   {
-    set { gameObject.renderer.material.color = value; }
+    set { gameObject.GetComponent<Renderer>().material.color = value; }
   }
 
   public static UnityCube Find()
@@ -11,4 +14,4 @@ public class UnityCube : MonoBehaviour
     return GameObject.Find("/Cube").GetComponent<UnityCube>();
   }
 }
-                                                           
+                                                                                                            

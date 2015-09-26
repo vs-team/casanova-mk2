@@ -51,8 +51,8 @@ public class UnityBall : MonoBehaviour
 
   public Color Color
   {
-    get { return gameObject.renderer.material.color; }
-    set { gameObject.renderer.material.color = value; }
+    get { return gameObject.GetComponent<Renderer>().material.color; }
+    set { gameObject.GetComponent<Renderer>().material.color = value; }
   }
 	
   public static UnityBall Find(string model)
@@ -87,4 +87,4 @@ public class UnityBall : MonoBehaviour
     return res;
   }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                                                                                            
