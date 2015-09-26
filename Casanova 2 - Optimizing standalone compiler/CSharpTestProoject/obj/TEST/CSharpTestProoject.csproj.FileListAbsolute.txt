@@ -1,0 +1,6 @@
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\bin\TEST\CSharpTestProoject.exe.config
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\bin\TEST\CSharpTestProoject.exe
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\bin\TEST\CSharpTestProoject.pdb
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\bin\TEST\UnityEngine.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\obj\TEST\CSharpTestProoject.exe
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\obj\TEST\CSharpTestProoject.pdb
