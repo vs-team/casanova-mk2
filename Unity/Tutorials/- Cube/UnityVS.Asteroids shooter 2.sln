@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Asteroids shooter 2.CSharp", "UnityVS.Asteroids shooter 2.CSharp.csproj", "{039AC740-E655-35EA-A1DE-CFFB46C42EFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Asteroids shooter 2.CSharp.Editor", "UnityVS.Asteroids shooter 2.CSharp.Editor.csproj", "{7FFEFBC1-A285-B4C4-6B61-F6FD91FEEECA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{039AC740-E655-35EA-A1DE-CFFB46C42EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{039AC740-E655-35EA-A1DE-CFFB46C42EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{039AC740-E655-35EA-A1DE-CFFB46C42EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{039AC740-E655-35EA-A1DE-CFFB46C42EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFEFBC1-A285-B4C4-6B61-F6FD91FEEECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFEFBC1-A285-B4C4-6B61-F6FD91FEEECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFEFBC1-A285-B4C4-6B61-F6FD91FEEECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFEFBC1-A285-B4C4-6B61-F6FD91FEEECA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

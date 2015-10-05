@@ -309,16 +309,23 @@ and traverse_atomic_expr
 //  a1 <- [A1]
 //  ...
 //  an <- [An]
-  |_, OptimizedQueryAST.Expression.Tuple(exprs) -> 
-    if return_ids.Length <> exprs.Length then
-      raise (snd expr).Position (sprintf "Type error: unexpected number of return values.")
-    let b = 
-      [for id, e in Seq.zip return_ids exprs do
-        yield tabs + id.idText + " = " + traverse_atomic_expr  use_ret e query_symbols_context [] tabs true + semicolon ] 
+  |et, OptimizedQueryAST.Expression.Tuple(exprs) -> 
+    
+    if exprs.Length = 2 then
+      match exprs with
+      | (t1,e1) :: (t2,e2) :: [] ->
+        "new " + et.TypeName + "("  + traverse_atomic_expr  use_ret (t1,e1) query_symbols_context [] tabs true + semicolon + "," +
+                                            traverse_atomic_expr  use_ret (t2,e2) query_symbols_context [] tabs true + semicolon  + ")"
+    else
+      if return_ids.Length <> exprs.Length then
+        raise (snd expr).Position (sprintf "Type error: unexpected number of return values.")
+      let b = 
+        [for id, e in Seq.zip return_ids exprs do
+          yield tabs + id.idText + " = " + traverse_atomic_expr  use_ret e query_symbols_context [] tabs true + semicolon ] 
 
-    if b.Length > 0 then 
-      Seq.fold(fun a b -> a + "\n" + b) b.Head b.Tail
-    else b.Head
+      if b.Length > 0 then 
+        Seq.fold(fun a b -> a + "\n" + b) b.Head b.Tail
+      else b.Head
 
 
 //    //tabs + (traverse_atomic_expr (snd b) [] tabs)

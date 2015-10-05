@@ -351,7 +351,7 @@ and [<CustomComparison; CustomEquality>] TypeDecl =
             | [] -> raise Position.Empty (sprintf "Parallel without body. Internal error at %s(%s)" __SOURCE_FILE__ __LINE__)
             | _ ->
               let internalTypes = (traverseNames l.Head)  + (List.fold (fun str t -> str + ", " + (traverseNames t)) "" l.Tail) in
-              "Tuple<" + internalTypes + ">"
+              "Casanova.Prelude.Tuple<" + internalTypes + ">"
         | Query(t) -> "List<" + (traverseNames t) + ">" 
         | GenericType(ImportedType(el,p),l) -> 
             match l with

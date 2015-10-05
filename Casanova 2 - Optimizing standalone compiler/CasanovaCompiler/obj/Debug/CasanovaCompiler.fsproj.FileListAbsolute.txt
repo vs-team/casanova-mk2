@@ -1,0 +1,10 @@
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\UnityEngine.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\UnityEngine.UI.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\App.config
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.exe.config
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.exe
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.pdb
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.XML
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.fsprojResolveAssemblyReference.cache
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.exe
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.pdb

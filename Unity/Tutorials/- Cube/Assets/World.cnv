@@ -1,0 +1,32 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+
+  Ship : Ship
+
+
+    
+
+  Create() =
+    {
+      Ship = new Ship()
+    }
+}
+
+entity Ship =
+  {
+    inherit UnityShip
+    
+    Velocity :  Vector3
+
+    rule Position =
+      Position + Velocity * dt
+    Create() =
+      {
+        UnityShip = UnityShip.Find()
+        Velocity = new Vector3(0.0f, 0.0f, 2.0f)
+      }
+  }

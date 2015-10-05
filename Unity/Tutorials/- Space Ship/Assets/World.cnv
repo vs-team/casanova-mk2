@@ -1,0 +1,136 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+worldEntity World = {
+
+// Fieldname : Type that will be assigned
+  Ship : Ship
+  UnityParticleSystem : UnityParticleSystem
+
+// The ParticleSystem speed  is based on the VelocityFactor of the frontEngine
+  rule UnityParticleSystem.Speed =
+    
+// If the ship isn't moving the particle speed remains 10 
+    if Ship.FrontEngine.VelocityFactor.z = 0 then yield 10.0f
+// other wise it will increase according to the ship velocity
+    else yield 1000.0f * Ship.FrontEngine.VelocityFactor.z
+
+// World constructor
+  Create() =
+    {
+      // Makes ship accesible to be used through Casanova 
+      Ship = new Ship()
+
+      //Search for existing Particlesystem in Unity
+      UnityParticleSystem = UnityParticleSystem.Find()
+    }
+} 
+          
+// New Entity Ship
+entity Ship =
+  {
+    inherit UnityShip 
+    FrontEngine : Engine
+    SideEngine  : Engine
+    rule Rotation =
+      yield Quaternion.Euler(FrontEngine.RotationFactor,0.0f,SideEngine.RotationFactor)
+    rule Position =
+      yield Position + FrontEngine.VelocityFactor + SideEngine.VelocityFactor
+    Create() =
+      {
+        UnityShip = UnityShip.Instantiate()        
+        FrontEngine = new Engine([(KeyCode.X, (25.0f, new Vector3(0.0f, 0.0f, 3.0f)));
+                                  (KeyCode.W, (20.0f, new Vector3(0.0f, 0.0f, 1.0f)));
+                                  (KeyCode.S, (-20.0f, new Vector3(0.0f, 0.0f, -1.0f)))])  
+        SideEngine  = new Engine([(KeyCode.A, (20.0f, new Vector3(-1.0f, 0.0f, 0.0f)));
+                                  (KeyCode.D, (-20.0f, new Vector3(1.0f, 0.0f, 0.0f)))])        
+      }
+  }
+
+//Entity Engine
+entity Engine =
+  {
+      //Fieldnames : Type 
+      RotationFactor : float32
+      VelocityFactor : Vector3
+      Controllers : [(KeyCode * (float32 * Vector3))] // keycode, max_degree
+      KeyPressed : Option<KeyCode * (float32 * Vector3)> // Option Could have some keyspressed  or none
+    
+
+      //Rule for when a key is pressed
+      rule KeyPressed =
+        // Makes a controller which will contain the following
+        let controllers =
+          //Returns a collection of keys pressed
+          [for c in Controllers do
+           where Input.GetKey(c.Item1)
+           select c]
+        // If the collection contains more then 0 items then
+        if controllers.Count > 0 then 
+          //Some keys are pressed ( First read will be priority)
+          yield Some controllers.Head
+        else 
+          //else no keys are pressed put None
+          yield None
+
+      //Rule for Velocity
+      rule VelocityFactor =
+        //wait untill a key is pressed
+        wait KeyPressed.IsSome
+        //Keys being held down, place keyvalue in key_pressed
+        let key_pressed = KeyPressed.Value
+        //Since keys are being pressed  Velocity = VelocityFactor(Vector3) of key pressed * Dt
+        yield key_pressed.Item2.Item2 * dt
+        //wait until the key is not pressed anymore
+        wait not Input.GetKey(key_pressed.Item1)
+        // Velocity is set to zero
+        yield Vector3.zero
+
+      // Rule for rotation factor
+      rule RotationFactor =
+        //wait untill a key is pressed
+        wait KeyPressed.IsSome
+        //We assign the keypressed to key_pressed
+        let key_pressed = KeyPressed.Value
+        //If the keypressed MaxDegree is higher then 0(the ship is rotating forward) then
+        if key_pressed.Item2.Item1 > 0 then
+          //As long as the desired degree is not reached and the key is still being pressed 
+          while(RotationFactor < key_pressed.Item2.Item1 && Input.GetKey(key_pressed.Item1)) do
+            // For every frame it increases the rotation angle
+            yield RotationFactor + dt * 20.0f
+        //else the ship is rotating backwards
+        else
+          //As long as the desired degree is not reached and the key is not being pressed 
+          while(RotationFactor > key_pressed.Item2.Item1 && Input.GetKey(key_pressed.Item1)) do
+            // For every frame it decreases the rotation angle
+            yield RotationFactor - dt * 20.0f
+
+        //( wait untill a key is being pressed) is false - in other words no keys are being pressed 
+        wait not Input.GetKey(key_pressed.Item1)   
+        //If the angle is higher then 0 ( is pointing forward on that angle of the 3d model)  then
+        if RotationFactor > 0 then
+          //As long as the desired degree is not reached and there is no key being pressed 
+          while(RotationFactor > 0 && not Input.GetKey(key_pressed.Item1)) do
+            // For every frame it decreases the rotation angle
+            yield RotationFactor - dt * 20.0f
+        //else the angle is lower then 0 ( is pointing backward on that angle of the 3d model)
+        else
+           //As long as the desired degree is not reached and there is no key being pressed 
+          while(RotationFactor < 0 && not Input.GetKey(key_pressed.Item1)) do
+            //For every frame it increases the rotation angle
+            yield RotationFactor + dt * 20.0f
+      
+      //Engine constructor that takes argument ( controllers : type Keycode,(maxdegree,velocityfactor)
+      Create(controllers : [(KeyCode * (float32 * Vector3))]) = {
+        
+        RotationFactor = 0.0f
+        //Assign controllers to option field Controllers
+        Controllers = controllers
+        VelocityFactor = Vector3.zero
+        KeyPressed = None
+      }
+
+  }

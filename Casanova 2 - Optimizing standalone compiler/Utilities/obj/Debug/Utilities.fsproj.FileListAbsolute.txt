@@ -1,0 +1,14 @@
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.dll.config
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.XML
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.pdb
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSComp.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSharp.Core.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FsLexYacc.Runtime.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSComp.pdb
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSComp.xml
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSharp.Core.xml
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FsLexYacc.Runtime.xml
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.fsprojResolveAssemblyReference.cache
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.pdb

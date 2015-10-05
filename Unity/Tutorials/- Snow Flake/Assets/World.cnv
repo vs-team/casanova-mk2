@@ -1,0 +1,113 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  MainCamera : MainCamera // Moving/controllable camera
+  SnowFlakes : [SnowFlake] 
+  MaxSnowFlakes : int
+
+  rule SnowFlakes =
+    yield 
+      [for s in SnowFlakes do
+        where (not s.Destroyed)
+        select s]
+
+  rule SnowFlakes =
+    wait SnowFlakes.Count < MaxSnowFlakes
+    let new_snowflakes =
+      [for n in [0..5] do
+       select (new SnowFlake(MainCamera.Position))]
+    yield new_snowflakes @ SnowFlakes
+    wait Random.Range(0.1f, 2.0f)
+
+    //World Constructor
+  Create() =
+    let camera = new MainCamera()
+    {
+      SnowFlakes = 
+        [for n in [0..10] do
+         select (new SnowFlake(camera.Position))]
+      MainCamera = camera
+      MaxSnowFlakes = 1000
+    }
+}
+
+entity SnowFlake = 
+  {
+    inherit UnitySnow
+    Timer : float32
+    rule Timer = yield Timer + dt
+
+    rule Position = yield Position + new Vector3(Mathf.Cos(Timer),-0.5f, 0) * dt
+
+    rule Destroyed = 
+      wait Vector3.Distance(Position, world.MainCamera.Position) > 20.0f
+      yield true
+
+    Create(camera_position : Vector3) = 
+      {
+        Timer = Random.Range(-10.0f, 10.0f)
+        UnitySnow = UnitySnow.Instantiate(new Vector3(camera_position.x + Random.Range(-10.0f, 10.0f), 
+                                                      camera_position.y + 2.0f + Random.Range(0.0f, 3.0f),
+                                                      camera_position.z + Random.Range(-10.0f, 10.0f)))
+      }
+    
+}
+
+entity MainCamera = 
+  {
+      inherit UnityCamera // Inherits everything from the UnityCamera
+      HorizontalSpeed : float32
+      VerticalSpeed : float32
+      MaxVelocity : float32 // Max camera movement velocity 
+
+      //rule for moving left with the camera.We keep moving to the left as long as key A is pressed.
+      rule Position =
+        wait Input.GetKey(KeyCode.A)
+        yield Position + Left * dt * MaxVelocity
+
+      //rule for moving right with the camera. We keep moving to the right as long as key D is pressed.
+      rule Position =
+        wait Input.GetKey(KeyCode.D)
+        yield Position + Right * dt * MaxVelocity
+
+      //rule for moving forward with the camera. We keep moving to the forward as long as key W is pressed.
+      rule Position =
+        wait Input.GetKey(KeyCode.W)
+        yield Position + Forward * dt * MaxVelocity 
+
+      //rule for moving backward with the camera. We keep moving to the backword as long as key S is pressed.
+      rule Position =
+        wait Input.GetKey(KeyCode.S)
+        yield Position + Backward * dt * MaxVelocity
+
+      //rule for moving up with the camera. We keep moving to the up as long as key E is pressed.
+      rule Position =
+        wait Input.GetKey(KeyCode.E)
+        yield Position + Up * dt * MaxVelocity
+
+      //rule for moving down with the camera. We keep moving to the down as long as key Q is pressed.
+      rule Position =
+        wait Input.GetKey(KeyCode.Q)
+        yield Position + Down * dt * MaxVelocity
+
+
+      //Rule of current angle of the player camera
+      rule Rotation =
+        //We compute the directions towards which the mouse is moving by computing the delta between: the starting position
+        //of the mouse, and its current position. This function is provided by unity.
+        Quaternion.Euler(0.0f,Input.GetAxis("Mouse X") * HorizontalSpeed, 0.0f) *
+        UnityCamera.Rotation * Quaternion.Euler(Input.GetAxis("Mouse Y") * VerticalSpeed, 0.0f, 0.0f)
+
+      //MainCamera Constructor
+      Create() = 
+        {
+          UnityCamera = UnityCamera.Find()//Finds the maincamera in the unity scene
+          HorizontalSpeed = 2.0f
+          VerticalSpeed = -2.0f
+          MaxVelocity = 2.0f
+      }
+
+}

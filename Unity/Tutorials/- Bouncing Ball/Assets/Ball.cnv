@@ -1,0 +1,21 @@
+module Ball
+
+entity Ball = {
+  inherit UnityBall // Inherits everything of unityball
+  
+// rule that determines whether the ball is destroyed in unityball
+// when the ball is destroyed the Destroyed field will be set to true.
+  rule Destroyed = 
+    //we destroy the ball when its Y coordinate is lower than -10
+    wait Position.y < -10.0f
+    yield true
+
+  //Ball takes as arguments: position (which defines where the ball will be spawned),
+  // and direction (which defines the direction towards which we will apply the impulse to the ball)
+  Create(position : Vector3, direction : Vector3) = 
+    {
+      UnityBall    = UnityBall.Instantiate(direction, position)
+
+    }
+}
+  

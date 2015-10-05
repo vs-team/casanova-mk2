@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.- Snow Flake.CSharp", "UnityVS.- Snow Flake.CSharp.csproj", "{8298D1B3-A067-F0AC-0E82-046432AE3CDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.- Snow Flake.CSharp.Editor", "UnityVS.- Snow Flake.CSharp.Editor.csproj", "{EC7BB59C-B7A4-CD7F-E306-CFCC2842611A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8298D1B3-A067-F0AC-0E82-046432AE3CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8298D1B3-A067-F0AC-0E82-046432AE3CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8298D1B3-A067-F0AC-0E82-046432AE3CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8298D1B3-A067-F0AC-0E82-046432AE3CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC7BB59C-B7A4-CD7F-E306-CFCC2842611A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC7BB59C-B7A4-CD7F-E306-CFCC2842611A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC7BB59C-B7A4-CD7F-E306-CFCC2842611A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC7BB59C-B7A4-CD7F-E306-CFCC2842611A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

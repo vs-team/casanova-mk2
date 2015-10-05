@@ -1,0 +1,9 @@
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSComp.XML
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSComp.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSComp.pdb
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSharp.Core.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSharp.Core.xml
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.resources
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.fsproj.GenerateResource.Cache
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.dll
+D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.pdb

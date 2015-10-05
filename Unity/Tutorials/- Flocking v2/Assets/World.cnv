@@ -1,0 +1,285 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+
+  Boids : [(Boid)]      //List boids
+  BoidBoss : BoidLeader //Boid leader
+  Spheres : [(Sphere)]
+
+  Create() = {
+    // Creates 50 boid at a random position range of Random -10,10 on X and Y-Axis.
+    // Since we are not using the Z-Axis, it will remain untouched.
+    Boids = [for a in [1..40] do
+             select (new Boid(new Vector3(Random.Range(-10,10),Random.Range(-10,10),0.0f)))]
+    Spheres = [for x in [-1..1] do
+               for y in [-1..1] do
+               select (new Sphere(new Vector3(x * 20.0f, y * 20.0f,0.0f)))]
+    // Creates a BoidLeader
+    BoidBoss = new BoidLeader(new Vector3(-10.0f,0.0f,0.0f))
+    
+  }
+}
+  
+entity Boid = {
+  inherit UnityBoid
+  //Field name : Typee 
+  Velocity : Vector3
+  MaxVelocity : float32           
+  Force : Vector3
+  Acceleration : Vector3
+  Seek : Vector3
+  Friction : Vector3
+  Separation : Vector3
+  MaxDist : float32               // The distance radius for each boid.
+  Cohesion : Vector3              
+  CohesionMaxDist : float32       //The distance radius for Cohesion.
+  CohesionImpulse : float32       //The amount of force added for Cohesion.
+  SeparationFactor : float32      //The Separation factor.
+  SeparationImpulse : float32     //The amount of Separation force added.
+  FrictionFactor : float32        //The amount of force for the friction.
+  SeekImpulse : float32           //The amount of force added for Seeking target.
+  
+  // This rule steers the boid towards the center of nearby boids so they can stay in group.
+  rule Cohesion = 
+    //close_neighbors is the sum total of all nearby boids.
+    let close_neighbors = 
+      [for boid in world.Boids do // For every boid in list of world.Boids do,
+       let d = Vector3.Distance(Position, boid.Position) // d contains the distance between the current boid,
+                                                         // and the other boid.
+       //where the distance between the boids is smaller then recommended Cohesion distance and, 
+       //other boid is not equal to current boid.
+       where ((d < CohesionMaxDist) && (this <> boid))
+       //Select the boid Position.
+       select boid.Position
+       //sum all selected boids Position.
+       sum]
+    //counter is a list that holds all nearby boid.
+    let counter =       
+       [for boid in world.Boids do // for every boid in list of world.Boids
+        let d = Vector3.Distance(Position, boid.Position)//d contains the distance between the current boid,
+                                                         //and the other boid.
+        //where the distance between the boids is smaller then recommended Cohesion distance and, 
+        //other boid is not equal to current boid.
+        where ((d < MaxDist * CohesionMaxDist) && (this <> boid))
+        //Select boid.
+        select boid]
+    //if counter contains a boid or more,
+    if counter.Count > 0 then //then do,
+      // Desired position = sum of all nearby boid / count of nearby boid.
+      let desired = new Vector3(close_neighbors.x / counter.Count,//average x = sum.x / counter aantal boid,
+                                close_neighbors.y / counter.Count,//average y = sum.y / counter aantal boid,
+                                0.0f)                             //We will not be using the Z-Axis. 
+      let steer = desired.normalized * MaxVelocity  // Steering direction = Desired Position * Maximum speed.
+      // Cohesion = (Steering direction - Velocity) * the amount of Cohesion force
+      yield ( steer - Velocity) * CohesionImpulse // We are only giving a piece of the steering force, if
+                                                  // we add more force, then the steering will be immediately.
+    //Else no boids nearby Cohesion steering is zero.
+    else yield Vector3.zero
+
+  //This rule will steer the boids to given target if the target isn't nearby, in this case the BoidBoss.
+  rule Seek =
+    //boss_dist contains the distance between the boid and the boss.
+    let boss_dist = Vector3.Distance(Position, world.BoidBoss.Position)
+    // is_boss_close is a boolean containing information that the boss is nearby.
+    let is_boss_close = ((boss_dist > 0 ) && (boss_dist < world.BoidBoss.MaxDist))
+    // if the boss is not close then,
+    if not is_boss_close then
+      //Desired position = the boss current Position - this Boid current Position.
+      let desired = world.BoidBoss.Position - Position
+      //steer = desired position * Maximum speed.
+      let steer = desired.normalized * MaxVelocity
+      //Seek = (steer - Velocity) * the amount of seek force, this will determine the steering force,
+      //for the rule Seek.
+      yield ( steer - Velocity) * SeekImpulse
+    //Else the boss is near no need to seek target.
+    else yield Vector3.zero
+
+  //This rule steers the boids to avoid colliding with nearby boids.
+  rule Separation =
+    // close_boids_positions contains a list of nearby boids positions in difference.
+    let close_boids_positions =
+      [for boid in world.Boids do // For every boid in world.Boids do,
+       //d contains the distance between the current and other boid.
+       let d = Vector3.Distance(Position , boid.Position)
+       //where the distance between the boids is smaller then recommended MaxDist distance and, 
+       //other boid is not equal to current boid.
+       where ((d > 0) && (d < MaxDist) && (this <> boid))
+       //Select (current position - Other position) and select distance as well .
+       select ((Position - boid.Position), d)]
+
+    // close_boids_sum contains the sum of nearby boids.
+    let close_boids_sum =
+      [for item in close_boids_positions do // for every boids positions in close_boids_positions do,
+       // since we selected the difference in position and the distance,
+       let d = item.Item2 //d will contain the distance while,
+       let diff = item.Item1// diff will contain the difference of the position we selected.
+       //select per boid the difference divided by d(distance) * SeparationFactor,
+       //the SeparationFactor adds more space between the objects giving an extra push.
+       select ((diff.normalized)/(d / SeparationFactor ))
+       //sums all selected in close_boids_sum.
+       sum]
+
+    
+    //boss_dist contains the distance between this boid Position and the world.Boidboss.Position.
+    let boss_dist = Vector3.Distance(Position, world.BoidBoss.Position)
+    //is_boss_close contains a boolean which will be true if the boss is close to the boid.
+    let is_boss_close = ((boss_dist > 0 ) && (boss_dist < world.BoidBoss.MaxDist))
+    //close_boids_sum contains sum of all boids that's nearby
+    let close_boids_sum = 
+      //if the boss is close then,
+      if is_boss_close then
+        //difference = this.boid Position - world.BoidBoss.Position
+        let diff = Position - world.BoidBoss.Position 
+        //close_boids_sum is then close_boids_sum + the difference divided by the boss distance * SeparationFactor,
+        //the SeparationFactor adds more space between the objects giving an extra push.
+        (diff.normalized / (boss_dist / SeparationFactor)) + close_boids_sum
+      else
+        //Else Boidboss is not close close_boids_sum remains the same.
+        close_boids_sum
+    
+    //if close_boids_positions.Count(amount of boids that's closeby) is greater then zero or
+     // boss is close then,
+    if close_boids_positions.Count > 0 || is_boss_close then
+      //total_count will contain x amount of boids count that's nearby, 
+      //the if loop will determine how much x boids there are..
+      let total_count = 
+        //if boss is close then add 1 to total count and the count of amount of boids in close_boids_positions,
+        if is_boss_close then 1 + close_boids_positions.Count
+        //else bos is not near and total_count is the count of boids in close_boids_positions.
+        else close_boids_positions.Count
+      
+      //avg(Average) contains the avg of the positions divided by total nearby boids.
+      let avg = new Vector3(close_boids_sum.x / total_count, 
+                            close_boids_sum.y / total_count, 
+                            0.0f)
+      //steer contains the avg position * Maximum speed.
+      let steer = avg.normalized * MaxVelocity
+      //Separation steering force = (steer - Velocity ) * the amount of SeparationImpulse, this will determine 
+      //the amount of impact for the boids to stay separated from each other.
+      yield (steer - Velocity) * SeparationImpulse
+    //else no nearby boids Separation force is zero
+    else yield Vector3.zero
+    
+  
+  //This rule defines friction, since friction pushes continuously against the object in the,
+  //opposite direction of its Velocity, the object continuously slows down.
+  rule Friction = 
+    let friction = Velocity.normalized //friction contains velocity in opposite direction * Friction factor,
+                                       //which will determine the amount of force of the friction.
+    yield (friction * -1.0f) * FrictionFactor
+
+  //This rules defines the Position of the boid + Velocity times Delta time,
+  //This rules define the Position dynamics. Position is affected by,
+  //the Velocity scaled by the time difference between this frame and the previous frame.
+  //The formula is p(t + dt) = p(t) + v(t) * dt
+  rule Position =
+    yield Position + Velocity * dt
+
+  //This rule defines the Velocity dynamics. Velocity is affected by,
+  //the Acceleration scaled by the time difference between this frame and the previous frame.
+  //The formula is v(t + dt) = v(t) + a * dt
+  rule Velocity = yield Velocity + Acceleration * dt
+
+  //All the rules above will define the Acceleration rule.
+  //We add all the forces to acceleration.
+  rule Acceleration = 
+    yield Seek + Cohesion + Friction + Separation
+ 
+  //Constructor for boid which takes a position as argument
+  Create(pos : Vector3) = {
+    //Instantiate a boid at given positions
+    Base = UnityBoid.Instantiate(pos)
+    Velocity = new Vector3(0.0f , 0.0f , 0.0f)
+    MaxVelocity = 8.0f
+    Force = Vector3.zero
+    Acceleration = Vector3.zero
+    Seek = Vector3.zero
+    Friction = Vector3.zero
+    Separation = Vector3.zero
+    MaxDist = Scale.x * 2.0f
+    Cohesion = Vector3.zero
+    
+    CohesionMaxDist = 30.0f
+    CohesionImpulse = 0.9f
+    SeparationFactor = 100000.0f
+    SeparationImpulse = 20.0f
+    FrictionFactor = 0.4f
+    SeekImpulse = 5.0f
+             
+  }
+}
+
+
+entity BoidLeader = {
+  inherit UnityBoidLeader
+  Camera : UnityCamera  // Main Camera
+  MaxVelocity : float32 // Max movement speed
+  Start : bool          // Used to put Camera follow the leader, Can also put it at a fixed place.( in this case false)
+  MaxDist : float32     // The radius for distance.
+
+  //This rule will define the Camera Position  
+  rule Camera.Position = 
+    //The Position of the camera is the Position of the player +  -Z axis(200). 
+    //This will bring the camera to the back so we can have a better view over the environment and the camera follows player.
+    yield Position + new Vector3(0.0f,1.0f,-200.0f) 
+  
+  //The  upcoming Positions rules will influence the position of the player based on keys pressed.
+  //Since we are only using the X and Y- Axis  you can only move left, right , up and down.
+  rule Position =
+    //wait until key A is pressed
+    wait Input.GetKey(KeyCode.A)
+    //Makes you move left, the MaxVelocity will have an influence on how fast you will go.
+    yield Position + Left * dt * MaxVelocity
+
+  rule Position =
+    //wait until key D is pressed
+    wait Input.GetKey(KeyCode.D)
+    //Makes you move left, the MaxVelocity will have an influence on how fast you will go.
+    yield Position + Right * dt * MaxVelocity
+
+  rule Position =
+    //wait until key W is pressed
+    wait Input.GetKey(KeyCode.W)
+    //Makes you move left, the MaxVelocity will have an influence on how fast you will go.
+    yield Position + Up * dt * MaxVelocity
+
+  rule Position =
+    //wait until key S is pressed
+    wait Input.GetKey(KeyCode.S)
+    //Makes you move left, the MaxVelocity will have an influence on how fast you will go.
+    yield Position + Down * dt * MaxVelocity
+
+  //Constructor of BoidLeader takes as argument the Position where it will be instantiated.
+  Create(position : Vector3) = {
+    Base = UnityBoidLeader.Instantiate(position)
+    MaxVelocity = 5.0f          
+    Camera = UnityCamera.Find() // Finds the Main camera in Unity
+    Start = true                // Set on true so 
+    MaxDist = Scale.x * 3.0f    // Radius * 3 = Distance
+  }
+}
+
+entity Sphere = {
+  inherit UnitySphere
+  RotationZ : float32   //Z-Axis of the Sphere.
+  Speed : float32       //Speed for the rotation.
+  
+  //This rule defines the Z rotation dynamics of the sphere.
+  rule RotationZ = 
+   yield RotationZ + Speed * dt 
+
+  //Rotation defines the current rotation of the sphere.
+  rule Rotation = 
+   Quaternion.Euler(0.0f,0.0f,0.0f) * Quaternion.Euler(0.0f,0.0f,0.0f) *Quaternion.Euler(0.0f,0.0f,RotationZ)
+  
+  //Takes as argument position.
+  Create(position : Vector3) = {
+     //Instantiate Sphere.
+     Base = UnitySphere.Instantiate(position)
+     RotationZ = Random.Range(-50.0f,50.0f)
+     Speed = Random.Range(15.0f,45.0f)
+  }
+}

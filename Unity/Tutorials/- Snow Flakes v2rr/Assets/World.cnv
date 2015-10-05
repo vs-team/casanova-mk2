@@ -1,0 +1,141 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  MainCamera : MainCamera // Unity Camera
+  SnowFlakes : [SnowFlake] // Snowflake list
+  MaxSnowFlakes : int //Maximum SnowFlakes
+
+  //this rule  defines if the SnowFlake will be seen or not
+  rule SnowFlakes = 
+    yield
+      [for s in SnowFlakes do //for all SnowFlake in the list 
+        where (not s.Destroyed) // where it's not destroyed(not false)
+        select s] //select all 
+
+  //this rule defines when more SnowFlakes will be spawned. 
+  rule SnowFlakes =
+    // wait until the count of SnowFlakes list is lower then the maximum allowed SnowFlakes.
+    wait SnowFlakes.Count < MaxSnowFlakes
+    for ns in [0..100] do
+        yield new SnowFlake(MainCamera.Position, None) :: SnowFlakes //makes 50 SnowFlakes and adds them to the new list.
+    wait Random.Range(0.1f, 1.0f) // Wait for random amount of time before spawning more SnowFlakes
+
+  //world constructor
+  Create() = 
+    //camera will contain the MainCamera from unity
+    let camera = new MainCamera()    
+    {
+      //200 SnowFlakes will be added to the SnowFlake list
+      SnowFlakes = 
+       [for s in [0..400] do
+         select (new SnowFlake(camera.Position, Some(camera.Position.y + Random.Range(-5.0f, 3.0f))))] //Makes 400 SnowFlakes and adds them to List
+      MainCamera = camera // MainCamera would be camera( the main camera in unity)
+      MaxSnowFlakes = 11000 // Maximum snowflakes is set to 11000
+  }
+}
+
+entity SnowFlake = {
+  inherit UnitySnowFlake //inherit everything of UnitySnowFlake
+  Timer : float32  //will be used to make the SnowFlake float
+  RandomX : int
+  RandomY : int
+  RandomZ : int
+
+  RotationX : float32
+  RotationY : float32
+  RotationZ : float32
+
+  //this define the timer of the object
+  rule Timer = 
+    yield Timer + dt // adds deltatime to timer 
+
+  //this rule defines the position of the SnowFlake
+  rule Position = 
+  // Cosinus(Timer) is used on the X positon here to make the SnowFlake float like a real Snowflake would in reality,
+  // the y position drops
+  // y position by -0.65 each delta time.
+    yield Position + new Vector3(Mathf.Cos(Timer), -0.65f , 0 ) * dt 
+
+  //This defines when the flake will be destroyed 
+  rule Destroyed = 
+  // wait until the distance between the flake and the camera is greater then 15 if so
+    wait Vector3.Distance(Position, world.MainCamera.Position) > 40.0f
+    yield true // destroyed is set to true.
+  
+  //The rules defined below here are used to make the SnowFlake rotate in the correct direction according to the real time.
+  //Rule for the horizontal rotation of the SnowFlake 
+  rule RotationX = 
+   yield RotationX + RandomX * dt
+  //Rule for the vertical rotation of the SnowFlake
+  rule RotationY = 
+   yield RotationY + RandomY * dt
+  //Rule for the 3D(Up/Down) rotation of the SnowFlake
+  rule RotationZ = 
+   yield RotationZ + RandomZ * dt
+
+  rule Rotation = 
+   Quaternion.Euler(RotationX,0.0f,0.0f) * Quaternion.Euler(0.0f,RotationY,0.0f) *Quaternion.Euler(0.0f,0.0f,RotationZ)
+  
+  //For the upcoming rules a waiting range of random number (in this case 1 to 3 seconds)
+  //is applied, after the waiting you would see the SnowFlake rotate again in a random direction
+  //by a random degree between -30 and 30.Each Rotation axis have it's own random waiting and degree range.
+  rule RandomX = 
+    wait Random.Range(1,3);
+    yield Random.Range(-30,30)
+
+  rule RandomY = 
+    wait Random.Range(1,3);
+    yield Random.Range(-30,30)
+
+  rule RandomZ = 
+    wait Random.Range(1,3);
+    yield Random.Range(-30,30)
+
+  //SnowFlake constructor takes the cameraposition as argument.
+  Create(camera_position : Vector3, y_pos : Option<float32>) =
+   let y_pos =
+      if y_pos.IsSome then y_pos.Value
+      else camera_position.y + 2.0f + Random.Range(0.0f, 3.0f)
+   {
+      // gives timer a random number between -10 and 10
+      Timer = Random.Range(-10.0f, 10.0f)   
+      //Spawns a snowflake at given positions, we've added random numbers to each position so
+      //that not all the flakes will spawn at the same position but different position                                        
+      UnitySnowFlake = UnitySnowFlake.Instantiate(new Vector3(camera_position.x + Random.Range(-20.0f, 20.0f),
+                                                  y_pos,
+                                                  camera_position.z + Random.Range(-20.0f, 20.0f)))
+
+      //Variables empty when constructed.
+      RandomX = 0
+      RandomY = 0
+      RandomZ = 0
+      //Applying RotationAxis to the field names.
+      RotationX = Rotation.x
+      RotationY = Rotation.y
+      RotationZ = Rotation.z
+   }
+}
+
+
+entity MainCamera = {
+  inherit UnityCamera // inherits everythign of UnityCamera
+  HorizontalSpeed : float32
+  VerticalSpeed : float32
+
+  rule Rotation =
+    //We compute the directions towards which the mouse is moving by computing the delta between: the starting position
+    //of the mouse, and its current position. This function is provided by unity.
+    Quaternion.Euler(0.0f,Input.GetAxis("Mouse X") * HorizontalSpeed, 0.0f) *
+    UnityCamera.Rotation * Quaternion.Euler(Input.GetAxis("Mouse Y") * VerticalSpeed, 0.0f, 0.0f)
+
+  //MainCamera constructor
+  Create() = {
+    //Finds the camera in Unity
+    UnityCamera = UnityCamera.Find()
+    HorizontalSpeed = 2.0f
+    VerticalSpeed = -2.0f
+  }
+}

@@ -1,0 +1,122 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+
+  Boids : [(Boid)]
+  BoidBoss : BoidLeader
+
+  Create() = {
+    Boids = [for b in [0..10] do
+             select (new Boid(new Vector3(Random.Range(-10,10),Random.Range(-10,10),0.0f)))]
+             //new Boid(new Vector3(0.0f,1.0f,0.0f));new Boid(new Vector3(-1.0f,1.0f,0.0f))]
+    BoidBoss = new BoidLeader(new Vector3(0.0f,10.0f,0.0f))
+  }
+}
+
+entity Boid = {
+  inherit UnityBoid
+  Velocity : Vector3
+  Separation : Vector3
+  Cohesion : Vector3  
+  Seek : Vector3
+  MaxVelocity : float32
+
+  rule Velocity =
+    let max_dist = 5.0f
+    let list_neighbours =
+      [for boid in world.Boids do
+       where ((boid <> this) && (Vector3.Distance(Position, boid.Position ) < max_dist))
+       select boid.Position]
+
+    let list_neighbours = 
+      if (Vector3.Distance(world.BoidBoss.Position, Position )) < max_dist then 
+        world.BoidBoss.Position :: list_neighbours
+      else list_neighbours
+
+    let list_position_neighbours = 
+      [for boid in list_neighbours do
+       select boid
+       sum]
+    let average = new Vector3(list_position_neighbours.x / list_neighbours.Count, 
+                              list_position_neighbours.y / list_neighbours.Count, 
+                              0.0f)
+    let p = Position - average
+    yield Velocity + p.normalized * 5.0f * dt
+
+
+
+  rule Velocity = 
+    let max_dist = 5.0f
+    let positions = 
+      [for boid in world.Boids do
+       where ((boid <> this) && (Vector3.Distance(this.Position, boid.Position) < max_dist))
+       select (boid.Position)]
+
+    let positions = world.BoidBoss.Position :: positions
+
+    let position_total =
+      [for boid in positions do
+       select (boid)
+       sum]
+   
+    let neighbours = positions.Count
+    
+    let average =  new Vector3(position_total.x / neighbours,
+                      position_total.y / neighbours,
+                      0.0f)
+    
+
+    let desired = average - Position
+    let desired = desired.normalized * 4.0f
+    let steer = desired - Velocity
+    yield Velocity + steer.normalized * 3.0f * dt
+
+  rule Position =
+    yield Position + Velocity * dt 
+
+  Create(pos : Vector3) = {
+    Base = UnityBoid.Instantiate(pos)
+    Velocity = Vector3.zero
+    Separation = Vector3.zero
+    Cohesion = Vector3.zero
+    Seek = Vector3.zero
+    MaxVelocity = 4.0f
+  }
+}
+
+entity BoidLeader = {
+  inherit UnityBoidLeader
+  Camera : UnityCamera
+  MaxVelocity : float32
+  Start : bool
+
+  rule Camera.Position, Start = 
+    wait Start
+    yield Position + new Vector3(0.0f,1.0f,-20.0f) , false
+
+  rule Position =
+    wait Input.GetKey(KeyCode.A)
+    yield Position + Left * dt * MaxVelocity
+
+  rule Position =
+    wait Input.GetKey(KeyCode.D)
+    yield Position + Right * dt * MaxVelocity
+
+  rule Position =
+    wait Input.GetKey(KeyCode.W)
+    yield Position + Up * dt * MaxVelocity
+
+  rule Position =
+    wait Input.GetKey(KeyCode.S)
+    yield Position + Down * dt * MaxVelocity
+
+  Create(position : Vector3) = {
+    Base = UnityBoidLeader.Instantiate(position)
+    MaxVelocity = 6.0f
+    Camera = UnityCamera.Find()
+    Start = true
+  }
+}

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.- Snow Flakes v2 - Copy.CSharp", "UnityVS.- Snow Flakes v2 - Copy.CSharp.csproj", "{66834506-E4B9-467A-833B-2560DF1C9BCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.- Snow Flakes v2 - Copy.CSharp.Editor", "UnityVS.- Snow Flakes v2 - Copy.CSharp.Editor.csproj", "{3EA871A9-CFDA-9A77-7E24-023D50D59EA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66834506-E4B9-467A-833B-2560DF1C9BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66834506-E4B9-467A-833B-2560DF1C9BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66834506-E4B9-467A-833B-2560DF1C9BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66834506-E4B9-467A-833B-2560DF1C9BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA871A9-CFDA-9A77-7E24-023D50D59EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA871A9-CFDA-9A77-7E24-023D50D59EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA871A9-CFDA-9A77-7E24-023D50D59EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA871A9-CFDA-9A77-7E24-023D50D59EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
