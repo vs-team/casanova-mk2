@@ -1,0 +1,16 @@
+module Menumodule 
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+worldEntity MainMenu = {
+  
+    MiniMenu : int
+
+    Create()={
+        MiniMenu = 1
+    }    
+}
+
+

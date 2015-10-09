@@ -1,0 +1,240 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+
+    GameReady       : bool
+    CurrentPlayer   : Player
+    Asteroids       : [Asteroid]
+    SpawnAmount     : float
+    //PlayerClient    : Client
+    //GameServer      : Server
+    GameOver        : bool
+    GameOverText    : CnvText
+    ScoreText       : CnvText
+    
+    (*rule GameReady =
+        if GameSettings.isHost then 
+            let x = GameServer.Host
+            Debug.Log(x)
+            yield x 
+        else
+            let a = PlayerClient.Connect
+            Debug.Log(a)
+            yield a*)
+
+    rule Asteroids =
+        wait SpawnAmount
+        let x = Random.Range(-15, 15)
+        yield new Asteroid(Vector3(((float)x), 7.0f, -15.0f)) :: Asteroids
+
+    rule SpawnAmount = 
+        wait 1.0f
+        if SpawnAmount > 0.1f then
+            yield SpawnAmount - 0.1f   
+        else    
+            yield SpawnAmount 
+
+    rule Asteroids =
+        [for a in Asteroids do
+         where (a.Destroyed = false)
+         select a]
+
+    rule GameOver =
+      wait GameOver
+      yield GameOver
+      Application.Quit()
+
+    rule ScoreText.Text =
+      let currentScore = CurrentPlayer.Score
+      yield "Score: " + currentScore.ToString()
+      wait currentScore <> CurrentPlayer.Score
+
+    rule GameOverText.Alpha,GameOver =
+      wait CurrentPlayer.PlayerShip.HitCounter >= 3 && not GameOver
+      let fadingFactor = 0.025f
+      while GameOverText.Alpha < 1.0f do
+        yield GameOverText.Alpha + fadingFactor, false
+      yield 1.0f, false
+      wait 1.0f
+      while GameOverText.Alpha > 0.0f do
+        yield GameOverText.Alpha - fadingFactor, false
+      yield 0.0f,false
+      wait 0.5f
+      yield GameOverText.Alpha, true
+
+    Create () =
+      Debug.Log(GameSettings.isHost)
+      {
+        CurrentPlayer = new Player()
+        Asteroids = []
+        SpawnAmount = 2.0f
+        GameReady = false
+        //PlayerClient = new Client()
+        //GameServer = new Server()
+        GameOver = false
+        GameOverText = new CnvText("Text/GameOver",false)
+        ScoreText = new CnvText("Text/Score",true)
+      }
+
+
+}
+
+entity Player = {
+
+    PlayerID    : int
+    PlayerShip  : Ship
+    Heart1      : Life
+    Heart2      : Life
+    Heart3      : Life
+    Score       : int
+
+    rule Heart1.Active, Heart2.Active, Heart3.Active =
+      if PlayerShip.HitCounter = 0 then
+        yield true, true, true
+      if PlayerShip.HitCounter = 1 then
+        yield true, true, false
+      if PlayerShip.HitCounter = 2 then   
+        yield true, false, false
+      if PlayerShip.HitCounter = 3 then
+        yield false, false, false
+
+    rule Score =
+      let impactBullets =
+        [for projectile in PlayerShip.Projectiles do
+         where ((not projectile.Removed) && projectile.Impact)
+         select (projectile)]
+      yield Score + impactBullets.Count
+      
+
+
+    Create() = {
+      PlayerID = 1
+      PlayerShip = new Ship()
+      Heart1 = new Life("HealthBar/Life1")
+      Heart2 = new Life("HealthBar/Life2")
+      Heart3 = new Life("HealthBar/Life3")
+      Score = 0
+    }
+}
+
+entity Ship = {
+    inherit UnityShip
+    
+    Projectiles : [Bullet]    
+    HitCounter  : int
+
+    rule Projectiles = 
+        wait (Input.GetKeyDown(KeyCode.Space)) 
+        yield new Bullet(Position, this) :: Projectiles
+        wait 0.1f   
+
+    rule Position =
+       wait (Input.GetKey(KeyCode.A))
+       yield Position - Vector3(4.0f*dt, 0.0f, 0.0f)
+    
+    rule Position =
+        wait(Input.GetKey(KeyCode.D))
+        yield Position + Vector3(4.0f*dt, 0.0f, 0.0f)
+
+    rule HitCounter, Hit =
+        wait Hit
+        yield HitCounter + 1, false
+
+    
+
+    rule Projectiles = 
+          [for p in Projectiles do
+           where (not p.Destroyed)
+           select (p)]
+
+
+    Create() = 
+      {
+        Base = UnityShip.Instantiate(Vector3(0.0f, -2.0f, -15.0f))
+        Projectiles = []
+        HitCounter = 0
+      }
+}
+
+entity Bullet = {
+    inherit UnityBullet
+
+    Removed     : bool
+    ref Owner   : Ship
+
+    rule Destroyed,Removed =
+        wait (not Removed) && (Impact || ViewPortPoint.y > 1.0f)
+        wait dt
+        yield true,true
+    
+    rule Position =
+       wait not Removed 
+       yield Position + Vector3(0.0f, 5.0f * dt, 0.0f)
+    
+    Create(pos : Vector3, owner : Ship) = {
+      UnityBullet = UnityBullet.Instantiate(pos)
+      Owner = owner
+      Removed = false
+    }
+
+}
+
+entity Asteroid = {
+    inherit UnityAsteroid
+
+    Removed    : bool
+
+    rule Position =
+        wait not Removed    
+        yield Position + Vector3(0.0f, -5.0f * dt, 0.0f)
+ 
+    rule Destroyed,Removed =
+        wait (not Removed) && (Hit || ViewPortPoint.y < -0.4f)
+        wait dt
+        yield true,true
+
+
+    Create(pos : Vector3) = {
+      Base = UnityAsteroid.Instantiate(pos)
+      Removed = false
+    }
+
+}
+
+entity Life = {
+    inherit UnityPlayerHealth
+
+    Create(n : string) = {
+      Base = UnityPlayerHealth.Find(n)
+    }
+
+}
+
+entity CnvText = {
+  inherit UnityText
+  
+  Create(n : string, isVisible : bool) = {
+    UnityText = UnityText.Find(n, isVisible)
+  }
+}
+
+entity Client = {
+    inherit UnityGameClient
+
+    Create() = {
+      Base = UnityGameClient.Find()
+    }
+
+}
+
+entity Server = {
+    inherit UnityGameServer
+
+    Create() = {
+      Base = UnityGameServer.Find()
+    }
+
+}

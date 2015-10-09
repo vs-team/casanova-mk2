@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asteroid Shooter v2.CSharp", "Asteroid Shooter v2.CSharp.csproj", "{5F26353C-8D16-5E57-D755-B18093F66E9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asteroid Shooter v2.CSharp.Editor", "Asteroid Shooter v2.CSharp.Editor.csproj", "{39CFD8D0-540A-92B0-B05E-126AA20C81E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F26353C-8D16-5E57-D755-B18093F66E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F26353C-8D16-5E57-D755-B18093F66E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F26353C-8D16-5E57-D755-B18093F66E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F26353C-8D16-5E57-D755-B18093F66E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CFD8D0-540A-92B0-B05E-126AA20C81E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CFD8D0-540A-92B0-B05E-126AA20C81E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CFD8D0-540A-92B0-B05E-126AA20C81E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CFD8D0-540A-92B0-B05E-126AA20C81E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
