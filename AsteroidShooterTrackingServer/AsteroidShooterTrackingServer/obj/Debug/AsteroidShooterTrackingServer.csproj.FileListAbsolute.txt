@@ -1,0 +1,8 @@
+c:\users\francesco\documents\visual studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Debug\AsteroidShooterTrackingServer.exe.config
+C:\Users\Francesco\Documents\Visual Studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Debug\AsteroidShooterTrackingServer.exe
+C:\Users\Francesco\Documents\Visual Studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Debug\AsteroidShooterTrackingServer.pdb
+C:\Users\Francesco\Documents\Visual Studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Debug\Lidgren.Network.dll
+C:\Users\Francesco\Documents\Visual Studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Debug\UnityEngine.dll
+C:\Users\Francesco\Documents\Visual Studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\obj\Debug\AsteroidShooterTrackingServer.csprojResolveAssemblyReference.cache
+C:\Users\Francesco\Documents\Visual Studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\obj\Debug\AsteroidShooterTrackingServer.exe
+C:\Users\Francesco\Documents\Visual Studio 2015\Projects\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\obj\Debug\AsteroidShooterTrackingServer.pdb

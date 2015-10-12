@@ -66,4 +66,4 @@ public class UnityAsteroid : MonoBehaviour
     get { return mainCam.WorldToViewportPoint(gameObject.transform.position); }
   }
 }
-                                                         
+                                                                

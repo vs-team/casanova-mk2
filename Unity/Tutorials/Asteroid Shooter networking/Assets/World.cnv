@@ -127,9 +127,9 @@ entity Ship = {
     HitCounter  : int
 
     rule Projectiles = 
-        wait (Input.GetKeyDown(KeyCode.Space)) 
+        wait (Input.GetKeyDown(KeyCode.Space))
         yield new Bullet(Position, this) :: Projectiles
-        wait 0.1f   
+        wait 0.1f
 
     rule Position =
        wait (Input.GetKey(KeyCode.A))
