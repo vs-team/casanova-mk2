@@ -34,12 +34,14 @@ namespace ApplicationClient
       {
         Console.WriteLine("Sending...");
         Console.Clear();
-        List<int> list = new List<int>(4);
-        list.Add(15);
-        list.Add(22);
-        list.Add(45);
-        list.Add(69);
-        NetworkUtils.Send<List<int>>(list, this.netClient);
+        Vector3 v1 = new Vector3(1.0f, -3.0f, 2.5f);
+        Vector3 v2 = new Vector3(1.0f, 1.5f, 2.5f);
+        Vector3 v3 = new Vector3(1.0f, 1.0f, -2.5f);
+        List<Vector3> vectorList = new List<Vector3>(3);
+        vectorList.Add(v1);
+        vectorList.Add(v2);
+        vectorList.Add(v3);
+        NetworkUtils.Send<Vector3>(vectorList, this.netClient, NetworkUtils.BuildMessage);
       }
     }
 
@@ -52,53 +54,35 @@ namespace ApplicationClient
         {
           switch (message.MessageType)
           {
-            case NetIncomingMessageType.Error:
-              break;
-            case NetIncomingMessageType.StatusChanged:
-              break;
-            case NetIncomingMessageType.UnconnectedData:
-              break;
-            case NetIncomingMessageType.ConnectionApproval:
-              break;
             case NetIncomingMessageType.Data:
               switch ((NetworkUtils.AsteroidShooterMessage)message.ReadInt32())
               {
-                case NetworkUtils.AsteroidShooterMessage.Vector3Message:
-                  Vector3 v = NetworkUtils.Receive<Vector3>(message);
-                  Console.Clear();
-                  Console.WriteLine("[" + v.x + "," + v.y + "," + v.z + "]");
-                  break;
-                case NetworkUtils.AsteroidShooterMessage.ListIntegerMessage:
-                  List<int> list = NetworkUtils.Receive<List<int>>(message);
-                  Console.Clear();
-                  Console.WriteLine("[");
-                  for (int i = 0; i < list.Count; i++)
+                case NetworkUtils.AsteroidShooterMessage.CompositeType:
+                  switch ((NetworkUtils.AsteroidShooterMessage)message.ReadInt32())
                   {
-                    Console.WriteLine(list[i]);
+                    case NetworkUtils.AsteroidShooterMessage.Vector3Message:
+                      Vector3 v = NetworkUtils.Receive<Vector3>(message, NetworkUtils.ReceiveVector3);
+                      Console.Clear();
+                      Console.WriteLine("[" + v.x + "," + v.y + "," + v.z + "]");
+                      break;
+                    case NetworkUtils.AsteroidShooterMessage.ListMessage:
+                      List<Vector3> list = NetworkUtils.ReceiveList<Vector3>(message, NetworkUtils.ReceiveVector3);
+                      Console.Clear();
+                      Console.Write("[");
+                      for (int i = 0; i < list.Count; i++)
+                      {
+                        Console.Write(i == list.Count - 1 ? list[i].ToString() : list[i].ToString() + ",");
+                      }
+                      Console.Write("]\n");
+                      break;
+                    default:
+                      throw new ArgumentException("Unsupported network data");
                   }
-                  Console.WriteLine("]");
                   break;
                 default:
-                  throw new ArgumentException("Unsupported network data");
+                  throw new ArgumentException("Undefined network data category");
               }
-              break;
-            case NetIncomingMessageType.Receipt:
-              break;
-            case NetIncomingMessageType.DiscoveryRequest:
-              break;
-            case NetIncomingMessageType.DiscoveryResponse:
-              break;
-            case NetIncomingMessageType.VerboseDebugMessage:
-              break;
-            case NetIncomingMessageType.DebugMessage:
-              break;
-            case NetIncomingMessageType.WarningMessage:
-              break;
-            case NetIncomingMessageType.ErrorMessage:
-              break;
-            case NetIncomingMessageType.NatIntroductionSuccess:
-              break;
-            case NetIncomingMessageType.ConnectionLatencyUpdated:
+              
               break;
             default:
               break;
