@@ -10,86 +10,70 @@ namespace GameNetworking
 {
   public static class NetworkUtils
   {
-    public enum AsteroidShooterMessage { Vector3Message, ListIntegerMessage }
+    public enum AsteroidShooterMessage { BasicType, CompositeType, Vector3Message, ListMessage }
 
-    public static void Send<T>(T element, NetClient client)
+    public static void Send<T>(T element, NetClient client, Func<T, NetClient, bool, NetOutgoingMessage> messageFunction)
     {
-      NetOutgoingMessage message = BuildMessage<T>(element, client);
+      NetOutgoingMessage message = messageFunction(element, client, true);
       client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
     }
 
-    private static NetOutgoingMessage BuildMessage<T>(T element, NetClient client)
+    public static void Send<T>(List<T> list, NetClient client, Func<T, NetClient, bool, NetOutgoingMessage> messageFunction)
     {
-      Console.WriteLine(element.GetType().Name);
-      NetOutgoingMessage message = client.CreateMessage();
-      Console.WriteLine(typeof(T));
-      if (typeof(T) == typeof(Vector3))
-      {
-        Vector3 v = (Vector3)(object)element;
-        AsteroidShooterMessage header = AsteroidShooterMessage.Vector3Message;
-        float x = v.x;
-        float y = v.y;
-        float z = v.z;
-        message.Write((int)header);
-        message.Write(x);
-        message.Write(y);
-        message.Write(z);
-        return message;
-      }
-      else if (element.GetType().Name == "List`1")
-      {     
-        List<int> list = (List<int>)(object)element;
-        AsteroidShooterMessage header = AsteroidShooterMessage.ListIntegerMessage;
-        message.Write((int)header);
-        message.Write(list.Count);
-        for (int i = 0; i < list.Count; i++)
-        {
-          NetOutgoingMessage partialMessage = BuildMessage<int>(list[i], client);
-          message.Write(partialMessage);
-        }
-        return message;
-      }
-      else if (typeof(T) == typeof(int))
-      {
-        int n = (int)(object)element;
-        message.Write(n);
-        return message;
-      }
-      else
-      {
-        throw new ArgumentException("Unsupported send type");
-      }
+      NetOutgoingMessage message = BuildMessage<T>(list, client, messageFunction);
+      client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
     }
 
-    public static T Receive<T>(NetIncomingMessage message)
+    public static T Receive<T>(NetIncomingMessage message, Func<NetIncomingMessage, T> receiveFunction)
     {
-      if (typeof(T) == typeof(Vector3))
+      return receiveFunction(message);
+    }
+
+    public static NetOutgoingMessage BuildMessage(Vector3 v, NetClient client, bool createHeader)
+    {
+      NetOutgoingMessage message = client.CreateMessage();
+      if (createHeader)
       {
-        float x = message.ReadFloat();
-        float y = message.ReadFloat();
-        float z = message.ReadFloat();
-        Vector3 v = new Vector3(x, y, z);
-        return (T)Convert.ChangeType(v, typeof(T));
+        message.Write((int)AsteroidShooterMessage.CompositeType);
+        message.Write((int)AsteroidShooterMessage.Vector3Message);
       }
-      else if (typeof(T) == typeof(List<int>))
+      message.Write(v.x);
+      message.Write(v.y);
+      message.Write(v.z);
+      return message;
+    }
+
+    public static NetOutgoingMessage BuildMessage<T>(List<T> list, NetClient client, Func<T, NetClient, bool, NetOutgoingMessage> messageFunction)
+    {
+      NetOutgoingMessage message = client.CreateMessage();
+      message.Write((int)AsteroidShooterMessage.CompositeType);
+      message.Write((int)AsteroidShooterMessage.ListMessage);
+      message.Write(list.Count);
+      for (int i = 0; i < list.Count; i++)
       {
-        int length = message.ReadInt32();
-        List<int> list = new List<int>(length);
-        for (int i = 0; i < length; i++)
-        {
-          int element = Receive<int>(message);
-          list.Add(element);
-        }
-        return (T)Convert.ChangeType(list, typeof(T));
+        NetOutgoingMessage tempMessage = messageFunction(list[i], client, false);
+        message.Write(tempMessage);
       }
-      else if (typeof(T) == typeof(int))
+      return message;
+    }
+
+    public static Vector3 ReceiveVector3(NetIncomingMessage message)
+    {
+      float x = message.ReadFloat();
+      float y = message.ReadFloat();
+      float z = message.ReadFloat();
+      return new Vector3(x, y, z);
+    }
+
+    public static List<T> ReceiveList<T>(NetIncomingMessage message, Func<NetIncomingMessage, T> decodeFunction)
+    {
+      int length = message.ReadInt32();
+      List<T> list = new List<T>(length);
+      for (int i = 0; i < length; i++)
       {
-        return (T)Convert.ChangeType(message.ReadInt32(), typeof(T));
+        list.Add(decodeFunction(message));
       }
-      else
-      {
-        throw new ArgumentException("Unsupported receive type");
-      }
+      return list;
     }
   }
 }
