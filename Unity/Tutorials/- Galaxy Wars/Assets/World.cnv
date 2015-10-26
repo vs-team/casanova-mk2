@@ -1,0 +1,254 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  Links : [Link]
+  Planets : [Planet]
+  
+  Create() =
+    let unity_planets = UnityPlanet.FindAll()
+
+    let players = 
+      [for p in UnityPlayer.FindAll() do
+       select (new Player(p.Name, new GameStatistic(1.0f,1.0f,1.0f,1.0f)))]
+
+    let planets = 
+      [for unity_planet in unity_planets do
+       let owner =
+        [for player in players do
+         where (unity_planet.InitialOwnerName = player.Name && not (unity_planet.InitialOwnerName = ""))
+         select player]
+       let owner = 
+          if owner.Count > 0 then Some owner.Head
+          else None
+       select (new Planet(unity_planet, new GameStatistic(1.0f,1.0f,1.0f,1.0f), owner))]
+
+    let unity_links = UnityLine.FindAll()
+     
+    let links1 = 
+      [for unity_link in unity_links do
+       for source in planets do
+       for destination in planets do
+       where (unity_link.f = source.UnityPlanet.gameObject && unity_link.t = destination.UnityPlanet.gameObject)
+       select (new Link(unity_link, source, destination))]
+
+    let links2 = 
+      [for unity_link in unity_links do
+       for source in planets do
+       for destination in planets do
+       where (unity_link.f = source.UnityPlanet.gameObject && unity_link.t = destination.UnityPlanet.gameObject)
+       select (new Link(unity_link, destination, source))]
+    Debug.Log(planets.Count)
+    Debug.Log(unity_links.Count)
+    Debug.Log(links1.Count)
+    Debug.Log(links2.Count)
+    { 
+      Planets = planets
+      Links = links1 @ links2
+    }
+}
+
+entity Battle = {
+  ref MySource    : Planet
+  AttackingFleets : [AttackingFleet]
+  SelectedAttackingFleet : Option<AttackingFleet>
+  DefenceLost     : Option<int>
+  AttackLost      : Option<int>
+  Create(planet : Planet) =
+    {
+      MySource        = planet
+      AttackingFleets = []
+      SelectedAttackingFleet = None
+      DefenceLost     = None
+      AttackLost      = None
+    }
+}
+
+entity Planet = {
+  inherit UnityPlanet
+  Statistics    : GameStatistic
+  LocalFleets   : int
+  InboundFleets : [Fleet]
+  ref Owner     : Option<Player>
+  Battle        : Option<Battle>
+  MinApproachingDist : float32
+  LandingFleets : [LandingFleet]
+  
+  rule Selected =
+    wait Input.GetMouseButtonDown(0)
+    yield IsHit 
+
+  rule RightSelected =
+    wait Input.GetMouseButtonDown(1)
+    if IsHit then 
+      yield true
+      yield false
+
+  rule Info = yield Info + LocalFleets.ToString()
+  rule Info = 
+    if Owner.IsSome then yield Owner.Value.Name + " "
+    else yield ""
+
+  rule LocalFleets =
+    wait Random.Range(1,3)
+    yield LocalFleets + 1
+
+  rule LocalFleets =
+    if Owner.IsSome then
+      let fleets_to_add =
+        [for f in LandingFleets do
+         select f.MyFleet.Ships
+         sum]
+      yield LocalFleets + fleets_to_add
+
+  
+  rule LandingFleets =
+    if Owner.IsSome then
+      yield
+        [for inbound_fleet in InboundFleets do
+         where (inbound_fleet.Owner = Owner.Value)
+         select (new LandingFleet(inbound_fleet))]
+    
+
+  rule InboundFleets =
+    yield
+      [for l in world.Links do     
+       where (l.Destination = this)
+       for f in l.ArrivedFleets do
+       select f.MyFleet]
+
+
+  Create(up : UnityPlanet, statistics : GameStatistic, owner : Option<Player>) = 
+
+  {
+    Base = up
+    MinApproachingDist = 0.5f
+    LandingFleets = []
+    Statistics = statistics
+    LocalFleets   = 0
+    InboundFleets = []
+    Owner         = owner
+    Battle        = None
+  }
+}
+
+entity Fleet = {
+  inherit UnityFleet
+  Statistics  : GameStatistic
+  Ships       : int
+  ref Owner   : Player
+  Create(statistics : GameStatistic, ships : int, owner : Player, position : Vector3) =
+    {
+      Base        = UnityFleet.Instantiate(position)
+      Statistics  = statistics
+      Ships       = ships
+      Owner       = owner
+    }
+}
+
+entity AttackingFleet = {
+  MyFleet : Fleet
+  ref MyBattle : Battle
+  Create(myFleet : Fleet, myBattle : Battle) = 
+    {
+      MyFleet = myFleet
+      MyBattle = myBattle
+    }
+}
+
+entity LandingFleet = {
+  MyFleet : Fleet
+  rule MyFleet.Destroyed = yield true
+  Create(myFleet : Fleet) = 
+    {
+      MyFleet = myFleet
+    }
+}
+
+
+entity TravellingFleet = {
+  MyFleet : Fleet
+  ref Destination : Planet
+  Velocity : Vector3
+  MaxVelocity : float32
+  
+  rule MyFleet.Position =
+    yield MyFleet.Position + Velocity * MaxVelocity * dt
+
+      
+  Create(myfleet : Fleet, destination : Planet) = 
+    let velocity = destination.Position - myfleet.Position
+    let velocity_norm = velocity.normalized
+    {
+      MyFleet   = myfleet
+      Destination = destination
+      Velocity  = velocity_norm
+      MaxVelocity = 1.0f
+    }
+}
+
+
+entity Link = {
+  inherit UnityLine
+  ref Source        : Planet
+  ref Destination   : Planet
+  TravellingFleets  : [TravellingFleet]
+  ref ArrivedFleets : [TravellingFleet]
+
+  rule TravellingFleets, Source.LocalFleets =
+    wait Source.Selected &&
+         Destination.RightSelected &&
+         Source.Owner.IsSome &&
+         Source.Battle.IsNone &&
+         Source.LocalFleets > 0
+    let new_fleet = new Fleet(new GameStatistic(1.0f,1.0f,1.0f,1.0f), Source.LocalFleets, Source.Owner.Value, Source.Position) 
+    yield new TravellingFleet(new_fleet, Destination) :: TravellingFleets, 0
+
+  rule TravellingFleets =
+    yield 
+      [for f in TravellingFleets do
+       where (Vector3.Distance(f.MyFleet.Position, Destination.Position) > Destination.MinApproachingDist)
+       select f]
+
+  rule ArrivedFleets =
+    yield 
+      [for f in TravellingFleets do
+       where (Vector3.Distance(f.MyFleet.Position, Destination.Position) <= Destination.MinApproachingDist)
+       select f]
+
+
+
+  Create(ul : UnityLine, s : Planet, d : Planet) = {
+    Base = ul
+    Source = s
+    Destination = d
+    TravellingFleets = []
+    ArrivedFleets = []
+  }
+}
+
+entity Player = {
+  Name : string
+  Statistics : GameStatistic
+  Create(name : string, statistics : GameStatistic) =
+    {
+      Name = name
+      Statistics = statistics
+    }
+}
+
+entity GameStatistic = {
+  Attack      : float32
+  Defence     : float32
+  Production  : float32
+  Research    : float32
+  Create(a : float32, d : float32, p : float32, r : float32) = 
+    {
+      Attack      = a
+      Defence     = d
+      Production  = p
+      Research    = r
+    }
+}

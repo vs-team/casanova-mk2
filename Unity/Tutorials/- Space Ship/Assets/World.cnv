@@ -9,7 +9,7 @@ worldEntity World = {
 // Fieldname : Type that will be assigned
   Ship : Ship
   UnityParticleSystem : UnityParticleSystem
-
+ 
 // The ParticleSystem speed  is based on the VelocityFactor of the frontEngine
   rule UnityParticleSystem.Speed =
     

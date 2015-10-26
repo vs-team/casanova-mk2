@@ -3,7 +3,7 @@
 public class UnityCube : MonoBehaviour
 {
   Lidgren.Network.NetClient client;
-      
+ 
   public Color Color
   {
     set { gameObject.GetComponent<Renderer>().material.color = value; }

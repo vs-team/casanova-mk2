@@ -1,0 +1,153 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+
+worldEntity World = { 
+  bobbies : [Bob]   //Array list of Bob
+  MainCamera : MainCamera //Main Camera Unity
+  
+
+  Create() =
+    { 
+      bobbies = [Bob.Create("1") ;Bob.Create("2") ; Bob.Create("3")] // Creates 3 Bobs in the list bobbies
+      MainCamera = new MainCamera() //The Main Camera in Unity
+    }
+} 
+ 
+entity Bob = {
+  inherit UnityBob // inherits everything of UnityBob
+
+  //in UnityBob there is the property IsHit and the code is as follow:
+  // _____________________________________________________________
+  //|public bool IsHit
+  //|{
+  //|  get
+  //|  {
+  //|    //Creates a Raycast and set it to the mouses cursor position in game.
+  //|    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+  //|    
+  //|    RaycastHit hit;
+  //|
+  //|    //checks if the raycast hits something
+  //|    //(hit is the gameobject that the raycast collided with)
+  //|    if (Physics.Raycast(ray, out hit))
+  //|      //if the hit object is the same as this bob, return true
+  //|      if (this.gameObject.Equals(hit.collider.gameObject))
+  //|        return true;
+  //|      //otherwise it's not this bob return false
+  //|      else
+  //|        return false;
+  //|    //if no Bob was hit at all, return false.
+  //|    else
+  //|      return false;
+  //|  }
+  //|}
+  //|_____________________________________________________________
+
+  //This rule will define the current Velocity of bob,
+  //and the currentAnimation of bob
+  rule Velocity, CurrentAnimation =
+    //As long as bob is NOT selected, Bob is Idle and not moving
+    .| not Selected =>  // As long .|
+      yield Vector3.zero, BobAnimation.Idle
+    //Else bob is selected and bob is Walking,
+    //Bob Velocity is forward times delta time.
+    //Foward will move bob in the direction bo'b is facing.
+    .| _ =>   //otherwise .| _ 
+      yield Velocity + Forward * dt, BobAnimation.Walk 
+    
+   
+  //This rule defines If the spotlight will be on or off on MouseHover
+  rule MouseHover =
+    //IsHit is True then yield Light on Else is False Light is off.
+    yield IsHit
+ 
+  //This rule defines if bob is Selected or not.
+  rule Selected =
+    //Wait until Left Mouse button is pressed.
+    wait Input.GetMouseButtonDown(0)
+    //If mouse button was pressed, Selected is IsHit.
+    //IsHit will return true if the raycast touches this Bob.
+    //else it will return false and this bob remains unselected.
+    yield IsHit
+  
+  //this rule Position will define the position of bob
+  rule Position = 
+    //Bobs position is the current velocity that bob is moving with times delta time.
+    Position + Velocity * dt
+
+  //This is the constructor to create bob which takes a string as argument
+  Create(nameBob : string ) =
+   {
+      Base = UnityBob.Find(nameBob)
+   }
+}
+
+entity MainCamera = { 
+  inherit UnityCamera 
+  MinusSpeed : float32
+  PlusSpeed : float32
+  MaxVelocity : float32 
+
+  //rule for moving forward with the camera. 
+  //We keep moving to the forward as long as the key LeftShift is being pressed.
+  rule Position =
+    wait Input.GetKey(KeyCode.LeftShift)
+    yield Position + Forward * dt * MaxVelocity 
+
+  //rule for moving backward with the camera. 
+  //We keep moving to the backwards as long as the key Space is being pressed.
+  rule Position =
+    wait Input.GetKey(KeyCode.Space)
+    yield Position + Backward * dt * MaxVelocity
+
+//--------
+//-------- Rotate Left and right
+  //This rule will rotate the camera to look Left
+  rule Rotation =
+    //Waits until the key A is being pressed
+    wait Input.GetKey(KeyCode.A)
+    //We compute the direction of the camera angle, by an amount of speed. 
+    //This function is provided by unity.
+    yield Quaternion.Euler(0.0f, MinusSpeed , 0.0f) *
+    UnityCamera.Rotation * Quaternion.Euler(0.0f, 0.0f, 0.0f)
+      
+  //This rule will rotate the camera to look right
+  rule Rotation =
+    //Waits until the key D is being pressed
+    wait Input.GetKey(KeyCode.D)
+    //We compute the direction of the camera angle, by an amount of speed. 
+    //This function is provided by unity.
+    yield Quaternion.Euler(0.0f, PlusSpeed , 0.0f) *
+    UnityCamera.Rotation * Quaternion.Euler(0.0f, 0.0f, 0.0f)
+//-------
+//------- Rotate up and down
+  //This rule will rotate the camera to look up
+  rule Rotation =
+    //Waits until the key S is being pressed
+    wait Input.GetKey(KeyCode.S)
+    //We compute the direction of the camera angle, by an amount of speed. 
+    //This function is provided by unity.
+    yield Quaternion.Euler(0.0f, 0.0f , 0.0f) *
+    UnityCamera.Rotation * Quaternion.Euler(PlusSpeed, 0.0f, 0.0f)
+
+  //This rule will rotate the camera to look down
+  rule Rotation =
+    //Waits until the key W is being pressed
+    wait Input.GetKey(KeyCode.W)
+    //We compute the direction of the camera angle, by an amount of speed. 
+    //This function is provided by unity.
+    yield Quaternion.Euler(0.0f, 0.0f , 0.0f) *
+    UnityCamera.Rotation * Quaternion.Euler(MinusSpeed, 0.0f, 0.0f)
+
+  //MainCamera Constructor
+  Create() = 
+    {
+      UnityCamera = UnityCamera.Find()//Finds the maincamera in the unity scene
+      PlusSpeed = 2.0f// Rotation speed by positive number
+      MinusSpeed = -2.0f//Rotation Speed by negative number
+      MaxVelocity = 8.0f//Maximum Velocity/Speed
+  }
+}

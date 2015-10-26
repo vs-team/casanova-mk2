@@ -1,0 +1,520 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+  //============== World entity ============== 
+worldEntity World = {
+
+  //--------------World Fields Section------------
+  // Fieldname and Type that will be assigned 
+  Ship : Ship
+  UnityParticleSystem : UnityParticleSystem
+  Asteroids : [Asteroid]
+  Beams : [Beam]
+  //A list of Beam and Asteroid that's about to collide to each other
+  ref CollidingAsteroidsProjectile : [(Beam * Asteroid)] 
+  ref CollidingAsteroidsShip : [(Ship * Asteroid)] 
+  // A list of Explosion
+  ref Explosions : [Explosion]
+  ref ShipExplosions : [ShipExplosion]
+  Camera : MainCamera
+  ScoreCounter : UnityScore
+  LifeCounter : UnityLifeBar
+  
+  //rule that defines when the game is over.
+  rule LifeCounter.GameOver =
+    //wait until there's no more life left
+    wait LifeCounter.Life <= 0
+    wait 1.5f
+    //show game over
+    yield true
+
+  //rule that defines the score of the player
+  rule ScoreCounter.Score =
+    //wait until a asteroid have been hit 
+    wait CollidingAsteroidsProjectile.Count > 0
+    //Adds 10 to score ( 1 asteroid been hit, 1 * 10 = 10 points , add 10 to current score)
+    yield ScoreCounter.Score + CollidingAsteroidsProjectile.Count * 10
+
+  //rule that defines the current Life of the player
+  rule LifeCounter.Life =
+    //wait until a asteroid hits the player
+    wait CollidingAsteroidsShip.Count > 0
+    //Life is remove 1 life from player
+    yield LifeCounter.Life - CollidingAsteroidsShip.Count
+
+  //--------------ShipExplosions Section------------
+  //This rule will filters the ShipExplosions that are destroyed
+  rule ShipExplosions = 
+    yield
+      //for each ShipExplosions in the collection of ShipExplosions
+      [for e in ShipExplosions do 
+        //if the ShipExplosions is not destroyed
+        where (not e.Destroyed)   
+        //we select it(then it will be visible)
+        select e] 
+
+  //This rule will define ShipExplosions
+  rule ShipExplosions =
+    //list of positions
+    let explo = 
+      //for each group in CollidingAsteroidsProjectile
+      [for x in CollidingAsteroidsShip do
+       //make a new ShipExplosions at the position of the group first item.
+       select (new ShipExplosion(x.Item1.Position))]
+    //If the list contains 1 or more item then,
+    if (explo.Count> 0) then
+      //add new ShipExplosions to the list of ShipExplosions
+      yield explo @ ShipExplosions
+    else 
+      //else no ShipExplosions was made, list remains the same .
+      yield ShipExplosions
+
+  //--------------Explosions Section------------
+  //This rule will filters the Explosions that are destroyed
+  rule Explosions = 
+    yield
+      //for each explosion in the collection of explosions
+      [for e in Explosions do 
+        //if the explosion is not destroyed
+        where (not e.Destroyed)   
+        //we select it( then it will be visible)
+        select e] 
+
+  //This rule will define Explosions
+  rule Explosions =
+    //list of positions
+    let explo = 
+      //for each group in CollidingAsteroidsProjectile
+      [for x in CollidingAsteroidsProjectile do
+       //make a new explosion at the position of the group first item.
+       select (new Explosion(x.Item1.Position))]
+    //If the list contains 1 or more item then,
+    if (explo.Count> 0) then
+      //add new explosions to the list of Explosions
+      yield explo @ Explosions
+    else 
+      //else no explosion was made, list remains the same.
+      yield Explosions
+
+  //--------------Beams Section------------
+  //This rule will instantiate a beam when space is pressed and,
+  //Adds it to the BEams list
+  rule Beams = 
+    //wait until space is pressed
+    wait Input.GetKeyDown(KeyCode.Space)
+    //Make a new beam and add it to the Beams list
+    yield new Beam() :: Beams
+
+  //This rule will filters the beams that are destroyed
+  rule Beams = 
+    yield //for each beam in beams that's not destroyed, select them
+      [for b in Beams do 
+        where (not b.Destroyed) 
+        select b]    
+
+  //--------------Asteroids Section------------
+  //This rule will spawn Asteroid each 0.00005 Seconds.
+  rule Asteroids =
+    // wait for 0.00005 seconds
+    wait 0.0005f
+    //Make a new Asteroid at a Random position range,
+    //then adds it to the Asteroids list
+    yield new Asteroid(new Vector3(Random.Range(-70.0f,70.0f) + Ship.Position.x,
+                                   Random.Range(-70.0f,70.0f) + Ship.Position.y, 
+                                   Random.Range(70.0f,105.0f) + Ship.Position.z)) :: Asteroids
+
+  //This rule will filters the asteroids that are destroyed
+  rule Asteroids = 
+    yield//for each Asteroid in Asteroids that's not destroyed, select them
+      [for a in Asteroids do 
+        where (not a.Destroyed) 
+        select a]
+
+
+  //--------------Colliding Section------------
+  //This rule will gather all Asteroid and beam that's about to collide
+  rule CollidingAsteroidsProjectile = 
+    yield [for b in Beams do //for each beam in Beams
+           for a in Asteroids do //for each asteroid in Asteroids
+           //where the distance between is less then 1 and not destroyed
+           where (Vector3.Distance(a.Position ,b.Position )< 1.0f && not a.Destroyed )
+           //Select beam , asteroid.
+           select (b,a)]
+
+  //This rule will gather the ship and Asteroid about to collide with the ship
+  rule CollidingAsteroidsShip = 
+    yield [for a in Asteroids do //for each asteroid in Asteroids
+           let ship = Ship
+           //where the distance between is less then 1
+           where (Vector3.Distance(a.Position, ship.Position) < 1.0f && not a.Destroyed)
+           //Select ship , asteroid.
+           select (ship, a)]
+
+
+  //--------------ParticleSystem Section------------
+  // The ParticleSystem speed  is based on the VelocityFactor of the frontEngine
+  rule UnityParticleSystem.Speed =
+    // If the ship isn't moving the particle speed remains 10 
+    if Ship.FrontEngine.VelocityFactor.z = 0 then yield 10.0f
+    // other wise it will increase according to the ship velocity
+    else yield 1000.0f * Ship.FrontEngine.VelocityFactor.z 
+
+ //--------------World Constructor------------
+  Create() = 
+    let ship = new Ship()
+    {
+      // Makes ship accesible to be used through Casanova 
+      Ship = ship
+      Asteroids = []
+      Beams = []
+      CollidingAsteroidsProjectile = []
+      Explosions = []
+      CollidingAsteroidsShip = []
+      ShipExplosions = []
+      Camera = new MainCamera(ship.Position)
+      //Search for existing Particlesystem in Unity
+      UnityParticleSystem = UnityParticleSystem.Find()
+      ScoreCounter = UnityScore.Find()
+      LifeCounter = UnityLifeBar.Find()
+    }
+}  
+  
+
+
+  //============== Ship entity ============== 
+entity Ship =
+  {
+    inherit UnityShip 
+    FrontEngine : Engine
+    SideEngine  : Engine
+
+    //This rule defines the rotation of the ship
+    rule Rotation =
+      yield Quaternion.Euler(FrontEngine.RotationFactor,0.0f,SideEngine.RotationFactor)
+
+    //this rule defines the position of ship
+    rule Position =
+      yield Position + FrontEngine.VelocityFactor + SideEngine.VelocityFactor
+    Create() =
+      {
+        UnityShip = UnityShip.Instantiate() 
+
+        
+        FrontEngine = new Engine([(KeyCode.X, (25.0f, new Vector3(0.0f, 0.0f, 0.0f))); 
+                                  (KeyCode.W, (0.0f, new Vector3(0.0f, 9.0f, 0.0f)));
+                                  (KeyCode.S, (0.0f, new Vector3(0.0f,-9.0f, 0.0f)))])  
+        SideEngine  = new Engine([(KeyCode.A, (10.0f, new Vector3(-9.0f, 0.0f, 0.0f)));
+                                  (KeyCode.D, (-10.0f, new Vector3(9.0f, 0.0f, 0.0f)))])        
+      }
+  }
+
+//Entity Engine
+entity Engine =
+  {
+      //Fieldnames : Type 
+      RotationFactor : float32
+      VelocityFactor : Vector3
+      Controllers : [(KeyCode * (float32 * Vector3))] // keycode, max_degree
+      KeyPressed : Option<KeyCode * (float32 * Vector3)> // Option Could have some keyspressed  or none
+    
+
+      //Rule for when a key is pressed
+      rule KeyPressed =
+        // Makes a controller which will contain the following
+        let controllers =
+          //Returns a collection of keys pressed
+          [for c in Controllers do
+           where Input.GetKey(c.Item1)
+           select c]
+        // If the collection contains more then 0 items then
+        if controllers.Count > 0 then 
+          //Some keys are pressed ( First read will be priority)
+          yield Some controllers.Head
+        else 
+          //else no keys are pressed put None
+          yield None
+
+      //Rule for Velocity
+      rule VelocityFactor =
+        //wait untill a key is pressed
+        wait KeyPressed.IsSome
+        //Keys being held down, place keyvalue in key_pressed
+        let key_pressed = KeyPressed.Value
+        //Since keys are being pressed  Velocity = VelocityFactor(Vector3) of key pressed * Dt
+        yield key_pressed.Item2.Item2 * dt
+        //wait until the key is not pressed anymore
+        wait not Input.GetKey(key_pressed.Item1)
+        // Velocity is set to zero
+        yield Vector3.zero
+
+      // Rule for rotation factor
+      rule RotationFactor =
+        //wait untill a key is pressed
+        wait KeyPressed.IsSome
+        //We assign the keypressed to key_pressed
+        let key_pressed = KeyPressed.Value
+        //If the keypressed MaxDegree is higher then 0(the ship is rotating forward) then
+        if key_pressed.Item2.Item1 > 0 then
+          //As long as the desired degree is not reached and the key is still being pressed 
+          while(RotationFactor < key_pressed.Item2.Item1 && Input.GetKey(key_pressed.Item1)) do
+            // For every frame it increases the rotation angle
+            yield RotationFactor + dt * 35.0f
+        //else the ship is rotating backwards
+        else
+          //As long as the desired degree is not reached and the key is not being pressed 
+          while(RotationFactor > key_pressed.Item2.Item1 && Input.GetKey(key_pressed.Item1)) do
+            // For every frame it decreases the rotation angle
+            yield RotationFactor - dt * 35.0f
+
+        //( wait untill a key is being pressed) is false - in other words no keys are being pressed 
+        wait not Input.GetKey(key_pressed.Item1)   
+        //If the angle is higher then 0 ( is pointing forward on that angle of the 3d model)  then
+        if RotationFactor > 0 then
+          //As long as the desired degree is not reached and there is no key being pressed 
+          while(RotationFactor > 0 && not Input.GetKey(key_pressed.Item1)) do
+            // For every frame it decreases the rotation angle
+            yield RotationFactor - dt * 35.0f
+        //else the angle is lower then 0 ( is pointing backward on that angle of the 3d model)
+        else
+           //As long as the desired degree is not reached and there is no key being pressed 
+          while(RotationFactor < 0 && not Input.GetKey(key_pressed.Item1)) do
+            //For every frame it increases the rotation angle
+            yield RotationFactor + dt * 35.0f
+      
+      //Engine constructor that takes argument ( controllers : type Keycode,(maxdegree,velocityfactor)
+      Create(controllers : [(KeyCode * (float32 * Vector3))]) = {
+        
+        RotationFactor = 0.0f
+        //Assign controllers to option field Controllers
+        Controllers = controllers
+        VelocityFactor = Vector3.zero
+        KeyPressed = None
+      }
+  }
+
+entity Asteroid = {
+  inherit UnityAsteroid
+
+  //Field names : Field types
+  RandomX : int
+  RandomY : int 
+  RandomZ : int
+  RotationX : float32
+  RotationY : float32
+  RotationZ : float32
+
+  //This rule will define the Position of the asteroid
+  rule Position = 
+    yield Position + new Vector3(0.0f, 0.0f , -15.0f ) * dt 
+  
+  //For the upcoming rules a waiting range of random number (2 to 4 seconds)
+  //is applied, after the waiting you would see the Asteroid rotate again in a random direction,
+  //by a random degree between -90 and 90.
+  //Each Rotation axis have it's own random waiting and degree range.
+  rule RandomX = 
+    yield Random.Range(-90,90)
+    wait Random.Range(2,4)
+
+    //this rule will define the Speed rotation for Y angle
+  rule RandomY = 
+    yield Random.Range(-90,90)
+    wait Random.Range(2,4)
+
+  //this rule will define the Speed rotation for Z angle
+  rule RandomZ = 
+    yield Random.Range(-90,90)  
+    wait Random.Range(2,4)
+
+  //The rules defined below here are used to make the Asteroid rotate,
+  //in the correct direction according to the real time(deltatime).
+  //Rule for the horizontal rotation of the Asteroid 
+  rule RotationX = 
+   yield RotationX + RandomX * dt
+  //Rule for the vertical rotation of the Asteroid
+  rule RotationY = 
+   yield RotationY + RandomY * dt
+  //Rule for the 3D(Up/Down) rotation of the Asteroid
+  rule RotationZ = 
+   yield RotationZ + RandomZ * dt
+
+  rule Rotation = 
+   Quaternion.Euler(RotationX,0.0f,0.0f) * Quaternion.Euler(0.0f,RotationY,0.0f) *Quaternion.Euler(0.0f,0.0f,RotationZ)
+    
+  //This rule defines when the Asteroid will be destroyed,
+  rule Destroyed = 
+    let b = 
+      //for each group in world.CollidingAsteroidsProjectile list, do
+      [for ba in world.CollidingAsteroidsShip do
+      //where THIS asteroid is the same as the asteroid in that group
+       where (this = ba.Item2)
+       //Select the asteroid
+       select (ba.Item2)]
+    //If b contains 1 item or more,
+    if (b.Count > 0) then
+      //this would mean that the beam is about to hit the asteroid,
+      //this asteroid is then set to destroyed.
+      yield true
+
+  //This rule defines when the Asteroid will be destroyed,
+  rule Destroyed = 
+    let b = 
+      //for each group in world.CollidingAsteroidsProjectile list, do
+      [for ba in world.CollidingAsteroidsProjectile do
+      //where THIS asteroid is the same as the asteroid in that group
+       where (this = ba.Item2)
+       //Select the asteroid
+       select (ba.Item2)]
+    //If b contains 1 item or more,
+    if (b.Count > 0) then
+      //this would mean that the beam is about to hit the asteroid,
+      //this asteroid is then set to destroyed.
+      yield true
+
+
+  //This rule defines when the Asteroid will be destroyed
+  rule Destroyed = 
+    //wait until Z-Position is less then 10
+    wait Position.z < -20.0f
+    //If so destroyed is set to true.
+    yield true 
+ 
+  //This rule defines the transparency of the Asteroid
+  rule Transparency =
+    wait Transparency < 1.0f    //wait transparency lower then 1
+
+    //if Transparency lower then 1,
+    //keeps adding 0.025 to the count
+    yield Transparency + 0.025f
+
+  //Asteroid constructor which takes a position as argument.
+  Create(position : Vector3) = {
+    Base = UnityAsteroid.Instantiate(position)
+    RandomX = 0
+    RandomY = 0
+    RandomZ = 0
+    RotationX = Rotation.x
+    RotationY = Rotation.y 
+    RotationZ = Rotation.z 
+  }
+}
+
+entity Beam = {
+  inherit UnityBeam
+
+  //This rule will define the Position of the Beam
+  rule Position = 
+    yield Position + new Vector3(0.0f, 0.0f , 50.0f ) * dt 
+
+  //This rule defines when the Beam will be destroyed
+  rule Destroyed = 
+    // wait untill Z-position is miore then 100
+    wait Position.z > 100.0f
+    //then set Beam to Destroyed(true)
+    yield true  
+  
+  //This rule defines when the Beam will be destroyed,
+  rule Destroyed = 
+    let b = 
+      //for each group in world.CollidingAsteroidsProjectile list, do
+      [for ba in world.CollidingAsteroidsProjectile do
+      //where THIS Beam is the as as the beam in this group
+       where (this = ba.Item1)
+       //if so select the beam
+       select (ba.Item1)]
+    //If b contains 1 or more item
+    if (b.Count > 0) then
+      //this would mean that the beam hitted a Asteroid,
+      //then this beam is set to destroyed(true)
+      yield true
+  
+  //Constructor for Beam, takes no argument
+  Create() = {
+    Base = UnityBeam.Instantiate() 
+  }
+}
+
+//Entity for Explosion
+entity Explosion = {
+  inherit UnityExplosion
+    
+  //This rule will define when the Explosion will be destroyed
+  rule Destroyed =
+    let e = 
+      //For each explosions in explosions list
+      [for ex in world.Explosions do
+      //Where THIS is the same as the explosion in the list
+       where (this = ex)
+       //select explosion
+       select (ex)]
+    //If e contains 1 or more item
+    if (e.Count > 0) then
+      //then set explosion to destroyed(true)
+      yield true
+    
+  
+
+  Create(position : Vector3) = {
+    Base = UnityExplosion.Instantiate(position)
+  }
+}
+
+entity ShipExplosion = {
+  inherit UnityShipExplosion
+    
+  //This rule will define when the Explosion will be destroyed
+  rule Destroyed =
+    let e = 
+      //For each explosions in explosions list
+      [for ex in world.ShipExplosions do
+      //Where THIS is the same as the explosion in the list
+       where (this = ex)
+       //select explosion
+       select (ex)]
+    //If e contains 1 or more item
+    if (e.Count > 0) then
+      //then set explosion to destroyed(true)
+      yield true
+    
+  
+
+  Create(position : Vector3) = {
+    Base = UnityShipExplosion.Instantiate(position)
+  }
+}
+
+
+entity MainCamera = {
+  inherit UnityCamera
+  DefaultPos  : Vector3
+  ShakingTime : float32
+
+  rule Position, ShakingTime =
+
+
+    .| ShakingTime = 0.0f &&
+       (world.CollidingAsteroidsProjectile.Count > 0 || world.CollidingAsteroidsShip.Count > 0 )  => 
+      yield Position, 0.2f
+    
+    .| ShakingTime <= 0.0f =>
+      yield world.Ship.Position + DefaultPos, 0.0f
+
+    .| ShakingTime > 0.0f =>
+      wait dt
+      let x = UnityEngine.Random.Range(-0.5f, 0.5f)
+      let y = UnityEngine.Random.Range(-0.5f, 0.5f)
+      let z = UnityEngine.Random.Range(-0.5f, 0.5f)    
+      yield Position + new Vector3(x,y,z), ShakingTime - dt
+      wait dt
+      yield world.Ship.Position + DefaultPos, ShakingTime - dt
+      
+ 
+  Create(ship_pos : Vector3) = 
+    let def_pos = new Vector3(0.0f, 1.0f, -25.0f)
+    {
+      UnityCamera = UnityCamera.Find(ship_pos + def_pos)
+      DefaultPos  = def_pos
+      ShakingTime = 0.0f
+    }
+}

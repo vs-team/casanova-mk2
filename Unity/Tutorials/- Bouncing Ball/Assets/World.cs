@@ -122,48 +122,18 @@ public MainCamera()
 	public UnityEngine.Vector3 Up{  get { return UnityCamera.Up; }
  }
 	public System.Single VerticalSpeed;
-	public UnityEngine.Animation animation{  get { return UnityCamera.GetComponent<Animation>(); }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityCamera.GetComponent<AudioSource>(); }
- }
-	public UnityEngine.Camera camera{  get { return UnityCamera.GetComponent<Camera>(); }
- }
-	public UnityEngine.Collider collider{  get { return UnityCamera.GetComponent<Collider>(); }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityCamera.GetComponent<Collider2D>(); }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityCamera.GetComponent<ConstantForce>(); }
- }
 	public System.Boolean enabled{  get { return UnityCamera.enabled; }
   set{UnityCamera.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityCamera.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityCamera.GetComponent<GUIElement>(); }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityCamera.GetComponent<GUIText>(); }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityCamera.GetComponent<GUITexture>(); }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityCamera.hideFlags; }
   set{UnityCamera.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityCamera.GetComponent<HingeJoint>(); }
- }
-	public UnityEngine.Light light{  get { return UnityCamera.GetComponent<Light>(); }
+	public System.Boolean isActiveAndEnabled{  get { return UnityCamera.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityCamera.name; }
   set{UnityCamera.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityCamera.GetComponent<ParticleEmitter>(); }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityCamera.GetComponent<ParticleSystem>(); }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityCamera.GetComponent<Renderer>(); }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityCamera.GetComponent<Rigidbody>(); }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityCamera.GetComponent<Rigidbody2D>(); }
  }
 	public System.String tag{  get { return UnityCamera.tag; }
   set{UnityCamera.tag = value; }
@@ -343,48 +313,18 @@ public Ball(UnityEngine.Vector3 position, UnityEngine.Vector3 direction)
   set{UnityBall.Position = value; }
  }
 	public UnityBall UnityBall;
-	public UnityEngine.Animation animation{  get { return UnityBall.GetComponent<Animation>(); }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityBall.GetComponent<AudioSource>(); }
- }
-	public UnityEngine.Camera camera{  get { return UnityBall.GetComponent<Camera>(); }
- }
-	public UnityEngine.Collider collider{  get { return UnityBall.GetComponent<Collider>(); }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityBall.GetComponent<Collider2D>(); }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityBall.GetComponent<ConstantForce>(); }
- }
 	public System.Boolean enabled{  get { return UnityBall.enabled; }
   set{UnityBall.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityBall.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityBall.GetComponent<GUIElement>(); }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityBall.GetComponent<GUIText>(); }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityBall.GetComponent<GUITexture>(); }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityBall.hideFlags; }
   set{UnityBall.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityBall.GetComponent<HingeJoint>(); }
- }
-	public UnityEngine.Light light{  get { return UnityBall.GetComponent<Light>(); }
+	public System.Boolean isActiveAndEnabled{  get { return UnityBall.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityBall.name; }
   set{UnityBall.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityBall.GetComponent<ParticleEmitter>(); }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityBall.GetComponent<ParticleSystem>(); }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityBall.GetComponent<Renderer>(); }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityBall.GetComponent<Rigidbody>(); }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityBall.GetComponent<Rigidbody2D>(); }
  }
 	public System.String tag{  get { return UnityBall.tag; }
   set{UnityBall.tag = value; }
@@ -432,4 +372,4 @@ return;
 
 
 }
-}                                                                                                            
+} 

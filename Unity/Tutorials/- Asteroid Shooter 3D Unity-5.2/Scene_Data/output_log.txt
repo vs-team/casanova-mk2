@@ -1,0 +1,398 @@
+Initialize engine version: 5.2.0f3 (e7947df39b5c)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970M    (ID=0x13d8)
+    Vendor:   NVIDIA
+    VRAM:     2957 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.135 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\Tutorials\- Asteroid Shooter 3D Unity-5.2\Scene_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 3dcc -> priority: 1 
+  Thread -> id: 973c -> priority: 1 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.071117 ms
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 276.
+Total: 0.220668 ms (FindLiveObjects: 0.024869 ms CreateObjectMapping: 0.009868 ms MarkObjects: 0.174876 ms  DeleteObjects: 0.010658 ms)
+
+Recursive Serialization is not supported. You can't dereference a PPtr while loading. (Constructors of C# classes may not load objects either eg. EditorGUIUtility.TextContent should be moved to OnEnable. See stacktrace.)
+ 
+(Filename:  Line: 1096)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnityException: Tag: Ship is not defined.
+  at (wrapper managed-to-native) UnityEngine.GameObject:FindGameObjectWithTag (string)
+  at UnityBeam.Instantiate () [0x00000] in <filename unknown>:0 
+  at Game.Beam..ctor () [0x00000] in <filename unknown>:0 
+  at Game.World.Rule5 (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update (Single dt, Game.World world) [0x00000] in <filename unknown>:0 
+  at Game.World.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+

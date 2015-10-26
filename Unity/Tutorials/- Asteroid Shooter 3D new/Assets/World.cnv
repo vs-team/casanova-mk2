@@ -1,0 +1,220 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+
+  Ship : Ship
+  Asteroids : [Asteroid]
+  Beams : [Beam]
+  ref CollidingAsteroidsProjectile : [(Beam * Asteroid)]
+  ref Explosions : [Explosion]
+  
+  
+
+  rule Explosions = 
+    yield
+      [for e in Explosions do 
+        where (not e.Destroyed) 
+        select e] 
+//8
+  rule Explosions =
+    let explo = 
+      [for x in CollidingAsteroidsProjectile do
+       select (new Explosion(x.Item1.Position))]
+    if (explo.Count> 0) then
+      yield explo @ Explosions
+    else 
+      yield Explosions
+
+//7
+  rule Beams = 
+    wait Input.GetKeyDown(KeyCode.Space)
+    yield new Beam() :: Beams
+//6
+  rule Asteroids =
+    wait 3.0f
+    for a in [0..1] do
+        yield new Asteroid(new Vector3(Random.Range(-10.0f,10.0f),
+                                       1.0f, 
+                                       Random.Range(15.0f,20.0f)  )) :: Asteroids 
+//4
+  rule Asteroids = 
+    yield
+      [for a in Asteroids do 
+        where (not a.Destroyed) 
+        select a] 
+//3
+  rule Beams = 
+    yield
+      [for b in Beams do 
+        where (not b.Destroyed) 
+        select b]    
+
+//1
+  rule CollidingAsteroidsProjectile = 
+    yield [for b in Beams do
+           for a in Asteroids do
+           where (Vector3.Distance(a.Position ,b.Position )< 1.0f )
+           select (b,a)]
+
+
+  Create() =
+    {
+      Ship = new Ship()
+      Asteroids = []
+      Beams = []
+      CollidingAsteroidsProjectile = []
+      Explosions = []
+    }
+}
+
+entity Ship =
+  {
+    inherit UnityShip
+    
+
+    MaxVelocity : float32 // Max Ship movement velocity 
+
+    //rule for moving left with the Ship.We keep moving to the left as long as key A is pressed.
+    rule Position =
+      wait Input.GetKey(KeyCode.A)
+      yield Position + Left * dt * MaxVelocity
+
+    //rule for moving right with the Ship. We keep moving to the right as long as key D is pressed.
+    rule Position =
+      wait Input.GetKey(KeyCode.D)
+      yield Position + Right * dt * MaxVelocity
+
+    //rule for moving forward with the Ship. We keep moving to the forward as long as key W is pressed.
+    rule Position =
+      wait Input.GetKey(KeyCode.W)
+      yield Position + Forward * dt * MaxVelocity 
+
+    //rule for moving backward with the Ship. We keep moving to the backword as long as key S is pressed.
+    rule Position =
+      wait Input.GetKey(KeyCode.S)
+      yield Position + Backward * dt * MaxVelocity
+
+    //rule for moving up with the Ship. We keep moving to the up as long as key E is pressed.
+    rule Position =
+      wait Input.GetKey(KeyCode.E)
+      yield Position + Up * dt * MaxVelocity
+
+    //rule for moving down with the Ship. We keep moving to the down as long as key Q is pressed.
+    rule Position =
+      wait Input.GetKey(KeyCode.Q)
+      yield Position + Down * dt * MaxVelocity
+
+
+    Create() =
+      {
+        UnityShip = UnityShip.Find()
+        MaxVelocity = 7.0f
+      }
+  }
+
+
+
+entity Asteroid = {
+  inherit UnityAsteroid
+  RandomX : int
+  RandomY : int 
+  RandomZ : int
+
+  RotationX : float32
+  RotationY : float32
+  RotationZ : float32
+
+  rule Position = 
+    yield Position + new Vector3(0.0f, 0.0f , -6.0f ) * dt 
+  
+  rule RandomX = 
+    yield Random.Range(-30,30)
+    wait Random.Range(1,3)
+
+  rule RandomY = 
+    yield Random.Range(-30,30)
+    wait Random.Range(1,3)
+
+  rule RandomZ = 
+    yield Random.Range(-30,30)  
+    wait Random.Range(1,3)
+
+  rule RotationX = 
+   yield RotationX + RandomX * dt
+
+  rule RotationY = 
+   yield RotationY + RandomY * dt
+
+  rule RotationZ = 
+   yield RotationZ + RandomZ * dt
+
+  rule Rotation = 
+   Quaternion.Euler(RotationX,0.0f,0.0f) * Quaternion.Euler(0.0f,RotationY,0.0f) *Quaternion.Euler(0.0f,0.0f,RotationZ)
+
+  rule Destroyed = 
+    wait Position.z < -20.0f
+    yield true 
+  
+  rule Destroyed = 
+    let b = 
+      [for ba in world.CollidingAsteroidsProjectile do
+       where (this = ba.Item2)
+       select (ba.Item2)]
+    if (b.Count > 0) then
+      yield true
+
+  Create(position : Vector3) = {
+    Base = UnityAsteroid.Instantiate(position)
+    RandomX = 0
+    RandomY = 0
+    RandomZ = 0
+    RotationX = Rotation.x
+    RotationY = Rotation.y 
+    RotationZ = Rotation.z
+  }
+}
+
+entity Beam = {
+  inherit UnityBeam
+
+
+  rule Position = 
+    yield Position + new Vector3(0.0f, 0.0f , 10.0f ) * dt 
+
+  rule Destroyed = 
+    wait Position.z > 20.0f
+    yield true  
+  
+  rule Destroyed = 
+    let b = 
+      [for ba in world.CollidingAsteroidsProjectile do
+       where (this = ba.Item1)
+       select (ba.Item1)]
+    if (b.Count > 0) then
+      yield true
+ 
+  Create() = {
+    Base = UnityBeam.Instantiate() 
+  }
+}
+
+entity Explosion = {
+  inherit UnityExplosion
+  
+  rule Destroyed =
+    let e = 
+      [for ex in world.Explosions do
+       where (this = ex)
+       select (ex)]
+    if (e.Count > 0) then
+      yield true
+    
+  
+
+  Create(position : Vector3) = {
+    Base = UnityExplosion.Instantiate(position)
+  }
+}

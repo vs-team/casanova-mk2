@@ -16,8 +16,8 @@ worldEntity World = {
       yield Factor - dt
     wait 1.0f
 
-  rule Color = 
-    Color.Lerp(Color.white, Color.blue, Factor)
+  rule Scale = 
+    Color.Lerp(0.0f, 1.0f, Factor)
 
   Create() = 
     {
