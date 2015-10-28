@@ -18,6 +18,7 @@ D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standa
 D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.fsprojResolveAssemblyReference.cache
 D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.exe
 D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.pdb
+<<<<<<< HEAD
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\LexYacc.exe.config
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\LexYacc.XML
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\LexYacc.exe
@@ -38,3 +39,25 @@ C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone c
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.fsprojResolveAssemblyReference.cache
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.exe
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.pdb
+=======
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\LexYacc.exe.config
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\LexYacc.XML
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\LexYacc.exe
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\LexYacc.pdb
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\Ast.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\FSComp.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\FSharp.Core.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\FsLexYacc.Runtime.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\Utilities.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\Ast.pdb
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\Ast.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\FSComp.pdb
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\FSComp.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\Utilities.pdb
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\Utilities.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\FsLexYacc.Runtime.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\bin\Debug\FSharp.Core.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.fsprojResolveAssemblyReference.cache
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.exe
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\obj\Debug\LexYacc.pdb
+>>>>>>> f4ac581c40cb5a75aa60e8a66522f540b846bccb
