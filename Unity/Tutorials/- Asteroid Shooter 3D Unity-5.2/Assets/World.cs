@@ -469,10 +469,10 @@ public Ship()
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		this.Rule0(dt, world);
-		this.Rule1(dt, world);
 		FrontEngine.Update(dt, world);
 		SideEngine.Update(dt, world);
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
 	}
 
 
@@ -532,10 +532,10 @@ public Engine(List<Casanova.Prelude.Tuple<UnityEngine.KeyCode, Casanova.Prelude.
 	public void Update(float dt, World world) {
 frame = World.frame;
 
+if(KeyPressed.IsSome){  } 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
-if(KeyPressed.IsSome){  } 
 	}
 
 
@@ -1471,4 +1471,4 @@ return;
 
 
 }
-}       
+} 
