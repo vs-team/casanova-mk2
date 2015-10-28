@@ -40,9 +40,6 @@ worldEntity World = {
        for destination in planets do
        where (unity_link.f = source.UnityPlanet.gameObject && unity_link.t = destination.UnityPlanet.gameObject)
        select (new Link(unity_link, destination, source))]    
-    Debug.Log(links1.Count)
-    Debug.Log(links2.Count)
-    Debug.Log(planets.Count)
     { 
       Planets = planets
       Links = links1 @ links2
@@ -124,14 +121,14 @@ entity Planet = {
   ref Owner     : Option<Player>
   Battle        : Option<Battle>
   MinApproachingDist : float32
-  LandingFleets : [LandingFleet]
+  LandingFleets : [LandingFleet] 
   
   rule Selected =
-    wait Input.GetMouseButtonDown(0)
+    wait Input.GetMouseButtonDown(0) && not (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl))
     yield IsHit 
 
   rule RightSelected =
-    wait Input.GetMouseButtonDown(1)
+    wait Input.GetMouseButtonDown(0) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl))
     if IsHit then 
       yield true
       yield false
@@ -309,12 +306,29 @@ entity Link = {
   ref Destination   : Planet
   TravellingFleets  : [TravellingFleet]
   ref ArrivedFleets : [TravellingFleet]
+  IsAutoRouteActive : bool
+   
+  rule IsAutoRouteActive, ActiveAutoRoute, FromPlanet = 
+    wait Source.Selected &&
+         Destination.RightSelected &&
+         Input.GetKey(KeyCode.LeftControl)
+    let autoroute_value = not IsAutoRouteActive
+    yield autoroute_value, autoroute_value, Source.UnityPlanet
+    wait Input.GetKeyUp(KeyCode.LeftControl)
+
+  rule TravellingFleets, Source.LocalFleets =
+    wait IsAutoRouteActive
+    wait Random.Range(2.0f,3.0f)
+    if Source.LocalFleets / 2 > 0 then
+      let new_fleet = new Fleet(new GameStatistic(1.0f,1.0f,1.0f,1.0f), Source.LocalFleets / 2, Source.Owner.Value, Source.Position, this) 
+      yield new TravellingFleet(new_fleet, Destination) :: TravellingFleets, Source.LocalFleets / 2
 
   rule TravellingFleets, Source.LocalFleets =
     wait Source.Selected &&
          Destination.RightSelected &&
          Source.Owner.IsSome &&
          Source.Battle.IsNone &&
+         Input.GetKey(KeyCode.LeftShift) &&
          Source.LocalFleets > 0
     let new_fleet = new Fleet(new GameStatistic(1.0f,1.0f,1.0f,1.0f), Source.LocalFleets, Source.Owner.Value, Source.Position, this) 
     yield new TravellingFleet(new_fleet, Destination) :: TravellingFleets, 0
@@ -339,6 +353,7 @@ entity Link = {
     Destination = d
     TravellingFleets = []
     ArrivedFleets = []
+    IsAutoRouteActive = false
   }
 }
 

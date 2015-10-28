@@ -60,9 +60,6 @@ public void Start()
 .Where(__ContextSymbol21 => ((((__ContextSymbol21.prev.prev.___unity_link01.f) == (__ContextSymbol21.prev.___source01.UnityPlanet.gameObject))) && (((__ContextSymbol21.prev.prev.___unity_link01.t) == (__ContextSymbol21.___destination01.UnityPlanet.gameObject)))))
 .Select(__ContextSymbol22 => new Link(__ContextSymbol22.prev.prev.___unity_link01,__ContextSymbol22.___destination01,__ContextSymbol22.prev.___source01))
 .ToList<Link>()))).ToList<Link>();
-		UnityEngine.Debug.Log(___links100.Count);
-		UnityEngine.Debug.Log(___links200.Count);
-		UnityEngine.Debug.Log(___planets00.Count);
 		Planets = ___planets00;
 		Links = (___links100).Concat(___links200).ToList<Link>();
 		
@@ -687,7 +684,7 @@ return;
 	{
 
 	case -1:
-	if(!(UnityEngine.Input.GetMouseButtonDown(1)))
+	if(!(((UnityEngine.Input.GetMouseButtonDown(0)) && (((UnityEngine.Input.GetKey(KeyCode.LeftShift)) || (UnityEngine.Input.GetKey(KeyCode.LeftControl)))))))
 	{
 
 	s8 = -1;
@@ -721,7 +718,7 @@ return;
 	{
 
 	case -1:
-	if(!(UnityEngine.Input.GetMouseButtonDown(0)))
+	if(!(((UnityEngine.Input.GetMouseButtonDown(0)) && (!(((UnityEngine.Input.GetKey(KeyCode.LeftShift)) || (UnityEngine.Input.GetKey(KeyCode.LeftControl))))))))
 	{
 
 	s9 = -1;
@@ -1103,17 +1100,27 @@ public Link(UnityLine ul, Planet s, Planet d)
 
 Enumerable.Empty<TravellingFleet>()).ToList<TravellingFleet>();
 		Source = s;
+		IsAutoRouteActive = false;
 		Destination = d;
 		ArrivedFleets = (
 
 Enumerable.Empty<TravellingFleet>()).ToList<TravellingFleet>();
 		
 }
-		public List<TravellingFleet> ArrivedFleets;
+		public System.Boolean ActiveAutoRoute{  get { return UnityLine.ActiveAutoRoute; }
+  set{UnityLine.ActiveAutoRoute = value; }
+ }
+	public List<TravellingFleet> ArrivedFleets;
 	public Planet Destination;
+	public UnityPlanet FromPlanet{  set{UnityLine.FromPlanet = value; }
+ }
+	public System.Boolean IsAutoRouteActive;
 	public Planet Source;
 	public List<TravellingFleet> TravellingFleets;
 	public UnityLine UnityLine;
+	public System.Collections.Generic.Dictionary<UnityPlanet,UnityArrow> arrows{  get { return UnityLine.arrows; }
+  set{UnityLine.arrows = value; }
+ }
 	public UnityEngine.Color c1{  get { return UnityLine.c1; }
   set{UnityLine.c1 = value; }
  }
@@ -1151,12 +1158,17 @@ Enumerable.Empty<TravellingFleet>()).ToList<TravellingFleet>();
   set{UnityLine.useGUILayout = value; }
  }
 	public Fleet ___new_fleet20;
+	public System.Single count_down4;
+	public Fleet ___new_fleet31;
+	public System.Boolean ___autoroute_value40;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
+		this.Rule4(dt, world);
 		for(int x0 = 0; x0 < TravellingFleets.Count; x0++) { 
 			TravellingFleets[x0].Update(dt, world);
 		}
@@ -1206,7 +1218,7 @@ return;
 	{
 
 	case -1:
-	if(!(((((((((Source.Selected) && (Destination.RightSelected))) && (Source.Owner.IsSome))) && (Source.Battle.IsNone))) && (((Source.LocalFleets) > (0))))))
+	if(!(((((((((((Source.Selected) && (Destination.RightSelected))) && (Source.Owner.IsSome))) && (Source.Battle.IsNone))) && (UnityEngine.Input.GetKey(KeyCode.LeftShift)))) && (((Source.LocalFleets) > (0))))))
 	{
 
 	s2 = -1;
@@ -1220,6 +1232,85 @@ return;	}else
 	Source.LocalFleets = 0;
 	s2 = -1;
 return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(IsAutoRouteActive))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 4;	}
+	case 4:
+	count_down4 = UnityEngine.Random.Range(2f,3f);
+	goto case 5;
+	case 5:
+	if(((count_down4) > (0f)))
+	{
+
+	count_down4 = ((count_down4) - (dt));
+	s3 = 5;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	if(((((Source.LocalFleets) / (2))) > (0)))
+	{
+
+	goto case 1;	}else
+	{
+
+	s3 = -1;
+return;	}
+	case 1:
+	___new_fleet31 = new Fleet(new GameStatistic(1f,1f,1f,1f),(Source.LocalFleets) / (2),Source.Owner.Value,Source.Position,this);
+	TravellingFleets = new Cons<TravellingFleet>(new TravellingFleet(___new_fleet31,Destination), (TravellingFleets)).ToList<TravellingFleet>();
+	Source.LocalFleets = ((Source.LocalFleets) / (2));
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	if(!(((((Source.Selected) && (Destination.RightSelected))) && (UnityEngine.Input.GetKey(KeyCode.LeftControl)))))
+	{
+
+	s4 = -1;
+return;	}else
+	{
+
+	goto case 2;	}
+	case 2:
+	___autoroute_value40 = !(IsAutoRouteActive);
+	IsAutoRouteActive = ___autoroute_value40;
+	ActiveAutoRoute = ___autoroute_value40;
+	FromPlanet = Source.UnityPlanet;
+	s4 = 0;
+return;
+	case 0:
+	if(!(UnityEngine.Input.GetKeyUp(KeyCode.LeftControl)))
+	{
+
+	s4 = 0;
+return;	}else
+	{
+
+	s4 = -1;
+return;	}	
 	default: return;}}
 	
 
@@ -1301,4 +1392,4 @@ frame = World.frame;
 
 
 }
-}                                                                                                                                                                                                                     
+}       
