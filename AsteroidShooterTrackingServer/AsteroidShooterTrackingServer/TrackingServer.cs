@@ -1,5 +1,6 @@
 ﻿using System;
 using Lidgren.Network;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace ApplicationServer
   public class TrackingServer
   {
     private NetServer netServer;
+    
 
     public TrackingServer(int port, string applicationName)
     {
@@ -16,12 +18,14 @@ namespace ApplicationServer
       config.Port = port;
       netServer = new NetServer(config);
       Console.WriteLine("Server " + applicationName + " started succesfully");
+      
     }
 
     public void Forward()
     {
       while (true)
       {
+        Console.WriteLine(this.netServer.ConnectionsCount);
         NetIncomingMessage message = this.Server.ReadMessage();
 
         if (message != null)
@@ -33,6 +37,7 @@ namespace ApplicationServer
               sendMessage.Write(message);
               this.Server.SendToAll(sendMessage, NetDeliveryMethod.ReliableOrdered);
               Console.WriteLine("Message forwarded");
+              Console.WriteLine(this.netServer.ConnectionsCount);
               Console.Clear();
               break;
             default:

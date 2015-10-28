@@ -71,7 +71,7 @@ namespace GameNetworking
 
     public static void Send<T>(T element, NetClient client, Func<T, NetClient, bool, NetOutgoingMessage> messageFunction)
     {
-      NetOutgoingMessage message = messageFunction(element, ConnectingClient, true);
+      NetOutgoingMessage message = messageFunction(element, client, true);
       client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
     }
 
@@ -145,7 +145,7 @@ namespace GameNetworking
         {
             NetOutgoingMessage message = client.CreateMessage();
             message.Write((int)DataFormat.List);
-            Pair<bool, int> pair = getTypeIdentity<T>(list.ElementAtOrDefault(1)); //geen idee of dit kan/mag!!!!!! Wouter
+            Pair<bool, int> pair = getTypeIdentity<T>(list.ElementAtOrDefault(1));
             if (pair.getFst)
             {
                 message.Write((int)MessageType.CompositeType);

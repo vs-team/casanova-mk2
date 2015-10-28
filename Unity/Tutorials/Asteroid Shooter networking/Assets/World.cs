@@ -3,6 +3,7 @@ using Casanova.Prelude;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using Lidgren.Network;
 using UnityEngine;
 namespace Game {public class World : MonoBehaviour{
 public static int frame;
@@ -14,6 +15,7 @@ public bool JustEntered = true;
 public void Start()
 	{
 		UnityEngine.Debug.Log(GameSettings.isHost);
+		nettie = new NetworkManager();
 		SpawnAmount = 2f;
 		ScoreText = new CnvText("Text/Score",true);
 		GameReady = false;
@@ -45,6 +47,7 @@ Enumerable.Empty<Asteroid>()).ToList<Asteroid>();
 	public System.Boolean GameReady;
 	public CnvText ScoreText;
 	public System.Single SpawnAmount;
+	public NetworkManager nettie;
 	public System.Single ___fadingFactor00;
 	public System.Single count_down2;
 	public System.Single count_down1;
@@ -52,6 +55,7 @@ Enumerable.Empty<Asteroid>()).ToList<Asteroid>();
 	public System.Single count_down3;
 	public System.Single count_down4;
 	public System.Int32 ___x50;
+	public System.Single count_down5;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -63,11 +67,13 @@ var t = System.DateTime.Now;		this.Rule3(dt, world);
 		CurrentPlayer.Update(dt, world);
 		GameOverText.Update(dt, world);
 		ScoreText.Update(dt, world);
+		nettie.Update(dt, world);
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
+		this.Rule6(dt, world);
 	}
 
 	public void Rule3(float dt, World world) 
@@ -282,6 +288,31 @@ return;
 	default: return;}}
 	
 
+	int s6=-1;
+	public void Rule6(float dt, World world){ 
+	switch (s6)
+	{
+
+	case -1:
+	count_down5 = 5f;
+	goto case 2;
+	case 2:
+	if(((count_down5) > (0f)))
+	{
+
+	count_down5 = ((count_down5) - (dt));
+	s6 = 2;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	Asteroids = Asteroids;
+	s6 = -1;
+return;	
+	default: return;}}
+	
+
 
 
 
@@ -456,7 +487,7 @@ Enumerable.Empty<Bullet>()).ToList<Bullet>();
 	public System.Boolean useGUILayout{  get { return UnityShip.useGUILayout; }
   set{UnityShip.useGUILayout = value; }
  }
-	public System.Single count_down5;
+	public System.Single count_down6;
 	public void Update(float dt, World world) {
 frame = World.frame;		this.Rule0(dt, world);
 
@@ -566,13 +597,13 @@ return;	}else
 	s4 = 0;
 return;
 	case 0:
-	count_down5 = 0.1f;
+	count_down6 = 0.1f;
 	goto case 1;
 	case 1:
-	if(((count_down5) > (0f)))
+	if(((count_down6) > (0f)))
 	{
 
-	count_down5 = ((count_down5) - (dt));
+	count_down6 = ((count_down6) - (dt));
 	s4 = 1;
 return;	}else
 	{
@@ -645,7 +676,7 @@ public Bullet(UnityEngine.Vector3 pos, Ship owner)
 	public System.Boolean useGUILayout{  get { return UnityBullet.useGUILayout; }
   set{UnityBullet.useGUILayout = value; }
  }
-	public System.Single count_down6;
+	public System.Single count_down7;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -693,13 +724,13 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down6 = dt;
+	count_down7 = dt;
 	goto case 2;
 	case 2:
-	if(((count_down6) > (0f)))
+	if(((count_down7) > (0f)))
 	{
 
-	count_down6 = ((count_down6) - (dt));
+	count_down7 = ((count_down7) - (dt));
 	s1 = 2;
 return;	}else
 	{
@@ -767,7 +798,7 @@ public Asteroid(UnityEngine.Vector3 pos)
 	public System.Boolean useGUILayout{  get { return UnityAsteroid.useGUILayout; }
   set{UnityAsteroid.useGUILayout = value; }
  }
-	public System.Single count_down7;
+	public System.Single count_down8;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -794,13 +825,13 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down7 = dt;
+	count_down8 = dt;
 	goto case 2;
 	case 2:
-	if(((count_down7) > (0f)))
+	if(((count_down8) > (0f)))
 	{
 
-	count_down7 = ((count_down7) - (dt));
+	count_down8 = ((count_down8) - (dt));
 	s0 = 2;
 return;	}else
 	{
@@ -1057,4 +1088,137 @@ frame = World.frame;
 
 
 }
-}      
+public class NetworkManager{
+public int frame;
+public bool JustEntered = true;
+	public int ID;
+public NetworkManager()
+	{JustEntered = false;
+ frame = World.frame;
+		UnityNetworkManager = UnityNetworkManager.Instantiate();
+		OutgoingMessages = (
+
+Enumerable.Empty<Message>()).ToList<Message>();
+		IncomingMessages = (
+
+Enumerable.Empty<Message>()).ToList<Message>();
+		
+}
+		public List<Message> IncomingMessages;
+	public List<Message> OutgoingMessages;
+	public UnityNetworkManager UnityNetworkManager;
+	public Lidgren.Network.NetClient client{  get { return UnityNetworkManager.client; }
+  set{UnityNetworkManager.client = value; }
+ }
+	public System.Boolean enabled{  get { return UnityNetworkManager.enabled; }
+  set{UnityNetworkManager.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return UnityNetworkManager.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityNetworkManager.hideFlags; }
+  set{UnityNetworkManager.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return UnityNetworkManager.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return UnityNetworkManager.name; }
+  set{UnityNetworkManager.name = value; }
+ }
+	public System.String tag{  get { return UnityNetworkManager.tag; }
+  set{UnityNetworkManager.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return UnityNetworkManager.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return UnityNetworkManager.useGUILayout; }
+  set{UnityNetworkManager.useGUILayout = value; }
+ }
+	public System.Single count_down9;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		for(int x0 = 0; x0 < IncomingMessages.Count; x0++) { 
+			IncomingMessages[x0].Update(dt, world);
+		}
+		for(int x0 = 0; x0 < OutgoingMessages.Count; x0++) { 
+			OutgoingMessages[x0].Update(dt, world);
+		}
+		this.Rule0(dt, world);
+
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	count_down9 = 1f;
+	goto case 3;
+	case 3:
+	if(((count_down9) > (0f)))
+	{
+
+	count_down9 = ((count_down9) - (dt));
+	s0 = 3;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	UnityNetworkManager.callRunReader(UnityNetworkManager);
+	OutgoingMessages = (
+
+Enumerable.Empty<Message>()).ToList<Message>();
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+
+
+
+
+
+}
+public class Message{
+public int frame;
+public bool JustEntered = true;
+private System.Int32 a;
+private System.Int32 b;
+private System.Int32 c;
+	public int ID;
+public Message(System.Int32 a, System.Int32 b, System.Int32 c)
+	{JustEntered = false;
+ frame = World.frame;
+		Test = 11;
+		PropertyID = c;
+		EntityTypeID = a;
+		EntityID = b;
+		
+}
+		public System.Int32 EntityID;
+	public System.Int32 EntityTypeID;
+	public System.Int32 PropertyID;
+	public System.Int32 Test;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+}
+}    

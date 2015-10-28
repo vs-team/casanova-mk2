@@ -1,7 +1,10 @@
-module Game
-
+module Game    
+    
 open "UnityEngine.dll"
 open UnityEngine
+open "Assets\\DllsToImport\\Lidgren.Network.dll"  
+open Lidgren.Network
+  
 
 worldEntity World = {
 
@@ -14,6 +17,7 @@ worldEntity World = {
     GameOver        : bool
     GameOverText    : CnvText
     ScoreText       : CnvText
+    nettie          : NetworkManager
     
     (*rule GameReady =
         if GameSettings.isHost then 
@@ -23,7 +27,11 @@ worldEntity World = {
         else
             let a = PlayerClient.Connect
             Debug.Log(a)
-            yield a*)
+            yield a*) 
+  
+    rule Asteroids =
+        wait 5.0f
+        yield Asteroids  
 
     rule Asteroids =
         wait SpawnAmount
@@ -77,6 +85,7 @@ worldEntity World = {
         GameOver = false
         GameOverText = new CnvText("Text/GameOver",false)
         ScoreText = new CnvText("Text/Score",true)
+        nettie = new NetworkManager()
       }
 
 
@@ -238,3 +247,42 @@ entity Server = {
     }
 
 }
+
+entity NetworkManager = {
+    inherit UnityNetworkManager 
+
+    OutgoingMessages : [Message]
+    IncomingMessages : [Message]  
+
+    rule OutgoingMessages =
+      wait 1.0f
+      UnityNetworkManager.callRunReader(UnityNetworkManager)
+      yield []
+
+    Create() = {
+    OutgoingMessages = []
+    IncomingMessages = []
+    Base = UnityNetworkManager.Instantiate()
+    }
+
+} 
+
+entity Message={
+
+  EntityTypeID : int
+  EntityID     : int
+  PropertyID   : int
+  Test         : int
+
+  Create(a : int, b : int, c : int)={
+  EntityTypeID = a
+  EntityID = b
+  PropertyID = c
+  Test = 11
+  }
+
+}   
+
+
+
+

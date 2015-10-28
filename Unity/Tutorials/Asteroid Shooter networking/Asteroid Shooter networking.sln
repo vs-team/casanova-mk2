@@ -1,9 +1,9 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asteroid Shooter networking.CSharp", "Asteroid Shooter networking.CSharp.csproj", "{A26E2F27-659C-34AD-F313-92F8C4919762}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{E43C2F5A-6BA4-E1C2-927D-79077AD91261}") = "Asteroid Shooter networking", "Assembly-CSharp.csproj", "{80E0B556-E4F9-B1DA-FF4D-5B41FE4B9586}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asteroid Shooter networking.CSharp.Editor", "Asteroid Shooter networking.CSharp.Editor.csproj", "{F090F8D3-6DCE-5C4A-86EC-D35963B4C780}"
+Project("{E43C2F5A-6BA4-E1C2-927D-79077AD91261}") = "Asteroid Shooter networking", "Assembly-CSharp-Editor.csproj", "{8679CFF8-34C4-3F60-92AE-11B83D553828}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,16 +11,36 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A26E2F27-659C-34AD-F313-92F8C4919762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A26E2F27-659C-34AD-F313-92F8C4919762}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A26E2F27-659C-34AD-F313-92F8C4919762}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A26E2F27-659C-34AD-F313-92F8C4919762}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F090F8D3-6DCE-5C4A-86EC-D35963B4C780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F090F8D3-6DCE-5C4A-86EC-D35963B4C780}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F090F8D3-6DCE-5C4A-86EC-D35963B4C780}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F090F8D3-6DCE-5C4A-86EC-D35963B4C780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E0B556-E4F9-B1DA-FF4D-5B41FE4B9586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E0B556-E4F9-B1DA-FF4D-5B41FE4B9586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E0B556-E4F9-B1DA-FF4D-5B41FE4B9586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E0B556-E4F9-B1DA-FF4D-5B41FE4B9586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8679CFF8-34C4-3F60-92AE-11B83D553828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8679CFF8-34C4-3F60-92AE-11B83D553828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8679CFF8-34C4-3F60-92AE-11B83D553828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8679CFF8-34C4-3F60-92AE-11B83D553828}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+																																																	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 120
+		$3.TabWidth = 4
+		$3.IndentWidth = 4
+		$3.EolMarker = Unix
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/plain
+		$3.scope = text/plain
+	EndGlobalSection
+
 EndGlobal

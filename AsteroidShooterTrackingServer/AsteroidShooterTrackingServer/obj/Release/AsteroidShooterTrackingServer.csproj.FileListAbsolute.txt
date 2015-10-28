@@ -22,3 +22,11 @@ C:\Users\Justin\Data\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidS
 C:\Users\Justin\Data\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Release\Lidgren.Network.dll
 C:\Users\Justin\Data\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Release\UnityEngine.dll
 C:\Users\Justin\Data\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\obj\Release\AsteroidShooterTrackingServer.csprojResolveAssemblyReference.cache
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Release\AsteroidShooterTrackingServer.exe.config
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\obj\Release\AsteroidShooterTrackingServer.exe
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\obj\Release\AsteroidShooterTrackingServer.pdb
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Release\AsteroidShooterTrackingServer.exe
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Release\AsteroidShooterTrackingServer.pdb
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Release\Lidgren.Network.dll
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\bin\Release\UnityEngine.dll
+C:\Users\justi\GitHub\casanova-mk2\AsteroidShooterTrackingServer\AsteroidShooterTrackingServer\obj\Release\AsteroidShooterTrackingServer.csprojResolveAssemblyReference.cache

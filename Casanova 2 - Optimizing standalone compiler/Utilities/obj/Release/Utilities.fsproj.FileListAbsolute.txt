@@ -26,3 +26,17 @@ C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone c
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.fsprojResolveAssemblyReference.cache
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.dll
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.pdb
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.dll.config
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.XML
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.pdb
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSComp.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSharp.Core.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FsLexYacc.Runtime.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSComp.pdb
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSComp.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSharp.Core.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FsLexYacc.Runtime.xml
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.fsprojResolveAssemblyReference.cache
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.dll
+C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.pdb
