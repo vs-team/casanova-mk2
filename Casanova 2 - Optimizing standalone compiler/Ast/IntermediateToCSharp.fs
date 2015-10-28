@@ -282,8 +282,8 @@ let GenerateUpdate (world_name : string) (dp:IntermediateAST.DataDependencies) (
 //  ClearNotifications dp c +
 //  RegisterNotifications dp c +
   StepAutomatedRules(c.Body) +
-  GenerateFieldUpdates dp c +    
   StepStateMachineRules(c.Body) +
+  GenerateFieldUpdates dp c +    
   "\t}\n" + 
   CSharpPrelude.StepSuspendedRules c world_name dp
 

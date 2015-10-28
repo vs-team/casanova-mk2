@@ -4,14 +4,16 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class World : MonoBehaviour{
+namespace Game {public class World : MonoBehaviour{
 public static int frame;
 void Update () { Update(Time.deltaTime, this); 
  frame++; }
 public bool JustEntered = true;
 
+
 public void Start()
-	{		List<Planet> ___planets00;
+	{
+		List<Planet> ___planets00;
 		___planets00 = (
 
 (Enumerable.Range(1,(1) + ((50) - (1))).ToList<System.Int32>()).Select(__ContextSymbol0 => new { ___i00 = __ContextSymbol0 })
@@ -22,11 +24,13 @@ public void Start()
 .ToList<Planet>()).ToList<Planet>();
 		Planets = ___planets00;
 		MainCamera = new GameCamera();
-		}
+		
+}
 		public GameCamera MainCamera;
 	public List<Planet> __Planets;
 	public List<Planet> Planets{  get { return  __Planets; }
-  set{  foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
+  set{ __Planets = value;
+ foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
 }
 } }
  }
@@ -40,16 +44,19 @@ public void Start()
 	public UnityEngine.Vector3 ___velocity10;
 	public UnityEngine.Vector3 ___rotv10;
 	public Planet ___newPlanet10;
+
+System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
+var t = System.DateTime.Now;		this.Rule0(dt, world);
+
 		MainCamera.Update(dt, world);
 		for(int x0 = 0; x0 < Planets.Count; x0++) { 
 			Planets[x0].Update(dt, world);
 		}
-		this.Rule0(dt, world);
-
 		this.Rule1(dt, world);
 
 	}
+
 	public void Rule0(float dt, World world) 
 	{
 	Planets = (
@@ -121,8 +128,11 @@ public int frame;
 public bool JustEntered = true;
 	public int ID;
 public GameCamera()
-	{JustEntered = false;		UnityCamera = UnityCamera.CreateMainCamera();
-		}
+	{JustEntered = false;
+ frame = World.frame;
+		UnityCamera = UnityCamera.CreateMainCamera();
+		
+}
 		public UnityEngine.Vector3 CameraPosition{  get { return UnityCamera.CameraPosition; }
   set{UnityCamera.CameraPosition = value; }
  }
@@ -132,48 +142,18 @@ public GameCamera()
 	public System.Boolean Quit{  set{UnityCamera.Quit = value; }
  }
 	public UnityCamera UnityCamera;
-	public UnityEngine.Animation animation{  get { return UnityCamera.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityCamera.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityCamera.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityCamera.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityCamera.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityCamera.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityCamera.enabled; }
   set{UnityCamera.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityCamera.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityCamera.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityCamera.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityCamera.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityCamera.hideFlags; }
   set{UnityCamera.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityCamera.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityCamera.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityCamera.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityCamera.name; }
   set{UnityCamera.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityCamera.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityCamera.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityCamera.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityCamera.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityCamera.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityCamera.tag; }
   set{UnityCamera.tag = value; }
@@ -398,13 +378,16 @@ private UnityEngine.Vector3 velocity;
 private UnityEngine.Vector3 rotationVelocity;
 	public int ID;
 public Planet(UnityEngine.Vector3 pos, System.Single m, UnityEngine.Vector3 velocity, UnityEngine.Vector3 rotationVelocity)
-	{JustEntered = false;		Velocity = velocity;
+	{JustEntered = false;
+ frame = World.frame;
+		Velocity = velocity;
 		UnityPlanet = UnityPlanet.Instantiate(pos,m);
 		RotationVelocity = rotationVelocity;
 		OutOfBounds = false;
 		Mass = m;
 		Acceleration = Vector3.zero;
-		}
+		
+}
 		public UnityEngine.Vector3 Acceleration;
 	public System.Boolean Destroyed{  get { return UnityPlanet.Destroyed; }
   set{UnityPlanet.Destroyed = value; }
@@ -420,48 +403,18 @@ public Planet(UnityEngine.Vector3 pos, System.Single m, UnityEngine.Vector3 velo
 	public UnityEngine.Vector3 RotationVelocity;
 	public UnityPlanet UnityPlanet;
 	public UnityEngine.Vector3 Velocity;
-	public UnityEngine.Animation animation{  get { return UnityPlanet.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityPlanet.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityPlanet.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityPlanet.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityPlanet.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityPlanet.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityPlanet.enabled; }
   set{UnityPlanet.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityPlanet.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityPlanet.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityPlanet.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityPlanet.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityPlanet.hideFlags; }
   set{UnityPlanet.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityPlanet.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityPlanet.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityPlanet.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityPlanet.name; }
   set{UnityPlanet.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityPlanet.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityPlanet.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityPlanet.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityPlanet.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityPlanet.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityPlanet.tag; }
   set{UnityPlanet.tag = value; }
@@ -500,7 +453,7 @@ frame = World.frame;		this.Rule0(dt, world);
 
 (___accelerations00).Select(__ContextSymbol13 => new { ___a00 = __ContextSymbol13 })
 .Select(__ContextSymbol14 => __ContextSymbol14.___a00)
-.Aggregate( (acc, __x) => acc + __x));
+.Aggregate(default(UnityEngine.Vector3), (acc, __x) => acc + __x));
 		}else
 		{
 		Acceleration = Vector3.zero;
@@ -561,4 +514,4 @@ return;
 
 
 }
-                 
+}                   

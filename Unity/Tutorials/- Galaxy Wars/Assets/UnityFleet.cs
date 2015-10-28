@@ -3,6 +3,9 @@ using System.Collections;
 
 public class UnityFleet : MonoBehaviour {
 
+  TextMesh textMesh;
+
+  public string Info { get { return textMesh.text; } set { textMesh.text = value; } }
 
   bool destroyed = false;
   public bool Destroyed
@@ -21,10 +24,14 @@ public class UnityFleet : MonoBehaviour {
     get { return this.transform.position; } }
 
 
-  public static UnityFleet Instantiate(Vector3 p) {
-    var object_fleet = GameObject.Instantiate(Resources.Load("Fleet"), p, Quaternion.identity) as GameObject;
-    return object_fleet.GetComponent<UnityFleet>();
+  public static UnityFleet Instantiate(Vector3 p, Vector3 to) {
+    var object_fleet = GameObject.Instantiate(Resources.Load("Fleet"), p, Quaternion.LookRotation((to-p).normalized)) as GameObject;
+    var text_mesh = object_fleet.GetComponentInChildren<TextMesh>();
+    text_mesh.transform.rotation = Quaternion.LookRotation(Vector3.down);
+    var fleet = object_fleet.GetComponent<UnityFleet>();
+    fleet.textMesh = text_mesh;
+    return fleet;
 
   }
 }
-                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

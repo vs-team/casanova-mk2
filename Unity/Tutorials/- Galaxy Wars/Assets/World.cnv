@@ -39,11 +39,10 @@ worldEntity World = {
        for source in planets do
        for destination in planets do
        where (unity_link.f = source.UnityPlanet.gameObject && unity_link.t = destination.UnityPlanet.gameObject)
-       select (new Link(unity_link, destination, source))]
-    Debug.Log(planets.Count)
-    Debug.Log(unity_links.Count)
+       select (new Link(unity_link, destination, source))]    
     Debug.Log(links1.Count)
     Debug.Log(links2.Count)
+    Debug.Log(planets.Count)
     { 
       Planets = planets
       Links = links1 @ links2
@@ -53,16 +52,67 @@ worldEntity World = {
 entity Battle = {
   ref MySource    : Planet
   AttackingFleets : [AttackingFleet]
-  SelectedAttackingFleet : Option<AttackingFleet>
   DefenceLost     : Option<int>
   AttackLost      : Option<int>
+  FleetsToDestroyNextTurn  : [AttackingFleet]
+  FleetsToMerge   : [AttackingFleetToMerge]
+
+  rule AttackLost, DefenceLost =
+    yield None, None
+    wait 1.0f
+    if AttackingFleets.Count > 0 then
+      yield Some 1, Some 1   
+
+  rule AttackingFleets =
+    .| AttackingFleets.Count <= 1 => yield AttackingFleets
+    .| _ =>
+      wait Random.Range(1.0f, 2.0f)
+      yield AttackingFleets.Tail @ [AttackingFleets.Head]
+  
+
+  rule AttackingFleets =
+    let new_attacking_fleets =
+      [for f in MySource.InboundFleets do
+       let is_ship_to_merge =
+        [for flee_to_merge in FleetsToMerge do
+         where (flee_to_merge.MyFleet = f)
+         select 1
+         sum]
+       where (is_ship_to_merge = 0 &&
+              (MySource.Owner.IsNone ||
+               not (f.Owner = MySource.Owner.Value)))
+       select (new AttackingFleet(f, this))]
+
+    let filtered_attacking_fleets =
+      [for f in AttackingFleets do       
+       where ((not f.MyFleet.Destroyed) &&
+              (MySource.Owner.IsSome && not (f.MyFleet.Owner = MySource.Owner.Value)))
+       select f]
+    yield new_attacking_fleets @ filtered_attacking_fleets 
+
+  rule FleetsToDestroyNextTurn =
+    yield 
+      [for f in AttackingFleets do
+       where (MySource.Owner.IsSome && f.MyFleet.Owner = MySource.Owner.Value)
+       select f]
+
+  rule FleetsToMerge =
+    yield
+      [for i_f in MySource.InboundFleets do
+       for a_f in AttackingFleets do
+       where (not a_f.MyFleet.Destroyed &&
+              i_f.Link = a_f.MyFleet.Link)
+       select (new AttackingFleetToMerge (i_f, a_f))]
+     
+
   Create(planet : Planet) =
     {
       MySource        = planet
       AttackingFleets = []
-      SelectedAttackingFleet = None
       DefenceLost     = None
       AttackLost      = None
+      FleetsToDestroyNextTurn = []
+      FleetsToMerge   = []
     }
 }
 
@@ -91,25 +141,52 @@ entity Planet = {
     if Owner.IsSome then yield Owner.Value.Name + " "
     else yield ""
 
-  rule LocalFleets =
-    wait Random.Range(1,3)
-    yield LocalFleets + 1
 
-  rule LocalFleets =
-    if Owner.IsSome then
-      let fleets_to_add =
-        [for f in LandingFleets do
+
+  rule Owner, LocalFleets =
+    if Battle.IsSome &&
+       LocalFleets = 0 &&
+       Battle.Value.AttackingFleets.Count > 0 then
+
+       let new_owner = Battle.Value.AttackingFleets.Head.MyFleet.Owner
+       let fleets_to_add =
+        [for f in Battle.Value.AttackingFleets do
+         where (f.MyFleet.Owner = new_owner && f.MyFleet.Ships > 0)
          select f.MyFleet.Ships
          sum]
-      yield LocalFleets + fleets_to_add
+       yield Some Battle.Value.AttackingFleets.Head.MyFleet.Owner, fleets_to_add 
 
+  rule LocalFleets =
+    .| Battle.IsSome && Battle.Value.DefenceLost.IsSome => yield LocalFleets - Battle.Value.DefenceLost.Value
+    .| Battle.IsSome => yield LocalFleets
+    .| Owner.IsNone => yield 0
+    .| _ =>
+      wait Random.Range(1,3)
+      yield LocalFleets + 1
+
+  rule LocalFleets =
+    let fleets_to_add =
+      [for f in LandingFleets do
+        select f.MyFleet.Ships
+        sum]
+    yield LocalFleets + fleets_to_add      
   
+  rule Battle =
+    if (Owner.IsNone && Battle.IsNone && (not (LandingFleets.Count = InboundFleets.Count))) ||
+        (Owner.IsSome && (not (LandingFleets.Count = InboundFleets.Count))) then
+      yield Some (new Battle(this))
+      wait Battle.Value.AttackingFleets.Count <= 0
+      yield None
+    else yield None
+
+        
   rule LandingFleets =
     if Owner.IsSome then
       yield
         [for inbound_fleet in InboundFleets do
          where (inbound_fleet.Owner = Owner.Value)
          select (new LandingFleet(inbound_fleet))]
+    else yield []
     
 
   rule InboundFleets =
@@ -138,19 +215,55 @@ entity Fleet = {
   inherit UnityFleet
   Statistics  : GameStatistic
   Ships       : int
+  ref Link    : Link
   ref Owner   : Player
-  Create(statistics : GameStatistic, ships : int, owner : Player, position : Vector3) =
+  
+  rule Info = yield Ships.ToString()
+  rule Destroyed = 
+    wait Ships <= 0
+    yield true
+
+  Create(statistics : GameStatistic, ships : int, owner : Player, position : Vector3, link : Link) =
     {
-      Base        = UnityFleet.Instantiate(position)
+      Base        = UnityFleet.Instantiate(position, link.Destination.Position)
+      Link        = link
       Statistics  = statistics
       Ships       = ships
       Owner       = owner
     }
 }
 
+entity AttackingFleetToMerge = {
+  ref MyFleet : Fleet
+  ref FleetToMergeWith : AttackingFleet
+  rule MyFleet.Destroyed = yield true
+  Create(fleet : Fleet, fleet_to_merge_with : AttackingFleet) = {
+    MyFleet = fleet
+    FleetToMergeWith = fleet_to_merge_with 
+  }
+}
 entity AttackingFleet = {
-  MyFleet : Fleet
+  ref MyFleet : Fleet
   ref MyBattle : Battle
+
+  rule MyFleet.Destroyed =
+    wait (MyBattle.MySource.Owner.IsSome && MyFleet.Owner = MyBattle.MySource.Owner.Value) || MyFleet.Ships <= 0
+    yield true
+
+
+  rule MyFleet.Info = yield MyFleet.Ships.ToString()
+
+  rule MyFleet.Ships =      
+    yield [for f in MyBattle.FleetsToMerge do
+           where (f.FleetToMergeWith = this)
+           select f.MyFleet.Ships
+           sum] + MyFleet.Ships 
+
+  rule MyFleet.Ships =
+    wait MyBattle.AttackLost.IsSome && MyBattle.AttackingFleets.Head = this
+    yield MyFleet.Ships - MyBattle.AttackLost.Value
+
+
   Create(myFleet : Fleet, myBattle : Battle) = 
     {
       MyFleet = myFleet
@@ -203,7 +316,7 @@ entity Link = {
          Source.Owner.IsSome &&
          Source.Battle.IsNone &&
          Source.LocalFleets > 0
-    let new_fleet = new Fleet(new GameStatistic(1.0f,1.0f,1.0f,1.0f), Source.LocalFleets, Source.Owner.Value, Source.Position) 
+    let new_fleet = new Fleet(new GameStatistic(1.0f,1.0f,1.0f,1.0f), Source.LocalFleets, Source.Owner.Value, Source.Position, this) 
     yield new TravellingFleet(new_fleet, Destination) :: TravellingFleets, 0
 
   rule TravellingFleets =

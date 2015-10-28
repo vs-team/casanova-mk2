@@ -34,11 +34,11 @@ public class UnityPlanet : MonoBehaviour
 	{
 		int asteroidVariant = Random.Range (1,6);
 		var planet = GameObject.Instantiate(Resources.Load("Asteroid" + asteroidVariant.ToString()), pos, Quaternion.identity) as GameObject;
-		planet.transform.rigidbody.mass = mass;
+		planet.transform.GetComponent<Rigidbody>().mass = mass;
 		var scale = planet.transform.localScale;
 		var scaleFactor = mass / 10000.0f;
 		planet.transform.localScale = new Vector3(scale.x + scaleFactor, scale.y + scaleFactor, scale.z + scaleFactor);
 		return planet.GetComponent<UnityPlanet>();
 	}
 }
-                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                           

@@ -60,10 +60,9 @@ public void Start()
 .Where(__ContextSymbol21 => ((((__ContextSymbol21.prev.prev.___unity_link01.f) == (__ContextSymbol21.prev.___source01.UnityPlanet.gameObject))) && (((__ContextSymbol21.prev.prev.___unity_link01.t) == (__ContextSymbol21.___destination01.UnityPlanet.gameObject)))))
 .Select(__ContextSymbol22 => new Link(__ContextSymbol22.prev.prev.___unity_link01,__ContextSymbol22.___destination01,__ContextSymbol22.prev.___source01))
 .ToList<Link>()))).ToList<Link>();
-		UnityEngine.Debug.Log(___planets00.Count);
-		UnityEngine.Debug.Log(___unity_links00.Count);
 		UnityEngine.Debug.Log(___links100.Count);
 		UnityEngine.Debug.Log(___links200.Count);
+		UnityEngine.Debug.Log(___planets00.Count);
 		Planets = ___planets00;
 		Links = (___links100).Concat(___links200).ToList<Link>();
 		
@@ -116,8 +115,13 @@ private Planet planet;
 public Battle(Planet planet)
 	{JustEntered = false;
  frame = World.frame;
-		SelectedAttackingFleet = (new Nothing<AttackingFleet>());
 		MySource = planet;
+		FleetsToMerge = (
+
+Enumerable.Empty<AttackingFleetToMerge>()).ToList<AttackingFleetToMerge>();
+		FleetsToDestroyNextTurn = (
+
+Enumerable.Empty<AttackingFleet>()).ToList<AttackingFleet>();
 		DefenceLost = (new Nothing<System.Int32>());
 		AttackingFleets = (
 
@@ -128,27 +132,198 @@ Enumerable.Empty<AttackingFleet>()).ToList<AttackingFleet>();
 		public Option<System.Int32> AttackLost;
 	public List<AttackingFleet> AttackingFleets;
 	public Option<System.Int32> DefenceLost;
+	public List<AttackingFleet> FleetsToDestroyNextTurn;
+	public List<AttackingFleetToMerge> FleetsToMerge;
 	public Planet MySource;
-	public Option<AttackingFleet> SelectedAttackingFleet;
+	public List<AttackingFleet> ___new_attacking_fleets20;
+	public List<AttackingFleet> ___filtered_attacking_fleets20;
+	public System.Single count_down1;
+	public System.Single count_down2;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
+		this.Rule3(dt, world);
+		this.Rule4(dt, world);
 if(AttackLost.IsSome){  } 
 		for(int x0 = 0; x0 < AttackingFleets.Count; x0++) { 
 			AttackingFleets[x0].Update(dt, world);
 		}
 if(DefenceLost.IsSome){  } 
-if(SelectedAttackingFleet.IsSome){ 		SelectedAttackingFleet.Value.Update(dt, world);
- } 
-
-
+		for(int x0 = 0; x0 < FleetsToDestroyNextTurn.Count; x0++) { 
+			FleetsToDestroyNextTurn[x0].Update(dt, world);
+		}
+		for(int x0 = 0; x0 < FleetsToMerge.Count; x0++) { 
+			FleetsToMerge[x0].Update(dt, world);
+		}
 	}
 
 
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
 
+	case -1:
+	FleetsToMerge = (
+
+(MySource.InboundFleets).Select(__ContextSymbol29 => new { ___i_f00 = __ContextSymbol29 })
+.SelectMany(__ContextSymbol30=> (AttackingFleets).Select(__ContextSymbol31 => new { ___a_f00 = __ContextSymbol31,
+                                                      prev = __ContextSymbol30 })
+.Where(__ContextSymbol32 => ((!(__ContextSymbol32.___a_f00.MyFleet.Destroyed)) && (((__ContextSymbol32.prev.___i_f00.Link) == (__ContextSymbol32.___a_f00.MyFleet.Link)))))
+.Select(__ContextSymbol33 => new AttackingFleetToMerge(__ContextSymbol33.prev.___i_f00,__ContextSymbol33.___a_f00))
+.ToList<AttackingFleetToMerge>())).ToList<AttackingFleetToMerge>();
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	FleetsToDestroyNextTurn = (
+
+(AttackingFleets).Select(__ContextSymbol34 => new { ___f10 = __ContextSymbol34 })
+.Where(__ContextSymbol35 => ((MySource.Owner.IsSome) && (((__ContextSymbol35.___f10.MyFleet.Owner) == (MySource.Owner.Value)))))
+.Select(__ContextSymbol36 => __ContextSymbol36.___f10)
+.ToList<AttackingFleet>()).ToList<AttackingFleet>();
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	___new_attacking_fleets20 = (
+
+(MySource.InboundFleets).Select(__ContextSymbol37 => new { ___f21 = __ContextSymbol37 })
+.Select(__ContextSymbol38 => new {___is_ship_to_merge20 = (
+
+(FleetsToMerge).Select(__ContextSymbol39 => new { ___flee_to_merge20 = __ContextSymbol39,prev = __ContextSymbol38 })
+.Where(__ContextSymbol40 => ((__ContextSymbol40.___flee_to_merge20.MyFleet) == (__ContextSymbol40.prev.___f21)))
+.Select(__ContextSymbol41 => 1)
+.Aggregate(default(System.Int32), (acc, __x) => acc + __x)), prev = __ContextSymbol38 })
+.Where(__ContextSymbol43 => ((((__ContextSymbol43.___is_ship_to_merge20) == (0))) && (((MySource.Owner.IsNone) || (!(((__ContextSymbol43.prev.___f21.Owner) == (MySource.Owner.Value))))))))
+.Select(__ContextSymbol44 => new AttackingFleet(__ContextSymbol44.prev.___f21,this))
+.ToList<AttackingFleet>()).ToList<AttackingFleet>();
+	___filtered_attacking_fleets20 = (
+
+(AttackingFleets).Select(__ContextSymbol45 => new { ___f22 = __ContextSymbol45 })
+.Where(__ContextSymbol46 => ((!(__ContextSymbol46.___f22.MyFleet.Destroyed)) && (((MySource.Owner.IsSome) && (!(((__ContextSymbol46.___f22.MyFleet.Owner) == (MySource.Owner.Value))))))))
+.Select(__ContextSymbol47 => __ContextSymbol47.___f22)
+.ToList<AttackingFleet>()).ToList<AttackingFleet>();
+	AttackingFleets = (___new_attacking_fleets20).Concat(___filtered_attacking_fleets20).ToList<AttackingFleet>();
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(((!(((AttackingFleets.Count) > (1)))) || (true))))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	if(!(((AttackingFleets.Count) > (1))))
+	{
+
+	goto case 2;	}else
+	{
+
+	if(true)
+	{
+
+	goto case 3;	}else
+	{
+
+	s3 = 0;
+return;	}	}
+	case 2:
+	AttackingFleets = AttackingFleets;
+	s3 = -1;
+return;
+	case 3:
+	count_down1 = UnityEngine.Random.Range(1f,2f);
+	goto case 7;
+	case 7:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s3 = 7;
+return;	}else
+	{
+
+	goto case 5;	}
+	case 5:
+	AttackingFleets = (AttackingFleets.Tail()).Concat((
+
+(new Cons<AttackingFleet>(AttackingFleets.Head(),(new Empty<AttackingFleet>()).ToList<AttackingFleet>())).ToList<AttackingFleet>()).ToList<AttackingFleet>()).ToList<AttackingFleet>();
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	AttackLost = (new Nothing<System.Int32>());
+	DefenceLost = (new Nothing<System.Int32>());
+	s4 = 3;
+return;
+	case 3:
+	count_down2 = 1f;
+	goto case 4;
+	case 4:
+	if(((count_down2) > (0f)))
+	{
+
+	count_down2 = ((count_down2) - (dt));
+	s4 = 4;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	if(((AttackingFleets.Count) > (0)))
+	{
+
+	goto case 1;	}else
+	{
+
+	s4 = -1;
+return;	}
+	case 1:
+	AttackLost = (new Just<System.Int32>(1));
+	DefenceLost = (new Just<System.Int32>(1));
+	s4 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -232,11 +407,23 @@ Enumerable.Empty<Fleet>()).ToList<Fleet>();
 	public System.Boolean useGUILayout{  get { return UnityPlanet.useGUILayout; }
   set{UnityPlanet.useGUILayout = value; }
  }
-	public System.Int32 ___fleets_to_add20;
-	public System.Single count_down1;
+	public System.Int32 ___fleets_to_add30;
+	public System.Single count_down3;
+	public Player ___new_owner50;
+	public System.Int32 ___fleets_to_add51;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
+		this.Rule3(dt, world);
+		this.Rule4(dt, world);
+		this.Rule5(dt, world);
+		this.Rule6(dt, world);
+		this.Rule7(dt, world);
+		this.Rule8(dt, world);
+		this.Rule9(dt, world);
 if(Battle.IsSome){ 		Battle.Value.Update(dt, world);
  } 
 		for(int x0 = 0; x0 < InboundFleets.Count; x0++) { 
@@ -246,14 +433,6 @@ if(Battle.IsSome){ 		Battle.Value.Update(dt, world);
 			LandingFleets[x0].Update(dt, world);
 		}
 		Statistics.Update(dt, world);
-		this.Rule0(dt, world);
-		this.Rule1(dt, world);
-		this.Rule2(dt, world);
-		this.Rule3(dt, world);
-		this.Rule4(dt, world);
-		this.Rule5(dt, world);
-		this.Rule6(dt, world);
-		this.Rule7(dt, world);
 	}
 
 
@@ -268,11 +447,11 @@ if(Battle.IsSome){ 		Battle.Value.Update(dt, world);
 	case -1:
 	InboundFleets = (
 
-(world.Links).Select(__ContextSymbol29 => new { ___l00 = __ContextSymbol29 })
-.Where(__ContextSymbol30 => ((__ContextSymbol30.___l00.Destination) == (this)))
-.SelectMany(__ContextSymbol31=> (__ContextSymbol31.___l00.ArrivedFleets).Select(__ContextSymbol32 => new { ___f00 = __ContextSymbol32,
-                                                      prev = __ContextSymbol31 })
-.Select(__ContextSymbol33 => __ContextSymbol33.___f00.MyFleet)
+(world.Links).Select(__ContextSymbol53 => new { ___l00 = __ContextSymbol53 })
+.Where(__ContextSymbol54 => ((__ContextSymbol54.___l00.Destination) == (this)))
+.SelectMany(__ContextSymbol55=> (__ContextSymbol55.___l00.ArrivedFleets).Select(__ContextSymbol56 => new { ___f03 = __ContextSymbol56,
+                                                      prev = __ContextSymbol55 })
+.Select(__ContextSymbol57 => __ContextSymbol57.___f03.MyFleet)
 .ToList<Fleet>())).ToList<Fleet>();
 	s0 = -1;
 return;	
@@ -288,18 +467,23 @@ return;
 	if(Owner.IsSome)
 	{
 
-	goto case 2;	}else
+	goto case 1;	}else
 	{
 
+	goto case 2;	}
+	case 1:
+	LandingFleets = (
+
+(InboundFleets).Select(__ContextSymbol58 => new { ___inbound_fleet10 = __ContextSymbol58 })
+.Where(__ContextSymbol59 => ((__ContextSymbol59.___inbound_fleet10.Owner) == (Owner.Value)))
+.Select(__ContextSymbol60 => new LandingFleet(__ContextSymbol60.___inbound_fleet10))
+.ToList<LandingFleet>()).ToList<LandingFleet>();
 	s1 = -1;
-return;	}
+return;
 	case 2:
 	LandingFleets = (
 
-(InboundFleets).Select(__ContextSymbol34 => new { ___inbound_fleet10 = __ContextSymbol34 })
-.Where(__ContextSymbol35 => ((__ContextSymbol35.___inbound_fleet10.Owner) == (Owner.Value)))
-.Select(__ContextSymbol36 => new LandingFleet(__ContextSymbol36.___inbound_fleet10))
-.ToList<LandingFleet>()).ToList<LandingFleet>();
+Enumerable.Empty<LandingFleet>()).ToList<LandingFleet>();
 	s1 = -1;
 return;	
 	default: return;}}
@@ -311,21 +495,32 @@ return;
 	{
 
 	case -1:
-	if(Owner.IsSome)
+	if(((((((Owner.IsNone) && (Battle.IsNone))) && (!(((LandingFleets.Count) == (InboundFleets.Count)))))) || (((Owner.IsSome) && (!(((LandingFleets.Count) == (InboundFleets.Count))))))))
 	{
 
-	goto case 5;	}else
+	goto case 6;	}else
 	{
 
+	goto case 7;	}
+	case 6:
+	Battle = (new Just<Battle>(new Battle(this)));
+	s2 = 10;
+return;
+	case 10:
+	if(!(!(((Battle.Value.AttackingFleets.Count) > (0)))))
+	{
+
+	s2 = 10;
+return;	}else
+	{
+
+	goto case 9;	}
+	case 9:
+	Battle = (new Nothing<Battle>());
 	s2 = -1;
-return;	}
-	case 5:
-	___fleets_to_add20 = (
-
-(LandingFleets).Select(__ContextSymbol37 => new { ___f21 = __ContextSymbol37 })
-.Select(__ContextSymbol38 => __ContextSymbol38.___f21.MyFleet.Ships)
-.Aggregate(default(System.Int32), (acc, __x) => acc + __x));
-	LocalFleets = ((LocalFleets) + (___fleets_to_add20));
+return;
+	case 7:
+	Battle = (new Nothing<Battle>());
 	s2 = -1;
 return;	
 	default: return;}}
@@ -337,20 +532,12 @@ return;
 	{
 
 	case -1:
-	count_down1 = UnityEngine.Random.Range(1,3);
-	goto case 2;
-	case 2:
-	if(((count_down1) > (0f)))
-	{
+	___fleets_to_add30 = (
 
-	count_down1 = ((count_down1) - (dt));
-	s3 = 2;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	LocalFleets = ((LocalFleets) + (1));
+(LandingFleets).Select(__ContextSymbol62 => new { ___f34 = __ContextSymbol62 })
+.Select(__ContextSymbol63 => __ContextSymbol63.___f34.MyFleet.Ships)
+.Aggregate(default(System.Int32), (acc, __x) => acc + __x));
+	LocalFleets = ((LocalFleets) + (___fleets_to_add30));
 	s3 = -1;
 return;	
 	default: return;}}
@@ -362,19 +549,68 @@ return;
 	{
 
 	case -1:
-	if(Owner.IsSome)
+	if(!(((((Battle.IsSome) && (Battle.Value.DefenceLost.IsSome))) || (((Battle.IsSome) || (((Owner.IsNone) || (true))))))))
+	{
+
+	s4 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	if(((Battle.IsSome) && (Battle.Value.DefenceLost.IsSome)))
+	{
+
+	goto case 2;	}else
+	{
+
+	if(Battle.IsSome)
 	{
 
 	goto case 3;	}else
 	{
 
-	goto case 4;	}
+	if(Owner.IsNone)
+	{
+
+	goto case 4;	}else
+	{
+
+	if(true)
+	{
+
+	goto case 5;	}else
+	{
+
+	s4 = 0;
+return;	}	}	}	}
+	case 2:
+	LocalFleets = ((LocalFleets) - (Battle.Value.DefenceLost.Value));
+	s4 = -1;
+return;
 	case 3:
-	Info = ((Owner.Value.Name) + (" "));
+	LocalFleets = LocalFleets;
 	s4 = -1;
 return;
 	case 4:
-	Info = "";
+	LocalFleets = 0;
+	s4 = -1;
+return;
+	case 5:
+	count_down3 = UnityEngine.Random.Range(1,3);
+	goto case 11;
+	case 11:
+	if(((count_down3) > (0f)))
+	{
+
+	count_down3 = ((count_down3) - (dt));
+	s4 = 11;
+return;	}else
+	{
+
+	goto case 9;	}
+	case 9:
+	LocalFleets = ((LocalFleets) + (1));
 	s4 = -1;
 return;	
 	default: return;}}
@@ -386,7 +622,24 @@ return;
 	{
 
 	case -1:
-	Info = ((Info) + (LocalFleets.ToString()));
+	if(((((Battle.IsSome) && (((LocalFleets) == (0))))) && (((Battle.Value.AttackingFleets.Count) > (0)))))
+	{
+
+	goto case 13;	}else
+	{
+
+	s5 = -1;
+return;	}
+	case 13:
+	___new_owner50 = Battle.Value.AttackingFleets.Head().MyFleet.Owner;
+	___fleets_to_add51 = (
+
+(Battle.Value.AttackingFleets).Select(__ContextSymbol65 => new { ___f55 = __ContextSymbol65 })
+.Where(__ContextSymbol66 => ((((__ContextSymbol66.___f55.MyFleet.Owner) == (___new_owner50))) && (((__ContextSymbol66.___f55.MyFleet.Ships) > (0)))))
+.Select(__ContextSymbol67 => __ContextSymbol67.___f55.MyFleet.Ships)
+.Aggregate(default(System.Int32), (acc, __x) => acc + __x));
+	Owner = (new Just<Player>(Battle.Value.AttackingFleets.Head().MyFleet.Owner));
+	LocalFleets = ___fleets_to_add51;
 	s5 = -1;
 return;	
 	default: return;}}
@@ -398,29 +651,19 @@ return;
 	{
 
 	case -1:
-	if(!(UnityEngine.Input.GetMouseButtonDown(1)))
+	if(Owner.IsSome)
 	{
 
+	goto case 17;	}else
+	{
+
+	goto case 18;	}
+	case 17:
+	Info = ((Owner.Value.Name) + (" "));
 	s6 = -1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	if(IsHit)
-	{
-
-	goto case 1;	}else
-	{
-
-	s6 = -1;
-return;	}
-	case 1:
-	RightSelected = true;
-	s6 = 2;
 return;
-	case 2:
-	RightSelected = false;
+	case 18:
+	Info = "";
 	s6 = -1;
 return;	
 	default: return;}}
@@ -432,17 +675,63 @@ return;
 	{
 
 	case -1:
+	Info = ((Info) + (LocalFleets.ToString()));
+	s7 = -1;
+return;	
+	default: return;}}
+	
+
+	int s8=-1;
+	public void Rule8(float dt, World world){ 
+	switch (s8)
+	{
+
+	case -1:
+	if(!(UnityEngine.Input.GetMouseButtonDown(1)))
+	{
+
+	s8 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	if(IsHit)
+	{
+
+	goto case 1;	}else
+	{
+
+	s8 = -1;
+return;	}
+	case 1:
+	RightSelected = true;
+	s8 = 2;
+return;
+	case 2:
+	RightSelected = false;
+	s8 = -1;
+return;	
+	default: return;}}
+	
+
+	int s9=-1;
+	public void Rule9(float dt, World world){ 
+	switch (s9)
+	{
+
+	case -1:
 	if(!(UnityEngine.Input.GetMouseButtonDown(0)))
 	{
 
-	s7 = -1;
+	s9 = -1;
 return;	}else
 	{
 
 	goto case 0;	}
 	case 0:
 	Selected = IsHit;
-	s7 = -1;
+	s9 = -1;
 return;	
 	default: return;}}
 	
@@ -459,19 +748,25 @@ private GameStatistic statistics;
 private System.Int32 ships;
 private Player owner;
 private UnityEngine.Vector3 position;
+private Link link;
 	public int ID;
-public Fleet(GameStatistic statistics, System.Int32 ships, Player owner, UnityEngine.Vector3 position)
+public Fleet(GameStatistic statistics, System.Int32 ships, Player owner, UnityEngine.Vector3 position, Link link)
 	{JustEntered = false;
  frame = World.frame;
-		UnityFleet = UnityFleet.Instantiate(position);
+		UnityFleet = UnityFleet.Instantiate(position,link.Destination.Position);
 		Statistics = statistics;
 		Ships = ships;
 		Owner = owner;
+		Link = link;
 		
 }
 		public System.Boolean Destroyed{  get { return UnityFleet.Destroyed; }
   set{UnityFleet.Destroyed = value; }
  }
+	public System.String Info{  get { return UnityFleet.Info; }
+  set{UnityFleet.Info = value; }
+ }
+	public Link Link;
 	public Player Owner;
 	public UnityEngine.Vector3 Position{  get { return UnityFleet.Position; }
   set{UnityFleet.Position = value; }
@@ -503,8 +798,72 @@ public Fleet(GameStatistic statistics, System.Int32 ships, Player owner, UnityEn
 	public void Update(float dt, World world) {
 frame = World.frame;
 
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
 		Statistics.Update(dt, world);
+	}
 
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	if(!(!(((Ships) > (0)))))
+	{
+
+	s0 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	Destroyed = true;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	Info = Ships.ToString();
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+
+
+
+
+}
+public class AttackingFleetToMerge{
+public int frame;
+public bool JustEntered = true;
+private Fleet fleet;
+private AttackingFleet fleet_to_merge_with;
+	public int ID;
+public AttackingFleetToMerge(Fleet fleet, AttackingFleet fleet_to_merge_with)
+	{JustEntered = false;
+ frame = World.frame;
+		MyFleet = fleet;
+		FleetToMergeWith = fleet_to_merge_with;
+		
+}
+		public AttackingFleet FleetToMergeWith;
+	public Fleet MyFleet;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		this.Rule0(dt, world);
 
 	}
 
@@ -512,6 +871,17 @@ frame = World.frame;
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	MyFleet.Destroyed = true;
+	s0 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -537,16 +907,86 @@ public AttackingFleet(Fleet myFleet, Battle myBattle)
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		MyFleet.Update(dt, world);
-
-
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
 
+	case -1:
+	if(!(((MyBattle.AttackLost.IsSome) && (((MyBattle.AttackingFleets.Head()) == (this))))))
+	{
+
+	s0 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	MyFleet.Ships = ((MyFleet.Ships) - (MyBattle.AttackLost.Value));
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	MyFleet.Ships = (((
+
+(MyBattle.FleetsToMerge).Select(__ContextSymbol69 => new { ___f16 = __ContextSymbol69 })
+.Where(__ContextSymbol70 => ((__ContextSymbol70.___f16.FleetToMergeWith) == (this)))
+.Select(__ContextSymbol71 => __ContextSymbol71.___f16.MyFleet.Ships)
+.Aggregate(default(System.Int32), (acc, __x) => acc + __x))) + (MyFleet.Ships));
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	MyFleet.Info = MyFleet.Ships.ToString();
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(((((MyBattle.MySource.Owner.IsSome) && (((MyFleet.Owner) == (MyBattle.MySource.Owner.Value))))) || (!(((MyFleet.Ships) > (0)))))))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	MyFleet.Destroyed = true;
+	s3 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -568,9 +1008,9 @@ public LandingFleet(Fleet myFleet)
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		MyFleet.Update(dt, world);
 		this.Rule0(dt, world);
 
+		MyFleet.Update(dt, world);
 	}
 
 
@@ -621,9 +1061,9 @@ public TravellingFleet(Fleet myfleet, Planet destination)
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		MyFleet.Update(dt, world);
 		this.Rule0(dt, world);
 
+		MyFleet.Update(dt, world);
 	}
 
 
@@ -714,12 +1154,12 @@ Enumerable.Empty<TravellingFleet>()).ToList<TravellingFleet>();
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		for(int x0 = 0; x0 < TravellingFleets.Count; x0++) { 
-			TravellingFleets[x0].Update(dt, world);
-		}
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		for(int x0 = 0; x0 < TravellingFleets.Count; x0++) { 
+			TravellingFleets[x0].Update(dt, world);
+		}
 	}
 
 
@@ -734,9 +1174,9 @@ frame = World.frame;
 	case -1:
 	ArrivedFleets = (
 
-(TravellingFleets).Select(__ContextSymbol44 => new { ___f02 = __ContextSymbol44 })
-.Where(__ContextSymbol45 => !(((UnityEngine.Vector3.Distance(__ContextSymbol45.___f02.MyFleet.Position,Destination.Position)) > (Destination.MinApproachingDist))))
-.Select(__ContextSymbol46 => __ContextSymbol46.___f02)
+(TravellingFleets).Select(__ContextSymbol77 => new { ___f07 = __ContextSymbol77 })
+.Where(__ContextSymbol78 => !(((UnityEngine.Vector3.Distance(__ContextSymbol78.___f07.MyFleet.Position,Destination.Position)) > (Destination.MinApproachingDist))))
+.Select(__ContextSymbol79 => __ContextSymbol79.___f07)
 .ToList<TravellingFleet>()).ToList<TravellingFleet>();
 	s0 = -1;
 return;	
@@ -751,9 +1191,9 @@ return;
 	case -1:
 	TravellingFleets = (
 
-(TravellingFleets).Select(__ContextSymbol47 => new { ___f13 = __ContextSymbol47 })
-.Where(__ContextSymbol48 => ((UnityEngine.Vector3.Distance(__ContextSymbol48.___f13.MyFleet.Position,Destination.Position)) > (Destination.MinApproachingDist)))
-.Select(__ContextSymbol49 => __ContextSymbol49.___f13)
+(TravellingFleets).Select(__ContextSymbol80 => new { ___f18 = __ContextSymbol80 })
+.Where(__ContextSymbol81 => ((UnityEngine.Vector3.Distance(__ContextSymbol81.___f18.MyFleet.Position,Destination.Position)) > (Destination.MinApproachingDist)))
+.Select(__ContextSymbol82 => __ContextSymbol82.___f18)
 .ToList<TravellingFleet>()).ToList<TravellingFleet>();
 	s1 = -1;
 return;	
@@ -775,7 +1215,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	___new_fleet20 = new Fleet(new GameStatistic(1f,1f,1f,1f),Source.LocalFleets,Source.Owner.Value,Source.Position);
+	___new_fleet20 = new Fleet(new GameStatistic(1f,1f,1f,1f),Source.LocalFleets,Source.Owner.Value,Source.Position,this);
 	TravellingFleets = new Cons<TravellingFleet>(new TravellingFleet(___new_fleet20,Destination), (TravellingFleets)).ToList<TravellingFleet>();
 	Source.LocalFleets = 0;
 	s2 = -1;
@@ -806,9 +1246,9 @@ public Player(System.String name, GameStatistic statistics)
 	public void Update(float dt, World world) {
 frame = World.frame;
 
+
+
 		Statistics.Update(dt, world);
-
-
 	}
 
 
@@ -861,4 +1301,4 @@ frame = World.frame;
 
 
 }
-}        
+}                                                                                                                                                                                                                 

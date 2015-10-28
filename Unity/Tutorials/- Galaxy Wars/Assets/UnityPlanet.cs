@@ -31,7 +31,7 @@ public class UnityPlanet : MonoBehaviour {
     }
   }
 
-  Light selection_light;
+  MeshRenderer selection_light;
 
   public bool selected;
   public bool Selected
@@ -43,7 +43,6 @@ public class UnityPlanet : MonoBehaviour {
       if (value)
       {
         selection_light.enabled = true;
-        selection_light.color = Color.yellow;
       }
       else
       {
@@ -61,7 +60,6 @@ public class UnityPlanet : MonoBehaviour {
       if (value)
       {
         selection_light.enabled = true;
-        selection_light.color = Color.red;
       }
       else
       {
@@ -79,13 +77,17 @@ public class UnityPlanet : MonoBehaviour {
     {
       var p = planets[i].GetComponent<UnityPlanet>();
       var text_mesh = p.gameObject.GetComponentInChildren<TextMesh>();
-      var light = p.gameObject.GetComponentInChildren<Light>();
       p.textMesh =  text_mesh;
-      p.selection_light = light;
+      foreach (var item in p.gameObject.GetComponentsInChildren<MeshRenderer>())
+      {
+        if(item.gameObject.GetComponentInChildren<UnitySelection>() != null)
+          p.selection_light = item;
+
+      }
       new_planets.Add(p);
     }
     return new_planets;
   }
 
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

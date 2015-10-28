@@ -18,8 +18,8 @@ public class UnityCamera : MonoBehaviour
 	
 	public float CameraSize
 	{
-		get { return this.gameObject.camera.orthographicSize; }
-		set { this.gameObject.camera.orthographicSize = value; }
+		get { return this.gameObject.GetComponent<Camera>().orthographicSize; }
+		set { this.gameObject.GetComponent<Camera>().orthographicSize = value; }
 	}
 	
 	
@@ -27,4 +27,4 @@ public class UnityCamera : MonoBehaviour
 	{
 		return GameObject.Find ("/GameCamera").GetComponent<UnityCamera>();
 	}
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
