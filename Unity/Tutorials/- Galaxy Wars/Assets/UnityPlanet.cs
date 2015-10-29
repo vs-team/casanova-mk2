@@ -21,11 +21,18 @@ public class UnityPlanet : MonoBehaviour {
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
 
+      if(this.name.ToLower() == "p5")
+      {
+        Debug.Log("HI");
+      }
       if (Physics.Raycast(ray, out hit))
+      {
+        Debug.Log("HI2");
         if (this.gameObject.Equals(hit.collider.gameObject))
           return true;
         else
           return false;
+      }
       else
         return false;
     }
@@ -90,4 +97,4 @@ public class UnityPlanet : MonoBehaviour {
   }
 
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
