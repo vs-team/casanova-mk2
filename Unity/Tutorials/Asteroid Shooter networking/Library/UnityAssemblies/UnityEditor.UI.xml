@@ -69,11 +69,6 @@
         <para>See [[Editor.OnInspectorGUI]].</para>
       </summary>
     </member>
-    <member name="T:UnityEditor.UI.CanvasScalerEditor">
-      <summary>
-        <para>Custom Editor for the CanvasScaler component.</para>
-      </summary>
-    </member>
     <member name="T:UnityEditor.UI.ColorBlockDrawer">
       <summary>
         <para>PropertyDrawer for [[ColorBlock]].</para>
@@ -90,45 +85,14 @@
         <para>See [[Editor.OnInspectorGUI]].</para>
       </summary>
     </member>
-    <member name="T:UnityEditor.UI.DropdownEditor">
-      <summary>
-        <para>Custom editor for the Dropdown component.</para>
-      </summary>
-    </member>
-    <member name="M:UnityEditor.UI.DropdownEditor.OnInspectorGUI">
-      <summary>
-        <para>See [[Editor.OnInspectorGUI]].</para>
-      </summary>
-    </member>
     <member name="T:UnityEditor.UI.FontDataDrawer">
       <summary>
         <para>PropertyDrawer for [[FontData]].</para>
       </summary>
     </member>
-    <member name="M:UnityEditor.UI.FontDataDrawer.Init(UnityEditor.SerializedProperty)">
-      <summary>
-        <para>Initialize the serialized properties for the drawer.</para>
-      </summary>
-      <param name="property"></param>
-    </member>
     <member name="T:UnityEditor.UI.GraphicEditor">
       <summary>
         <para>Extend this class to write your own graphic editor.</para>
-      </summary>
-    </member>
-    <member name="M:UnityEditor.UI.GraphicEditor.AppearanceControlsGUI">
-      <summary>
-        <para>GUI related to the appearance of the graphic. Color and Material properties appear here.</para>
-      </summary>
-    </member>
-    <member name="M:UnityEditor.UI.GraphicEditor.NativeSizeButtonGUI">
-      <summary>
-        <para>GUI for showing a button that sets the size of the RectTransform to the native size for this Graphic.</para>
-      </summary>
-    </member>
-    <member name="M:UnityEditor.UI.GraphicEditor.OnDisable">
-      <summary>
-        <para>See [[MonoBehaviour.OnDisable]].</para>
       </summary>
     </member>
     <member name="M:UnityEditor.UI.GraphicEditor.OnInspectorGUI">
@@ -136,14 +100,9 @@
         <para>Implement specific GraphicEditor inspector GUI code here. If you want to simply extend the existing editor call the base OnInspectorGUI () before doing any custom GUI code.</para>
       </summary>
     </member>
-    <member name="M:UnityEditor.UI.GraphicEditor.RaycastControlsGUI">
-      <summary>
-        <para>GUI related to the Raycasting settings for the graphic.</para>
-      </summary>
-    </member>
     <member name="M:UnityEditor.UI.GraphicEditor.SetShowNativeSize(System.Boolean,System.Boolean)">
       <summary>
-        <para>Set if the 'Set Native Size' button should be visible for this editor.</para>
+        <para>Set if the 'Set Native Size' button should be visable for this editor.</para>
       </summary>
       <param name="show"></param>
       <param name="instant"></param>
@@ -189,11 +148,6 @@
         <para>True if this component can be Previewed in its current state.</para>
       </returns>
     </member>
-    <member name="M:UnityEditor.UI.ImageEditor.OnDisable">
-      <summary>
-        <para>See [[MonoBehaviour.OnDisable]].</para>
-      </summary>
-    </member>
     <member name="M:UnityEditor.UI.ImageEditor.OnInspectorGUI">
       <summary>
         <para>Implement specific ImageEditor inspector GUI code here. If you want to simply extend the existing editor call the base OnInspectorGUI () before doing any custom GUI code.</para>
@@ -205,11 +159,6 @@
       </summary>
       <param name="rect">Rectangle in which to draw the preview.</param>
       <param name="background">Background image.</param>
-    </member>
-    <member name="M:UnityEditor.UI.ImageEditor.SpriteGUI">
-      <summary>
-        <para>GUI for showing the Sprite property.</para>
-      </summary>
     </member>
     <member name="M:UnityEditor.UI.ImageEditor.TypeGUI">
       <summary>
@@ -289,11 +238,6 @@
         <para>Editor for the [[ScrollRect]] component.</para>
       </summary>
     </member>
-    <member name="M:UnityEditor.UI.ScrollRectEditor.OnDisable">
-      <summary>
-        <para>See [[MonoBehaviour.OnDisable]].</para>
-      </summary>
-    </member>
     <member name="M:UnityEditor.UI.ScrollRectEditor.OnInspectorGUI">
       <summary>
         <para>See [[Editor.OnInspectorGUI]].</para>
@@ -302,11 +246,6 @@
     <member name="T:UnityEditor.UI.SelectableEditor">
       <summary>
         <para>Custom Editor for the Selectable Component.</para>
-      </summary>
-    </member>
-    <member name="M:UnityEditor.UI.SelectableEditor.OnDisable">
-      <summary>
-        <para>See [[MonoBehaviour.OnDisable]].</para>
       </summary>
     </member>
     <member name="M:UnityEditor.UI.SelectableEditor.OnInspectorGUI">
