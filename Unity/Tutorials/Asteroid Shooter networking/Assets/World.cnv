@@ -139,6 +139,9 @@ entity Ship = {
            where (not p.Destroyed)
            select (p)]
 
+    rule Position = 
+         UnityNetworkManager.ReadMessage(UnityShip.Manager)
+         yield Position
 
     Create(position : Vector3 ) = 
       {
@@ -230,7 +233,7 @@ entity Message={
   EntityTypeID = a
   EntityID = b
   PropertyID = c
-  Test = 11
+  Test = 13
   }
 
 }   

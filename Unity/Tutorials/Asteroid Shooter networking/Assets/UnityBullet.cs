@@ -11,14 +11,16 @@ public class UnityBullet : MonoBehaviour
   public static UnityBullet Instantiate(Vector3 pos)
   {
     GameObject bull = GameObject.Instantiate(Resources.Load("Bullet"), pos, Quaternion.identity) as GameObject;
+    UnityBullet bullScript = bull.GetComponent<UnityBullet>();
+    bullScript.destroyed = false;
+    bullScript.mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+    bullScript.impact = false;
     return bull.GetComponent<UnityBullet>();
   }
 
   void Start()
   {
-    this.destroyed = false;
-    mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-    impact = false;
+    
   }
 
   public Vector3 Position
@@ -62,4 +64,4 @@ public class UnityBullet : MonoBehaviour
     get { return this.mainCamera.WorldToViewportPoint(this.gameObject.transform.position); }
   }
 }
-                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                                

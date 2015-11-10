@@ -14,12 +14,16 @@ public class UnityNetworkManager : MonoBehaviour
   public static UnityNetworkManager Instantiate()
   {
     UnityNetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<UnityNetworkManager>();
-    NetPeerConfiguration config = new NetPeerConfiguration("AsteroidShooter");
-    networkManager.Client = new NetClient(config);
-    networkManager.Client.Start();
-    networkManager.Client.Connect("127.0.0.1", 5432);
-    Debug.Log("Client is running, error impending.");
     return networkManager.GetComponent<UnityNetworkManager>();
+  }
+
+  void Start()
+  {
+    NetPeerConfiguration config = new NetPeerConfiguration("AsteroidShooter");
+    Client = new NetClient(config);
+    Client.Start();
+    Client.Connect("127.0.0.1", 5432);
+    Debug.Log("Client is running, error impending.");
   }
 
   public enum AtomicDataType { IntType, FloatType, StringType, BoolType }
@@ -223,6 +227,7 @@ public class UnityNetworkManager : MonoBehaviour
 
   public void ReadMessage()
   {
+    Debug.Log("Reading");
     NetIncomingMessage message = Client.ReadMessage();
     if (message != null)
     {
@@ -243,6 +248,30 @@ public class UnityNetworkManager : MonoBehaviour
                       break;
                     case AtomicDataType.IntType:
                       int i = Receive<int>(message, ReceiveInt);
+                      if(i==20)
+                      {
+                        NetIncomingMessage mess = Client.ReadMessage();
+                        Debug.Log(mess.ReadInt32());
+                        Debug.Log(mess.ReadInt32());
+                        Debug.Log(mess.ReadInt32());
+                        Vector3 pos = Receive<Vector3>(mess, ReceiveVector3);
+                        Debug.Log(pos);
+                        UnityShip shi = UnityShip.Instantiate(pos);
+                        UnityShip.ShipNetworkBuffer.testAdd(shi, 1);
+                        Debug.Log(UnityShip.ShipNetworkBuffer.NetworkContext.Count);
+                      }
+                      if (i == 22)
+                      {
+                        NetIncomingMessage mess = Client.ReadMessage();
+                        Debug.Log("wat is dit?");
+                        Debug.Log(mess.ReadInt32());
+                        Debug.Log(mess.ReadInt32());
+                        Debug.Log(mess.ReadInt32());
+                        Vector3 pos = Receive<Vector3>(mess, ReceiveVector3);
+                        Debug.Log(pos);
+                        if (UnityShip.ShipNetworkBuffer.NetworkContext.Count > 1)
+                          UnityShip.ShipNetworkBuffer.NetworkContext.ElementAt(1).Value.Position = pos;
+                      }
                       Debug.Log(i);
                       break;
                     case AtomicDataType.StringType:
@@ -348,4 +377,4 @@ public class Pair<A, B>
 
 
 
-  
+                                                        

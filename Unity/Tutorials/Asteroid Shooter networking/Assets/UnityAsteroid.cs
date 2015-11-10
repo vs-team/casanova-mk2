@@ -12,7 +12,6 @@ public class UnityAsteroid : MonoBehaviour
 
   void Start()
   {
-    Debug.Log(Hash);
     destroyed = false;
     hit = false;
   }
@@ -69,4 +68,4 @@ public class UnityAsteroid : MonoBehaviour
     get { return mainCam.WorldToViewportPoint(gameObject.transform.position); }
   }
 }
-                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                              
