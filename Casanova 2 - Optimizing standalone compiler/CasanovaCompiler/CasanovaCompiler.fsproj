@@ -78,14 +78,7 @@
     <Content Include="Todo.txt" />
     <Compile Include="Program.fs" />
     <None Include="packages.config" />
-    <None Include="customClass.cs" />
     <Content Include="Bug report.txt" />
-    <None Include="UnityEngine.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="UnityEngine.UI.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexYacc\LexYacc.fsproj">
@@ -109,6 +102,7 @@
       <Project>{641e6c1b-c910-4056-9107-03f7823e37e8}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Import Project="..\packages\FsLexYacc.6.1.0\build\FsLexYacc.targets" Condition="Exists('..\packages\FsLexYacc.6.1.0\build\FsLexYacc.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

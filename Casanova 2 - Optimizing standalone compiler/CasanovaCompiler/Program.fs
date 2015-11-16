@@ -1,4 +1,5 @@
 ﻿open System
+open System.Windows.Forms
 open System.IO
 open CasanovaCompiler.Compiler.Importer
 open System.CodeDom.Compiler
@@ -32,10 +33,50 @@ let send_email e =
 [<EntryPoint>]
 let main argv = 
   try
-
-       
+    
     if Common.run_debugger then
       do System.Diagnostics.Debugger.Launch() |> ignore
+
+    let cnv_settings_path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "cnv_settings.txt")
+    let first_time, dlls_to_import_location =
+      if File.Exists(cnv_settings_path) |> not then
+
+
+        let file_name =
+
+         
+          if File.Exists(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles), "Unity\Editor\Data\Managed\UnityEngine.dll")) then
+
+            [Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles), "Unity\Editor\Data\Managed\UnityEngine.dll");
+             Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles), "Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll")]
+
+          elif File.Exists(Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), "Unity\Editor\Data\Managed\UnityEngine.dll")) then
+            [Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), "Unity\Editor\Data\Managed\UnityEngine.dll");
+             Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), "Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll")]
+          elif File.Exists(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86), "Unity\Editor\Data\Managed\UnityEngine.dll")) then
+            [Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86), "Unity\Editor\Data\Managed\UnityEngine.dll");
+             Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86), "Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll")]
+          elif File.Exists(Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), "Unity\Editor\Data\Managed\UnityEngine.dll")) then
+            [Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), "Unity\Editor\Data\Managed\UnityEngine.dll"));
+             Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("PROGRAMFILES(X86)"), "Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll"))]
+          else
+            []
+//            File.Create(cnv_settings_path) |> ignore
+//            let openFileDialog1 = new OpenFileDialog()
+//            openFileDialog1.Filter <- "Dll Files (.dll)|*.dll";
+//            openFileDialog1.Multiselect <- false
+//            openFileDialog1.Title <- "Select a valid location for your Unity library:"
+//            let userClickedOK = openFileDialog1.ShowDialog()
+//            if userClickedOK.Equals(true) then [openFileDialog1.FileName]
+//            else [""]
+
+        File.WriteAllText(cnv_settings_path, file_name |> Seq.fold(fun s dll -> s + "\n" + dll) "")
+        true, file_name
+      else
+        false,  File.ReadAllLines(cnv_settings_path) |> Array.toList |> List.map(fun (s :string) -> s.Replace("\n", "")) |> List.filter(fun s -> not(s = ""))
+
+
+       
 
     let folder = 
       if Common.is_running_unity then @"Assets\"
@@ -103,10 +144,15 @@ let main argv =
                 do parameters.ReferencedAssemblies.Add(dll) |> ignore
 
         if Common.is_running_unity then
-          let referenced_assembly = IO.Path.Combine(compiler_folder, "UnityEngine.dll")
-          let gui_assembly        = IO.Path.Combine(compiler_folder, "UnityEngine.UI.dll")
-          do parameters.ReferencedAssemblies.Add(gui_assembly) |> ignore
-          do parameters.ReferencedAssemblies.Add(referenced_assembly) |> ignore
+          for dll in dlls_to_import_location do
+            File.Copy(dll, IO.Path.Combine(compiler_folder, Path.GetFileName(dll)), true)
+
+            let referenced_assembly = IO.Path.Combine(compiler_folder, Path.GetFileName(dll))
+//            let gui_assembly        = IO.Path.Combine(compiler_folder, "UnityEngine.UI.dll")
+//            do parameters.ReferencedAssemblies.Add(gui_assembly) |> ignore
+            do parameters.ReferencedAssemblies.Add(referenced_assembly) |> ignore
+            
+            
 
         if Common.is_running_lego then
           let referenced_assembly = IO.Path.Combine(compiler_folder, "Lego.Ev3.Desktop.dll")
@@ -206,11 +252,24 @@ let main argv =
       do Console.Error.Write(error_message)
       //do send_email (error_message)
       1 
+  | :? System.Reflection.ReflectionTypeLoadException as ex ->
+      let mutable sb = ""
+      for exSub in ex.LoaderExceptions do
+          sb <- sb + (exSub.Message)
+
+          match exSub with
+          | :? FileNotFoundException as exFileNotFound -> 
+             if(not (exFileNotFound.FusionLog = "")) then
+                sb <- sb + (exFileNotFound.FusionLog)
+          | _ -> ()
+      do Console.Error.Write(sb)
+      1
   | e ->
 //        do System.Diagnostics.Debugger.Launch() |> ignore
       let error_message = sprintf "Unhandled exception in Casanova compiler:\n\nException message: %s\n\n Stack trace: %s\n\n" e.Message (e.StackTrace.ToString())
 //      do send_email error_message
       let formatted_error = error_message.Replace("\r","").Split('\n')
       for line in formatted_error do
-        do Console.Error.Write(line)
+       do Console.Error.Write(line)
+        
       1

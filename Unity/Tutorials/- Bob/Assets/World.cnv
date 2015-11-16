@@ -3,12 +3,12 @@ module Game
 open "UnityEngine.dll"
 open UnityEngine
 
-
+  
 worldEntity World = { 
   bobbies : [Bob]   //Array list of Bob
   MainCamera : MainCamera //Main Camera Unity
   
-
+       
   Create() =
     { 
       bobbies = [Bob.Create("1") ;Bob.Create("2") ; Bob.Create("3")] // Creates 3 Bobs in the list bobbies
@@ -116,12 +116,12 @@ entity MainCamera = {
       
   //This rule will rotate the camera to look right
   rule Rotation =
-    //Waits until the key D is being pressed
+    //Waits until the key D is being pressed           
     wait Input.GetKey(KeyCode.D)
     //We compute the direction of the camera angle, by an amount of speed. 
     //This function is provided by unity.
     yield Quaternion.Euler(0.0f, PlusSpeed , 0.0f) *
-    UnityCamera.Rotation * Quaternion.Euler(0.0f, 0.0f, 0.0f)
+    UnityCamera.Rotation * Quaternion.Euler(0.0f, 0.0f, 0.0f) 
 //-------
 //------- Rotate up and down
   //This rule will rotate the camera to look up
@@ -134,7 +134,7 @@ entity MainCamera = {
     UnityCamera.Rotation * Quaternion.Euler(PlusSpeed, 0.0f, 0.0f)
 
   //This rule will rotate the camera to look down
-  rule Rotation =
+  rule Rotation =                  
     //Waits until the key W is being pressed
     wait Input.GetKey(KeyCode.W)
     //We compute the direction of the camera angle, by an amount of speed. 

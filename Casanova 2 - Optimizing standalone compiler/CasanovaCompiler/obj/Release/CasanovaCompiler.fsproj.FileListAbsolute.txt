@@ -19,3 +19,11 @@ C:\Users\justi\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.XML
 C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Release\CasanovaCompiler.fsprojResolveAssemblyReference.cache
 C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Release\CasanovaCompiler.exe
 C:\Users\justi\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Release\CasanovaCompiler.pdb
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\App.config
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.exe.config
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.exe
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.pdb
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.XML
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Release\CasanovaCompiler.fsprojResolveAssemblyReference.cache
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Release\CasanovaCompiler.exe
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Release\CasanovaCompiler.pdb
