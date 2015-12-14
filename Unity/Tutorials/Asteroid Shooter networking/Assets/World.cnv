@@ -1,29 +1,21 @@
-module Game
-
+module Game    
+    
 open "UnityEngine.dll"
 open UnityEngine
+open "Assets\\DllsToImport\\Lidgren.Network.dll"  
+open Lidgren.Network
+  
 
 worldEntity World = {
 
     GameReady       : bool
-    CurrentPlayer   : Player
+    Players         : [Player] 
+    ref CurrentPlayer   : Player
     Asteroids       : [Asteroid]
     SpawnAmount     : float
-    //PlayerClient    : Client
-    //GameServer      : Server
     GameOver        : bool
     GameOverText    : CnvText
     ScoreText       : CnvText
-    
-    (*rule GameReady =
-        if GameSettings.isHost then 
-            let x = GameServer.Host
-            Debug.Log(x)
-            yield x 
-        else
-            let a = PlayerClient.Connect
-            Debug.Log(a)
-            yield a*)
 
     rule Asteroids =
         wait SpawnAmount
@@ -66,14 +58,13 @@ worldEntity World = {
       yield GameOverText.Alpha, true
 
     Create () =
-      Debug.Log(GameSettings.isHost)
+      let p1 = new Player(0)
       {
-        CurrentPlayer = new Player()
+        Players = [p1]
+        CurrentPlayer = p1
         Asteroids = []
         SpawnAmount = 2.0f
         GameReady = false
-        //PlayerClient = new Client()
-        //GameServer = new Server()
         GameOver = false
         GameOverText = new CnvText("Text/GameOver",false)
         ScoreText = new CnvText("Text/Score",true)
@@ -110,9 +101,9 @@ entity Player = {
       
 
 
-    Create() = {
+    Create(index : int) = {
       PlayerID = 1
-      PlayerShip = new Ship()
+      PlayerShip = new Ship(new Vector3(-5.0f * (index + 1), -2.0f, -15.0f))
       Heart1 = new Life("HealthBar/Life1")
       Heart2 = new Life("HealthBar/Life2")
       Heart3 = new Life("HealthBar/Life3")
@@ -143,17 +134,18 @@ entity Ship = {
         wait Hit
         yield HitCounter + 1, false
 
-    
-
     rule Projectiles = 
           [for p in Projectiles do
            where (not p.Destroyed)
            select (p)]
 
+    rule Position = 
+         UnityNetworkManager.ReadMessage(UnityShip.Manager)
+         yield Position
 
-    Create() = 
+    Create(position : Vector3 ) = 
       {
-        Base = UnityShip.Instantiate(Vector3(0.0f, -2.0f, -15.0f))
+        Base = UnityShip.Instantiate(position)
         Projectiles = []
         HitCounter = 0
       }
@@ -221,20 +213,31 @@ entity CnvText = {
   }
 }
 
-entity Client = {
-    inherit UnityGameClient
+entity NetworkManager = {
+    inherit UnityNetworkManager
 
     Create() = {
-      Base = UnityGameClient.Find()
+      UnityNetworkManager = UnityNetworkManager.Instantiate()
     }
 
-}
+} 
 
-entity Server = {
-    inherit UnityGameServer
+entity Message={
 
-    Create() = {
-      Base = UnityGameServer.Find()
-    }
+  EntityTypeID : int
+  EntityID     : int
+  PropertyID   : int
+  Test         : int
 
-}
+  Create(a : int, b : int, c : int)={
+  EntityTypeID = a
+  EntityID = b
+  PropertyID = c
+  Test = 13
+  }
+
+}   
+
+
+
+

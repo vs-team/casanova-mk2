@@ -30,19 +30,31 @@ namespace ApplicationClient
 
     public void RunSender()
     {
-      while (true)
+      System.Threading.Thread.Sleep(500);
+      Console.WriteLine("Sending...");
+      Console.Clear();
+      Vector3 v3 = new Vector3(5.0f, -2.0f, -15f);
+      NetworkUtils.Send<int>(20, netClient, NetworkUtils.BuildMessage);
+      NetworkUtils.Send<Vector3>(v3, netClient, NetworkUtils.BuildMessage);
+      for (int i = 0; i < 11; i++)
       {
-                Console.WriteLine("Sending...");
-                Console.Clear();
-                Vector3 v1 = new Vector3(1.0f, -3.0f, 2.5f);
-                Vector3 v2 = new Vector3(1.0f, 1.5f, 2.5f);
-                Vector3 v3 = new Vector3(1.0f, 1.0f, -2.5f);
-                List<Vector3> vectorList = new List<Vector3>(3);
-                vectorList.Add(v1);
-                vectorList.Add(v2);
-                vectorList.Add(v3);
-                NetworkUtils.Send<Vector3>(vectorList, netClient, NetworkUtils.BuildMessage);
-                NetworkUtils.Send<float>(4.0f, netClient,NetworkUtils.BuildMessage);
+        if (i < 5)
+        {
+          v3.x = v3.x + 0.5f;
+          Console.Write(v3.x);
+          NetworkUtils.Send<int>(22, netClient, NetworkUtils.BuildMessage);
+          NetworkUtils.Send<Vector3>(v3, netClient, NetworkUtils.BuildMessage);
+        }
+        else
+        {
+          v3.x = v3.x - 1.0f;
+          Console.Write(v3.x);
+          NetworkUtils.Send<int>(22, netClient, NetworkUtils.BuildMessage);
+          NetworkUtils.Send<Vector3>(v3, netClient, NetworkUtils.BuildMessage);
+        }
+          v3.x -= 0.5f;
+        if (i == 10)
+            i = 0;
       }
     }
 
@@ -83,6 +95,7 @@ namespace ApplicationClient
                             {
                                 case NetworkUtils.CompositeDataType.Vector3Type:
                                     Vector3 v = NetworkUtils.Receive<Vector3>(message, NetworkUtils.ReceiveVector3);
+                          Console.Write(v + "\n");
                                     break;
                                 default:
                                     throw new ArgumentException("Unssuported composite data type");

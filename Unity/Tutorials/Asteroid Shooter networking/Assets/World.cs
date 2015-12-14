@@ -3,6 +3,7 @@ using Casanova.Prelude;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using Lidgren.Network;
 using UnityEngine;
 namespace Game {public class World : MonoBehaviour{
 public static int frame;
@@ -13,13 +14,17 @@ public bool JustEntered = true;
 
 public void Start()
 	{
-		UnityEngine.Debug.Log(GameSettings.isHost);
+		Player ___p100;
+		___p100 = new Player(0);
 		SpawnAmount = 2f;
 		ScoreText = new CnvText("Text/Score",true);
+		Players = (
+
+(new Cons<Player>(___p100,(new Empty<Player>()).ToList<Player>())).ToList<Player>()).ToList<Player>();
 		GameReady = false;
 		GameOverText = new CnvText("Text/GameOver",false);
 		GameOver = false;
-		CurrentPlayer = new Player();
+		CurrentPlayer = ___p100;
 		Asteroids = (
 
 Enumerable.Empty<Asteroid>()).ToList<Asteroid>();
@@ -43,6 +48,13 @@ Enumerable.Empty<Asteroid>()).ToList<Asteroid>();
 	public System.Boolean GameOver;
 	public CnvText GameOverText;
 	public System.Boolean GameReady;
+	public List<Player> __Players;
+	public List<Player> Players{  get { return  __Players; }
+  set{ __Players = value;
+ foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
+}
+} }
+ }
 	public CnvText ScoreText;
 	public System.Single SpawnAmount;
 	public System.Single ___fadingFactor00;
@@ -60,8 +72,10 @@ var t = System.DateTime.Now;		this.Rule3(dt, world);
 		for(int x0 = 0; x0 < Asteroids.Count; x0++) { 
 			Asteroids[x0].Update(dt, world);
 		}
-		CurrentPlayer.Update(dt, world);
 		GameOverText.Update(dt, world);
+		for(int x0 = 0; x0 < Players.Count; x0++) { 
+			Players[x0].Update(dt, world);
+		}
 		ScoreText.Update(dt, world);
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
@@ -74,9 +88,9 @@ var t = System.DateTime.Now;		this.Rule3(dt, world);
 	{
 	Asteroids = (
 
-(Asteroids).Select(__ContextSymbol1 => new { ___a30 = __ContextSymbol1 })
-.Where(__ContextSymbol2 => ((__ContextSymbol2.___a30.Destroyed) == (false)))
-.Select(__ContextSymbol3 => __ContextSymbol3.___a30)
+(Asteroids).Select(__ContextSymbol2 => new { ___a30 = __ContextSymbol2 })
+.Where(__ContextSymbol3 => ((__ContextSymbol3.___a30.Destroyed) == (false)))
+.Select(__ContextSymbol4 => __ContextSymbol4.___a30)
 .ToList<Asteroid>()).ToList<Asteroid>();
 	}
 	
@@ -290,12 +304,13 @@ return;
 public class Player{
 public int frame;
 public bool JustEntered = true;
+private System.Int32 index;
 	public int ID;
-public Player()
+public Player(System.Int32 index)
 	{JustEntered = false;
  frame = World.frame;
 		Score = 0;
-		PlayerShip = new Ship();
+		PlayerShip = new Ship(new UnityEngine.Vector3((-5f) * ((index) + (1)),-2f,-15f));
 		PlayerID = 1;
 		Heart3 = new Life("HealthBar/Life3");
 		Heart2 = new Life("HealthBar/Life2");
@@ -312,12 +327,12 @@ public Player()
 	public void Update(float dt, World world) {
 frame = World.frame;
 
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
 		Heart1.Update(dt, world);
 		Heart2.Update(dt, world);
 		Heart3.Update(dt, world);
 		PlayerShip.Update(dt, world);
-		this.Rule0(dt, world);
-		this.Rule1(dt, world);
 	}
 
 
@@ -332,9 +347,9 @@ frame = World.frame;
 	case -1:
 	___impactBullets00 = (
 
-(PlayerShip.Projectiles).Select(__ContextSymbol4 => new { ___projectile00 = __ContextSymbol4 })
-.Where(__ContextSymbol5 => ((!(__ContextSymbol5.___projectile00.Removed)) && (__ContextSymbol5.___projectile00.Impact)))
-.Select(__ContextSymbol6 => __ContextSymbol6.___projectile00)
+(PlayerShip.Projectiles).Select(__ContextSymbol5 => new { ___projectile00 = __ContextSymbol5 })
+.Where(__ContextSymbol6 => ((!(__ContextSymbol6.___projectile00.Removed)) && (__ContextSymbol6.___projectile00.Impact)))
+.Select(__ContextSymbol7 => __ContextSymbol7.___projectile00)
 .ToList<Bullet>()).ToList<Bullet>();
 	Score = ((Score) + (___impactBullets00.Count));
 	s0 = -1;
@@ -415,21 +430,26 @@ return;
 public class Ship{
 public int frame;
 public bool JustEntered = true;
+private UnityEngine.Vector3 position;
 	public int ID;
-public Ship()
+public Ship(UnityEngine.Vector3 position)
 	{JustEntered = false;
  frame = World.frame;
-		UnityShip = UnityShip.Instantiate(new UnityEngine.Vector3(0f,-2f,-15f));
+		UnityShip = UnityShip.Instantiate(position);
 		Projectiles = (
 
 Enumerable.Empty<Bullet>()).ToList<Bullet>();
 		HitCounter = 0;
 		
 }
-		public System.Boolean Hit{  get { return UnityShip.Hit; }
+		public UnityShip.ShipNetworkBuffer Buffer{  get { return UnityShip.Buffer; }
+ }
+	public System.Boolean Hit{  get { return UnityShip.Hit; }
   set{UnityShip.Hit = value; }
  }
 	public System.Int32 HitCounter;
+	public UnityNetworkManager Manager{  get { return UnityShip.Manager; }
+ }
 	public UnityEngine.Vector3 Position{  get { return UnityShip.Position; }
   set{UnityShip.Position = value; }
  }
@@ -458,24 +478,25 @@ Enumerable.Empty<Bullet>()).ToList<Bullet>();
  }
 	public System.Single count_down5;
 	public void Update(float dt, World world) {
-frame = World.frame;		this.Rule0(dt, world);
+frame = World.frame;		this.Rule1(dt, world);
 
-		for(int x0 = 0; x0 < Projectiles.Count; x0++) { 
-			Projectiles[x0].Update(dt, world);
-		}
-		this.Rule1(dt, world);
+		this.Rule0(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
+		this.Rule5(dt, world);
+		for(int x0 = 0; x0 < Projectiles.Count; x0++) { 
+			Projectiles[x0].Update(dt, world);
+		}
 	}
 
-	public void Rule0(float dt, World world) 
+	public void Rule1(float dt, World world) 
 	{
 	Projectiles = (
 
-(Projectiles).Select(__ContextSymbol9 => new { ___p00 = __ContextSymbol9 })
-.Where(__ContextSymbol10 => !(__ContextSymbol10.___p00.Destroyed))
-.Select(__ContextSymbol11 => __ContextSymbol11.___p00)
+(Projectiles).Select(__ContextSymbol10 => new { ___p10 = __ContextSymbol10 })
+.Where(__ContextSymbol11 => !(__ContextSymbol11.___p10.Destroyed))
+.Select(__ContextSymbol12 => __ContextSymbol12.___p10)
 .ToList<Bullet>()).ToList<Bullet>();
 	}
 	
@@ -483,24 +504,15 @@ frame = World.frame;		this.Rule0(dt, world);
 
 
 
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
 	{
 
 	case -1:
-	if(!(Hit))
-	{
-
-	s1 = -1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	HitCounter = ((HitCounter) + (1));
-	Hit = false;
-	s1 = -1;
+	UnityNetworkManager.ReadMessage(UnityShip.Manager);
+	Position = Position;
+	s0 = -1;
 return;	
 	default: return;}}
 	
@@ -511,7 +523,7 @@ return;
 	{
 
 	case -1:
-	if(!(UnityEngine.Input.GetKey(KeyCode.D)))
+	if(!(Hit))
 	{
 
 	s2 = -1;
@@ -520,7 +532,8 @@ return;	}else
 
 	goto case 0;	}
 	case 0:
-	Position = ((Position) + (new UnityEngine.Vector3((4f) * (dt),0f,0f)));
+	HitCounter = ((HitCounter) + (1));
+	Hit = false;
 	s2 = -1;
 return;	
 	default: return;}}
@@ -532,7 +545,7 @@ return;
 	{
 
 	case -1:
-	if(!(UnityEngine.Input.GetKey(KeyCode.A)))
+	if(!(UnityEngine.Input.GetKey(KeyCode.D)))
 	{
 
 	s3 = -1;
@@ -541,7 +554,7 @@ return;	}else
 
 	goto case 0;	}
 	case 0:
-	Position = ((Position) - (new UnityEngine.Vector3((4f) * (dt),0f,0f)));
+	Position = ((Position) + (new UnityEngine.Vector3((4f) * (dt),0f,0f)));
 	s3 = -1;
 return;	
 	default: return;}}
@@ -553,17 +566,38 @@ return;
 	{
 
 	case -1:
-	if(!(UnityEngine.Input.GetKeyDown(KeyCode.Space)))
+	if(!(UnityEngine.Input.GetKey(KeyCode.A)))
 	{
 
 	s4 = -1;
 return;	}else
 	{
 
+	goto case 0;	}
+	case 0:
+	Position = ((Position) - (new UnityEngine.Vector3((4f) * (dt),0f,0f)));
+	s4 = -1;
+return;	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	if(!(UnityEngine.Input.GetKeyDown(KeyCode.Space)))
+	{
+
+	s5 = -1;
+return;	}else
+	{
+
 	goto case 2;	}
 	case 2:
 	Projectiles = new Cons<Bullet>(new Bullet(Position,this), (Projectiles)).ToList<Bullet>();
-	s4 = 0;
+	s5 = 0;
 return;
 	case 0:
 	count_down5 = 0.1f;
@@ -573,11 +607,11 @@ return;
 	{
 
 	count_down5 = ((count_down5) - (dt));
-	s4 = 1;
+	s5 = 1;
 return;	}else
 	{
 
-	s4 = -1;
+	s5 = -1;
 return;	}	
 	default: return;}}
 	
@@ -735,6 +769,8 @@ public Asteroid(UnityEngine.Vector3 pos)
  }
 	public System.Boolean Destroying{  get { return UnityAsteroid.Destroying; }
   set{UnityAsteroid.Destroying = value; }
+ }
+	public System.Int32 Hash{  get { return UnityAsteroid.Hash; }
  }
 	public System.Boolean Hit{  get { return UnityAsteroid.Hit; }
   set{UnityAsteroid.Hit = value; }
@@ -951,39 +987,39 @@ frame = World.frame;
 
 
 }
-public class Client{
+public class NetworkManager{
 public int frame;
 public bool JustEntered = true;
 	public int ID;
-public Client()
+public NetworkManager()
 	{JustEntered = false;
  frame = World.frame;
-		UnityGameClient = UnityGameClient.Find();
+		UnityNetworkManager = UnityNetworkManager.Instantiate();
 		
 }
-		public System.Boolean Connect{  get { return UnityGameClient.Connect; }
+		public Lidgren.Network.NetClient Client{  get { return UnityNetworkManager.Client; }
  }
-	public UnityGameClient UnityGameClient;
-	public System.Boolean enabled{  get { return UnityGameClient.enabled; }
-  set{UnityGameClient.enabled = value; }
+	public UnityNetworkManager UnityNetworkManager;
+	public System.Boolean enabled{  get { return UnityNetworkManager.enabled; }
+  set{UnityNetworkManager.enabled = value; }
  }
-	public UnityEngine.GameObject gameObject{  get { return UnityGameClient.gameObject; }
+	public UnityEngine.GameObject gameObject{  get { return UnityNetworkManager.gameObject; }
  }
-	public UnityEngine.HideFlags hideFlags{  get { return UnityGameClient.hideFlags; }
-  set{UnityGameClient.hideFlags = value; }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityNetworkManager.hideFlags; }
+  set{UnityNetworkManager.hideFlags = value; }
  }
-	public System.Boolean isActiveAndEnabled{  get { return UnityGameClient.isActiveAndEnabled; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityNetworkManager.isActiveAndEnabled; }
  }
-	public System.String name{  get { return UnityGameClient.name; }
-  set{UnityGameClient.name = value; }
+	public System.String name{  get { return UnityNetworkManager.name; }
+  set{UnityNetworkManager.name = value; }
  }
-	public System.String tag{  get { return UnityGameClient.tag; }
-  set{UnityGameClient.tag = value; }
+	public System.String tag{  get { return UnityNetworkManager.tag; }
+  set{UnityNetworkManager.tag = value; }
  }
-	public UnityEngine.Transform transform{  get { return UnityGameClient.transform; }
+	public UnityEngine.Transform transform{  get { return UnityNetworkManager.transform; }
  }
-	public System.Boolean useGUILayout{  get { return UnityGameClient.useGUILayout; }
-  set{UnityGameClient.useGUILayout = value; }
+	public System.Boolean useGUILayout{  get { return UnityNetworkManager.useGUILayout; }
+  set{UnityNetworkManager.useGUILayout = value; }
  }
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -1003,42 +1039,26 @@ frame = World.frame;
 
 
 }
-public class Server{
+public class Message{
 public int frame;
 public bool JustEntered = true;
+private System.Int32 a;
+private System.Int32 b;
+private System.Int32 c;
 	public int ID;
-public Server()
+public Message(System.Int32 a, System.Int32 b, System.Int32 c)
 	{JustEntered = false;
  frame = World.frame;
-		UnityGameServer = UnityGameServer.Find();
+		Test = 13;
+		PropertyID = c;
+		EntityTypeID = a;
+		EntityID = b;
 		
 }
-		public System.Int32 Connections{  get { return UnityGameServer.Connections; }
- }
-	public System.Boolean Host{  get { return UnityGameServer.Host; }
- }
-	public UnityGameServer UnityGameServer;
-	public System.Boolean enabled{  get { return UnityGameServer.enabled; }
-  set{UnityGameServer.enabled = value; }
- }
-	public UnityEngine.GameObject gameObject{  get { return UnityGameServer.gameObject; }
- }
-	public UnityEngine.HideFlags hideFlags{  get { return UnityGameServer.hideFlags; }
-  set{UnityGameServer.hideFlags = value; }
- }
-	public System.Boolean isActiveAndEnabled{  get { return UnityGameServer.isActiveAndEnabled; }
- }
-	public System.String name{  get { return UnityGameServer.name; }
-  set{UnityGameServer.name = value; }
- }
-	public System.String tag{  get { return UnityGameServer.tag; }
-  set{UnityGameServer.tag = value; }
- }
-	public UnityEngine.Transform transform{  get { return UnityGameServer.transform; }
- }
-	public System.Boolean useGUILayout{  get { return UnityGameServer.useGUILayout; }
-  set{UnityGameServer.useGUILayout = value; }
- }
+		public System.Int32 EntityID;
+	public System.Int32 EntityTypeID;
+	public System.Int32 PropertyID;
+	public System.Int32 Test;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1057,4 +1077,4 @@ frame = World.frame;
 
 
 }
-}      
+}                               

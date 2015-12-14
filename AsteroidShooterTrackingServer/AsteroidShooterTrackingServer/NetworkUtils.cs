@@ -69,9 +69,9 @@ namespace GameNetworking
 
         }
 
-    public static void Send<T>(T element, NetClient client, Func<T, NetClient, bool, NetOutgoingMessage> messageFunction)
+    public static void Send<T>(T element, NetClient client, Func<T, NetClient , bool, NetOutgoingMessage> messageFunction)
     {
-      NetOutgoingMessage message = messageFunction(element, ConnectingClient, true);
+      NetOutgoingMessage message = messageFunction(element, client, true);
       client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
     }
 

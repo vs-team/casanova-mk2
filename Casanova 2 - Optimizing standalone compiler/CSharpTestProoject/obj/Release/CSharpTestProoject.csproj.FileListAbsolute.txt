@@ -5,3 +5,14 @@ C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone c
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\obj\Release\CSharpTestProoject.csprojResolveAssemblyReference.cache
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\obj\Release\CSharpTestProoject.exe
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\CSharpTestProoject\obj\Release\CSharpTestProoject.pdb
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\bin\Release\CSharpTestProoject.exe.config
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\obj\Release\CSharpTestProoject.exe
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\obj\Release\CSharpTestProoject.pdb
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\bin\Release\CSharpTestProoject.exe
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\bin\Release\CSharpTestProoject.pdb
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\obj\Release\CSharpTestProoject.csprojResolveAssemblyReference.cache
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\bin\Release\CSharpTestProoject.exe.manifest
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\bin\Release\CSharpTestProoject.application
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\obj\Release\CSharpTestProoject.TrustInfo.xml
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\obj\Release\CSharpTestProoject.exe.manifest
+d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CSharpTestProoject\obj\Release\CSharpTestProoject.application
