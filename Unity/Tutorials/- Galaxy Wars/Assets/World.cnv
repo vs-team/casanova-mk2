@@ -6,7 +6,8 @@ open UnityEngine
 worldEntity World = {
   Links : [Link]
   Planets : [Planet]
-  
+  Players : [Player]
+
   Create() =
     let unity_planets = UnityPlanet.FindAll()
 
@@ -43,6 +44,7 @@ worldEntity World = {
     { 
       Planets = planets
       Links = links1 @ links2
+      Players = players
     }
 }
 
@@ -190,7 +192,8 @@ entity Planet = {
     yield
       [for l in world.Links do     
        where (l.Destination = this)
-       for f in l.ArrivedFleets do
+       for f in l.TravellingFleets do
+       where (Vector3.Distance(f.MyFleet.Position, Position) <= MinApproachingDist)
        select f.MyFleet]
 
 
@@ -305,7 +308,7 @@ entity Link = {
   ref Source        : Planet
   ref Destination   : Planet
   TravellingFleets  : [TravellingFleet]
-  ref ArrivedFleets : [TravellingFleet]
+  
   IsAutoRouteActive : bool
    
   rule IsAutoRouteActive, ActiveAutoRoute, FromPlanet = 
@@ -336,23 +339,17 @@ entity Link = {
   rule TravellingFleets =
     yield 
       [for f in TravellingFleets do
-       where (Vector3.Distance(f.MyFleet.Position, Destination.Position) > Destination.MinApproachingDist)
+       where (not f.MyFleet.Destroyed && (Vector3.Distance(f.MyFleet.Position, Destination.Position) > Destination.MinApproachingDist))
        select f]
 
-  rule ArrivedFleets =
-    yield 
-      [for f in TravellingFleets do
-       where (Vector3.Distance(f.MyFleet.Position, Destination.Position) <= Destination.MinApproachingDist)
-       select f]
-
+  
 
 
   Create(ul : UnityLine, s : Planet, d : Planet) = {
     Base = ul
     Source = s
     Destination = d
-    TravellingFleets = []
-    ArrivedFleets = []
+    TravellingFleets = []    
     IsAutoRouteActive = false
   }
 }

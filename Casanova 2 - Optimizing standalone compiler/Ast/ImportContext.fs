@@ -107,6 +107,9 @@ let ResolveTypeName type_name (position : Common.Position) =
               opened_types.Add(x + "." + type_name, tp)
               Some tp
             else 
+              for e in opened_referenced_library_type do
+                if e.Name.ToLower().Contains("vector2") then
+                  printf "asddas"
               let maybe_tp = opened_referenced_library_type |> Seq.tryFind(fun t -> t.Name = x + "." + type_name)
               match maybe_tp with
               | None -> check_tp xs

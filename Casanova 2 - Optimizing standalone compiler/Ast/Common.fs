@@ -3,7 +3,7 @@
 open Microsoft.FSharp.Text.Lexing
 open System
 
-let is_running_unity = true
+let is_running_unity = false
 let is_running_lego = false
 let enable_dependency_analysis = false
 let enable_query_optimization = false

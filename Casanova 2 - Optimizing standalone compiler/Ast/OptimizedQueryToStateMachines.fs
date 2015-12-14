@@ -716,7 +716,7 @@ _cn:
 
 
   | t_expr, OptimizedQueryAST.Choice(false,choices,_) -> 
-
+  
     let conditions = choices |> List.map(fun (c,_,_) -> c)
     let wait = TypeDecl.Unit(t_expr.Position), 
                OptimizedQueryAST.Wait((TypedAST.TypeDecl.ImportedType(typeof<bool>, t_expr.Position), (make_one_condition conditions |> snd)),None)

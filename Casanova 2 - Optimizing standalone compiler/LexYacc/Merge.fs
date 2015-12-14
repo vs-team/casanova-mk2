@@ -156,7 +156,8 @@ let mergeCasanovaPrograms (main : Program) (other_files : Program list) (load_as
             yield SynModuleDecl.Types(synTypeDefn_list, range)
           | SynModuleDecl.Open(_, _) -> ()
           | SynModuleDecl.Import(_, _) -> ()
-          | SynModuleDecl.EntryPoint(_) as this -> yield this] @ opened_ast @
+          | SynModuleDecl.EntryPoint(_) as this -> yield this
+          | _ -> yield synDecl] @ opened_ast @
 
 
          [for synDecl in main.WorldOrEntityDecls do

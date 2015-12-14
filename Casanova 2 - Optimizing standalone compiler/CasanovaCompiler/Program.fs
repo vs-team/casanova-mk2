@@ -4,6 +4,7 @@ open CasanovaCompiler.Compiler.Importer
 open System.CodeDom.Compiler
 open System.Net
 open System.Net.Mail
+open System.Diagnostics
 
 
 let send_email e =
@@ -112,6 +113,12 @@ let main argv =
           let referenced_assembly = IO.Path.Combine(compiler_folder, "Lego.Ev3.Desktop.dll")
           do parameters.ReferencedAssemblies.Add(referenced_assembly) |> ignore
 
+        let dlls = Directory.GetFiles(compiler_folder) |> Seq.filter(fun f -> f.ToLower().EndsWith(".dll") && f <> "internal.dll")
+        let types_to_load =
+          for l in dlls do
+            
+            do parameters.ReferencedAssemblies.Add(l) |> ignore
+
         do parameters.ReferencedAssemblies.Add("System.dll") |> ignore
         do parameters.ReferencedAssemblies.Add("System.Core.dll") |> ignore
                 
@@ -203,14 +210,23 @@ let main argv =
   
   | Common.CompilationError(Common.Position(position), error) ->
       let error_message = sprintf "Error in file %s at %d: %s" (position.FileName) (position.Line) error
-      do Console.Error.Write(error_message)
+      if not Common.is_running_unity then
+        File.WriteAllLines("Log.txt", [error_message])
+      else
+          do Console.Error.Write(error_message)
       //do send_email (error_message)
       1 
   | e ->
 //        do System.Diagnostics.Debugger.Launch() |> ignore
       let error_message = sprintf "Unhandled exception in Casanova compiler:\n\nException message: %s\n\n Stack trace: %s\n\n" e.Message (e.StackTrace.ToString())
-//      do send_email error_message
+//      do send_email error_message      
+
+
       let formatted_error = error_message.Replace("\r","").Split('\n')
-      for line in formatted_error do
-        do Console.Error.Write(line)
+      if not Common.is_running_unity then
+        File.WriteAllLines("Log.txt", formatted_error)
+      else
+        for line in formatted_error do
+            do Console.Error.Write(line)
+
       1

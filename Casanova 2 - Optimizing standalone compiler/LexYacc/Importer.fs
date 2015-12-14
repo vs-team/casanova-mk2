@@ -75,9 +75,9 @@ let loadCasanovaFileOrProject filename : CasanovaCompiler.ParseAST.Program list 
 
 
 
-                        let DLL = System.Reflection.Assembly.LoadFile(p);
-                        
-                        DLL.GetTypes() |> Seq.ofArray) 
+                        let DLL = System.Reflection.Assembly.LoadFrom(p);
+                        let x = DLL.GetTypes() |> Seq.ofArray
+                        x) 
                       current_directory
 
   let syntax_errors = error_logger.FilterLexerErrors()

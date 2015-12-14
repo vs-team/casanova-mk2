@@ -1,0 +1,86 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  Cubes : [Cube]
+  ref SelectedCubeToDestroy : Option<Cube>
+
+  rule SelectedCubeToDestroy =
+    wait Input.GetKeyDown(KeyCode.R) && Cubes.Count > 0
+    let selected_element = Cubes.[Random.Range(0, Cubes.Count)]
+    yield Some selected_element
+
+  rule SelectedCubeToDestroy =
+    wait SelectedCubeToDestroy.IsSome &&
+         SelectedCubeToDestroy.Value.Destroyed
+    yield None
+
+  rule Cubes =
+    yield  
+      [for c in Cubes do
+       where (not c.Destroyed)
+       select c]
+
+   
+  rule Cubes =
+    .| Input.GetKeyDown(KeyCode.Q) => 
+      yield Cubes
+    .| Input.GetKeyDown(KeyCode.S) =>
+      while true do
+        wait 1.0f
+        yield new Cube(Color.white) :: Cubes
+    .| _ => yield Cubes
+
+  rule Cubes =
+    wait Input.GetKeyDown(KeyCode.P)
+    yield new Cube(Color.white) :: Cubes
+
+  Create() = { 
+    Cubes = [] 
+    SelectedCubeToDestroy = None
+  }
+}
+
+entity Cube = {
+  inherit UnityCube
+  Velocity    : Vector3
+  Checkpoints : [Vector3]  
+  Factor      : float32
+
+  rule Scale, Factor, Destroyed =
+    wait world.SelectedCubeToDestroy.IsSome &&
+         world.SelectedCubeToDestroy.Value = this
+    while (Factor > 0.0f) do
+      yield Scale + Vector3.one * dt, Factor - dt, Destroyed
+    yield Scale, Factor, true
+    
+
+  rule Position, Velocity, Destroyed =
+    for c in Checkpoints do
+      let dir0 = c - Position
+      yield Position, dir0.normalized, Destroyed 
+      wait Vector3.Dot(dir0, c - Position) < 0.0f
+      yield c, Vector3.zero, Destroyed 
+      wait 1.0f
+    yield Position, Velocity, true
+    
+
+  rule Position = 
+    yield Position + Velocity * dt
+  Create(color : Color) =
+    let cube = UnityCube.Instantiate(color)
+    let dist = 3.0f
+    let checkpoints =
+      [new Vector3(cube.Position.x + dist, cube.Position.y, cube.Position.z);
+       new Vector3(cube.Position.x + dist, cube.Position.y + dist, cube.Position.z);
+       new Vector3(cube.Position.x, cube.Position.y  + dist, cube.Position.z);
+       cube.Position]
+    {
+      UnityCube = cube
+      Velocity = Vector3.zero
+      Factor = 2.0f 
+      Checkpoints = checkpoints
+    }
+}

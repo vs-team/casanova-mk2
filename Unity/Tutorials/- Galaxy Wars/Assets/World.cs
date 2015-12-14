@@ -60,6 +60,7 @@ public void Start()
 .Where(__ContextSymbol21 => ((((__ContextSymbol21.prev.prev.___unity_link01.f) == (__ContextSymbol21.prev.___source01.UnityPlanet.gameObject))) && (((__ContextSymbol21.prev.prev.___unity_link01.t) == (__ContextSymbol21.___destination01.UnityPlanet.gameObject)))))
 .Select(__ContextSymbol22 => new Link(__ContextSymbol22.prev.prev.___unity_link01,__ContextSymbol22.___destination01,__ContextSymbol22.prev.___source01))
 .ToList<Link>()))).ToList<Link>();
+		Players = ___players00;
 		Planets = ___planets00;
 		Links = (___links100).Concat(___links200).ToList<Link>();
 		
@@ -78,6 +79,7 @@ public void Start()
 }
 } }
  }
+	public List<Player> Players;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -88,6 +90,9 @@ var t = System.DateTime.Now;
 		}
 		for(int x0 = 0; x0 < Planets.Count; x0++) { 
 			Planets[x0].Update(dt, world);
+		}
+		for(int x0 = 0; x0 < Players.Count; x0++) { 
+			Players[x0].Update(dt, world);
 		}
 
 
@@ -446,9 +451,10 @@ if(Battle.IsSome){ 		Battle.Value.Update(dt, world);
 
 (world.Links).Select(__ContextSymbol53 => new { ___l00 = __ContextSymbol53 })
 .Where(__ContextSymbol54 => ((__ContextSymbol54.___l00.Destination) == (this)))
-.SelectMany(__ContextSymbol55=> (__ContextSymbol55.___l00.ArrivedFleets).Select(__ContextSymbol56 => new { ___f03 = __ContextSymbol56,
+.SelectMany(__ContextSymbol55=> (__ContextSymbol55.___l00.TravellingFleets).Select(__ContextSymbol56 => new { ___f03 = __ContextSymbol56,
                                                       prev = __ContextSymbol55 })
-.Select(__ContextSymbol57 => __ContextSymbol57.___f03.MyFleet)
+.Where(__ContextSymbol57 => !(((UnityEngine.Vector3.Distance(__ContextSymbol57.___f03.MyFleet.Position,Position)) > (MinApproachingDist))))
+.Select(__ContextSymbol58 => __ContextSymbol58.___f03.MyFleet)
 .ToList<Fleet>())).ToList<Fleet>();
 	s0 = -1;
 return;	
@@ -471,9 +477,9 @@ return;
 	case 1:
 	LandingFleets = (
 
-(InboundFleets).Select(__ContextSymbol58 => new { ___inbound_fleet10 = __ContextSymbol58 })
-.Where(__ContextSymbol59 => ((__ContextSymbol59.___inbound_fleet10.Owner) == (Owner.Value)))
-.Select(__ContextSymbol60 => new LandingFleet(__ContextSymbol60.___inbound_fleet10))
+(InboundFleets).Select(__ContextSymbol59 => new { ___inbound_fleet10 = __ContextSymbol59 })
+.Where(__ContextSymbol60 => ((__ContextSymbol60.___inbound_fleet10.Owner) == (Owner.Value)))
+.Select(__ContextSymbol61 => new LandingFleet(__ContextSymbol61.___inbound_fleet10))
 .ToList<LandingFleet>()).ToList<LandingFleet>();
 	s1 = -1;
 return;
@@ -531,8 +537,8 @@ return;
 	case -1:
 	___fleets_to_add30 = (
 
-(LandingFleets).Select(__ContextSymbol62 => new { ___f34 = __ContextSymbol62 })
-.Select(__ContextSymbol63 => __ContextSymbol63.___f34.MyFleet.Ships)
+(LandingFleets).Select(__ContextSymbol63 => new { ___f34 = __ContextSymbol63 })
+.Select(__ContextSymbol64 => __ContextSymbol64.___f34.MyFleet.Ships)
 .Aggregate(default(System.Int32), (acc, __x) => acc + __x));
 	LocalFleets = ((LocalFleets) + (___fleets_to_add30));
 	s3 = -1;
@@ -631,9 +637,9 @@ return;	}
 	___new_owner50 = Battle.Value.AttackingFleets.Head().MyFleet.Owner;
 	___fleets_to_add51 = (
 
-(Battle.Value.AttackingFleets).Select(__ContextSymbol65 => new { ___f55 = __ContextSymbol65 })
-.Where(__ContextSymbol66 => ((((__ContextSymbol66.___f55.MyFleet.Owner) == (___new_owner50))) && (((__ContextSymbol66.___f55.MyFleet.Ships) > (0)))))
-.Select(__ContextSymbol67 => __ContextSymbol67.___f55.MyFleet.Ships)
+(Battle.Value.AttackingFleets).Select(__ContextSymbol66 => new { ___f55 = __ContextSymbol66 })
+.Where(__ContextSymbol67 => ((((__ContextSymbol67.___f55.MyFleet.Owner) == (___new_owner50))) && (((__ContextSymbol67.___f55.MyFleet.Ships) > (0)))))
+.Select(__ContextSymbol68 => __ContextSymbol68.___f55.MyFleet.Ships)
 .Aggregate(default(System.Int32), (acc, __x) => acc + __x));
 	Owner = (new Just<Player>(Battle.Value.AttackingFleets.Head().MyFleet.Owner));
 	LocalFleets = ___fleets_to_add51;
@@ -943,9 +949,9 @@ return;
 	case -1:
 	MyFleet.Ships = (((
 
-(MyBattle.FleetsToMerge).Select(__ContextSymbol69 => new { ___f16 = __ContextSymbol69 })
-.Where(__ContextSymbol70 => ((__ContextSymbol70.___f16.FleetToMergeWith) == (this)))
-.Select(__ContextSymbol71 => __ContextSymbol71.___f16.MyFleet.Ships)
+(MyBattle.FleetsToMerge).Select(__ContextSymbol70 => new { ___f16 = __ContextSymbol70 })
+.Where(__ContextSymbol71 => ((__ContextSymbol71.___f16.FleetToMergeWith) == (this)))
+.Select(__ContextSymbol72 => __ContextSymbol72.___f16.MyFleet.Ships)
 .Aggregate(default(System.Int32), (acc, __x) => acc + __x))) + (MyFleet.Ships));
 	s1 = -1;
 return;	
@@ -1102,15 +1108,11 @@ Enumerable.Empty<TravellingFleet>()).ToList<TravellingFleet>();
 		Source = s;
 		IsAutoRouteActive = false;
 		Destination = d;
-		ArrivedFleets = (
-
-Enumerable.Empty<TravellingFleet>()).ToList<TravellingFleet>();
 		
 }
 		public System.Boolean ActiveAutoRoute{  get { return UnityLine.ActiveAutoRoute; }
   set{UnityLine.ActiveAutoRoute = value; }
  }
-	public List<TravellingFleet> ArrivedFleets;
 	public Planet Destination;
 	public UnityPlanet FromPlanet{  set{UnityLine.FromPlanet = value; }
  }
@@ -1157,10 +1159,10 @@ Enumerable.Empty<TravellingFleet>()).ToList<TravellingFleet>();
 	public System.Boolean useGUILayout{  get { return UnityLine.useGUILayout; }
   set{UnityLine.useGUILayout = value; }
  }
-	public Fleet ___new_fleet20;
+	public Fleet ___new_fleet10;
 	public System.Single count_down4;
-	public Fleet ___new_fleet31;
-	public System.Boolean ___autoroute_value40;
+	public Fleet ___new_fleet21;
+	public System.Boolean ___autoroute_value30;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1168,7 +1170,6 @@ frame = World.frame;
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
-		this.Rule4(dt, world);
 		for(int x0 = 0; x0 < TravellingFleets.Count; x0++) { 
 			TravellingFleets[x0].Update(dt, world);
 		}
@@ -1184,11 +1185,11 @@ frame = World.frame;
 	{
 
 	case -1:
-	ArrivedFleets = (
+	TravellingFleets = (
 
-(TravellingFleets).Select(__ContextSymbol77 => new { ___f07 = __ContextSymbol77 })
-.Where(__ContextSymbol78 => !(((UnityEngine.Vector3.Distance(__ContextSymbol78.___f07.MyFleet.Position,Destination.Position)) > (Destination.MinApproachingDist))))
-.Select(__ContextSymbol79 => __ContextSymbol79.___f07)
+(TravellingFleets).Select(__ContextSymbol76 => new { ___f07 = __ContextSymbol76 })
+.Where(__ContextSymbol77 => ((!(__ContextSymbol77.___f07.MyFleet.Destroyed)) && (((UnityEngine.Vector3.Distance(__ContextSymbol77.___f07.MyFleet.Position,Destination.Position)) > (Destination.MinApproachingDist)))))
+.Select(__ContextSymbol78 => __ContextSymbol78.___f07)
 .ToList<TravellingFleet>()).ToList<TravellingFleet>();
 	s0 = -1;
 return;	
@@ -1201,12 +1202,18 @@ return;
 	{
 
 	case -1:
-	TravellingFleets = (
+	if(!(((((((((((Source.Selected) && (Destination.RightSelected))) && (Source.Owner.IsSome))) && (Source.Battle.IsNone))) && (UnityEngine.Input.GetKey(KeyCode.LeftShift)))) && (((Source.LocalFleets) > (0))))))
+	{
 
-(TravellingFleets).Select(__ContextSymbol80 => new { ___f18 = __ContextSymbol80 })
-.Where(__ContextSymbol81 => ((UnityEngine.Vector3.Distance(__ContextSymbol81.___f18.MyFleet.Position,Destination.Position)) > (Destination.MinApproachingDist)))
-.Select(__ContextSymbol82 => __ContextSymbol82.___f18)
-.ToList<TravellingFleet>()).ToList<TravellingFleet>();
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	___new_fleet10 = new Fleet(new GameStatistic(1f,1f,1f,1f),Source.LocalFleets,Source.Owner.Value,Source.Position,this);
+	TravellingFleets = new Cons<TravellingFleet>(new TravellingFleet(___new_fleet10,Destination), (TravellingFleets)).ToList<TravellingFleet>();
+	Source.LocalFleets = 0;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -1218,33 +1225,10 @@ return;
 	{
 
 	case -1:
-	if(!(((((((((((Source.Selected) && (Destination.RightSelected))) && (Source.Owner.IsSome))) && (Source.Battle.IsNone))) && (UnityEngine.Input.GetKey(KeyCode.LeftShift)))) && (((Source.LocalFleets) > (0))))))
-	{
-
-	s2 = -1;
-return;	}else
-	{
-
-	goto case 1;	}
-	case 1:
-	___new_fleet20 = new Fleet(new GameStatistic(1f,1f,1f,1f),Source.LocalFleets,Source.Owner.Value,Source.Position,this);
-	TravellingFleets = new Cons<TravellingFleet>(new TravellingFleet(___new_fleet20,Destination), (TravellingFleets)).ToList<TravellingFleet>();
-	Source.LocalFleets = 0;
-	s2 = -1;
-return;	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
 	if(!(IsAutoRouteActive))
 	{
 
-	s3 = -1;
+	s2 = -1;
 return;	}else
 	{
 
@@ -1257,7 +1241,7 @@ return;	}else
 	{
 
 	count_down4 = ((count_down4) - (dt));
-	s3 = 5;
+	s2 = 5;
 return;	}else
 	{
 
@@ -1269,47 +1253,47 @@ return;	}else
 	goto case 1;	}else
 	{
 
-	s3 = -1;
+	s2 = -1;
 return;	}
 	case 1:
-	___new_fleet31 = new Fleet(new GameStatistic(1f,1f,1f,1f),(Source.LocalFleets) / (2),Source.Owner.Value,Source.Position,this);
-	TravellingFleets = new Cons<TravellingFleet>(new TravellingFleet(___new_fleet31,Destination), (TravellingFleets)).ToList<TravellingFleet>();
+	___new_fleet21 = new Fleet(new GameStatistic(1f,1f,1f,1f),(Source.LocalFleets) / (2),Source.Owner.Value,Source.Position,this);
+	TravellingFleets = new Cons<TravellingFleet>(new TravellingFleet(___new_fleet21,Destination), (TravellingFleets)).ToList<TravellingFleet>();
 	Source.LocalFleets = ((Source.LocalFleets) / (2));
-	s3 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
 
-	int s4=-1;
-	public void Rule4(float dt, World world){ 
-	switch (s4)
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
 	{
 
 	case -1:
 	if(!(((((Source.Selected) && (Destination.RightSelected))) && (UnityEngine.Input.GetKey(KeyCode.LeftControl)))))
 	{
 
-	s4 = -1;
+	s3 = -1;
 return;	}else
 	{
 
 	goto case 2;	}
 	case 2:
-	___autoroute_value40 = !(IsAutoRouteActive);
-	IsAutoRouteActive = ___autoroute_value40;
-	ActiveAutoRoute = ___autoroute_value40;
+	___autoroute_value30 = !(IsAutoRouteActive);
+	IsAutoRouteActive = ___autoroute_value30;
+	ActiveAutoRoute = ___autoroute_value30;
 	FromPlanet = Source.UnityPlanet;
-	s4 = 0;
+	s3 = 0;
 return;
 	case 0:
 	if(!(UnityEngine.Input.GetKeyUp(KeyCode.LeftControl)))
 	{
 
-	s4 = 0;
+	s3 = 0;
 return;	}else
 	{
 
-	s4 = -1;
+	s3 = -1;
 return;	}	
 	default: return;}}
 	
@@ -1392,4 +1376,4 @@ frame = World.frame;
 
 
 }
-}                                                                                                                                                                                                                                                       
+}                
