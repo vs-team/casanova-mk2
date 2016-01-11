@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using AsteroidShooter;
 
 namespace Test
 {
@@ -11,6 +12,8 @@ namespace Test
   {
     GraphicsDeviceManager graphics;
     SpriteBatch spriteBatch;
+    Texture2D shipTexture, greenLaser, rockAsteroid;
+    World world;
 
     public Game1()
     {
@@ -27,7 +30,8 @@ namespace Test
     protected override void Initialize()
     {
       // TODO: Add your initialization logic here
-
+      world = new World();
+      world.Start();
       base.Initialize();
     }
 
@@ -39,6 +43,9 @@ namespace Test
     {
       // Create a new SpriteBatch, which can be used to draw textures.
       spriteBatch = new SpriteBatch(GraphicsDevice);
+      shipTexture = Content.Load<Texture2D>("starship.png");
+      greenLaser = Content.Load<Texture2D>("laser_green.png");
+      rockAsteroid = Content.Load<Texture2D>("asteroid.png");
 
       // TODO: use this.Content to load your game content here
     }
@@ -60,10 +67,13 @@ namespace Test
     protected override void Update(GameTime gameTime)
     {
       if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-        Exit();
+      {
+        this.Exit();
+      }
 
       // TODO: Add your update logic here
-
+      float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+      world.Update(dt, world);
       base.Update(gameTime);
     }
 
@@ -74,6 +84,24 @@ namespace Test
     protected override void Draw(GameTime gameTime)
     {
       GraphicsDevice.Clear(Color.CornflowerBlue);
+      float screenscale =
+        (float)GraphicsDevice.Viewport.Width / GraphicsDevice.DisplayMode.Width;
+      Matrix scale = Matrix.CreateScale(screenscale, screenscale, 1);
+
+      spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
+
+      //draw ship
+      spriteBatch.Draw(shipTexture, world.Ship.Position);
+
+      //draw projectiles
+      foreach (Projectile projectile in world.Ship.Projectiles)
+        spriteBatch.Draw(greenLaser, projectile.Position, null, Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+      //draw asteroids
+      foreach (Asteroid asteroid in world.Asteroids)
+        spriteBatch.Draw(rockAsteroid, asteroid.Position, null, Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+
+      spriteBatch.End();
 
       // TODO: Add your drawing code here
 

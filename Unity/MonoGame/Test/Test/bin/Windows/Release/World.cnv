@@ -1,0 +1,89 @@
+module AsteroidShooter
+
+open @"C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Debug\MonoGame.Framework.dll"
+open Microsoft.Xna.Framework
+open Microsoft.Xna.Framework.Input
+open System
+
+worldEntity World = {
+  Ship                          : Ship
+  Asteroids                     : [Asteroid]
+  State                         : KeyboardState
+  RandomGenerator               : Random
+
+  rule State = Keyboard.GetState()
+
+  rule Asteroids =
+    //let randomPos = new Vector2(-300.0f + (float RandomGenerator.NextDouble() * 600.0f), -50.0f)
+    //let randomWait = 2.0f + (float RandomGenerator.NextDouble() * 3.0f)
+    yield (new Asteroid(new Vector2(250.0f, -50.0f))) :: Asteroids
+    wait 3.0f
+
+  rule Asteroids =
+    [for a in Asteroids do
+     where (a.Position.Y < 800.0f)
+     select (a)]
+
+  Create() =
+    {
+      Ship                  = new Ship()
+      Asteroids             = []
+      State                 = Keyboard.GetState()
+      RandomGenerator       = new Random()
+    }
+}
+
+entity Ship = {
+  Position    : Vector2
+  Projectiles : [Projectile]
+
+  rule Position =
+    let vy = new Vector2(-300.0f, 0.0f)
+    wait world.State.IsKeyDown(Keys.A)
+    yield Position + vy * dt
+
+  rule Position =
+    let vy = new Vector2(300.0f, 0.0f)
+    wait world.State.IsKeyDown(Keys.D)
+    yield Position + vy * dt
+
+  rule Projectiles =
+    wait world.State.IsKeyDown(Keys.Space)
+    yield (new Projectile(Position)) :: Projectiles
+
+  rule Projectiles =
+    [for p in Projectiles do
+     where (p.Position.Y > -50.0f)
+     select (p)]
+    
+
+  Create() =
+    {
+      Position = new Vector2(750.0f, 1000.0f)
+      Projectiles = []
+    }
+
+}
+
+entity Projectile = {
+  Position    : Vector2
+
+  rule Position = Position + (new Vector2(0.0f, -500.0f)) * dt
+
+  Create(p : Vector2) =
+    {
+      Position = p
+    }
+}
+
+entity Asteroid = {
+
+  Position      : Vector2
+
+  rule Position = Position + (new Vector2(0.0f, 250.0f)) * dt
+
+  Create(p : Vector2) =
+    {
+      Position = p
+    }
+}
