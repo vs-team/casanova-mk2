@@ -8,16 +8,19 @@ open System.Diagnostics
 
 let mutable customOutput = None
 
-let generateErrorOutput (errors : string[]) =
+let generateErrorOutput (errors : string[]) errorColor =
+  let currentColor = Console.ForegroundColor
+  do Console.ForegroundColor <- errorColor
   if not Common.is_running_unity then
     if customOutput.IsSome then
       for line in errors do
         do Console.Error.WriteLine(line)
     else
-      File.WriteAllLines("Log.txt", errors)
+      do File.WriteAllLines("Log.txt", errors)
   else
     for line in errors do
         do Console.Error.Write(line)
+  do Console.ForegroundColor <- currentColor
   
 
 
@@ -230,7 +233,7 @@ let main argv =
   
   | Common.CompilationError(Common.Position(position), error) ->
       let error_message = sprintf "Error in file %s at %d: %s" (position.FileName) (position.Line) error
-      generateErrorOutput [|error_message|]
+      generateErrorOutput [|error_message|] ConsoleColor.Red
       //do send_email (error_message)
       1 
   | e ->
@@ -240,5 +243,5 @@ let main argv =
 
 
       let formatted_error = error_message.Replace("\r","").Split('\n')
-      do generateErrorOutput formatted_error
+      do generateErrorOutput formatted_error ConsoleColor.Red
       1
