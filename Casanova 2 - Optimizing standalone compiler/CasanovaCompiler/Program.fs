@@ -55,9 +55,7 @@ let main argv =
     if Common.run_debugger then
       do System.Diagnostics.Debugger.Launch() |> ignore
 
-    let folder = 
-      if Common.is_running_unity then @"Assets\"
-      else System.IO.Directory.GetCurrentDirectory()
+    
 
     let default_file = "Test3.cnv"
     let default_output = "..\..\..\CSharpTestProoject\csharp.cs"
@@ -73,7 +71,9 @@ let main argv =
       | x :: _ -> x, Directory.GetCurrentDirectory()
 //      | _ -> failwith "Not supported args in command line."
       
-
+    let folder = 
+      if Common.is_running_unity then @"Assets\"
+      else output
     
     let prelude_file = 
       if Common.is_running_unity then System.IO.Path.Combine(folder, "Prelude.cs")
@@ -96,7 +96,7 @@ let main argv =
 
         let compiler_folder = 
           if Common.is_running_unity then System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
-          else System.IO.Directory.GetCurrentDirectory()
+          else output
 
 
 
