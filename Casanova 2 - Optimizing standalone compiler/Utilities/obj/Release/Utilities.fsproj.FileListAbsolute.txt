@@ -54,3 +54,17 @@ d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standa
 d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.fsprojResolveAssemblyReference.cache
 d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.dll
 d:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.pdb
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.dll.config
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.XML
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.dll
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\Utilities.pdb
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSComp.dll
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSharp.Core.dll
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FsLexYacc.Runtime.dll
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSComp.pdb
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSComp.xml
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FSharp.Core.xml
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Release\FsLexYacc.Runtime.xml
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.fsprojResolveAssemblyReference.cache
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.dll
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Release\Utilities.pdb

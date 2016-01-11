@@ -6,6 +6,20 @@ open System.Net
 open System.Net.Mail
 open System.Diagnostics
 
+let mutable customOutput = None
+
+let generateErrorOutput (errors : string[]) =
+  if not Common.is_running_unity then
+    if customOutput.IsSome then
+      for line in errors do
+        do Console.Error.WriteLine(line)
+    else
+      File.WriteAllLines("Log.txt", errors)
+  else
+    for line in errors do
+        do Console.Error.Write(line)
+  
+
 
 let send_email e =
   try
@@ -44,14 +58,20 @@ let main argv =
 
     let default_file = "Test3.cnv"
     let default_output = "..\..\..\CSharpTestProoject\csharp.cs"
+
   
     let file, output = 
       match argv |> Seq.toList with
       | [] -> default_file, default_output 
 //      | x :: y :: [] -> x, y
+      | x :: y :: _ when x = "-o" -> 
+        customOutput <- Some (Path.GetDirectoryName(y))
+        y, Path.GetDirectoryName(y)
       | x :: _ -> x, Directory.GetCurrentDirectory()
 //      | _ -> failwith "Not supported args in command line."
+      
 
+    
     let prelude_file = 
       if Common.is_running_unity then System.IO.Path.Combine(folder, "Prelude.cs")
       else System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(file)), "Prelude.cs")
@@ -210,10 +230,7 @@ let main argv =
   
   | Common.CompilationError(Common.Position(position), error) ->
       let error_message = sprintf "Error in file %s at %d: %s" (position.FileName) (position.Line) error
-      if not Common.is_running_unity then
-        File.WriteAllLines("Log.txt", [error_message])
-      else
-          do Console.Error.Write(error_message)
+      generateErrorOutput [|error_message|]
       //do send_email (error_message)
       1 
   | e ->
@@ -223,10 +240,5 @@ let main argv =
 
 
       let formatted_error = error_message.Replace("\r","").Split('\n')
-      if not Common.is_running_unity then
-        File.WriteAllLines("Log.txt", formatted_error)
-      else
-        for line in formatted_error do
-            do Console.Error.Write(line)
-
+      do generateErrorOutput formatted_error
       1
