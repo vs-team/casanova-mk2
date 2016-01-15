@@ -49,3 +49,5 @@ C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Wi
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\obj\x86\Debug\Test.csprojResolveAssemblyReference.cache
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Debug\Content\starship.png
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Debug\Content\asteroid.png
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Debug\Content\laser_green.png

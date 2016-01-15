@@ -26,3 +26,5 @@ C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\obj\x8
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\obj\x86\Release\Test.csprojResolveAssemblyReference.cache
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Content\laser_green.png
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Content\asteroid.png
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Content\Arial.xnb
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Content\nebula.jpg

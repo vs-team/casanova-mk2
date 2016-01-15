@@ -4,37 +4,64 @@ open @"C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 open System
+open Utilities
 
 worldEntity World = {
-  Ship                          : Ship
+  Ships                         : [Ship]
   Asteroids                     : [Asteroid]
+  ref CollidingAsteroids        : [Asteroid]
+  ref CollidingProjectiles      : [Projectile]
   State                         : KeyboardState
-  RandomGenerator               : Random
 
   rule State = Keyboard.GetState()
 
   rule Asteroids =
-    //let randomPos = new Vector2(-300.0f + (float RandomGenerator.NextDouble() * 600.0f), -50.0f)
-    //let randomWait = 2.0f + (float RandomGenerator.NextDouble() * 3.0f)
-    yield (new Asteroid(new Vector2(250.0f, -50.0f))) :: Asteroids
-    wait 3.0f
+    let randomPos = new Vector2(Random.RandFloat(0.0f, 600.0f), -50.0f)
+    let randomWait = Random.RandFloat(2.0f, 5.0f)
+    yield (new Asteroid(randomPos)) :: Asteroids
+    wait randomWait
 
   rule Asteroids =
     [for a in Asteroids do
-     where (a.Position.Y < 800.0f)
+     where (a.Position.Y < 1500.0f)
      select (a)]
+
+  rule Asteroids =
+    wait CollidingAsteroids.Count > 0
+    yield
+      [for a in Asteroids do
+       for ca in CollidingAsteroids do
+       where (a <> ca)
+       select (a)]
+
+  rule CollidingAsteroids =
+    [for a in Asteroids do
+     for s in Ships do
+     for p in s.Projectiles do
+     where (Vector2.Distance(a.Position, p.Position) < 150.0f)
+     select (a)]
+
+  rule CollidingProjectiles =
+    [for a in Asteroids do
+     for s in Ships do
+     for p in s.Projectiles do
+     where (Vector2.Distance(a.Position, p.Position) < 150.0f)
+     select (p)]
 
   Create() =
     {
-      Ship                  = new Ship()
+      Ships                 = [new Ship(new Vector2(250.0f, 1000.0f)); new Ship(new Vector2(750.0f, 1000.0f))]
       Asteroids             = []
+      CollidingAsteroids    = []
+      CollidingProjectiles  = []
       State                 = Keyboard.GetState()
-      RandomGenerator       = new Random()
     }
 }
 
 entity Ship = {
   Position    : Vector2
+  Score       : int
+  Color       : Color
   Projectiles : [Projectile]
 
   rule Position =
@@ -48,18 +75,30 @@ entity Ship = {
     yield Position + vy * dt
 
   rule Projectiles =
-    wait world.State.IsKeyDown(Keys.Space)
-    yield (new Projectile(Position)) :: Projectiles
-
-  rule Projectiles =
     [for p in Projectiles do
      where (p.Position.Y > -50.0f)
      select (p)]
+
+  rule Projectiles =
+    wait world.State.IsKeyDown(Keys.Space)
+    yield (new Projectile(Position, this)) :: Projectiles
+    wait (not world.State.IsKeyDown(Keys.Space))
+
+  rule Projectiles, Score =
+    wait world.CollidingProjectiles.Count > 0
+    let hits =
+      [for p in Projectiles do
+       for cp in world.CollidingProjectiles do
+       where (p <> cp && cp.Owner = this)
+       select (p)]
+    yield hits, Score + 100 * hits.Count
     
 
-  Create() =
+  Create(p : Vector2) =
     {
-      Position = new Vector2(750.0f, 1000.0f)
+      Position    = p
+      Score       = 0
+      Color       = new Color(Random.RandInt(0,256), Random.RandInt(0,256), Random.RandInt(0,256))
       Projectiles = []
     }
 
@@ -67,12 +106,14 @@ entity Ship = {
 
 entity Projectile = {
   Position    : Vector2
+  ref Owner   : Ship
 
   rule Position = Position + (new Vector2(0.0f, -500.0f)) * dt
 
-  Create(p : Vector2) =
+  Create(p : Vector2, owner : Ship) =
     {
       Position = p
+      Owner    = owner
     }
 }
 

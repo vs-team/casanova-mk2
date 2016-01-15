@@ -12,8 +12,11 @@ namespace Test
   {
     GraphicsDeviceManager graphics;
     SpriteBatch spriteBatch;
-    Texture2D shipTexture, greenLaser, rockAsteroid;
+    Texture2D shipTexture, greenLaser, rockAsteroid, background;
     World world;
+    SpriteFont arial;
+    System.Random r = new System.Random();
+
 
     public Game1()
     {
@@ -46,6 +49,8 @@ namespace Test
       shipTexture = Content.Load<Texture2D>("starship.png");
       greenLaser = Content.Load<Texture2D>("laser_green.png");
       rockAsteroid = Content.Load<Texture2D>("asteroid.png");
+      background = Content.Load<Texture2D>("nebula.jpg");
+      arial = Content.Load<SpriteFont>("Arial");
 
       // TODO: use this.Content to load your game content here
     }
@@ -77,6 +82,7 @@ namespace Test
       base.Update(gameTime);
     }
 
+
     /// <summary>
     /// This is called when the game should draw itself.
     /// </summary>
@@ -90,13 +96,24 @@ namespace Test
 
       spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
 
+      //draw background
+      spriteBatch.Draw(background, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+      //draw scores
+      for (int i = 0; i < world.Ships.Count; i++)
+      {
+        spriteBatch.DrawString(arial, "Player " + i + ":" + world.Ships[i].Score.ToString(), new Vector2(GraphicsDevice.DisplayMode.Width * 0.8f, 100f * i), Color.Red, 0f, Vector2.Zero, 5f, SpriteEffects.None, 0f);
+      }
+
       //draw ship
-      spriteBatch.Draw(shipTexture, world.Ship.Position);
-
-      //draw projectiles
-      foreach (Projectile projectile in world.Ship.Projectiles)
-        spriteBatch.Draw(greenLaser, projectile.Position, null, Color.White, MathHelper.PiOver2, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
+      foreach (Ship ship in world.Ships)
+      {
+        spriteBatch.Draw(shipTexture, ship.Position, null, ship.Color);
+        //draw projectiles
+        foreach (Projectile projectile in ship.Projectiles)
+          spriteBatch.Draw(greenLaser, projectile.Position, null, Color.White, MathHelper.PiOver2, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+      }
+      
       //draw asteroids
       foreach (Asteroid asteroid in world.Asteroids)
         spriteBatch.Draw(rockAsteroid, asteroid.Position, null, Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
