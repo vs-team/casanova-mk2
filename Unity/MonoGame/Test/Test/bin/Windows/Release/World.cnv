@@ -127,4 +127,15 @@ entity Asteroid = {
     {
       Position = p
     }
+  }
+
+entity TextBox = {
+  Text      : string
+  Position  : Vector2
+
+  Create (t : string, p : Vector2) =
+    {
+      Text        = t
+      Position    = p
+    }
 }

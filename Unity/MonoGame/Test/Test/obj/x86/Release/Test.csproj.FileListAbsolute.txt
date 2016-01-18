@@ -28,3 +28,4 @@ C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Wi
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Content\asteroid.png
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Content\Arial.xnb
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Content\nebula.jpg
+C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\Lidgren.Network.dll

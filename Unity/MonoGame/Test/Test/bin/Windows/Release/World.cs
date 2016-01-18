@@ -234,7 +234,7 @@ return;	}else
 (Projectiles).Select(__ContextSymbol31 => new { ___p02 = __ContextSymbol31 })
 .SelectMany(__ContextSymbol32=> (world.CollidingProjectiles).Select(__ContextSymbol33 => new { ___cp00 = __ContextSymbol33,
                                                       prev = __ContextSymbol32 })
-.Where(__ContextSymbol34 => ((!(((__ContextSymbol34.prev.___p02) == (__ContextSymbol34.___cp00)))) && (((__ContextSymbol34.prev.___p02.Owner) == (this)))))
+.Where(__ContextSymbol34 => ((!(((__ContextSymbol34.prev.___p02) == (__ContextSymbol34.___cp00)))) && (((__ContextSymbol34.___cp00.Owner) == (this)))))
 .Select(__ContextSymbol35 => __ContextSymbol35.prev.___p02)
 .ToList<Projectile>())).ToList<Projectile>();
 	Projectiles = ___hits00;
@@ -390,6 +390,39 @@ frame = World.frame;		this.Rule0(dt, world);
 	Position = (Position) + ((new Microsoft.Xna.Framework.Vector2(0f,250f)) * (dt));
 	}
 	
+
+
+
+
+
+
+
+
+
+
+}
+public class TextBox{
+public int frame;
+public bool JustEntered = true;
+private System.String t;
+private Microsoft.Xna.Framework.Vector2 p;
+	public int ID;
+public TextBox(System.String t, Microsoft.Xna.Framework.Vector2 p)
+	{JustEntered = false;
+ frame = World.frame;
+		Text = t;
+		Position = p;
+		
+}
+		public Microsoft.Xna.Framework.Vector2 Position;
+	public System.String Text;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+
+
+	}
+
 
 
 

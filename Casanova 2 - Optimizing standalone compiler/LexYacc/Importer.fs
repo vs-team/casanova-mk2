@@ -81,7 +81,7 @@ let loadCasanovaFileOrProject filename : CasanovaCompiler.ParseAST.Program list 
                       current_directory
 
   let syntax_errors = error_logger.FilterLexerErrors()
-  for error in syntax_errors do                  
+  for error in syntax_errors |> List.filter(fun s -> s <> "") do                  
     do Console.ForegroundColor <- ConsoleColor.Red
     do System.Console.WriteLine(error + ": syntax error: unrecognized token", ConsoleColor.Red)
   System.Console.ResetColor()

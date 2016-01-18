@@ -75,7 +75,7 @@ let Lookup (id:string) (suffixes : string list)  (pos : Position) (globalContext
   let check_instance (ids : string list) (t_id : TypedAST.TypeDecl) is_static = 
     if ids.IsEmpty then IDTResolutionContext.Uknown
     else
-      if ids.Head = "___p02" then printf "hi"
+      //if ids.Head = "___p02" then printf "hi"
       if context |> Map.containsKey ids.Head || is_static then
         let t_id = t_id |> ref    
         let rec eval_ids ids : IDTResolutionContext =
@@ -170,7 +170,7 @@ let Lookup (id:string) (suffixes : string list)  (pos : Position) (globalContext
     | IDTResolutionContext.Uknown -> raise pos (sprintf "Type error. Cant resolve %A. Try to use a verbose type annotation." ids)
     | IDTResolutionContext.Type(t)-> t      
   | is_instance, _-> 
-    if ids.Head = "___p02" then printf "hi"
+    //if ids.Head = "___p02" then printf "hi"
     
     match 
       check_instance (ids @ suffixes) context.[ids.Head] false, check_namespace (ids @ suffixes) None,    
@@ -268,7 +268,7 @@ let LookupTypeMethod (tp : TypedAST.TypeDecl) (pos : Position) (method_name : st
       | TypedAST.TypeDecl.ImportedType(t,p) -> 
 //        let t_args = args |> Seq.map(fun arg -> match arg with | TypedAST.TypeDecl.ImportedType(t,p) -> t | _ -> failwith arg.Position "...")
 //        let t_args_arr = args |> Seq.map (fun a -> a.TypeName) |> Seq.toArray
-        match t.GetMethods() |> Seq.tryFind (fun m -> if m.Name = "Log" then printf "hi"
+        match t.GetMethods() |> Seq.tryFind (fun m -> 
                                                       m.Name = method_name && 
                                                       m.GetParameters() 
                                                       |> Seq.map (fun p -> TypedAST.ImportedType(p.ParameterType, Position.Empty)) 

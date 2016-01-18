@@ -41,6 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bin\Windows\Release\NetworkUtils.cs" />
     <Compile Include="bin\Windows\Release\Prelude.cs" />
     <Compile Include="bin\Windows\Release\Utilities.cs" />
     <Compile Include="bin\Windows\Release\World.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
