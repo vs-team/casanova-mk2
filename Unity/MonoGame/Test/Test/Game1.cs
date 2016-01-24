@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Lidgren.Network;
 using AsteroidShooter;
+using Utilities;
 
 namespace Test
 {
@@ -35,6 +37,10 @@ namespace Test
       // TODO: Add your initialization logic here
       world = new World();
       world.Start();
+      NetPeerConfiguration config = new NetPeerConfiguration("AsteroidShooter");
+      NetworkAPI.Client = new NetClient(config);
+      NetworkAPI.Client.Start();
+      NetworkAPI.Client.Connect("127.0.0.1", 5432);
       base.Initialize();
     }
 
@@ -76,6 +82,16 @@ namespace Test
         this.Exit();
       }
 
+      //debug
+      if (Keyboard.GetState().IsKeyDown(Keys.LeftControl) && Keyboard.GetState().IsKeyDown(Keys.D))
+      {
+        System.Console.WriteLine("Entity\tId\tConnected\tDisconnected\tLocal");
+        foreach (System.Collections.Generic.KeyValuePair<int, NetworkInfo> kv in NetworkAPI.NetworkInfos)
+        {
+          System.Console.WriteLine(kv.Value.EntityName + "\t" + kv.Key + "\t" + kv.Value.Connected + "\t" + kv.Value.Disconnected + "\t" + kv.Value.IsLocal);
+        }
+      }
+
       // TODO: Add your update logic here
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
       world.Update(dt, world);
@@ -103,6 +119,7 @@ namespace Test
       for (int i = 0; i < world.Ships.Count; i++)
       {
         spriteBatch.DrawString(arial, "Player " + i + ":" + world.Ships[i].Score.ToString(), new Vector2(GraphicsDevice.DisplayMode.Width * 0.8f, 100f * i), Color.Red, 0f, Vector2.Zero, 5f, SpriteEffects.None, 0f);
+        spriteBatch.DrawString(arial, "Health " + i + ":" + world.Ships[i].Health.ToString(), new Vector2(GraphicsDevice.DisplayMode.Width * 0.05f, 50f * i), Color.Red, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
       }
 
       //draw ship

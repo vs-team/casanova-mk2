@@ -1,23 +1,30 @@
 module AsteroidShooter
 
-open @"C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Debug\MonoGame.Framework.dll"
+open @"C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test\bin\Windows\Release\MonoGame.Framework.dll"
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 open System
 open Utilities
+open GameNetworking
 
 worldEntity World = {
   Ships                         : [Ship]
   Asteroids                     : [Asteroid]
   ref CollidingAsteroids        : [Asteroid]
   ref CollidingProjectiles      : [Projectile]
+  ref ColliderShipAsteroid      : [(Ship * Asteroid)]
   State                         : KeyboardState
+  OnConnect                     : bool
+  OnDisconnect                  : bool
+  Id                            : int
+
+  
 
   rule State = Keyboard.GetState()
 
   rule Asteroids =
-    let randomPos = new Vector2(Random.RandFloat(0.0f, 600.0f), -50.0f)
-    let randomWait = Random.RandFloat(2.0f, 5.0f)
+    let randomPos = new Vector2(Random.RandFloat(0.0f, 1500.0f), -50.0f)
+    let randomWait = Random.RandFloat(0.5f, 3.0f)
     yield (new Asteroid(randomPos)) :: Asteroids
     wait randomWait
 
@@ -41,6 +48,31 @@ worldEntity World = {
      where (Vector2.Distance(a.Position, p.Position) < 150.0f)
      select (a)]
 
+
+  rule ColliderShipAsteroid =
+    [for a in Asteroids do
+     for s in Ships do
+     where (Vector2.Distance(a.Position, s.Position) < 150.0f)
+     select (s,a)]
+
+  rule ColliderShipAsteroid, Asteroids =
+    wait ColliderShipAsteroid.Count > 0
+    let updatedAsteroids =
+      [for a in Asteroids do
+       let colliders =
+          [for c in ColliderShipAsteroid do
+           where (c.Item2 = a)
+           select (c.Item2)]
+       where (colliders.Count = 0)
+       select (a)]
+    //wait dt
+    yield [], updatedAsteroids
+
+  rule Ships =
+    [for s in Ships do
+     where (s.Health > 0)
+     select (s)]
+
   rule CollidingProjectiles =
     [for a in Asteroids do
      for s in Ships do
@@ -49,12 +81,19 @@ worldEntity World = {
      select (p)]
 
   Create() =
+    let id = NetworkAPI.NextID
+    let info = new NetworkInfo("World", true)
+    NetworkAPI.AddInfo(id, info)
     {
-      Ships                 = [new Ship(new Vector2(250.0f, 1000.0f)); new Ship(new Vector2(750.0f, 1000.0f))]
+      Ships                 = [new Ship(new Vector2(Random.RandFloat(250.0f, 1500.0f), 1000.0f))]
       Asteroids             = []
       CollidingAsteroids    = []
       CollidingProjectiles  = []
+      ColliderShipAsteroid  = []
       State                 = Keyboard.GetState()
+      OnConnect             = false
+      OnDisconnect          = false
+      Id                    = id
     }
 }
 
@@ -62,6 +101,8 @@ entity Ship = {
   Position    : Vector2
   Score       : int
   Color       : Color
+  Health      : int
+  Id          : int
   Projectiles : [Projectile]
 
   rule Position =
@@ -84,58 +125,82 @@ entity Ship = {
     yield (new Projectile(Position, this)) :: Projectiles
     wait (not world.State.IsKeyDown(Keys.Space))
 
+  rule Health =
+    wait world.ColliderShipAsteroid.Count > 0
+    let colliders =
+      [for c in world.ColliderShipAsteroid do
+       where (c.Item1 = this)
+       select (c)]
+    if (colliders.Count > 0) then
+      yield Health - (colliders.Head.Item2.Damage)
+    else
+      yield Health
+
   rule Projectiles, Score =
     wait world.CollidingProjectiles.Count > 0
     let hits =
       [for p in Projectiles do
        for cp in world.CollidingProjectiles do
-       where (p <> cp && cp.Owner = this)
+       where (p = cp && p.Owner = this)
        select (p)]
-    yield hits, Score + 100 * hits.Count
+    let updatedProjs =
+      [for p in Projectiles do
+       let hits =
+        [for cp in world.CollidingProjectiles do
+         where (p = cp && p.Owner = this)
+         select (p)]
+       where (hits.Count = 0)
+       select (p)]
+    yield updatedProjs, Score + 100 * hits.Count
     
 
   Create(p : Vector2) =
+    let id = NetworkAPI.NextID
+    let info = new NetworkInfo("Ship", true)
+    NetworkAPI.AddInfo(id, info)
     {
       Position    = p
       Score       = 0
       Color       = new Color(Random.RandInt(0,256), Random.RandInt(0,256), Random.RandInt(0,256))
+      Health      = 100
+      Id          = id
       Projectiles = []
     }
-
 }
 
 entity Projectile = {
   Position    : Vector2
   ref Owner   : Ship
+  Id          : int
 
   rule Position = Position + (new Vector2(0.0f, -500.0f)) * dt
 
   Create(p : Vector2, owner : Ship) =
+    let id = NetworkAPI.NextID
+    let info = new NetworkInfo("Projectile", true)
+    NetworkAPI.AddInfo(id, info)
     {
       Position = p
       Owner    = owner
+      Id       = id
     }
 }
 
 entity Asteroid = {
 
   Position      : Vector2
+  Damage        : int
+  Id            : int
 
   rule Position = Position + (new Vector2(0.0f, 250.0f)) * dt
 
   Create(p : Vector2) =
+    let id = NetworkAPI.NextID
+    let info = new NetworkInfo("Asteroid", true)
+    NetworkAPI.AddInfo(id, info)
     {
       Position = p
+      Damage   = Random.RandInt(10,31)
+      Id       = id
     }
   }
-
-entity TextBox = {
-  Text      : string
-  Position  : Vector2
-
-  Create (t : string, p : Vector2) =
-    {
-      Text        = t
-      Position    = p
-    }
-}
