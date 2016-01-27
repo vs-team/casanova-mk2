@@ -1,9 +1,0 @@
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\bin\TEST\FSComp.dll
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\bin\TEST\FSComp.pdb
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\bin\TEST\FSComp.XML
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\bin\TEST\FSharp.Core.dll
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\bin\TEST\FSharp.Core.xml
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\obj\TEST\FSComp.resources
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\obj\TEST\FSComp.fsproj.GenerateResource.Cache
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\obj\TEST\FSComp.dll
-C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler - Copy\FSComp\obj\TEST\FSComp.pdb

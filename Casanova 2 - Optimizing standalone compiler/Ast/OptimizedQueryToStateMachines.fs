@@ -543,6 +543,32 @@ lb:
       | Some expr -> (bool_type, Not(traverseTrivialTypedExpr expr)) |> Some
     let if_then_else = TypeDecl.Unit tp.Position, Expression.IfThenElse(cond, expr_to_exchange, _then, _else)
     lb, [lb_expr; if_then_else]
+(*
+----------------------------------------
+[[when C]] _exit
+=>
+lb:
+  var waitn = expr()
+  if waitn.IsNone then
+	  gotoSuspend _lb
+  else
+	  goto _exit
+
+*)
+  | t_expr, OptimizedQueryAST.Expression.LetWait(id, tp, expr, _) -> 
+    let bool_type = TypedAST.TypeDecl.ImportedType(typeof<bool>, tp.Position)
+    let lb, lb_expr = get_fresh_label t_expr.Position e
+
+    e.CountdownCounter <- e.CountdownCounter + 1
+    let test_id = {idText = "wait" + (string e.CountdownCounter); idRange = t_expr.Position}
+    let test =  tp, Expression.Var(test_id, tp, traverseTrivialTypedExpr expr.Value |> Some)
+
+
+    let _then = [(TypeDecl.Unit tp.Position, GotoSuspend.Create lb |> Expression.GotoSuspend)]
+    let _else = [exit_expr]
+    let cond = bool_type, Expression.Id({ idText = test_id.idText + ".IsNone"; idRange = test_id.idRange })
+    let if_then_else = TypeDecl.Unit tp.Position, Expression.IfThenElse(cond, None, _then, _else)
+    lb, [lb_expr;test; if_then_else]
 
 (*
 ----------------------------------------

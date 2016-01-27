@@ -101,6 +101,7 @@ and Expression =
   | NewEntity of List<Id * Block>
   | Range of Expression * Expression * Position
   | Let of Id * Expression
+  | LetWait of Id * Expression
   | IfThenElse of Expression * Block * Block
   | IndexOf of Id * Expression
   | IfThen of Expression * Block
@@ -120,6 +121,7 @@ and Expression =
   | Id of Id
   with member this.Position = 
           match this with 
+                          | LetWait(id, _) -> id.idRange
                           | Cast(i,e,p) -> p
                           | Parallel(ps) -> 
                             match ps with

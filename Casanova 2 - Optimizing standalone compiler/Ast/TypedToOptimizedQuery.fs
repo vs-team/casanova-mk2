@@ -43,6 +43,7 @@ and traverseExpression (context : ExpressionContext) =
   | TypedAST.Range(e1, e2, p) -> Range(traverse e1, traverse e2, p)
   | TypedAST.NewEntity(exprs) -> NewEntity(exprs |> List.map(fun (id, b) -> id.Id, traverseBlockWithContext context b))
   | TypedAST.Let(id, tp, e) -> Expression.Let(id.Id, tp, traverse e |> Some, true)
+  | TypedAST.LetWait(id, tp, e) -> Expression.LetWait(id.Id, tp, traverse e |> Some, true)
 
 
   | TypedAST.IfThenElse(c, b1, b2) -> IfThenElse(traverse c, traverseBlockWithContext context b1, traverseBlockWithContext context b2)
