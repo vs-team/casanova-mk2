@@ -8,7 +8,7 @@ let is_running_lego = false
 let enable_dependency_analysis = false
 let enable_query_optimization = false
 let run_profiler = false
-let run_debugger = false
+let run_debugger = true
 let print_compilation_times = false
 
 type [<CustomComparison; CustomEquality>] Position = Position of  Microsoft.FSharp.Text.Lexing.Position
