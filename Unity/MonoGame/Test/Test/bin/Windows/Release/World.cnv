@@ -4,10 +4,11 @@ open @"C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 open System
+open Utilities
 
 worldEntity World = {
-  inherit NetworkWorld
-
+  Ships                         : [Ship]
+  Asteroids                     : [Asteroid]
   ref CollidingAsteroids        : [Asteroid]
   ref CollidingProjectiles      : [Projectile]
   ref ColliderShipAsteroid      : [(Ship * Asteroid)]
@@ -77,7 +78,8 @@ worldEntity World = {
 
   Create() =
     {
-      NetworkWorld          = new NetworkWorld()
+      Ships                 = [new Ship(Vector2(Random.RandFloat(250.0f, 1500.0f), 1000.0f))]
+      Asteroids             = []
       CollidingAsteroids    = []
       CollidingProjectiles  = []
       ColliderShipAsteroid  = []
@@ -86,8 +88,10 @@ worldEntity World = {
 }
 
 entity Ship = {
-  inherit NetworkShip
-
+  Position    : Vector2
+  Color       : Color
+  Health      : int
+  Projectiles : [Projectile]
   Score       : int
 
   rule Position =
@@ -136,37 +140,43 @@ entity Ship = {
          select (p)]
        where (hits.Count = 0)
        select (p)]
-    yield updatedProjs, Score + 100 * hits.Count
+    yield updatedProjs, Score +  hits.Count
     
 
   Create(p : Vector2) =
     {
-      NetworkShip = new NetworkShip(color, p)
+      Position    = p
+      Color       = new Color(Random.RandInt(0, 256), Random.RandInt(0, 256), Random.RandInt(0, 256))
+      Health      = 100
+      Projectiles = []
       Score       = 0
     }
 }
 
 entity Projectile = {
-  inherit NetworkProjectile
-
+  
+  Position    : Vector2
   ref Owner   : Ship
 
   rule Position = Position + (new Vector2(0.0f, -500.0f)) * dt
 
   Create(p : Vector2, owner : Ship) =
     {
-      NetworkProjectile = new NetworkProjectile(p)
+      Position = p
       Owner    = owner
     }
 }
 
 entity Asteroid = {
-  inherit NetworkAsteroid
+
+  Position      : Vector2
+  Damage        : int
 
   rule Position = Position + (new Vector2(0.0f, 250.0f)) * dt
 
   Create(p : Vector2) =
     {
-      NetworkAsteroid = new NetworkAsteroid(p, Random.RandInt(10,31))
+      Position      = p
+      Damage        = Random.RandInt(10,31)
     }
   }

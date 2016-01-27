@@ -21,44 +21,44 @@ namespace Utilities
     }
   }
 
-  public class NetworkInfo<T>
-  {
-    public T Entity { get; set; }
-    public bool Connected { get; set; }
-    public bool Disconnected { get; set; }
-    public bool IsLocal { get; set; }
-    public string EntityName { get; set; }
+  //public class NetworkInfo<T>
+  //{
+  //  public T Entity { get; set; }
+  //  public bool Connected { get; set; }
+  //  public bool Disconnected { get; set; }
+  //  public bool IsLocal { get; set; }
+  //  public string EntityName { get; set; }
 
-    public NetworkInfo()
-    {
-      Entity = default(T);
-      Connected = false;
-      Disconnected = false;
-      IsLocal = false;
-      EntityName = "";
-    }
+  //  public NetworkInfo()
+  //  {
+  //    Entity = default(T);
+  //    Connected = false;
+  //    Disconnected = false;
+  //    IsLocal = false;
+  //    EntityName = "";
+  //  }
 
-    public NetworkInfo(T entity, string name, bool local)
-    {
-      Entity = entity;
-      Connected = false;
-      Disconnected = false;
-      IsLocal = local;
-      EntityName = name;
-    }
-  }
+  //  public NetworkInfo(T entity, string name, bool local)
+  //  {
+  //    Entity = entity;
+  //    Connected = false;
+  //    Disconnected = false;
+  //    IsLocal = local;
+  //    EntityName = name;
+  //  }
+  //}
 
-  public static class NetworkAPI
-  {
-    public static NetClient Client;
-    public static int NextID
-    {
-      get
-      {
-        int r = Random.RandInt(0, 1000000000);
-        return r.GetHashCode();
-      }
-    }
+  //public static class NetworkAPI
+  //{
+  //  public static NetClient Client;
+  //  public static int NextID
+  //  {
+  //    get
+  //    {
+  //      int r = Random.RandInt(0, 1000000000);
+  //      return r.GetHashCode();
+  //    }
+  //  }
 
     //public static Dictionary<int, NetworkInfo<Ship>> ShipInfos = new Dictionary<int, NetworkInfo<Ship>>();
     //public static Dictionary<int, NetworkInfo<Projectile>> ProjectileInfos = new Dictionary<int, NetworkInfo<Projectile>>();
@@ -78,5 +78,5 @@ namespace Utilities
     //{
     //  AsteroidInfos[id] = info;
     //}
-  }
+  //}
 }
