@@ -3,7 +3,6 @@ using Casanova.Prelude;
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using GameNetworking;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -16,16 +15,10 @@ public bool JustEntered = true;
 
 public void Start()
 	{
-		System.Int32 ___id00;
-		___id00 = NetworkAPI.NextID;
-		Utilities.NetworkInfo ___info00;
-		___info00 = new Utilities.NetworkInfo("World",true);
-		Utilities.NetworkAPI.AddInfo(___id00,___info00);
 		State = Microsoft.Xna.Framework.Input.Keyboard.GetState();
 		Ships = (
 
 (new Cons<Ship>(new Ship(new Microsoft.Xna.Framework.Vector2(Utilities.Random.RandFloat(250f,1500f),1000f)),(new Empty<Ship>()).ToList<Ship>())).ToList<Ship>()).ToList<Ship>();
-		Id = ___id00;
 		CollidingProjectiles = (
 
 Enumerable.Empty<Projectile>()).ToList<Projectile>();
@@ -44,7 +37,6 @@ Enumerable.Empty<Asteroid>()).ToList<Asteroid>();
 	public List<Casanova.Prelude.Tuple<Ship, Asteroid>> ColliderShipAsteroid;
 	public List<Asteroid> CollidingAsteroids;
 	public List<Projectile> CollidingProjectiles;
-	public System.Int32 Id;
 	public List<Ship> Ships;
 	public Microsoft.Xna.Framework.Input.KeyboardState State;
 	public List<Asteroid> ___updatedAsteroids20;
@@ -249,24 +241,17 @@ private Microsoft.Xna.Framework.Vector2 p;
 public Ship(Microsoft.Xna.Framework.Vector2 p)
 	{JustEntered = false;
  frame = World.frame;
-		System.Int32 ___id01;
-		___id01 = NetworkAPI.NextID;
-		Utilities.NetworkInfo ___info01;
-		___info01 = new Utilities.NetworkInfo("Ship",true);
-		Utilities.NetworkAPI.AddInfo(___id01,___info01);
 		Score = 0;
 		Projectiles = (
 
 Enumerable.Empty<Projectile>()).ToList<Projectile>();
 		Position = p;
-		Id = ___id01;
 		Health = 100;
 		Color = new Microsoft.Xna.Framework.Color(Utilities.Random.RandInt(0,256),Utilities.Random.RandInt(0,256),Utilities.Random.RandInt(0,256));
 		
 }
 		public Microsoft.Xna.Framework.Color Color;
 	public System.Int32 Health;
-	public System.Int32 Id;
 	public Microsoft.Xna.Framework.Vector2 Position;
 	public List<Projectile> Projectiles;
 	public System.Int32 Score;
@@ -338,7 +323,7 @@ return;	}else
 .Select(__ContextSymbol59 => __ContextSymbol59.prev.___p03)
 .ToList<Projectile>()).ToList<Projectile>();
 	Projectiles = ___updatedProjs00;
-	Score = ((Score) + (((100) * (___hits00.Count))));
+	Score = ((Score) + (___hits00.Count));
 	s0 = -1;
 return;	
 	default: return;}}
@@ -476,18 +461,11 @@ private Ship owner;
 public Projectile(Microsoft.Xna.Framework.Vector2 p, Ship owner)
 	{JustEntered = false;
  frame = World.frame;
-		System.Int32 ___id02;
-		___id02 = NetworkAPI.NextID;
-		Utilities.NetworkInfo ___info02;
-		___info02 = new Utilities.NetworkInfo("Projectile",true);
-		Utilities.NetworkAPI.AddInfo(___id02,___info02);
 		Position = p;
 		Owner = owner;
-		Id = ___id02;
 		
 }
-		public System.Int32 Id;
-	public Ship Owner;
+		public Ship Owner;
 	public Microsoft.Xna.Framework.Vector2 Position;
 	public void Update(float dt, World world) {
 frame = World.frame;		this.Rule0(dt, world);
@@ -520,18 +498,11 @@ private Microsoft.Xna.Framework.Vector2 p;
 public Asteroid(Microsoft.Xna.Framework.Vector2 p)
 	{JustEntered = false;
  frame = World.frame;
-		System.Int32 ___id03;
-		___id03 = NetworkAPI.NextID;
-		Utilities.NetworkInfo ___info03;
-		___info03 = new Utilities.NetworkInfo("Asteroid",true);
-		Utilities.NetworkAPI.AddInfo(___id03,___info03);
 		Position = p;
-		Id = ___id03;
 		Damage = Utilities.Random.RandInt(10,31);
 		
 }
 		public System.Int32 Damage;
-	public System.Int32 Id;
 	public Microsoft.Xna.Framework.Vector2 Position;
 	public void Update(float dt, World world) {
 frame = World.frame;		this.Rule0(dt, world);

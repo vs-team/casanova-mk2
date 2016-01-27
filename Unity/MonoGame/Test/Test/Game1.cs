@@ -38,9 +38,9 @@ namespace Test
       world = new World();
       world.Start();
       NetPeerConfiguration config = new NetPeerConfiguration("AsteroidShooter");
-      NetworkAPI.Client = new NetClient(config);
-      NetworkAPI.Client.Start();
-      NetworkAPI.Client.Connect("127.0.0.1", 5432);
+      //NetworkAPI.Client = new NetClient(config);
+      //NetworkAPI.Client.Start();
+      //NetworkAPI.Client.Connect("127.0.0.1", 5432);
       base.Initialize();
     }
 
@@ -83,14 +83,14 @@ namespace Test
       }
 
       //debug
-      if (Keyboard.GetState().IsKeyDown(Keys.LeftControl) && Keyboard.GetState().IsKeyDown(Keys.D))
-      {
-        System.Console.WriteLine("Entity\tId\tConnected\tDisconnected\tLocal");
-        foreach (System.Collections.Generic.KeyValuePair<int, NetworkInfo> kv in NetworkAPI.NetworkInfos)
-        {
-          System.Console.WriteLine(kv.Value.EntityName + "\t" + kv.Key + "\t" + kv.Value.Connected + "\t" + kv.Value.Disconnected + "\t" + kv.Value.IsLocal);
-        }
-      }
+      //if (Keyboard.GetState().IsKeyDown(Keys.LeftControl) && Keyboard.GetState().IsKeyDown(Keys.D))
+      //{
+      //  System.Console.WriteLine("Entity\tId\tConnected\tDisconnected\tLocal");
+      //  foreach (System.Collections.Generic.KeyValuePair<int, NetworkInfo> kv in NetworkAPI.NetworkInfos)
+      //  {
+      //    System.Console.WriteLine(kv.Value.EntityName + "\t" + kv.Key + "\t" + kv.Value.Connected + "\t" + kv.Value.Disconnected + "\t" + kv.Value.IsLocal);
+      //  }
+      //}
 
       // TODO: Add your update logic here
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
