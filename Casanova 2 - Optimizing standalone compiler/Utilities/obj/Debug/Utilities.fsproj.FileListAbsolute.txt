@@ -40,3 +40,17 @@ C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standal
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.fsprojResolveAssemblyReference.cache
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.dll
 C:\Users\Francesco\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.pdb
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.dll.config
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.XML
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\Utilities.pdb
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSComp.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSharp.Core.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FsLexYacc.Runtime.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSComp.pdb
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSComp.xml
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FSharp.Core.xml
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\bin\Debug\FsLexYacc.Runtime.xml
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.fsprojResolveAssemblyReference.cache
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\Utilities\obj\Debug\Utilities.pdb

@@ -7,3 +7,12 @@ D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standa
 D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.fsproj.GenerateResource.Cache
 D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.dll
 D:\Users\GerardusAT\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.pdb
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSComp.XML
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSComp.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSComp.pdb
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSharp.Core.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\bin\Debug\FSharp.Core.xml
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.resources
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.fsproj.GenerateResource.Cache
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.dll
+C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\FSComp\obj\Debug\FSComp.pdb
