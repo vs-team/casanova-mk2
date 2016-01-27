@@ -41,6 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bin\Windows\Release\NetworkingProxy.cs" />
     <Compile Include="bin\Windows\Release\NetworkUtils.cs" />
     <Compile Include="bin\Windows\Release\Prelude.cs" />
     <Compile Include="bin\Windows\Release\Utilities.cs" />

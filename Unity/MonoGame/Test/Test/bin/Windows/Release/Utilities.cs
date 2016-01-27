@@ -1,7 +1,7 @@
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using AsteroidShooter;
+//using AsteroidShooter;
 
 namespace Utilities
 {
@@ -48,7 +48,7 @@ namespace Utilities
     }
   }
 
-  public class NetworkAPI
+  public static class NetworkAPI
   {
     public static NetClient Client;
     public static int NextID
@@ -60,23 +60,23 @@ namespace Utilities
       }
     }
 
-    public static Dictionary<int, NetworkInfo<Ship>> ShipInfos = new Dictionary<int, NetworkInfo<Ship>>();
-    public static Dictionary<int, NetworkInfo<Projectile>> ProjectileInfos = new Dictionary<int, NetworkInfo<Projectile>>();
-    public static Dictionary<int, NetworkInfo<Asteroid>> AsteroidInfos = new Dictionary<int, NetworkInfo<Asteroid>>();
+    //public static Dictionary<int, NetworkInfo<Ship>> ShipInfos = new Dictionary<int, NetworkInfo<Ship>>();
+    //public static Dictionary<int, NetworkInfo<Projectile>> ProjectileInfos = new Dictionary<int, NetworkInfo<Projectile>>();
+    //public static Dictionary<int, NetworkInfo<Asteroid>> AsteroidInfos = new Dictionary<int, NetworkInfo<Asteroid>>();
 
-    public static void AddShipInfo(int id, NetworkInfo<Ship> info)
-    {
-      ShipInfos[id] = info;
-    }
+    //public static void AddShipInfo(int id, NetworkInfo<Ship> info)
+    //{
+    //  ShipInfos[id] = info;
+    //}
 
-    public static void AddProjectileInfo(int id, NetworkInfo<Projectile> info)
-    {
-      ProjectileInfos[id] = info;
-    }
+    //public static void AddProjectileInfo(int id, NetworkInfo<Projectile> info)
+    //{
+    //  ProjectileInfos[id] = info;
+    //}
     
-    public static void AddAsteroidInfo(int id, NetworkInfo<Asteroid> info)
-    {
-      AsteroidInfos[id] = info;
-    }
+    //public static void AddAsteroidInfo(int id, NetworkInfo<Asteroid> info)
+    //{
+    //  AsteroidInfos[id] = info;
+    //}
   }
 }

@@ -4,19 +4,14 @@ open @"C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Test\Test
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 open System
-open Utilities
-open GameNetworking
 
 worldEntity World = {
-  Ships                         : [Ship]
-  Asteroids                     : [Asteroid]
+  inherit NetworkWorld
+
   ref CollidingAsteroids        : [Asteroid]
   ref CollidingProjectiles      : [Projectile]
   ref ColliderShipAsteroid      : [(Ship * Asteroid)]
   State                         : KeyboardState
-  OnConnect                     : bool
-  OnDisconnect                  : bool
-  Id                            : int
 
   
 
@@ -81,29 +76,19 @@ worldEntity World = {
      select (p)]
 
   Create() =
-    let id = NetworkAPI.NextID
-    let info = new NetworkInfo("World", true)
-    NetworkAPI.AddInfo(id, info)
     {
-      Ships                 = [new Ship(new Vector2(Random.RandFloat(250.0f, 1500.0f), 1000.0f))]
-      Asteroids             = []
+      NetworkWorld          = new NetworkWorld()
       CollidingAsteroids    = []
       CollidingProjectiles  = []
       ColliderShipAsteroid  = []
       State                 = Keyboard.GetState()
-      OnConnect             = false
-      OnDisconnect          = false
-      Id                    = id
     }
 }
 
 entity Ship = {
-  Position    : Vector2
+  inherit NetworkShip
+
   Score       : int
-  Color       : Color
-  Health      : int
-  Id          : int
-  Projectiles : [Projectile]
 
   rule Position =
     let vy = new Vector2(-300.0f, 0.0f)
@@ -155,52 +140,33 @@ entity Ship = {
     
 
   Create(p : Vector2) =
-    let id = NetworkAPI.NextID
-    let info = new NetworkInfo("Ship", true)
-    NetworkAPI.AddInfo(id, info)
     {
-      Position    = p
+      NetworkShip = new NetworkShip(color, p)
       Score       = 0
-      Color       = new Color(Random.RandInt(0,256), Random.RandInt(0,256), Random.RandInt(0,256))
-      Health      = 100
-      Id          = id
-      Projectiles = []
     }
 }
 
 entity Projectile = {
-  Position    : Vector2
+  inherit NetworkProjectile
+
   ref Owner   : Ship
-  Id          : int
 
   rule Position = Position + (new Vector2(0.0f, -500.0f)) * dt
 
   Create(p : Vector2, owner : Ship) =
-    let id = NetworkAPI.NextID
-    let info = new NetworkInfo("Projectile", true)
-    NetworkAPI.AddInfo(id, info)
     {
-      Position = p
+      NetworkProjectile = new NetworkProjectile(p)
       Owner    = owner
-      Id       = id
     }
 }
 
 entity Asteroid = {
-
-  Position      : Vector2
-  Damage        : int
-  Id            : int
+  inherit NetworkAsteroid
 
   rule Position = Position + (new Vector2(0.0f, 250.0f)) * dt
 
   Create(p : Vector2) =
-    let id = NetworkAPI.NextID
-    let info = new NetworkInfo("Asteroid", true)
-    NetworkAPI.AddInfo(id, info)
     {
-      Position = p
-      Damage   = Random.RandInt(10,31)
-      Id       = id
+      NetworkAsteroid = new NetworkAsteroid(p, Random.RandInt(10,31))
     }
   }
