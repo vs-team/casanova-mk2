@@ -38,9 +38,9 @@ namespace Test
       world = new World();
       world.Start();
       NetPeerConfiguration config = new NetPeerConfiguration("AsteroidShooter");
-      //NetworkAPI.Client = new NetClient(config);
-      //NetworkAPI.Client.Start();
-      //NetworkAPI.Client.Connect("127.0.0.1", 5432);
+      NetworkAPI.Client = new NetClient(config);
+      NetworkAPI.Client.Start();
+      NetworkAPI.Client.Connect("127.0.0.1", 5432);
       base.Initialize();
     }
 
