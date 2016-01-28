@@ -35,7 +35,7 @@ and traverseAtomicRules (classes : Class list) (_class : Class) (entity_body : S
   for r in rules do     
     match r.Body with 
     | StateMachinesAST.Atomic(a) -> automated_rules.Add({ Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); 
-                                                          Id = {idText = string r.Index; idRange = r.Position}; Body = a})
+                                                          Id = {idText = string r.Index; idRange = r.Position}; Body = a; Flag = r.Flag})
     | _ ->  ()
 
   let fields = ResizeArray()
@@ -129,9 +129,9 @@ and traverseSuspRules (classes : Class list) (_class : Class) (entity_body : Sta
     | StateMachinesAST.StateMachine(s) ->
       match s.Dependencies with 
       | Some (d,_) when d = [] -> 
-        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id)})
+        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id); Flag = r.Flag})
       | None -> 
-        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id)})
+        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id); Flag = r.Flag})
       | Some (ds,_) ->   
             let res = 
               match complete_dependencies.TryByTarget(_class, {idText = string r.Index; idRange = r.Position}) with
@@ -146,8 +146,8 @@ and traverseSuspRules (classes : Class list) (_class : Class) (entity_body : Sta
                       if is_atomic then depends_from_atomic_rule <- true
                 depends_from_atomic_rule          
                 
-            if res then state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id) })
-            else suspended_rules.Add({ SuspendedRule.Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id)})
+            if res then state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); Flag = r.Flag })
+            else suspended_rules.Add({ SuspendedRule.Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); Flag = r.Flag})
     | _ -> ()
 
 

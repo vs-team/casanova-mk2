@@ -72,13 +72,13 @@ and private traverseSynMemberDefns (inherited_types : List<Id>) (fields : List<F
   let mutable _create = None
   let mutable _rules = []
   for synMemberDefn in synMemberDefns do
-    let (SynMemberDefn.Member(synBinding, position)) =  synMemberDefn
+    let (SynMemberDefn.Member(synBinding, position, flag)) =  synMemberDefn
     let (Binding(synPat, synExpr, _, position)) = synBinding
     let pat = traverseSynPatDomain synPat
     if pat <> [] then      
       let expr = traverseSynExprBlock synExpr
       if expr.Length = 0 then raise (Common.Position synMemberDefn.Range) (sprintf "Rule without body.")
-      _rules <- {Domain = pat; Body = expr} :: _rules
+      _rules <- {Domain = pat; Body = expr; Flag = flag} :: _rules
     else
       let create_pat = traverseCreateSynPatDomain synPat
       let expr = traverseSynExprBlock synExpr

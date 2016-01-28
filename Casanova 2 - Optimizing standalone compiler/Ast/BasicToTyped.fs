@@ -940,6 +940,7 @@ and convertRule p fields (worldName:Id) (entityName:Id) (globalContext:GlobalTyp
     Position  = entityName.idRange
     Domain    = domain
     Body      = b
+    Flag      = r.Flag
   }
 
 and convertTypeDecl (p:BasicAST.Program) (t:BasicAST.TypeDecl) : TypedAST.TypeDecl =

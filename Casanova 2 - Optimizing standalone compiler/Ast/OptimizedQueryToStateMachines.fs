@@ -228,6 +228,7 @@ and private convertRule (world_name : string)
     Index = rule_idx
     Domain = build_rule_codomains game_entities fields domain
     Body = traverseBody world_name current_entity game_entities rule_idx domain rule.Body fields e
+    Flag = rule.Flag
   }
 
 and private traverseBody  (world_name : string)

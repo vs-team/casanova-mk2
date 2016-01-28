@@ -12,6 +12,7 @@ let rec traverseRule current_entity (context : GlobalContext) (rule : TypedAST.R
     Domain    = rule.Domain |> List.map(fun d -> d.Id)
     Body      = traverseBlock (current_entity, None, context) rule.Body current_rule true
     Position  = rule.Position
+    Flag      = rule.Flag
   }
 
 
@@ -550,7 +551,7 @@ and traverseQuery' (context : ExpressionContext) : TypedExpression list =
                       [(TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ]))],
                   [(TypedAST.TypeDecl.Unit(p), dest_collection_call "Remove"); (TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ])
               init @ wait :: if_then_else :: []
-            dest.Rules.Add({Domain = []; Body = rule; Position = p})
+            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flag = CasanovaCompiler.ParseAST.Flag.Nothing})
           
 
           source_block
@@ -782,7 +783,7 @@ and traverseQuery' (context : ExpressionContext) : TypedExpression list =
                       [(TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ]))],
                   [(TypedAST.TypeDecl.Unit(p), dest_collection_call "Remove"); (TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ])
               init :: wait :: if_then_else :: []
-            dest.Rules.Add({Domain = []; Body = rule; Position = p})
+            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flag = CasanovaCompiler.ParseAST.Flag.Nothing})
           
 
           source_block

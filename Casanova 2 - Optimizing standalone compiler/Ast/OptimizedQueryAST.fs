@@ -47,6 +47,7 @@ and Rule =
     Domain    : Id list
     Body      : Block
     Position  : Position
+    Flag      : CasanovaCompiler.ParseAST.Flag
   } 
 
 and Block = TypedExpression list

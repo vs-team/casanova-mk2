@@ -65,6 +65,7 @@ and Rule =
   {
     Domain    : List<Id>
     Body      : Block
+    Flag      : CasanovaCompiler.ParseAST.Flag
   } 
     with member this.Position = 
               match this.Domain with

@@ -65,14 +65,14 @@ and
 
 and 
     [<NoEquality; NoComparison; RequireQualifiedAccess>]
-    SynMemberDefn = Member of SynBinding * Position                            
+    SynMemberDefn = Member of SynBinding * Position * Flag
     with 
       member d.GetSynBinding =
         match d with 
-          | SynMemberDefn.Member(s, _) -> s
+          | SynMemberDefn.Member(s, _, _) -> s
       member d.Range = 
           match d with 
-          | SynMemberDefn.Member(_, m) -> m
+          | SynMemberDefn.Member(_, m, _) -> m
 and  
     [<NoEquality; NoComparison>]
     SynValData = 
@@ -586,7 +586,11 @@ and MeasureType =
   | OpMul of MeasureType * MeasureType * Position
   | OpDiv of MeasureType * MeasureType * Position
   | OpPow of MeasureType * int * Position
-
+and Flag =
+  | Nothing
+  | Connect
+  | Master
+  | Slave
 and FieldOrRule =
   | CnvField of SynField
   | CnvRule of SynMemberDefn
@@ -596,7 +600,7 @@ and FieldOrRule =
   member this.Position =
     match this with
     | CnvField f -> f.GetType.Range
-    | CnvRule r -> r.Range
+    | CnvRule (r) -> r.Range
     | CnvInherit i -> 
       if i.Length > 0 then i.Head.idRange
       else Position.Empty

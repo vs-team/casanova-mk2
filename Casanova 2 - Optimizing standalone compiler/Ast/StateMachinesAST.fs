@@ -44,6 +44,7 @@ and Rule =
     Body      : RuleBody
     Index     : int
     Position  : Position
+    Flag      : CasanovaCompiler.ParseAST.Flag
   } 
 
 and RuleBody = Atomic of AtomicBlock | StateMachine of StateMachine
