@@ -95,34 +95,45 @@ let ResolveTypeName type_name (position : Common.Position) =
     | null ->
       match opened_referenced_library_type |> Seq.tryFind(fun t -> t.Namespace + "." + t.Name = type_name || t.Name = type_name) with
       | None ->
-      
-        let rec check_tp opened_directives =
-          match opened_directives with
-          | [] -> None
-          | x :: xs ->
-            if opened_types.ContainsKey(x + "." + type_name) then
-              Some opened_types.[x + "." + type_name]
-            elif System.Type.GetType(x + "." + type_name) <> null then
-              let tp = System.Type.GetType(x + "." + type_name)
-              opened_types.Add(x + "." + type_name, tp)
-              Some tp
-            else 
-              for e in opened_referenced_library_type do
-                if e.Name.ToLower().Contains("vector2") then
-                  printf "asddas"
-              let maybe_tp = opened_referenced_library_type |> Seq.tryFind(fun t -> t.Name = x + "." + type_name)
-              match maybe_tp with
-              | None -> check_tp xs
-              | Some maybe_tp ->
-                opened_types.Add(x + "." + type_name, maybe_tp)
-                Some maybe_tp
+        match opened_referenced_library_type |> Seq.tryFind(fun t -> t.GetProperties() |> Seq.exists(fun p -> p.PropertyType.FullName = type_name)) with
+        | Some tp -> 
+          let tp = (tp.GetProperties() |> Seq.find(fun p -> p.PropertyType.FullName = type_name)).PropertyType
+          opened_types.Add(type_name, tp)
+          tp
+        | None ->
+          match opened_referenced_library_type |> Seq.tryFind(fun t -> t.GetFields() |> Seq.exists(fun f -> f.FieldType.FullName = type_name)) with
+          | Some tp -> 
+            let tp = (tp.GetFields() |> Seq.find(fun f -> f.FieldType.FullName = type_name)).FieldType
+            opened_types.Add(type_name, tp)
+            tp
+          | None ->      
+            let rec check_tp opened_directives =
+              match opened_directives with
+              | [] -> None
+              | x :: xs ->
+                if opened_types.ContainsKey(x + "." + type_name) then
+                  Some opened_types.[x + "." + type_name]
+                elif System.Type.GetType(x + "." + type_name) <> null then
+                  let tp = System.Type.GetType(x + "." + type_name)
+                  opened_types.Add(x + "." + type_name, tp)
+                  Some tp
+                else 
+                  for e in opened_referenced_library_type do
+                    if e.Name.ToLower().Contains("vector2") then
+                      printf "asddas"
+                  let maybe_tp = opened_referenced_library_type |> Seq.tryFind(fun t -> t.Name = x + "." + type_name)
+                  match maybe_tp with
+                  | None -> check_tp xs
+                  | Some maybe_tp ->
+                    opened_types.Add(x + "." + type_name, maybe_tp)
+                    Some maybe_tp
 
-        match check_tp (opened_directives |> Seq.toList) with
-        | Some tp -> tp
-        | None -> 
-          let (Common.Position(p)) = position
-          printfn "Type error. Field or property not found. {%A, (%A,%A)} "  type_name p.Line p.Column
-          raise(Common.CompilationError(position, "Type error. Field or property not found. Error when trying to resolve: " + type_name))
+            match check_tp (opened_directives |> Seq.toList) with
+            | Some tp -> tp
+            | None -> 
+              let (Common.Position(p)) = position
+              printfn "Type error. Field or property not found. {%A, (%A,%A)} "  type_name p.Line p.Column
+              raise(Common.CompilationError(position, "Type error. Field or property not found. Error when trying to resolve: " + type_name))
 
       | Some tp -> 
         opened_types.Add(type_name, tp)

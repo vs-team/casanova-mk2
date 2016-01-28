@@ -12,6 +12,7 @@ let rec traverseRule current_entity (context : GlobalContext) (rule : TypedAST.R
     Domain    = rule.Domain |> List.map(fun d -> d.Id)
     Body      = traverseBlock (current_entity, None, context) rule.Body current_rule true
     Position  = rule.Position
+    Flag      = rule.Flag
   }
 
 
@@ -43,6 +44,7 @@ and traverseExpression (context : ExpressionContext) =
   | TypedAST.Range(e1, e2, p) -> Range(traverse e1, traverse e2, p)
   | TypedAST.NewEntity(exprs) -> NewEntity(exprs |> List.map(fun (id, b) -> id.Id, traverseBlockWithContext context b))
   | TypedAST.Let(id, tp, e) -> Expression.Let(id.Id, tp, traverse e |> Some, true)
+  | TypedAST.LetWait(id, tp, e) -> Expression.LetWait(id.Id, tp, traverse e |> Some, true)
 
 
   | TypedAST.IfThenElse(c, b1, b2) -> IfThenElse(traverse c, traverseBlockWithContext context b1, traverseBlockWithContext context b2)
@@ -549,7 +551,7 @@ and traverseQuery' (context : ExpressionContext) : TypedExpression list =
                       [(TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ]))],
                   [(TypedAST.TypeDecl.Unit(p), dest_collection_call "Remove"); (TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ])
               init @ wait :: if_then_else :: []
-            dest.Rules.Add({Domain = []; Body = rule; Position = p})
+            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flag = CasanovaCompiler.ParseAST.Flag.Nothing})
           
 
           source_block
@@ -781,7 +783,7 @@ and traverseQuery' (context : ExpressionContext) : TypedExpression list =
                       [(TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ]))],
                   [(TypedAST.TypeDecl.Unit(p), dest_collection_call "Remove"); (TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ])
               init :: wait :: if_then_else :: []
-            dest.Rules.Add({Domain = []; Body = rule; Position = p})
+            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flag = CasanovaCompiler.ParseAST.Flag.Nothing})
           
 
           source_block

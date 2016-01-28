@@ -72,13 +72,13 @@ and private traverseSynMemberDefns (inherited_types : List<Id>) (fields : List<F
   let mutable _create = None
   let mutable _rules = []
   for synMemberDefn in synMemberDefns do
-    let (SynMemberDefn.Member(synBinding, position)) =  synMemberDefn
+    let (SynMemberDefn.Member(synBinding, position, flag)) =  synMemberDefn
     let (Binding(synPat, synExpr, _, position)) = synBinding
     let pat = traverseSynPatDomain synPat
     if pat <> [] then      
       let expr = traverseSynExprBlock synExpr
       if expr.Length = 0 then raise (Common.Position synMemberDefn.Range) (sprintf "Rule without body.")
-      _rules <- {Domain = pat; Body = expr} :: _rules
+      _rules <- {Domain = pat; Body = expr; Flag = flag} :: _rules
     else
       let create_pat = traverseCreateSynPatDomain synPat
       let expr = traverseSynExprBlock synExpr
@@ -502,14 +502,20 @@ and private traverseSynExprBlock (synExpr : SynExpr) : Block =
     let synexpr1 = traverseSynExpr synExpr1
     let synexpr2 = traverseSynExprBlock synExpr2
     synexpr1 :: synexpr2
-  | SynExpr.LetOrUse(_, _, [synBinding], synExpr, position) -> 
+  | SynExpr.LetOrBindingOrUse(_, _,false, [synBinding], synExpr, position) -> 
     let binding_identifier = traverseSynPat synBinding.SynPat
     if binding_identifier.Length > 1 then raise (Position position) "Multiple identifiers on a let binding are not supported yet." |> ignore
     if binding_identifier.Length = 0 then raise (Position position) "Let binding without identifiers." |> ignore
     let binding_expr = traverseSynExpr synBinding.GetExpr
     let synexpr = traverseSynExprBlock synExpr
     Expression.Let(binding_identifier.Head, binding_expr) :: synexpr
-  
+  | SynExpr.LetOrBindingOrUse(_, _,true, [synBinding], synExpr, position) -> 
+    let binding_identifier = traverseSynPat synBinding.SynPat
+    if binding_identifier.Length > 1 then raise (Position position) "Multiple identifiers on a let binding are not supported yet." |> ignore
+    if binding_identifier.Length = 0 then raise (Position position) "Let binding without identifiers." |> ignore
+    let binding_expr = traverseSynExpr synBinding.GetExpr
+    let synexpr = traverseSynExprBlock synExpr
+    Expression.LetWait(binding_identifier.Head, binding_expr) :: synexpr
 
   | _ -> [traverseSynExpr synExpr]
   
@@ -547,7 +553,7 @@ and private traverseQueryExpression (synExpr : SynExpr) : List<InnerQueryExpress
     let synexpr1 = traverseInnerQueryExpression synExpr1
     let synexpr2 = traverseQueryExpression synExpr2
     synexpr1 :: synexpr2
-  | SynExpr.LetOrUse(_, _, [synBinding], synExpr, position) -> 
+  | SynExpr.LetOrBindingOrUse(_,_, _, [synBinding], synExpr, position) -> 
     let binding_identifier = traverseSynPat synBinding.SynPat
     if binding_identifier.Length > 1 then raise "Multiple identifiers on a let binding are not supported yet. " |> ignore
     if binding_identifier.Length = 0 then raise "Let binding without identifiers." |> ignore

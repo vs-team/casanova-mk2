@@ -13,17 +13,16 @@ open Microsoft.FSharp.Compiler.Internal
 open Internals.Utils
 open CasanovaCompiler.ParseAST
 
-let parse (lexbuf : Lexing.LexBuffer<char>.LexemeString lexbuf) = parse lexbuf
 
 let lexeme lexbuf =
-    Lexing.LexBuffer<char>.LexemeString lexbuf
+    LexBuffer<char>.LexemeString lexbuf
 
 let trimBoth (s:string) n m = s.Substring(n, s.Length - (n+m))
 let lexemeTrimBoth   lexbuf n m = trimBoth (lexeme lexbuf) n m
 let lexemeTrimRight  lexbuf n = lexemeTrimBoth lexbuf 0 n
 let lexemeTrimLeft   lexbuf n = lexemeTrimBoth lexbuf n 0
 
-let fail args (lexbuf : Lexing.LexBuffer<char>) msg dflt =
+let fail args (lexbuf : LexBuffer<char>) msg dflt =
      let m = lexbuf.StartPos
      args.errorLogger.ErrorR(Error(msg,m))
      dflt        
@@ -90,7 +89,7 @@ let lexemeTrimRightToInt32 args lexbuf n =
 let stringContains (s:string) (c:char) = 
     s.IndexOf(c,0,String.length s) <> -1
 
-let checkExprOp (lexbuf:Lexing.LexBuffer<char>) = 
+let checkExprOp (lexbuf:LexBuffer<char>) = 
     if stringContains (lexeme lexbuf)  ':' then 
         deprecatedWithError (sprintf "'%s' is not permitted as a character in operator names and is reserved for future use" (":")) lexbuf.LexemeRange;
     if stringContains (lexeme lexbuf)  '$' then 
@@ -99,7 +98,7 @@ let checkExprOp (lexbuf:Lexing.LexBuffer<char>) =
 let unexpectedChar lexbuf =
     LEX_FAILURE (sprintf "Unexpected character '%s'" (lexeme lexbuf))
 
-let startString args (lexbuf: Lexing.LexBuffer<char>) =
+let startString args (lexbuf: LexBuffer<char>) =
     let buf = ByteBuffer.Create 100 
     let m = lexbuf.LexemeRange 
     let startp = lexbuf.StartPos 
@@ -217,11 +216,10 @@ rule token args skip = parse
      { YIELD_BANG(true)  } 
  | "return!" 
      { YIELD_BANG(false) } 
- | ident '!' 
-     { let tok = Keywords.KeywordOrIdentifierToken args lexbuf (lexemeTrimRight lexbuf 1) 
-       match tok with 
-       | LET _ -> BINDER (lexemeTrimRight lexbuf 1) 
-       | _ -> fail args lexbuf (1141,sprintf "Identifiers followed by '%s' are reserved for future use" "!") (Keywords.KeywordOrIdentifierToken args lexbuf (lexeme lexbuf)) } 
+ | "let!" 
+     {printf "hahaha"  
+      LET_BANG(false) }
+
  | ident ('#')  
      { fail args lexbuf (1141,sprintf "Identifiers followed by '%s' are reserved for future use" "#") (Keywords.KeywordOrIdentifierToken args lexbuf (lexeme lexbuf)) }
  | int8 

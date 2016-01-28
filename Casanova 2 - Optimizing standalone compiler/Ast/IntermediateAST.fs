@@ -66,6 +66,7 @@ and AutomatedRule =
     Domain    : List<Id>
     Id        : Id
     Body      : AtomicBlock
+    Flag      : CasanovaCompiler.ParseAST.Flag
   } with member this.Position = this.Id.idRange
 
 and StateMachineRule = 
@@ -73,6 +74,7 @@ and StateMachineRule =
     Domain    : List<Id>    
     Id        : Id
     Body      : Block
+    Flag      : CasanovaCompiler.ParseAST.Flag
   } with member this.Position = this.Id.idRange
 
 and SuspendedRule = 
@@ -80,6 +82,7 @@ and SuspendedRule =
     Id        : Id
     Domain    : List<Id>    
     Body      : Block
+    Flag      : CasanovaCompiler.ParseAST.Flag
   } with member this.Position = this.Id.idRange
 
 and [<CustomComparison; CustomEquality>] Field = 

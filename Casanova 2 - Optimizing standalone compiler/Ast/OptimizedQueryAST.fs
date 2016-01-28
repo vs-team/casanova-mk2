@@ -47,6 +47,7 @@ and Rule =
     Domain    : Id list
     Body      : Block
     Position  : Position
+    Flag      : CasanovaCompiler.ParseAST.Flag
   } 
 
 and Block = TypedExpression list
@@ -93,6 +94,7 @@ and Expression =
   | Range of TypedExpression * TypedExpression * Position
   | NewEntity of List<Id * Block>
   | Let of Id * TypedAST.TypeDecl * Option<TypedExpression> * bool // compress let
+  | LetWait of Id * TypedAST.TypeDecl * Option<TypedExpression> * bool // compress let
 
   | IfThenElse of TypedExpression * Block * Block
   | IfThen of TypedExpression * Block * bool // do not suspend when exit
@@ -126,7 +128,7 @@ and Expression =
           match exprs with
           | [] -> raise Position.Empty (sprintf "New entity without body. Internal error at %s(%s)" __SOURCE_FILE__ __LINE__)
           | _ ->(fst exprs.Head).idRange; 
-        | Let(id,_,_,_) -> id.idRange; | IfThenElse(b,_,_) -> (snd b).Position; | IfThen(b,_,_) -> (snd b).Position; 
+        | Let(id,_,_,_) -> id.idRange; | LetWait(id,_,_,_) -> id.idRange; | IfThenElse(b,_,_) -> (snd b).Position; | IfThen(b,_,_) -> (snd b).Position; 
         | Yield(t) | Wait(t,_) -> (snd t).Position; 
         | Tuple(b) -> 
           match b with

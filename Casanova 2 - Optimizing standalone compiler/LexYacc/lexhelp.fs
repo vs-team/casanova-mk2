@@ -225,6 +225,7 @@ module Keywords =
       ALWAYS, "land"       ,INFIX_STAR_DIV_MOD_OP "land";
       ALWAYS, "lazy"       ,LAZY;
       ALWAYS, "let"        ,LET(false);
+      ALWAYS, "let!"       ,LET_BANG(false);
       ALWAYS, "lor"        ,INFIX_STAR_DIV_MOD_OP "lor";
       ALWAYS, "lsl"        ,INFIX_STAR_STAR_OP "lsl";
       ALWAYS, "lsr"        ,INFIX_STAR_STAR_OP "lsr";

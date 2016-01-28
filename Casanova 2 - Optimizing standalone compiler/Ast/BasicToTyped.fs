@@ -495,6 +495,13 @@ let rec private convertRuleBody (is_create : bool)
       let id, shadowContext = shadowContext.Add rule_idx (id.idText)
       let context = context |> Map.add id  t_e
       (TypedAST.TypeDecl.Unit pos, maybe_yield_type , TypedAST.Expression.Let(TypedAST.Id.buildFrom {idText = id; idRange = pos}, t_e, (t_e,e))), shadowContext, context
+    | BasicAST.Expression.LetWait(id,e) -> 
+      let pos = id.idRange
+      let (t_e, maybe_yield_type', e), _, context = traverse p None shadowContext context e
+      if maybe_yield_type'.IsSome then raiseGeneric __LINE__ __SOURCE_FILE__
+      let id, shadowContext = shadowContext.Add rule_idx (id.idText)
+      let context = context |> Map.add id  t_e
+      (TypedAST.TypeDecl.Unit pos, maybe_yield_type , TypedAST.Expression.LetWait(TypedAST.Id.buildFrom {idText = id; idRange = pos}, t_e, (t_e,e))), shadowContext, context
 
     | BasicAST.Expression.IfThenElse(c,t,e) ->
       let b_t, maybe_yield_type, _ = traverseBlock p maybe_yield_type t shadowContext context
@@ -933,6 +940,7 @@ and convertRule p fields (worldName:Id) (entityName:Id) (globalContext:GlobalTyp
     Position  = entityName.idRange
     Domain    = domain
     Body      = b
+    Flag      = r.Flag
   }
 
 and convertTypeDecl (p:BasicAST.Program) (t:BasicAST.TypeDecl) : TypedAST.TypeDecl =

@@ -1046,7 +1046,7 @@ type LexFilterImpl (lightSyntaxStatus:LightSyntaxStatus, compilingFsLib, lexer, 
             | CasanovaCompiler.Parser.EOF _ -> false
             | _ -> 
                 not (isSameLine()) ||  
-                (match peekNextToken() with TRY | MATCH | SELECT_OPERATOR | INT_SELECT_OPERATOR |IF | LET _ | FOR | WHILE -> true | _ -> false) 
+                (match peekNextToken() with TRY | MATCH | SELECT_OPERATOR | INT_SELECT_OPERATOR |IF | LET _ | LET_BANG _| FOR | WHILE -> true | _ -> false) 
 
         // Look for '=' or '.Id.id.id = ' after an identifier
         let rec isLongIdentEquals (token : CasanovaCompiler.Parser.token) = 
@@ -1784,6 +1784,12 @@ type LexFilterImpl (lightSyntaxStatus:LightSyntaxStatus, compilingFsLib, lexer, 
             popCtxt() // get rid of the CtxtMemberHead
             pushCtxt tokenTup (CtxtLetDecl(true,startPos))
             returnToken tokenLexbufState (OLET(isUse))
+        | LET_BANG(isUse), (ctxt :: _) when (match ctxt with CtxtMemberHead _ -> true | _ -> false) -> 
+            if debug then printf "LET!: entering CtxtLetDecl(), awaiting EQUALS to go to CtxtSeqBlock (%a)\n" outputPos tokenStartPos
+            let startPos = match ctxt with CtxtMemberHead startPos -> startPos | _ -> tokenStartPos
+            popCtxt() // get rid of the CtxtMemberHead
+            pushCtxt tokenTup (CtxtLetDecl(true,startPos))
+            returnToken tokenLexbufState (OLET_WAIT(isUse))
 
         // let ... ~~~> CtxtLetDecl 
         //     -- this rule only applies to 
@@ -1796,11 +1802,18 @@ type LexFilterImpl (lightSyntaxStatus:LightSyntaxStatus, compilingFsLib, lexer, 
             if debug then printf "LET: entering CtxtLetDecl(blockLet=%b), awaiting EQUALS to go to CtxtSeqBlock (%a)\n" blockLet outputPos tokenStartPos
             pushCtxt tokenTup (CtxtLetDecl(blockLet,tokenStartPos))
             returnToken tokenLexbufState (if blockLet then OLET(isUse) else token)
+        | LET_BANG(isUse), (ctxt :: _) -> 
+            let blockLet = match ctxt with | CtxtSeqBlock _ -> true 
+                                            | CtxtMatchClauses _ -> true 
+                                            | _ -> false
+            if debug then printf "LET!: entering CtxtLetDecl(blockLet=%b), awaiting EQUALS to go to CtxtSeqBlock (%a)\n" blockLet outputPos tokenStartPos
+            pushCtxt tokenTup (CtxtLetDecl(blockLet,tokenStartPos))
+            returnToken tokenLexbufState (if blockLet then OLET_WAIT(isUse) else token)
                 
         //  let!  ... ~~~> CtxtLetDecl 
         | BINDER b, (ctxt :: _) -> 
             let blockLet = match ctxt with CtxtSeqBlock _ -> true | _ -> false
-            if debug then printf "LET: entering CtxtLetDecl(blockLet=%b), awaiting EQUALS to go to CtxtSeqBlock (%a)\n" blockLet outputPos tokenStartPos
+            if debug then printf "LET!: entering CtxtLetDecl(blockLet=%b), awaiting EQUALS to go to CtxtSeqBlock (%a)\n" blockLet outputPos tokenStartPos
             pushCtxt tokenTup (CtxtLetDecl(blockLet,tokenStartPos))
             returnToken tokenLexbufState (if blockLet then OBINDER b else token)
 

@@ -65,14 +65,14 @@ and
 
 and 
     [<NoEquality; NoComparison; RequireQualifiedAccess>]
-    SynMemberDefn = Member of SynBinding * Position                            
+    SynMemberDefn = Member of SynBinding * Position * Flag
     with 
       member d.GetSynBinding =
         match d with 
-          | SynMemberDefn.Member(s, _) -> s
+          | SynMemberDefn.Member(s, _, _) -> s
       member d.Range = 
           match d with 
-          | SynMemberDefn.Member(_, m) -> m
+          | SynMemberDefn.Member(_, m, _) -> m
 and  
     [<NoEquality; NoComparison>]
     SynValData = 
@@ -236,7 +236,7 @@ and
     | Do of  SynExpr * Position
     | App of ExprAtomicFlag * bool * SynExpr * SynExpr * Position
     | TypeApp of SynExpr * Position * SynType list * Position list * Position option * Position * Position
-    | LetOrUse of bool * bool * SynBinding list * SynExpr * Position
+    | LetOrBindingOrUse of bool * bool * bool * SynBinding list * SynExpr * Position
     | Sequential of SequencePointInfoForSeq * bool * SynExpr * SynExpr * Position 
     | IfThenElse of SynExpr * SynExpr * SynExpr option * SequencePointInfoForBinding * bool * Position * Position
     | WaitStatement of SynExpr * Position
@@ -262,7 +262,7 @@ and
         | SynExpr.Paren(_,_,_,m) | SynExpr.Const(_,m) | SynExpr.Typed (_,_,m) | SynExpr.Tuple (_,_,m) | SynExpr.ArrayOrList (_,_,m)
         | SynExpr.Record (_,_,_,m) | SynExpr.New (_,_,_,m) | SynExpr.While (_,_,_,m) | SynExpr.For (_,_,_,_,_,_,m) | SynExpr.ForEach (_,_,_,_,_,_,m)
         | SynExpr.CompExpr (_,_,_,m) | SynExpr.ArrayOrListOfSeqExpr (_,_,m) | SynExpr.Match (_,_,_,_,m)  |  SynExpr.Do (_,m) | SynExpr.App (_,_,_,_,m)
-        | SynExpr.TypeApp (_,_,_,_,_,_,m) | SynExpr.LetOrUse (_,_,_,_,m) | SynExpr.Sequential (_,_,_,_,m) | SynExpr.ArbitraryAfterError(_,m)
+        | SynExpr.TypeApp (_,_,_,_,_,_,m) | SynExpr.LetOrBindingOrUse(_,_,_,_,_,m) | SynExpr.Sequential (_,_,_,_,m) | SynExpr.ArbitraryAfterError(_,m)
         | SynExpr.FromParseError (_,m) | SynExpr.DiscardAfterMissingQualificationAfterDot (_,m)  | SynExpr.IfThenElse (_,_,_,_,_,_,m)
         | SynExpr.LongIdent (_,_,_,m) | SynExpr.DotIndexedGet (_,_,_,m) | SynExpr.DotGet (_,_,_,m) | SynExpr.Upcast (_,_,m) | SynExpr.JoinIn (_,_,_,m)
         | SynExpr.InferredUpcast (_,m) | SynExpr.Null m | SynExpr.ImplicitZero (m) | SynExpr.YieldOrReturn (_,_,m) -> m
@@ -286,7 +286,7 @@ and
         | SynExpr.Paren(_,_,_,m)  | SynExpr.Const(_,m)  | SynExpr.Typed (_,_,m) | SynExpr.Tuple (_,_,m) | SynExpr.ArrayOrList (_,_,m) | SynExpr.Record (_,_,_,m) 
         | SynExpr.New (_,_,_,m) | SynExpr.While (_,_,_,m) | SynExpr.For (_,_,_,_,_,_,m) | SynExpr.ForEach (_,_,_,_,_,_,m) | SynExpr.CompExpr (_,_,_,m)
         | SynExpr.ArrayOrListOfSeqExpr (_,_,m) | SynExpr.Match (_,_,_,_,m) |SynExpr.Do (_,m) | SynExpr.App (_,_,_,_,m) | SynExpr.TypeApp (_,_,_,_,_,_,m)
-        | SynExpr.LetOrUse (_,_,_,_,m) | SynExpr.Sequential (_,_,_,_,m) | SynExpr.ArbitraryAfterError(_,m) | SynExpr.FromParseError (_,m) | SynExpr.IfThenElse (_,_,_,_,_,_,m)
+        | SynExpr.LetOrBindingOrUse (_,_,_,_,_,m) | SynExpr.Sequential (_,_,_,_,m) | SynExpr.ArbitraryAfterError(_,m) | SynExpr.FromParseError (_,m) | SynExpr.IfThenElse (_,_,_,_,_,_,m)
         | SynExpr.DotIndexedGet (_,_,_,m) | SynExpr.Upcast (_,_,m) | SynExpr.JoinIn (_,_,_,m) | SynExpr.InferredUpcast (_,m) | SynExpr.Null m | SynExpr.ImplicitZero (m)
         | SynExpr.YieldOrReturn (_,_,m) -> m
         | SynExpr.DotGet (expr,_,lidwd,m) -> m
@@ -311,7 +311,7 @@ and
         match e with 
         | SynExpr.Const(_,m)  | SynExpr.Typed (_,_,m) | SynExpr.Tuple (_,_,m) | SynExpr.ArrayOrList (_,_,m) | SynExpr.Record (_,_,_,m) | SynExpr.New (_,_,_,m)
         | SynExpr.While (_,_,_,m) | SynExpr.For (_,_,_,_,_,_,m) | SynExpr.CompExpr (_,_,_,m) | SynExpr.ArrayOrListOfSeqExpr (_,_,m) | SynExpr.Match (_,_,_,_,m)
-        | SynExpr.Do (_,m) | SynExpr.TypeApp (_,_,_,_,_,_,m) | SynExpr.LetOrUse (_,_,_,_,m) | SynExpr.ArbitraryAfterError(_,m) | SynExpr.FromParseError (_,m) 
+        | SynExpr.Do (_,m) | SynExpr.TypeApp (_,_,_,_,_,_,m) | SynExpr.LetOrBindingOrUse (_,_,_,_,_,m) | SynExpr.ArbitraryAfterError(_,m) | SynExpr.FromParseError (_,m) 
         | SynExpr.DiscardAfterMissingQualificationAfterDot (_,m) | SynExpr.IfThenElse (_,_,_,_,_,_,m) | SynExpr.LongIdent (_,_,_,m) | SynExpr.DotGet (_,_,_,m)
         | SynExpr.Upcast (_,_,m) | SynExpr.JoinIn (_,_,_,m) | SynExpr.InferredUpcast (_,m) | SynExpr.Null m | SynExpr.ImplicitZero (m) | SynExpr.YieldOrReturn (_,_,m) -> m
         | SynExpr.Paren(_,m,_,_) -> m
@@ -586,7 +586,11 @@ and MeasureType =
   | OpMul of MeasureType * MeasureType * Position
   | OpDiv of MeasureType * MeasureType * Position
   | OpPow of MeasureType * int * Position
-
+and Flag =
+  | Nothing
+  | Connect
+  | Master
+  | Slave
 and FieldOrRule =
   | CnvField of SynField
   | CnvRule of SynMemberDefn
@@ -596,7 +600,7 @@ and FieldOrRule =
   member this.Position =
     match this with
     | CnvField f -> f.GetType.Range
-    | CnvRule r -> r.Range
+    | CnvRule (r) -> r.Range
     | CnvInherit i -> 
       if i.Length > 0 then i.Head.idRange
       else Position.Empty
@@ -963,8 +967,8 @@ let make_synexpr_create m = //rhsExpr retInfo m =
 
 //                BindingSetPreAttrs(letRange, isRec, isUse, builderFunction, wholeRange)
 //type BindingSet = BindingSetPreAttrs of Position * bool * bool * (SynAttributes -> SynAccess option -> SynAttributes * SynBinding list) * Position
-type BindingSet = BindingSetPreAttrs of Position * bool * bool *  SynBinding list * Position
-let mkEntryPoint (mWhole,BindingSetPreAttrs(_,isRec,isUse,declsPreAttrs,_bindingSetRange),attrs,attrsm) =
+type BindingSet = BindingSetPreAttrs of Position * bool * bool *  SynBinding list * Position * bool
+let mkEntryPoint (mWhole,BindingSetPreAttrs(_,isRec,isUse,declsPreAttrs,_bindingSetRange,_),attrs,attrsm) =
     match declsPreAttrs with
     |[] -> Common.raise (Common.Position Position.Empty)  (sprintf "Internal error at %s(%s)" __SOURCE_FILE__ __LINE__)
     | _ ->             

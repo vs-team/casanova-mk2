@@ -1,0 +1,11 @@
+Unhandled exception in Casanova compiler:
+
+Exception message: Could not find a part of the path 'C:\Users\Mudy\Documents\GitHub\CSharpTestProoject\csharp.cs'.
+
+ Stack trace:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileSystemEnumerableIterator`1.CommonInit()
+   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)
+   at System.IO.Directory.GetFiles(String path)
+   at Program.main(String[] argv) in C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\Program.fs:line 139
+
+
