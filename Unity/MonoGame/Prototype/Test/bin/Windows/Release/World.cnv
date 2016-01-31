@@ -1,0 +1,43 @@
+module Prototype
+
+open @"C:\Users\Francesco\Documents\GitHub\casanova-mk2\Unity\MonoGame\Prototype\Test\bin\Windows\Release\MonoGame.Framework.dll"
+open Microsoft.Xna.Framework
+open Microsoft.Xna.Framework.Input
+open System
+open Utilities
+
+worldEntity World = {
+  
+  Input           : KeyboardState
+  Ships           : [Ship]
+
+  rule Input = Keyboard.GetState()
+
+  Create () = 
+    {
+      Input     = Keyboard.GetState()
+      Ships     = [new Ship(new Vector2(Random.RandFloat(0.0f, 1200.0f),1000.0f))]
+    }
+  
+}
+
+entity Ship = {
+  Position          : Vector2
+  Color             : Color
+
+  rule Position =
+    let vy = new Vector2(-300.0f, 0.0f)
+    wait world.Input.IsKeyDown(Keys.A)
+    yield Position + vy * dt
+
+  rule Position =
+    let vy = new Vector2(300.0f, 0.0f)
+    wait world.Input.IsKeyDown(Keys.D)
+    yield Position + vy * dt
+
+  Create (p : Vector2) =
+    {
+      Position = p
+      Color    = new Color(Random.RandInt(0,256), Random.RandInt(0,256), Random.RandInt(0,256))
+    }
+}
