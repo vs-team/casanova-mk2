@@ -55,7 +55,8 @@ namespace Prototype
       //NETWORKING CODE
       NetworkAPI.DispatchMessages(NetworkAPI.Client);
       List<Ship> ships = NetworkAPI.ReceiveShipMessage();
-      Ships.AddRange(ships);
+      if (ships.Count > 0)
+        Ships.AddRange(ships);
 
       var t = System.DateTime.Now; this.Rule0(dt, world);
 
@@ -115,7 +116,7 @@ namespace Prototype
           NetworkAPI.ReceivedMessages.Remove(new Tuple<NetworkAPI.MessageType, NetworkAPI.EntityType, int>(NetworkAPI.MessageType.NewConnection, 0, 0));
         }
       }
-      else if (!Connected)
+      else if (!Connected && NetworkAPI.ShipInfos.ContainsKey(ID) && NetworkAPI.ShipInfos[ID].IsLocal)
       {
         Lidgren.Network.NetOutgoingMessage message = NetworkAPI.CreateShipMessage(this, NetworkAPI.Client);
         NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);

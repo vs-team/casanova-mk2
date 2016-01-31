@@ -136,6 +136,7 @@ namespace GameNetworking
             Ship ship = new Ship(position);
             ship.Color = color;
             NetworkInfo<Ship> shipInfo = new NetworkInfo<Ship>(ship, false);
+            ship.ID = info.EntityID;
             ShipInfos.Add(info.EntityID, shipInfo);
             ships.Add(ship);
           }
