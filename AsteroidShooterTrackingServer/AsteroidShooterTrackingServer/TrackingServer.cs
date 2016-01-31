@@ -20,8 +20,14 @@ namespace ApplicationServer
 
     public void Forward()
     {
+      int oldConnection = Server.Connections.Count;
       while (true)
       {
+        if (oldConnection < Server.Connections.Count)
+          Console.WriteLine("New client connected");
+        else if (oldConnection > Server.Connections.Count)
+          Console.WriteLine("Client Disconnected");
+        oldConnection = Server.Connections.Count;
         NetIncomingMessage message = this.Server.ReadMessage();
 
         if (message != null)
@@ -31,9 +37,14 @@ namespace ApplicationServer
             case NetIncomingMessageType.Data:
               NetOutgoingMessage sendMessage = this.Server.CreateMessage();
               sendMessage.Write(message);
-              this.Server.SendToAll(sendMessage, NetDeliveryMethod.ReliableOrdered);
-              Console.WriteLine("Message forwarded");
-              Console.Clear();
+              for (int i = 0; i < Server.Connections.Count; i++)
+              {
+                if (message.SenderConnection != Server.Connections[i])
+                {
+                  this.Server.SendToAll(sendMessage, NetDeliveryMethod.ReliableOrdered);
+                  //Console.WriteLine("Message forwarded");
+                }
+              }
               break;
             default:
               break;
