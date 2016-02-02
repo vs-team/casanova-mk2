@@ -53,6 +53,7 @@ namespace ApplicationServer
         else
         {
         }
+        //System.Threading.Thread.Sleep((int)(1f / 30f * 1000));
       }
     }
 
