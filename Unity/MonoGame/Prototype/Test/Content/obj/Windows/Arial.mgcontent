@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Francesco/Documents/GitHub/casanova-mk2/Unity/MonoGame/Prototype/Test/Content/Arial.spritefont</SourceFile>
-  <SourceTime>2016-01-31T09:57:31.0056408+01:00</SourceTime>
+  <SourceTime>2015-01-20T01:24:04+01:00</SourceTime>
   <DestFile>C:/Users/Francesco/Documents/GitHub/casanova-mk2/Unity/MonoGame/Prototype/Test/Content/bin/Windows/Arial.xnb</DestFile>
-  <DestTime>2016-01-31T09:57:51.4376981+01:00</DestTime>
+  <DestTime>2016-02-01T09:23:45.0036333+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2015-04-29T19:14:44+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

@@ -32,7 +32,8 @@ namespace Prototype
 
   (new Cons<Ship>(new Ship(new Microsoft.Xna.Framework.Vector2(Utilities.Random.RandFloat(0f, 600f), 1000f)), (new Empty<Ship>()).ToList<Ship>())).ToList<Ship>()).ToList<Ship>();
       Input = Microsoft.Xna.Framework.Input.Keyboard.GetState();
-      NetworkAPI.ShipInfos.Add(Ships[0].ID, new NetworkInfo<Ship>(Ships[0], true));
+      foreach (Ship ship in Ships)
+        NetworkAPI.ShipInfos.Add(ship.ID, new NetworkInfo<Ship>(ship, true));
 
     }
     public Microsoft.Xna.Framework.Input.KeyboardState Input;
@@ -41,22 +42,11 @@ namespace Prototype
     System.DateTime init_time = System.DateTime.Now;
     public void Update(float dt, World world)
     {
-      //connect
-      if (!Connected)
-      {
-        Lidgren.Network.NetOutgoingMessage message = NetworkAPI.Client.CreateMessage();
-        message.Write((int)NetworkAPI.MessageType.NewConnection);
-        message.Write(0);
-        message.Write(0);
-        NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
-        Connected = true;
-      }
-
       //NETWORKING CODE
       NetworkAPI.DispatchMessages(NetworkAPI.Client);
-      List<Ship> ships = NetworkAPI.ReceiveShipMessage();
-      if (ships.Count > 0)
-        Ships.AddRange(ships);
+      Connecting();
+      OnConnection();
+      UpdateShips();
 
       var t = System.DateTime.Now; this.Rule0(dt, world);
 
@@ -64,8 +54,59 @@ namespace Prototype
       {
         Ships[x0].Update(dt, world);
       }
+    }
 
+    public void UpdateShips()// rule master Ships = let! ships = (receive_many()); yield Ships @ ships
+    {
+      List<Ship> ships = NetworkAPI.ReceiveWorldShipsMessage(ID);
+      if (ships.Count > 0)
+      {
+        Console.WriteLine("Updating...");
+        Ships.AddRange(ships);
+      }
+    }
 
+    public void OnConnection() //OnConnection = rule connected
+    {
+      if (NetworkAPI.ReceivedMessages.ContainsKey(new Tuple<NetworkAPI.MessageType, NetworkAPI.EntityType, int>(NetworkAPI.MessageType.NewConnection, 0, 0)))
+      {
+        foreach (Ship ship in Ships)
+        {
+          if (NetworkAPI.ShipInfos.ContainsKey(ship.ID) && NetworkAPI.ShipInfos[ship.ID].IsLocal)
+          {
+            Console.WriteLine("On connection...");
+            Lidgren.Network.NetOutgoingMessage shipMessage = NetworkAPI.CreateWorldShipsMessage(ship, NetworkAPI.Client, ID, 1);
+            NetworkAPI.Client.SendMessage(shipMessage, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+            NetworkAPI.ReceivedMessages.Remove(new Tuple<NetworkAPI.MessageType, NetworkAPI.EntityType, int>(NetworkAPI.MessageType.NewConnection, 0, 0));
+          }
+        }
+      }
+    }
+
+    public void Connecting()//rule connecting
+    {
+      if (!Connected)
+      {
+        Lidgren.Network.NetOutgoingMessage message = NetworkAPI.Client.CreateMessage();
+        message.Write((int)NetworkAPI.MessageType.NewConnection);
+        message.Write(0);
+        message.Write(0);
+        message.Write(0);
+        message.Write(0);
+        NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+
+        //send_reliable Ships
+        foreach (Ship ship in Ships)
+        {
+          if (NetworkAPI.ShipInfos.ContainsKey(ship.ID) && NetworkAPI.ShipInfos[ship.ID].IsLocal)
+          {
+            Console.WriteLine("Connecting...");
+            Lidgren.Network.NetOutgoingMessage shipMessage = NetworkAPI.CreateWorldShipsMessage(ship, NetworkAPI.Client, ID, 1);
+            NetworkAPI.Client.SendMessage(shipMessage, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+          }
+        }     
+        Connected = true;
+      }
     }
 
     public void Rule0(float dt, World world)
@@ -94,7 +135,6 @@ namespace Prototype
     public Ship(Microsoft.Xna.Framework.Vector2 p)
     {
       ID = GetHashCode();
-      Connected = false;
       JustEntered = false;
       frame = World.frame;
       Position = p;
@@ -106,27 +146,7 @@ namespace Prototype
     public Microsoft.Xna.Framework.Vector2 ___vy11;
     public void Update(float dt, World world)
     {
-      //connect
-      if (NetworkAPI.ReceivedMessages.ContainsKey(new Tuple<NetworkAPI.MessageType, NetworkAPI.EntityType, int>(NetworkAPI.MessageType.NewConnection, 0, 0)))
-      {
-        if (NetworkAPI.ShipInfos[ID].IsLocal)
-        {
-          Lidgren.Network.NetOutgoingMessage message = NetworkAPI.CreateShipMessage(this, NetworkAPI.Client);
-          NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
-          NetworkAPI.ReceivedMessages.Remove(new Tuple<NetworkAPI.MessageType, NetworkAPI.EntityType, int>(NetworkAPI.MessageType.NewConnection, 0, 0));
-        }
-      }
-      else if (!Connected && NetworkAPI.ShipInfos.ContainsKey(ID) && NetworkAPI.ShipInfos[ID].IsLocal)
-      {
-        Lidgren.Network.NetOutgoingMessage message = NetworkAPI.CreateShipMessage(this, NetworkAPI.Client);
-        NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
-        Connected = true;
-      }
-
-      //slave
-      if (NetworkAPI.ShipInfos.ContainsKey(ID) && !NetworkAPI.ShipInfos[ID].IsLocal)
-        NetworkAPI.UpdateShipMessage(ID);
-
+      UpdateShip(); //rule slave Position = yield receive()
       frame = World.frame;
 
       //master
@@ -138,8 +158,11 @@ namespace Prototype
 
     }
 
-
-
+    public void UpdateShip()
+    {
+      if (NetworkAPI.ShipInfos.ContainsKey(ID) && !NetworkAPI.ShipInfos[ID].IsLocal)
+        NetworkAPI.UpdateShipMessage(ID);
+    }
 
 
     int s0 = -1;
@@ -164,8 +187,8 @@ namespace Prototype
             goto case 0;
           }
         case 0:
-          Lidgren.Network.NetOutgoingMessage message = NetworkAPI.CreateShipMessage(this, NetworkAPI.Client, 0);
-          NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+          Lidgren.Network.NetOutgoingMessage message = NetworkAPI.UpdateShipMessage(this, NetworkAPI.Client, ID, 0);
+          NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.UnreliableSequenced);
           Position = ((Position) + (((___vy00) * (dt))));
           s0 = -1;
           return;
@@ -196,8 +219,8 @@ namespace Prototype
             goto case 0;
           }
         case 0:
-          Lidgren.Network.NetOutgoingMessage message = NetworkAPI.CreateShipMessage(this, NetworkAPI.Client, 0);
-          NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+          Lidgren.Network.NetOutgoingMessage message = NetworkAPI.UpdateShipMessage(this, NetworkAPI.Client, ID, 0);
+          NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.UnreliableSequenced);
           Position = ((Position) + (((___vy11) * (dt))));
           s1 = -1;
           return;
