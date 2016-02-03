@@ -41,7 +41,7 @@ namespace ApplicationServer
               {
                 if (message.SenderConnection != Server.Connections[i])
                 {
-                  this.Server.SendToAll(sendMessage, NetDeliveryMethod.ReliableOrdered);
+                  this.Server.SendToAll(sendMessage, message.DeliveryMethod);
                   //Console.WriteLine("Message forwarded");
                 }
               }
