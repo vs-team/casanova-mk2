@@ -44,7 +44,7 @@ and Rule =
     Body      : RuleBody
     Index     : int
     Position  : Position
-    Flag      : CasanovaCompiler.ParseAST.Flag
+    Flags     : CasanovaCompiler.ParseAST.Flag list
   } 
 
 and RuleBody = Atomic of AtomicBlock | StateMachine of StateMachine
@@ -130,8 +130,20 @@ and Expression =
   | Id of Id
 
   | Cast of TypeDecl * TypedExpression * Position
+
+  //NETWORKING
+  | SendReliable of TypedAST.TypeDecl * TypedExpression * Position
+  | Send of TypedAST.TypeDecl * TypedExpression * Position
+  | ReceiveMany of TypedAST.TypeDecl * Position
+  | Receive of TypedAST.TypeDecl * Position
+
   with member this.Position = 
       match this with 
+      | SendReliable (_,_,p) -> p
+      | Send (_,_,p) -> p
+      | ReceiveMany (_, p) -> p
+      | Receive (_,p) -> p
+
       | AtomicFor (i, c, u,_) -> i.idRange
       | Incr (_,e) -> e.Position
       | Range(_,_,p) -> p | Label l -> l.Position; | GotoSuspend g -> g.Label.Position; | Goto g -> g.Label.Position; | Var (id,_,_) -> id.idRange; | Set (id,_) -> id.idRange; | IndexOf (id,_) -> (snd id).Position; 

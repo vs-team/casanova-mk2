@@ -9,20 +9,36 @@ type Program =
     Imports   : List<Id>
     World     : World
     Entities  : List<Entity>
-  } with member this.Position = this.World.Name.idRange
+  } with 
+      member this.Position = this.World.Name.idRange
+
 
 and World = 
   {
     Name      : Id
     Body      : EntityBody
-  } with member this.Position = this.Name.idRange
+  } 
+    with 
+      member this.Position = this.Name.idRange
+      member this.Rebuild new_body =
+          {
+            Name      = this.Name
+            Body      = new_body
+          } 
+      
 
 and Entity = 
   {
     Name      : Id
     Body      : EntityBody
-  } with member this.Position = this.Name.idRange
-
+  } 
+    with 
+      member this.Position = this.Name.idRange
+      member this.Rebuild new_body =
+        {
+          Name      = this.Name
+          Body      = new_body
+        } 
 
 and EntityBody = 
   {
@@ -37,7 +53,12 @@ and Create =
     Args      : List<Id * Option<TypeDecl>>
     Body      : Block
     Position  : Position
-  }
+  } with member this.Rebuild(new_body) =
+                        {
+                          Args      = this.Args
+                          Body      = new_body
+                          Position  = this.Position
+                        } 
 
 and Field = 
   {
@@ -65,7 +86,7 @@ and Rule =
   {
     Domain    : List<Id>
     Body      : Block
-    Flag      : CasanovaCompiler.ParseAST.Flag
+    Flags     : CasanovaCompiler.ParseAST.Flag list
   } 
     with member this.Position = 
               match this.Domain with

@@ -72,13 +72,21 @@ and private traverseSynMemberDefns (inherited_types : List<Id>) (fields : List<F
   let mutable _create = None
   let mutable _rules = []
   for synMemberDefn in synMemberDefns do
-    let (SynMemberDefn.Member(synBinding, position, flag)) =  synMemberDefn
+    let (SynMemberDefn.Member(synBinding, position, flags)) =  synMemberDefn
     let (Binding(synPat, synExpr, _, position)) = synBinding
     let pat = traverseSynPatDomain synPat
     if pat <> [] then      
       let expr = traverseSynExprBlock synExpr
       if expr.Length = 0 then raise (Common.Position synMemberDefn.Range) (sprintf "Rule without body.")
-      _rules <- {Domain = pat; Body = expr; Flag = flag} :: _rules
+      if Common.is_networked_game |> not then
+        for flag in flags do
+          match flag with
+          | CasanovaCompiler.ParseAST.Flag.Connecting
+          | CasanovaCompiler.ParseAST.Flag.Connected
+          | CasanovaCompiler.ParseAST.Flag.Master
+          | CasanovaCompiler.ParseAST.Flag.Slave -> Common.is_networked_game <- true
+
+      _rules <- {Domain = pat; Body = expr; Flags = flags} :: _rules
     else
       let create_pat = traverseCreateSynPatDomain synPat
       let expr = traverseSynExprBlock synExpr

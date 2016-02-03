@@ -47,7 +47,7 @@ and Rule =
     Domain    : Id list
     Body      : Block
     Position  : Position
-    Flag      : CasanovaCompiler.ParseAST.Flag
+    Flags     : CasanovaCompiler.ParseAST.Flag list
   } 
 
 and Block = TypedExpression list
@@ -110,8 +110,19 @@ and Expression =
   | Id of Id
   | Cast of TypedAST.TypeDecl * TypedExpression * Position
 
+  //NETWORKING
+  | SendReliable of TypedAST.TypeDecl * TypedExpression * Position
+  | Send of TypedAST.TypeDecl * TypedExpression * Position
+  | ReceiveMany of TypedAST.TypeDecl * Position
+  | Receive of TypedAST.TypeDecl * Position
+
   with member this.Position = 
         match this with 
+        | SendReliable (_,_,p) -> p
+        | Send (_,_,p) -> p
+        | ReceiveMany (_, p) -> p
+        | Receive (_,p) -> p
+
         | ConcatQuery(e) -> (snd e.Head).Position
         | IndexOf(e,_) -> (snd e).Position
         | Lambda(_,_) -> Position.Empty

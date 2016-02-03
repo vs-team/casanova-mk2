@@ -167,7 +167,8 @@ and traverse_atomic_block (b : StateMachinesAST.AtomicBlock) (return_ids : Id li
             return_expr + "\n"
   + tabs + "}"
 
-and traverse_create_block (dp:IntermediateAST.DataDependencies) 
+and traverse_create_block (is_world : bool)
+                          (dp:IntermediateAST.DataDependencies) 
                           (classes : IntermediateAST.Class list)
                           (initialization_block : string) 
                           (b : StateMachinesAST.AtomicBlock) 
@@ -177,25 +178,9 @@ and traverse_create_block (dp:IntermediateAST.DataDependencies)
 //  [B], [E]_a
   let block1 = [for e in (fst b) @ [snd b] do yield tabs + (traverse_atomic_expr  true e (false, None) [] tabs false)]
   let block = match block1 with | [] -> ""; |[x] -> x + "\n" | block -> (block |> Seq.reduce(fun a b -> a + "\n" + b)) + "\n"
-//  let return_expr = 
-//    //tabs + (traverse_atomic_expr (snd b) [] tabs)
-//    match snd b with
-//    //  tp, [(id1,e1) ... (idn,en)]_a
-//    //  a <- new tp(){ id1 = [e1], idn = [en]; }
-//    |tp, OptimizedQueryAST.Expression.NewEntity(id_exprs) -> 
-//      let args =
-//        [for id, e in id_exprs do
-//          let last = e |> Seq.skip(e.Length - 1) |> Seq.head
-//          let lst_but_last = e |> Seq.take(e.Length - 1) |> Seq.toList
-//          if lst_but_last <> [] then raise tp.Position "..."
-//          yield id.idText + " = " + traverse_atomic_expr last (false, None) [] "" false] |> Seq.fold (fun s e -> e + "\n\t\t" + s) ""
-//
-//
-//      "\t\t" + args
       
   initialization_block + 
   block + 
-//  return_expr +
   (class_fields |> Seq.map(fun (f : IntermediateAST.Field) ->
     let c = 
       match f.Type with
@@ -208,12 +193,25 @@ and traverse_create_block (dp:IntermediateAST.DataDependencies)
       | _ -> None
     match c with
     | Some c when dp.IsSourceOrTarget c -> ""
-//      match f.Type with
-//      | StateMachinesAST.TypeDecl.EntityName _ -> f.Name.idText + ".Init();\n"
-//      | StateMachinesAST.TypeDecl.Query _ -> "for(int i = 0; i < " + f.Name.idText + ".Count; i++) " + f.Name.idText + "[i].Init();\n"
-//      | StateMachinesAST.TypeDecl.ImportedType _ -> ""
-//      | _ -> raise c.Position "Not supported yet."
-    | _ -> "") |> Seq.reduce(+))
+    | _ -> "") |> Seq.reduce(+)) +
+  (if Common.is_networked_game && is_world then 
+    let (OptimizedQueryAST.NewEntity(assignments)) = snd (snd b)
+    let print_infos entity_name entity_to_add =
+      "NetworkAPI." + entity_name + "Infos.Add(" + entity_to_add + ".Net_ID, new NetworkInfo<" + entity_name + ">(" + entity_to_add + ", true));"
+    assignments |> Seq.filter(fun expr -> (fst expr).idText <> "Connected")
+                |> Seq.map(fun expr -> 
+                              let id = (fst expr).idText
+                              let tp = expr |> snd |> Seq.head |> fst
+                              match tp with
+                              | TypedAST.TypeDecl.EntityName(name) -> print_infos name.idText id
+                              | TypedAST.TypeDecl.Query(TypedAST.TypeDecl.EntityName(name)) -> 
+                                "foreach(var entity in " + id + ") {
+                                    " + print_infos name.idText "entity" + ";
+                                 }"
+                              | _ -> 
+                                printfn "WARNING: NETWORK SYMBOLS FOR %s NOT GENERATED." tp.TypeName 
+                                "") |> Seq.fold (+) ""
+   else "")
   
 
 and traverse_atomic_expr 
@@ -491,20 +489,22 @@ and traverse_atomic_expr
 
   | e -> failwith (e |> snd).Position "error pretty printer"
 
-let rec traverse_state_machine_block (block : IntermediateAST.Block) state is_suspendable tabs (first_goto_suspend : bool ref) (is_arg_expr : bool) : string = 
+let rec traverse_state_machine_block domain_and_container (block : IntermediateAST.Block) state is_suspendable tabs (first_goto_suspend : bool ref) (is_arg_expr : bool) : string = 
 //  [B, E]_a
 //  [B], [E]_a
-  let block = [for e in block do yield tabs + (traverse_state_machine_expr e (false, None) tabs state is_suspendable first_goto_suspend is_arg_expr)] |> List.fold(fun s e -> s + "\n" + e) ""
+  let block = [for e in block do yield tabs + (traverse_state_machine_expr domain_and_container CasanovaCompiler.ParseAST.Flag.Nothing e (false, None) tabs state is_suspendable first_goto_suspend is_arg_expr)] |> List.fold(fun s e -> s + "\n" + e) ""
   "\n" + tabs + "{\n" + block + tabs + "}"
 
 
-and traverse_state_machine_block' (block : IntermediateAST.Block) state is_suspendable tabs (first_goto_suspend : bool ref) (is_arg_expr : bool) : string = 
+and traverse_state_machine_block' (domain_and_container : Option<List<Id> * IntermediateAST.Class>) flag (block : IntermediateAST.Block) state is_suspendable tabs (first_goto_suspend : bool ref) (is_arg_expr : bool) : string = 
 //  [B, E]_a
 //  [B], [E]_a
-  let block = [for e in block do yield tabs + (traverse_state_machine_expr e (false, None) tabs state is_suspendable first_goto_suspend is_arg_expr)] |> List.fold(fun s e -> s + "\n" + e) ""
+  let block = [for e in block do yield tabs + (traverse_state_machine_expr domain_and_container flag e (false, None) tabs state is_suspendable first_goto_suspend is_arg_expr)] |> List.fold(fun s e -> s + "\n" + e) ""
   "\n" + tabs + "{\n" + block + tabs + "\n" + tabs + "default: return" + (if is_suspendable then " RuleResult.Done" else "") + ";}"
 
-and traverse_state_machine_expr (expr  : IntermediateAST.TypedExpression) 
+and traverse_state_machine_expr domain_and_container
+                                flag
+                                (expr  : IntermediateAST.TypedExpression) 
                                 (query_symbols_context : bool * Option<QueryContext>) 
                                 (tabs : string) 
                                 (state : string) 
@@ -539,44 +539,40 @@ and traverse_state_machine_expr (expr  : IntermediateAST.TypedExpression)
   | tp, IntermediateAST.Goto(i,p) ->
     "goto case " + string i + ";"
 
-//  tp, [Set(id, e)]_state
-//  id = [e]_state
-  | tp, IntermediateAST.Set(id,e) ->
-    id.idText + " = " + traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true + ";"
 
-  | tp, IntermediateAST.DoGet(e, id) -> "(" + traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true  + ")" + "." +  id.idText
+  | tp, IntermediateAST.DoGet(e, id) -> "(" + traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true  + ")" + "." +  id.idText
 
 //  tp, [IndexOf(id, e)]_state
 //  id[ [e]_state ];
   | tp, IntermediateAST.IndexOf(id,e) ->
     
-    "(" + (traverse_state_machine_expr id query_symbols_context tabs state is_suspendable first_goto_suspend true ) + ")[" + traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true + "]"
+    "(" + (traverse_state_machine_expr domain_and_container flag id query_symbols_context tabs state is_suspendable first_goto_suspend true ) + ")[" + traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true + "]"
 
 //  tp, [new [(id1,e1); ... ;(idn,en]]_state
 //  new tp(){ id1 = [e1], idn = [en]; }
   | tp, IntermediateAST.NewEntity(id_block_list) ->
     match id_block_list with
     | [] -> "new " + tp.TypeName + "()"
-    | _ -> "new " + tp.TypeName + "(){" + (List.fold(fun s (id, b) -> "," + id.idText + " = " + traverse_state_machine_block b state is_suspendable tabs first_goto_suspend true + s) 
-                                          ((fst id_block_list.Head).idText + " = " + traverse_state_machine_block (snd id_block_list.Head) state is_suspendable tabs first_goto_suspend true) id_block_list.Tail) + "}"
+    | _ -> "new " + tp.TypeName + "(){" + (List.fold(fun s (id, b) -> "," + id.idText + " = " + traverse_state_machine_block domain_and_container b state is_suspendable tabs first_goto_suspend true + s) 
+                                          ((fst id_block_list.Head).idText + " = " + traverse_state_machine_block domain_and_container (snd id_block_list.Head) state is_suspendable tabs first_goto_suspend true) id_block_list.Tail) + "}"
 
 
 //  tp, [IfThenElse(cond, A, B)]_state
 //  if([cond]) { [A]_state } else { [B]_state }
   | tp, IntermediateAST.IfThenElse(cond, expr_to_exhange, _then, _else) ->
       
-      "if(" + traverse_state_machine_expr (if expr_to_exhange.IsSome then expr_to_exhange.Value else cond) query_symbols_context "" "" false (ref false) true + ")" + 
+      "if(" + traverse_state_machine_expr domain_and_container flag (if expr_to_exhange.IsSome then expr_to_exhange.Value else cond) query_symbols_context "" "" false (ref false) true + ")" + 
       //(tabs : string) (state : string) is_suspendable (first_goto_suspend : bool ref) (is_arg_expr : bool
-      traverse_state_machine_block _then state is_suspendable tabs first_goto_suspend false +
-      "else" + traverse_state_machine_block _else state is_suspendable tabs first_goto_suspend false 
+      traverse_state_machine_block domain_and_container _then state is_suspendable tabs first_goto_suspend false +
+      "else" + traverse_state_machine_block domain_and_container _else state is_suspendable tabs first_goto_suspend false 
 //  tp, [IfThen(cond, A)]_state
 //  if([cond]) { [A]_state }
   | tp, IntermediateAST.IfThen(cond, _then) ->
-    "if(" + traverse_state_machine_expr cond query_symbols_context "" "" false (ref false) true + ")" + 
-    traverse_state_machine_block _then state is_suspendable tabs first_goto_suspend false
+    "if(" + traverse_state_machine_expr domain_and_container flag cond query_symbols_context "" "" false (ref false) true + ")" + 
+    traverse_state_machine_block domain_and_container _then state is_suspendable tabs first_goto_suspend false
         
   |t, IntermediateAST.Cast(tp, e, p) -> 
-    "((" + tp.TypeName + ")" + traverse_state_machine_expr e query_symbols_context "" "" false (ref false) true + ")" + semicolon 
+    "((" + tp.TypeName + ")" + traverse_state_machine_expr domain_and_container flag e query_symbols_context "" "" false (ref false) true + ")" + semicolon 
 
 //  tp, [literal]_statee
 //  literal
@@ -657,26 +653,26 @@ and traverse_state_machine_expr (expr  : IntermediateAST.TypedExpression)
 
     "(" + traverse_query_expr query_symbols_context tp q [] tabs  + ")" + cast_string 
 
-  | _, IntermediateAST.Modulus(e1, e2) -> "((" + traverse_state_machine_expr e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") % (" + traverse_state_machine_expr e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  | _, IntermediateAST.Add(e1, e2) -> "((" + traverse_state_machine_expr e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") + (" + traverse_state_machine_expr e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  | _, IntermediateAST.Sub(e1, e2) -> "((" + traverse_state_machine_expr e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") - (" + traverse_state_machine_expr e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  | _, IntermediateAST.Mul(e1, e2) -> "((" + traverse_state_machine_expr e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") * (" + traverse_state_machine_expr e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  | _, IntermediateAST.Div(e1, e2) -> "((" + traverse_state_machine_expr e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") / (" + traverse_state_machine_expr e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  |_, IntermediateAST.Not(b) -> "!(" + traverse_state_machine_expr b query_symbols_context tabs state is_suspendable first_goto_suspend true + ")"
-  |_, IntermediateAST.And(b1, b2) -> "((" + traverse_state_machine_expr b1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") && (" + traverse_state_machine_expr b2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  |_, IntermediateAST.Or(b1, b2) -> "((" + traverse_state_machine_expr b1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") || (" + traverse_state_machine_expr b2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  |_, IntermediateAST.Equals(b1, b2) -> "((" + traverse_state_machine_expr b1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") == (" + traverse_state_machine_expr b2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
-  |_, IntermediateAST.Greater(e1, e2) -> "((" + traverse_state_machine_expr e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") > (" + traverse_state_machine_expr e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  | _, IntermediateAST.Modulus(e1, e2) -> "((" + traverse_state_machine_expr domain_and_container flag e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") % (" + traverse_state_machine_expr domain_and_container flag e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  | _, IntermediateAST.Add(e1, e2) -> "((" + traverse_state_machine_expr domain_and_container flag e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") + (" + traverse_state_machine_expr domain_and_container flag e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  | _, IntermediateAST.Sub(e1, e2) -> "((" + traverse_state_machine_expr domain_and_container flag e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") - (" + traverse_state_machine_expr domain_and_container flag e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  | _, IntermediateAST.Mul(e1, e2) -> "((" + traverse_state_machine_expr domain_and_container flag e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") * (" + traverse_state_machine_expr domain_and_container flag e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  | _, IntermediateAST.Div(e1, e2) -> "((" + traverse_state_machine_expr domain_and_container flag e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") / (" + traverse_state_machine_expr domain_and_container flag e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  |_, IntermediateAST.Not(b) -> "!(" + traverse_state_machine_expr domain_and_container flag b query_symbols_context tabs state is_suspendable first_goto_suspend true + ")"
+  |_, IntermediateAST.And(b1, b2) -> "((" + traverse_state_machine_expr domain_and_container flag b1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") && (" + traverse_state_machine_expr domain_and_container flag b2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  |_, IntermediateAST.Or(b1, b2) -> "((" + traverse_state_machine_expr domain_and_container flag b1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") || (" + traverse_state_machine_expr domain_and_container flag b2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  |_, IntermediateAST.Equals(b1, b2) -> "((" + traverse_state_machine_expr domain_and_container flag b1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") == (" + traverse_state_machine_expr domain_and_container flag b2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
+  |_, IntermediateAST.Greater(e1, e2) -> "((" + traverse_state_machine_expr domain_and_container flag e1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ") > (" + traverse_state_machine_expr domain_and_container flag e2 query_symbols_context tabs state is_suspendable first_goto_suspend true + "))"
 
 
-  | _, IntermediateAST.DoGet(e, id) -> "(" + traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true + ")" + "." +  id.idText
+  | _, IntermediateAST.DoGet(e, id) -> "(" + traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true + ")" + "." +  id.idText
 
-  |_, IntermediateAST.IndexOf(lst,e) -> "(" + traverse_state_machine_expr lst query_symbols_context tabs state is_suspendable first_goto_suspend true + ")[" + traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true + "]" + semicolon
-  |TypedAST.TypeDecl.Query(qt), IntermediateAST.Range(f,t,p) -> "Enumerable.Range(" + traverse_state_machine_expr f query_symbols_context tabs state is_suspendable first_goto_suspend true + "," + traverse_state_machine_expr t query_symbols_context tabs state is_suspendable first_goto_suspend true + ").ToList<" + qt.TypeName + ">()"
+  |_, IntermediateAST.IndexOf(lst,e) -> "(" + traverse_state_machine_expr domain_and_container flag lst query_symbols_context tabs state is_suspendable first_goto_suspend true + ")[" + traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true + "]" + semicolon
+  |TypedAST.TypeDecl.Query(qt), IntermediateAST.Range(f,t,p) -> "Enumerable.Range(" + traverse_state_machine_expr domain_and_container flag f query_symbols_context tabs state is_suspendable first_goto_suspend true + "," + traverse_state_machine_expr domain_and_container flag t query_symbols_context tabs state is_suspendable first_goto_suspend true + ").ToList<" + qt.TypeName + ">()"
 
   
   |(TypedAST.TypeDecl.MaybeType(TypedAST.Just(t))), IntermediateAST.Maybe(IntermediateAST.MaybeExpr.JustExpr(e)) -> 
-    let e = traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true
+    let e = traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true
     "(new Just<" + t.TypeName + ">(" + e + "))"
 
   |(TypedAST.TypeDecl.MaybeType(TypedAST.Nothing(t, _))), IntermediateAST.Maybe(IntermediateAST.MaybeExpr.NothingExpr(p)) -> 
@@ -694,27 +690,27 @@ and traverse_state_machine_expr (expr  : IntermediateAST.TypedExpression)
       | _ -> t.TypeName
     let rec concat_queries qs =
       match qs with
-      | [q] -> traverse_state_machine_expr q query_symbols_context tabs state is_suspendable first_goto_suspend true 
-      | [q1;q2] -> "(" + traverse_state_machine_expr q1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ").Concat(" + traverse_state_machine_expr q2 query_symbols_context tabs state is_suspendable first_goto_suspend true + ")"
+      | [q] -> traverse_state_machine_expr domain_and_container flag q query_symbols_context tabs state is_suspendable first_goto_suspend true 
+      | [q1;q2] -> "(" + traverse_state_machine_expr domain_and_container flag q1 query_symbols_context tabs state is_suspendable first_goto_suspend true + ").Concat(" + traverse_state_machine_expr domain_and_container flag q2 query_symbols_context tabs state is_suspendable first_goto_suspend true + ")"
       |q1::q2::qs -> "(" + concat_queries [q1;q2] + ").Concat(" + concat_queries qs + ")"
     concat_queries qs + ".ToList<" + t_name + ">()"
 
   |t, IntermediateAST.AtomicFor(id, cond, inc, body) -> 
     
-    let cond = (traverse_state_machine_expr cond query_symbols_context tabs state is_suspendable first_goto_suspend true)
-    let inc = (traverse_state_machine_expr inc query_symbols_context tabs state is_suspendable first_goto_suspend true)
+    let cond = (traverse_state_machine_expr domain_and_container flag cond query_symbols_context tabs state is_suspendable first_goto_suspend true)
+    let inc = (traverse_state_machine_expr domain_and_container flag inc query_symbols_context tabs state is_suspendable first_goto_suspend true)
     "for(int " + id.idText + " = 0; " + cond + "; " + inc + "){\n" +
-    traverse_state_machine_block body state is_suspendable tabs first_goto_suspend false +
+    traverse_state_machine_block domain_and_container body state is_suspendable tabs first_goto_suspend false +
     "\n}\n"
 
 
 
   |t, IntermediateAST.SetExpression(e1, e2) -> 
-    (traverse_state_machine_expr e1 query_symbols_context tabs state is_suspendable first_goto_suspend true) + " = " + 
-    (traverse_state_machine_expr e2 query_symbols_context tabs state is_suspendable first_goto_suspend true) + semicolon
+    (traverse_state_machine_expr domain_and_container flag e1 query_symbols_context tabs state is_suspendable first_goto_suspend true) + " = " + 
+    (traverse_state_machine_expr domain_and_container flag e2 query_symbols_context tabs state is_suspendable first_goto_suspend true) + semicolon
 
   |t, IntermediateAST.Incr(e) -> 
-    (traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true) + "++" + semicolon
+    (traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true) + "++" + semicolon
 
 
   |t, IntermediateAST.AppendToQuery(e, l) ->
@@ -724,8 +720,67 @@ and traverse_state_machine_expr (expr  : IntermediateAST.TypedExpression)
       match t with
       | TypedAST.Query(t) -> t.TypeName
       | _ -> t.TypeName
-    "new Cons<" + t_name + ">(" + traverse_state_machine_expr e query_symbols_context tabs state is_suspendable first_goto_suspend true + ", (" + 
-                                        traverse_state_machine_expr l query_symbols_context tabs state is_suspendable first_goto_suspend true + ")).ToList<" + t_name + ">()"
+    "new Cons<" + t_name + ">(" + traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true + ", (" + 
+                                        traverse_state_machine_expr domain_and_container flag l query_symbols_context tabs state is_suspendable first_goto_suspend true + ")).ToList<" + t_name + ">()"
   | _, IntermediateAST.DoNothing(_) -> ""
-  | t, e -> failwith t.Position "error"
+
+  | _, IntermediateAST.ReceiveMany(t, p) -> 
+    let target_field = domain_and_container.Value |> fst |> Seq.filter(fun v -> v.idText <> "Connected") |> Seq.head
+    let target_field_idx = fst (snd(domain_and_container.Value).Body.Fields |> Seq.mapi(fun i f -> (i,f)) |> Seq.find(fun (i,f) -> f.Name.idText = target_field.idText))
+    "NetworkAPI.Receive" + snd(domain_and_container.Value).Name.idText + target_field.idText + "Message(this.Net_ID);"
+
+  | tp, IntermediateAST.Set(id,(_, IntermediateAST.Receive(t, p))) ->
+    match flag with
+    | CasanovaCompiler.ParseAST.Flag.Slave ->
+        let target_field = domain_and_container.Value |> fst |> Seq.filter(fun v -> v.idText <> "Connected") |> Seq.head
+        "NetworkAPI.Update" + (snd(domain_and_container.Value)).Name.idText +  target_field.idText + "Message(this.Net_ID);"
+    | _ -> raise tp.Position (sprintf "Not supported networked operator %A" expr)
+  | _, IntermediateAST.Send(t, e, p) -> 
+    let container = (snd(domain_and_container.Value)).Name.idText
+    let target_field = domain_and_container.Value |> fst |> Seq.head
+    let target_field_idx = fst (snd(domain_and_container.Value).Body.Fields |> Seq.mapi(fun i f -> (i,f)) |> Seq.find(fun (i,f) -> f.Name.idText = target_field.idText))
+    "Lidgren.Network.NetOutgoingMessage message = NetworkAPI.Update" + container + target_field.idText + "Message(this, NetworkAPI.Client, Net_ID, " + string(target_field_idx) + ");
+NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.UnreliableSequenced);"
+//UpdateShipPositionMessage
+  | _, IntermediateAST.SendReliable(t, e, p) -> 
+    match flag with
+    | CasanovaCompiler.ParseAST.Flag.Connected ->
+      match t with
+      | StateMachinesAST.TypeDecl.Query(TypedAST.TypeDecl.EntityName(name)) ->
+        let target_field = domain_and_container.Value |> fst |> Seq.filter(fun v -> v.idText <> "Connected") |> Seq.head
+        let target_field_idx = fst (snd(domain_and_container.Value).Body.Fields |> Seq.mapi(fun i f -> (i,f)) |> Seq.find(fun (i,f) -> f.Name.idText = target_field.idText))
+          
+        "foreach (var entity in "+ traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true + ")
+        {
+          if (NetworkAPI." + name.idText + "Infos.ContainsKey(entity.Net_ID) && NetworkAPI." + name.idText + "Infos[entity.Net_ID].IsLocal)
+          {
+            Lidgren.Network.NetOutgoingMessage entityMessage = NetworkAPI.Create" + snd(domain_and_container.Value).Name.idText + target_field.idText + "Message(entity, NetworkAPI.Client, this.Net_ID, " + string(target_field_idx) + ");
+            NetworkAPI.Client.SendMessage(entityMessage, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+            NetworkAPI.ReceivedMessages.Remove(new Tuple<NetworkAPI.MessageType, NetworkAPI.EntityType, int>(NetworkAPI.MessageType.NewConnection, 0, 0));
+          }
+        }"
+      | _ -> raise t.Position (sprintf "Not supported networked operator %A" expr)
+    | CasanovaCompiler.ParseAST.Flag.Connecting ->
+      match t with
+      | StateMachinesAST.TypeDecl.Query(TypedAST.TypeDecl.EntityName(name)) ->
+          let target_field = domain_and_container.Value |> fst |> Seq.filter(fun v -> v.idText <> "Connected") |> Seq.head
+          let target_field_idx = fst (snd(domain_and_container.Value).Body.Fields |> Seq.mapi(fun i f -> (i,f)) |> Seq.find(fun (i,f) -> f.Name.idText = target_field.idText))
+          "foreach (var entity in " + traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true + ")
+                  {
+                    if (NetworkAPI." + name.idText + "Infos.ContainsKey(entity.Net_ID) && NetworkAPI." + name.idText + "Infos[entity.Net_ID].IsLocal)
+                    {
+                      Lidgren.Network.NetOutgoingMessage entityMessage = NetworkAPI.Create" + snd(domain_and_container.Value).Name.idText + target_field.idText + "Message(entity, NetworkAPI.Client, this.Net_ID, " + string(target_field_idx) + ");
+                      NetworkAPI.Client.SendMessage(entityMessage, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+                    }
+                  }"
+      | _ -> raise t.Position (sprintf "Not supported networked operator %A" expr)
+    | _ -> raise t.Position (sprintf "Not supported networked operator %A" expr)
+
+
+//  tp, [Set(id, e)]_state
+//  id = [e]_state
+  | tp, IntermediateAST.Set(id,e) ->
+    id.idText + " = " + traverse_state_machine_expr domain_and_container flag e query_symbols_context tabs state is_suspendable first_goto_suspend true + ";"
+
+  | t, e -> failwith t.Position (sprintf "Error pretty printer. Cannot generate symbols for: %A" e)
 

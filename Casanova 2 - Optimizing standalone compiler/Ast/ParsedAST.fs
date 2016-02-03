@@ -65,7 +65,7 @@ and
 
 and 
     [<NoEquality; NoComparison; RequireQualifiedAccess>]
-    SynMemberDefn = Member of SynBinding * Position * Flag
+    SynMemberDefn = Member of SynBinding * Position * Flag list
     with 
       member d.GetSynBinding =
         match d with 
@@ -588,9 +588,10 @@ and MeasureType =
   | OpPow of MeasureType * int * Position
 and Flag =
   | Nothing
-  | Connect
+  | Connected
   | Master
   | Slave
+  | Connecting
 and FieldOrRule =
   | CnvField of SynField
   | CnvRule of SynMemberDefn

@@ -228,7 +228,7 @@ and private convertRule (world_name : string)
     Index = rule_idx
     Domain = build_rule_codomains game_entities fields domain
     Body = traverseBody world_name current_entity game_entities rule_idx domain rule.Body fields e
-    Flag = rule.Flag
+    Flags = rule.Flags
   }
 
 and private traverseBody  (world_name : string)
@@ -339,6 +339,13 @@ and private traverseTrivialTypedExpr (expr : OptimizedQueryAST.TypedExpression) 
   | tp, OptimizedQueryAST.AppendToQuery (e1,e2) -> tp, Expression.Greater(traverseTrivialTypedExpr e1, traverseTrivialTypedExpr e2)
   | tp, OptimizedQueryAST.Expression.Query(q) -> tp, Expression.Query(q)
   | tp, OptimizedQueryAST.Expression.MutableExpression(e) -> traverseTrivialTypedExpr (e.Map e.MutableExpression.Expr)
+  
+  | tp, OptimizedQueryAST.Expression.Receive(t,p) -> tp, Expression.Receive(t,p)
+  | tp, OptimizedQueryAST.Expression.ReceiveMany(t,p) -> tp, Expression.ReceiveMany(t,p)
+  | tp, OptimizedQueryAST.Expression.Send(t,e,p) -> tp, Expression.Send(t,traverseTrivialTypedExpr e, p)
+  | tp, OptimizedQueryAST.Expression.SendReliable(t,e,p) -> tp, Expression.SendReliable(t, traverseTrivialTypedExpr e,p)
+
+
   | e -> raise (snd expr).Position "Sate machines error. Not trivial expression not supported, yet."
 
 
@@ -557,19 +564,23 @@ lb:
 
 *)
   | t_expr, OptimizedQueryAST.Expression.LetWait(id, tp, expr, _) -> 
+    let t_expr = TypedAST.TypeDecl.MaybeType(TypedAST.Just(tp))
     let bool_type = TypedAST.TypeDecl.ImportedType(typeof<bool>, tp.Position)
     let lb, lb_expr = get_fresh_label t_expr.Position e
 
     e.CountdownCounter <- e.CountdownCounter + 1
     let test_id = {idText = "wait" + (string e.CountdownCounter); idRange = t_expr.Position}
-    let test =  tp, Expression.Var(test_id, tp, traverseTrivialTypedExpr expr.Value |> Some)
+    let test =  t_expr, Expression.Var(test_id, t_expr, traverseTrivialTypedExpr expr.Value |> Some)
+    let _id =  tp, Expression.Var(id, tp, None)
 
 
     let _then = [(TypeDecl.Unit tp.Position, GotoSuspend.Create lb |> Expression.GotoSuspend)]
-    let _else = [exit_expr]
+    let _else = [(TypedAST.TypeDecl.Unit(t_expr.Position), 
+                  Expression.Set(id,(tp, Expression.Id({idText = "wait" + (string e.CountdownCounter) + ".Value"; idRange = t_expr.Position}))));  
+                 exit_expr]
     let cond = bool_type, Expression.Id({ idText = test_id.idText + ".IsNone"; idRange = test_id.idRange })
     let if_then_else = TypeDecl.Unit tp.Position, Expression.IfThenElse(cond, None, _then, _else)
-    lb, [lb_expr;test; if_then_else]
+    lb, [lb_expr; _id; test; if_then_else]
 
 (*
 ----------------------------------------

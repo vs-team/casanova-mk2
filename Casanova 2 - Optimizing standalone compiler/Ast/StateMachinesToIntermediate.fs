@@ -35,7 +35,7 @@ and traverseAtomicRules (classes : Class list) (_class : Class) (entity_body : S
   for r in rules do     
     match r.Body with 
     | StateMachinesAST.Atomic(a) -> automated_rules.Add({ Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); 
-                                                          Id = {idText = string r.Index; idRange = r.Position}; Body = a; Flag = r.Flag})
+                                                          Id = {idText = string r.Index; idRange = r.Position}; Body = a; Flags = r.Flags})
     | _ ->  ()
 
   let fields = ResizeArray()
@@ -129,9 +129,9 @@ and traverseSuspRules (classes : Class list) (_class : Class) (entity_body : Sta
     | StateMachinesAST.StateMachine(s) ->
       match s.Dependencies with 
       | Some (d,_) when d = [] -> 
-        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id); Flag = r.Flag})
+        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id); Flags = r.Flags})
       | None -> 
-        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id); Flag = r.Flag})
+        state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain|> List.map(fun (_,_,_,id) -> id); Flags = r.Flags})
       | Some (ds,_) ->   
             let res = 
               match complete_dependencies.TryByTarget(_class, {idText = string r.Index; idRange = r.Position}) with
@@ -146,8 +146,8 @@ and traverseSuspRules (classes : Class list) (_class : Class) (entity_body : Sta
                       if is_atomic then depends_from_atomic_rule <- true
                 depends_from_atomic_rule          
                 
-            if res then state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); Flag = r.Flag })
-            else suspended_rules.Add({ SuspendedRule.Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); Flag = r.Flag})
+            if res then state_machine_rules.Add({ Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); Flags = r.Flags })
+            else suspended_rules.Add({ SuspendedRule.Id = {idText = string r.Index; idRange = r.Position}; Body = traverseBlock let_to_add s.Body; Domain = r.Domain |> List.map(fun (_,_,_,id) -> id); Flags = r.Flags})
     | _ -> ()
 
 
@@ -244,6 +244,10 @@ and private traverseTypedExpression (let_to_add : ResizeArray<StateMachinesAST.T
   | StateMachinesAST.Expression.AtomicFor(id, cond, update, block) -> tp, IntermediateAST.Expression.AtomicFor(id, traverseTypedExpression let_to_add cond, traverseTypedExpression let_to_add update, traverseBlock let_to_add block)
   | StateMachinesAST.Expression.Incr(e) -> tp, IntermediateAST.Expression.Incr(traverseTypedExpression let_to_add e)
   | StateMachinesAST.Expression.SetExpression(e1, e2) -> tp, IntermediateAST.Expression.SetExpression(traverseTypedExpression let_to_add e1, traverseTypedExpression let_to_add e2)
+  | StateMachinesAST.Expression.Receive(t, p) -> tp, IntermediateAST.Expression.Receive(t, p)
+  | StateMachinesAST.Expression.ReceiveMany(t, p) -> tp, IntermediateAST.Expression.ReceiveMany(t, p)
+  | StateMachinesAST.Expression.Send(t, e, p) -> tp, IntermediateAST.Expression.Send(t,traverseTypedExpression let_to_add e, p)
+  | StateMachinesAST.Expression.SendReliable(t, e, p) -> tp, IntermediateAST.Expression.SendReliable(t,traverseTypedExpression let_to_add e, p)
 
 
 

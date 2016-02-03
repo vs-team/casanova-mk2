@@ -375,7 +375,7 @@ and Rule =
     Domain    : List<Id>
     Body      : Block
     Position  : Position
-    Flag      : CasanovaCompiler.ParseAST.Flag
+    Flags     : CasanovaCompiler.ParseAST.Flag list
   } 
 
 and Block = List<TypedExpression>
@@ -428,8 +428,14 @@ and Expression =
   | Call of Call
   | Literal of BasicAST.Literal
   | IdExpr of Id
-
   | Cast of TypeDecl * TypedExpression * Position
+
+
+  //NETWORKING
+  | SendReliable of TypeDecl * TypedExpression * Position
+  | Send of TypeDecl * TypedExpression * Position
+  | ReceiveMany of TypeDecl * Position
+  | Receive of TypeDecl * Position
 
   with member this.Position = 
         match this with 
@@ -437,6 +443,10 @@ and Expression =
         | SubtractToQuery (_,(p,_)) -> p.Position
         | Cast(_,_,p) -> p
         | Choice(_,cs, p) -> p | Range(_,_,p) -> p 
+        | SendReliable (_,_,p) -> p
+        | Send (_,_,p) -> p
+        | ReceiveMany (_, p) -> p
+        | Receive (_,p) -> p
         | NewEntity exprs -> 
           match exprs with
           | [] -> raise Position.Empty (sprintf "New entity without body. Internal error at %s(%s)" __SOURCE_FILE__ __LINE__)

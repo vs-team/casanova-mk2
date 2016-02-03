@@ -66,7 +66,7 @@ and AutomatedRule =
     Domain    : List<Id>
     Id        : Id
     Body      : AtomicBlock
-    Flag      : CasanovaCompiler.ParseAST.Flag
+    Flags      : CasanovaCompiler.ParseAST.Flag list
   } with member this.Position = this.Id.idRange
 
 and StateMachineRule = 
@@ -74,7 +74,7 @@ and StateMachineRule =
     Domain    : List<Id>    
     Id        : Id
     Body      : Block
-    Flag      : CasanovaCompiler.ParseAST.Flag
+    Flags     : CasanovaCompiler.ParseAST.Flag list
   } with member this.Position = this.Id.idRange
 
 and SuspendedRule = 
@@ -82,7 +82,7 @@ and SuspendedRule =
     Id        : Id
     Domain    : List<Id>    
     Body      : Block
-    Flag      : CasanovaCompiler.ParseAST.Flag
+    Flags     : CasanovaCompiler.ParseAST.Flag list
   } with member this.Position = this.Id.idRange
 
 and [<CustomComparison; CustomEquality>] Field = 
@@ -309,12 +309,24 @@ and Expression =
   | Or of TypedExpression * TypedExpression
   | Equals of TypedExpression * TypedExpression
   | Greater of TypedExpression * TypedExpression
+
+  //NETWORKING
+  | SendReliable of TypeDecl * TypedExpression * Position
+  | Send of TypeDecl * TypedExpression * Position
+  | ReceiveMany of TypeDecl * Position
+  | Receive of TypeDecl * Position
+
   
   | ConcatQuery of List<TypedExpression>
   | AppendToQuery of TypedExpression * TypedExpression
 
   with member this.Position = 
         match this with 
+        | SendReliable (_,_,p) -> p
+        | Send (_,_,p) -> p
+        | ReceiveMany (_, p) -> p
+        | Receive (_,p) -> p
+
         | Range(_,_,p) -> p | Label (_,p) -> p; | GotoSuspend (_,p) -> p; | Goto (_,p) -> p; | Set (id,_) -> id.idRange; | IndexOf (id,_) -> (snd id).Position; 
         | NewEntity id_blocks -> 
           match id_blocks with

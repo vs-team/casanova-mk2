@@ -195,7 +195,8 @@ module Keywords =
       ALWAYS, "!|"         ,INT_SELECT_OPERATOR;
       ALWAYS, "=>"         ,BODY_OPERATOR;
       ALWAYS, "class"      ,CLASS;
-      ALWAYS, "connect"    ,CONNECT;
+      ALWAYS, "connecting"   ,CONNECTING;
+      ALWAYS, "connected"    ,CONNECTED;
       FSHARP, "const"      ,CONST;
       FSHARP, "default"    ,DEFAULT;
       FSHARP, "delegate"   ,DELEGATE;

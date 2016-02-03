@@ -8,7 +8,7 @@ open RulesPrettyPrinter
 
 let GenerateParallelMethod (world_name : string) ((id,b) : Id * Block) = 
   let tabs = "\t"
-  "\n\tint s" + id.idText + "=-1;\n\tpublic void parallelMethod" + id.idText + "(float dt, " + world_name + " world){ \n\tswitch (s" + id.idText + ")" + traverse_state_machine_block' b ("s" + id.idText) false tabs (ref false) false + "}\n\t"
+  "\n\tint s" + id.idText + "=-1;\n\tpublic void parallelMethod" + id.idText + "(float dt, " + world_name + " world){ \n\tswitch (s" + id.idText + ")" + traverse_state_machine_block' None CasanovaCompiler.ParseAST.Flag.Nothing b ("s" + id.idText) false tabs (ref false) false + "}\n\t"
   
 let GenerateConcurrentSelectlMethod (world_name : string) ((id, _done, state, b) : Id * Id * Id * Block) = 
   if b.Length = 0 then raise Position.Empty (sprintf "Internal error at %s(%s)." __SOURCE_FILE__ __LINE__) |> ignore
@@ -16,8 +16,8 @@ let GenerateConcurrentSelectlMethod (world_name : string) ((id, _done, state, b)
   let block_header = [b.Head]
   let switch_code = "\n\tswitch (s" + id.idText + ")"
   let block_continuation = b.Tail
-  "\n\tint " + state.idText + ", s" + id.idText + "=-1;\n\tbool " + _done.idText + " = false;\n\tpublic void concurrentSelectMethod" + id.idText + "(float dt, " + world_name + " world){"+ traverse_state_machine_block block_header ("s" + id.idText) false tabs (ref false) false + 
-  "\n\tswitch (s" + id.idText + ")" + traverse_state_machine_block block_continuation ("s" + id.idText) false tabs (ref false) false + "}\n\t"
+  "\n\tint " + state.idText + ", s" + id.idText + "=-1;\n\tbool " + _done.idText + " = false;\n\tpublic void concurrentSelectMethod" + id.idText + "(float dt, " + world_name + " world){"+ traverse_state_machine_block None block_header ("s" + id.idText) false tabs (ref false) false + 
+  "\n\tswitch (s" + id.idText + ")" + traverse_state_machine_block None block_continuation ("s" + id.idText) false tabs (ref false) false + "}\n\t"
 
 let GenerateConcurrentMethods (world_name : string) rs =
   let rules = 
@@ -68,13 +68,40 @@ let StepStateMachineRules(b : IntermediateAST.ClassBody) =
   body + "\n"
 
 
-let GenerateStateMachineRule (world_name : string) (r : IntermediateAST.StateMachineRule) = 
+let GenerateStateMachineRule (rule_entity_container : IntermediateAST.Class) (world_name : string) (r : IntermediateAST.StateMachineRule) = 
   let tabs = "\t"
-  "\n\tint s" + r.Id.idText + "=-1;\n\tpublic void Rule" + r.Id.idText + "(float dt, " + world_name + " world){ \n\tswitch (s" + r.Id.idText + ")" + traverse_state_machine_block' r.Body ("s" + r.Id.idText) false tabs (ref false) false + "}\n\t"
+  let target_field = r.Domain |> Seq.filter(fun v -> v.idText <> "Connected") |> Seq.head
+  let target_field_type = (rule_entity_container.Body.Fields |> Seq.find(fun f -> f.Name.idText = target_field.idText)).Type
 
-let GenerateStateMachineRules (world_name : string) rs =
+  let pre, post, flag =
+    if r.Flags |> Seq.exists(fun f -> f = CasanovaCompiler.ParseAST.Flag.Connecting) then ("if (!Connected)
+{
+Lidgren.Network.NetOutgoingMessage message = NetworkAPI.Client.CreateMessage();
+message.Write((int)NetworkAPI.MessageType.NewConnection);
+message.Write(0);
+message.Write(0);
+message.Write(0);
+message.Write(0);
+NetworkAPI.Client.SendMessage(message, Lidgren.Network.NetDeliveryMethod.ReliableOrdered);
+", "\nConnected = true;\n}", CasanovaCompiler.ParseAST.Flag.Connecting) 
+    else if r.Flags |> Seq.exists(fun f -> f = CasanovaCompiler.ParseAST.Flag.Connected) then ("if (NetworkAPI.ReceivedMessages.ContainsKey(new Tuple<NetworkAPI.MessageType, NetworkAPI.EntityType, int>(NetworkAPI.MessageType.NewConnection, 0, 0)))
+{", "}", CasanovaCompiler.ParseAST.Flag.Connected)
+    else if not rule_entity_container.IsWorldClass && r.Flags |> Seq.exists(fun f -> f = CasanovaCompiler.ParseAST.Flag.Master) then ("if (NetworkAPI." + rule_entity_container.Name.idText + "Infos.ContainsKey(this.Net_ID) && NetworkAPI." + rule_entity_container.Name.idText + "Infos[this.Net_ID].IsLocal)
+{", "}", CasanovaCompiler.ParseAST.Flag.Master)
+    else if r.Flags |> Seq.exists(fun f -> f = CasanovaCompiler.ParseAST.Flag.Slave) then ("if (NetworkAPI." + rule_entity_container.Name.idText + "Infos.ContainsKey(this.Net_ID) && !NetworkAPI." + rule_entity_container.Name.idText + "Infos[this.Net_ID].IsLocal)
+{", "}", CasanovaCompiler.ParseAST.Flag.Slave)
+
+    else  "", "", CasanovaCompiler.ParseAST.Flag.Nothing
+
+  "\n\tint s" + r.Id.idText + "=-1;\n\tpublic void Rule" + r.Id.idText + "(float dt, " + world_name + " world){ " +
+  pre +
+  "switch (s" + r.Id.idText + ")" + traverse_state_machine_block' (Some (r.Domain, rule_entity_container)) flag r.Body ("s" + r.Id.idText) false tabs (ref false) false + 
+  post +
+  "}\n\t"
+
+let GenerateStateMachineRules rule_entity_container (world_name : string) rs =
   let rules = 
-    match [for r in rs do yield GenerateStateMachineRule world_name r] with
+    match [for r in rs do yield GenerateStateMachineRule rule_entity_container world_name r] with
     | [] -> "\n"
     | [x] -> x + "\n"
     | xs -> xs |> Seq.reduce(fun a b -> a + "\n" + b)
@@ -82,7 +109,7 @@ let GenerateStateMachineRules (world_name : string) rs =
   
 let GenerateSuspendedRule (world_name : string) (r : IntermediateAST.SuspendedRule) = 
   let tabs = "\t"
-  "\n\tint s" + r.Id.idText + "=-1;\n\tpublic RuleResult Rule" + r.Id.idText + "(float dt, " + world_name + " world){ \n\tswitch (s" + r.Id.idText + ")" + traverse_state_machine_block' r.Body ("s" + r.Id.idText) true tabs (ref true) false + "}\n\t"
+  "\n\tint s" + r.Id.idText + "=-1;\n\tpublic RuleResult Rule" + r.Id.idText + "(float dt, " + world_name + " world){ \n\tswitch (s" + r.Id.idText + ")" + traverse_state_machine_block' None CasanovaCompiler.ParseAST.Flag.Nothing r.Body ("s" + r.Id.idText) true tabs (ref true) false + "}\n\t"
 
 let GenerateSuspendedRules (world_name : string) rs =
   let rules = 
@@ -121,7 +148,7 @@ let GenerateConstructor (dp:IntermediateAST.DataDependencies) (world_name : stri
 
   let res1 = 
 //    if dp.IsSourceOrTarget c |> not then
-      traverse_create_block dp entities "" c.Body.Create.Body c.Body.Fields "\t\t"
+      traverse_create_block false dp entities "" c.Body.Create.Body c.Body.Fields "\t\t"
 //    else ""
 //  let res2 = return_expr 
   let res3 =
@@ -151,6 +178,7 @@ let GenerateConstructor (dp:IntermediateAST.DataDependencies) (world_name : stri
             
             ] |> Seq.fold (+) "") 
   (c.Body.Create.Args |> Seq.map(fun (id, tp) -> "private " + tp.TypeName + " " + id.idText + ";\n") |> Seq.fold(+) "") +
+  (if Common.is_networked_game then "public int Net_ID = NetworkAPI.NextID;" else "") +
   "\tpublic int ID;\npublic " + c.Name.idText + "(" + args + ")" + "\n\t{" + 
   "JustEntered = false;\n frame = " + world_name + ".frame;\n" +
   
@@ -173,7 +201,14 @@ let GenerateWorldConstructor (dp:IntermediateAST.DataDependencies) (entities : C
   
   (c.Body.Create.Args |> Seq.map(fun (id, tp) -> "private " + tp.TypeName + " " + id.idText + ";\n") |> Seq.fold(+) "") +
   
-  (if dp.IsSourceOrTarget c then "\tint ID = 0;\n" else "") + "\n" + (if Common.run_profiler then "System.IO.StreamWriter file;" else "") + "\npublic void Start()" + "\n\t{\n"+
+  (if dp.IsSourceOrTarget c then "\tint ID = 0;\n" else "") + "\n" + (if Common.run_profiler then "System.IO.StreamWriter file;" else "") +  
+  (if Common.is_networked_game then "public int Net_ID = 0;" else "") + "\npublic void Start()" + "\n\t{\n"+
+  (if Common.is_networked_game then "Lidgren.Network.NetPeerConfiguration config = new Lidgren.Network.NetPeerConfiguration(\"AsteroidShooter\");
+NetworkAPI.Client = new Lidgren.Network.NetClient(config);
+NetworkAPI.Client.Start();
+NetworkAPI.Client.Connect(\"127.0.0.1\", 5432);
+this.Connected = false;
+" else "") +
   (if Common.run_profiler then "file = new System.IO.StreamWriter(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(),\"test_\" + DateTime.Now.Hour + \"_\" + DateTime.Now.Minute + \"_\" + DateTime.Now.Second + \"_\" + \".csv\"));" else "") + 
   (c.Body.Create.Args |> Seq.map(fun (id, tp) -> "this." + id.idText + " = " + id.idText + ";\n") |> Seq.fold(+) "") +  
   (entities |> Seq.filter(fun e -> dp.IsSourceOrTarget e)  |> Seq.map(fun e -> e.Name.idText + "Counter = 0;\n") |> Seq.fold (+) "") +
@@ -211,15 +246,15 @@ let GenerateWorldConstructor (dp:IntermediateAST.DataDependencies) (entities : C
             for (c,f,_) in fNotificationTargets do
               yield "\t" + DataDependencies.PrintNotifyFieldName c f.Name tc tr + "[ID].Add(this);\n"
           ] |> Seq.fold (+) "") +
-  traverse_create_block dp entities optimization_data_structure c.Body.Create.Body c.Body.Fields "\t\t" + "}\n\t"
+  traverse_create_block true dp entities optimization_data_structure c.Body.Create.Body c.Body.Fields "\t\t" + "}\n\t"
 
 
-let GenerateRules (world_name : string) (b:IntermediateAST.ClassBody) = 
-  GenerateAutomatedRules world_name (b.AtomicRules) +
-  GenerateParallelMethods world_name b.ParallelMethods +
-  GenerateStateMachineRules world_name b.StateMachineRules +
-  GenerateConcurrentMethods world_name b.ConcurrentMethods +
-  GenerateSuspendedRules world_name b.SuspendedRules
+let GenerateRules (world_name : string) (b:IntermediateAST.Class) = 
+  GenerateAutomatedRules world_name (b.Body.AtomicRules) +
+  GenerateParallelMethods world_name b.Body.ParallelMethods +
+  GenerateStateMachineRules b world_name b.Body.StateMachineRules +
+  GenerateConcurrentMethods world_name b.Body.ConcurrentMethods +
+  GenerateSuspendedRules world_name b.Body.SuspendedRules
 
 let ClearNotifications (dp:IntermediateAST.DataDependencies) (c:IntermediateAST.Class) =
   query{ 
@@ -279,8 +314,6 @@ let GenerateUpdate (world_name : string) (dp:IntermediateAST.DataDependencies) (
 
 
   "\tpublic void Update(float dt, " + world_name + " world) {\nframe = " + world_name + ".frame;" + 
-//  ClearNotifications dp c +
-//  RegisterNotifications dp c +
   StepAutomatedRules(c.Body) +
   StepStateMachineRules(c.Body) +
   GenerateFieldUpdates dp c +    
@@ -294,8 +327,7 @@ let GenerateWorldUpdate (world_name : string) (entities : IntermediateAST.Class 
   
   "\nSystem.DateTime init_time = System.DateTime.Now;\n\tpublic void Update(float dt, " + world_name + " world) {\n" +
   ("var t = System.DateTime.Now;") + 
-//  ClearNotifications dp c +
-//  RegisterNotifications dp c +
+  (if Common.is_networked_game then "NetworkAPI.DispatchMessages(NetworkAPI.Client);" else "") +
   StepAutomatedRules(c.Body) +
   GenerateFieldUpdates dp c +
   StepStateMachineRules(c.Body) +
@@ -320,12 +352,6 @@ let GenerateWorldUpdate (world_name : string) (entities : IntermediateAST.Class 
                 flag := true
               
               yield DataDependencies.PrintNotifyFieldName c f.Name e r.Id + ".Remove(x.Value.Item1.ID);\n"] |> Seq.fold(fun a b -> a + b) ""
-      //        if (x.Value.Item1.Frame != frame)
-//        {
-//          NotifySlotPBall0.Remove(x.Value.Item1.ID);
-//          BallsWithActiveRulesToRemove.Add(x.Value.Item1.ID);
-//        }
-//        else x.Value.Item1.UpdateSuspendedRules(dt, BallsWithActiveRulesToRemove, x.Value.Item2);
 
       ("if(" + e.Name.idText + "WithActiveRules.Count > 0){
 foreach(var x in " + e.Name.idText + "WithActiveRules)\n" + (
@@ -437,23 +463,7 @@ let GenerateFields (entities : Class list) world_name (dp:IntermediateAST.DataDe
 let GenerateInitMethod (dp : IntermediateAST.DataDependencies) entities (c : IntermediateAST.Class) (world_name : string) =
     if dp.IsSourceOrTarget c then
       "public void Init() {" +
-      
-//      //notification registrer
-//      let res = 
-//        ([for f in c.Body.Fields do
-//            let fNotificationTargets = dp.TryBySource(c,f)
-//            match fNotificationTargets with
-//            | None -> ()
-//            | Some fNotificationTargets -> 
-//              if fNotificationTargets = [] then ()
-//              else 
-//                for (tc,tr,_) in fNotificationTargets do
-//                  yield "\t" + world_name + "." + DataDependencies.PrintNotifyFieldName c f.Name tc tr + "[ID].Add(this);\n"                    
-//              ] |> Seq.fold (+) "") + "\n"
-//
-//
-//      res + 
-      traverse_create_block dp entities "" c.Body.Create.Body c.Body.Fields "\t\t" +
+      traverse_create_block false dp entities "" c.Body.Create.Body c.Body.Fields "\t\t" +
       "\n}\n"
     else ""
     
@@ -467,7 +477,7 @@ let ConvertClass (world_name : string) (dp:IntermediateAST.DataDependencies) (en
   GenerateFields entities world_name dp c +
   GenerateProperties world_name dp c +
   GenerateUpdate world_name dp c +
-  GenerateRules world_name (c.Body) +
+  GenerateRules world_name c +
   "\n}\n"
 
 let ConvertWorldClass (entities : Class list) (dp:IntermediateAST.DataDependencies) (c:IntermediateAST.Class) =
@@ -500,13 +510,14 @@ let ConvertWorldClass (entities : Class list) (dp:IntermediateAST.DataDependenci
   GenerateFields entities c.Name.idText dp c +
   GenerateProperties c.Name.idText dp c +
   GenerateWorldUpdate c.Name.idText entities dp c +
-  GenerateRules c.Name.idText (c.Body) +
+  GenerateRules c.Name.idText (c) +
   "\n}\n"
   
 let ConvertProgram(p:IntermediateAST.Program) =
       
 
   "#pragma warning disable 162,108,618\nusing Casanova.Prelude;\nusing System.Linq;\nusing System;\nusing System.Collections.Generic;\n" +
+  (if Common.is_networked_game then "using GameNetworking;" else "") +
   ([for import in p.Imports do yield "using " + import.idText + ";\n"] |> Seq.fold(+) "") +
   //CSharpPrelude.Prelude + " \n " +
   "namespace " + p.Module.idText + " {" +

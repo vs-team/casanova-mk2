@@ -139,6 +139,8 @@ type token =
   | DISCONNECT
   | VIRTUAL
   | ENTITY
+  | CONNECTING
+  | CONNECTED
   | LAZY
   | OLAZY
   | MATCH
@@ -361,6 +363,8 @@ type tokenId =
     | TOKEN_DISCONNECT
     | TOKEN_VIRTUAL
     | TOKEN_ENTITY
+    | TOKEN_CONNECTING
+    | TOKEN_CONNECTED
     | TOKEN_LAZY
     | TOKEN_OLAZY
     | TOKEN_MATCH

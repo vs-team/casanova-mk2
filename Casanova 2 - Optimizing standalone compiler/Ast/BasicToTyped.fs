@@ -294,51 +294,6 @@ let rec private convertRuleBody (is_create : bool)
                                                                                                   let tp, fields = field.Value
                                                                                                   yield field.Key, tp, fields |> Map.filter(fun f_id f -> f.IsExternal.IsNone)]
 
-//      let rec try_match (entities_fields : List<Id * TypedAST.TypeDecl * List<TypedAST.Field>>) (args : List<Id * TypedAST.Block>) =
-//        let rec AUX_try_match (entities_fields : List<Id * TypedAST.TypeDecl * List<TypedAST.Field>>) : (TypedAST.TypeDecl * (Id * TypedAST.Block) list) option =
-//          match entities_fields with
-//          | [] -> None
-//          | entity :: entities ->
-//            let rec try_match_entity (entity_fields : Id * TypedAST.TypeDecl * List<TypedAST.Field>) (args : List<Id * TypedAST.Block>) =
-//              let entity_name, entity_type, entity_fields = entity_fields
-//              let entity_fields = ResizeArray(entity_fields)
-//
-//              let rec AUX_try_match_entity (args : List<Id * TypedAST.Block>) =
-//
-//                match args with
-//                | [] -> []
-//                | (arg_id, arg_expr) :: args -> 
-//                  match entity_fields.FindIndex(fun f -> f.Name = arg_id) with
-//                  | -1 -> []
-//                  | n -> 
-//                    let elem = entity_fields.[n]
-//                    entity_fields.RemoveAt(n)
-//                    (elem, arg_expr) :: AUX_try_match_entity args                  
-//              let res = AUX_try_match_entity args
-//              if res.Length = args.Length && entity_fields.Count = 0 then
-//                let res1 = ResizeArray()
-//                  
-//                for field, block in res do
-//                  let tp_last_expr, last_expr = block |> Seq.last
-//                  if tp_last_expr = field.Type then res1.Add (field.Name, block)
-//                if res.Length = res1.Count then 
-//                  Some (entity_type, res1 |> Seq.toList)
-//                else None
-//              else None
-//
-//            let res = try_match_entity entity args
-//
-//            match res, entity with
-//            | None, _ -> AUX_try_match entities
-//            | Some res, (_, entity_type, _) -> Some res
-//
-//        let res = AUX_try_match entities_fields
-//        
-//        res
-//
-//      let try_match_entity (entities_fields : List<Id * TypedAST.TypeDecl * List<TypedAST.Field>>) 
-//                           (args : List<Id * TypedAST.Block>) =
-
 
 
 
@@ -498,10 +453,14 @@ let rec private convertRuleBody (is_create : bool)
     | BasicAST.Expression.LetWait(id,e) -> 
       let pos = id.idRange
       let (t_e, maybe_yield_type', e), _, context = traverse p None shadowContext context e
-      if maybe_yield_type'.IsSome then raiseGeneric __LINE__ __SOURCE_FILE__
-      let id, shadowContext = shadowContext.Add rule_idx (id.idText)
-      let context = context |> Map.add id  t_e
-      (TypedAST.TypeDecl.Unit pos, maybe_yield_type , TypedAST.Expression.LetWait(TypedAST.Id.buildFrom {idText = id; idRange = pos}, t_e, (t_e,e))), shadowContext, context
+      match t_e with
+      | TypedAST.TypeDecl.MaybeType(TypedAST.Just(t_e)) ->
+        if maybe_yield_type'.IsSome then raiseGeneric __LINE__ __SOURCE_FILE__
+        let id, shadowContext = shadowContext.Add rule_idx (id.idText)
+        let context = context |> Map.add id  t_e
+        (TypedAST.TypeDecl.Unit pos, maybe_yield_type , TypedAST.Expression.LetWait(TypedAST.Id.buildFrom {idText = id; idRange = pos}, t_e, (t_e,e))), shadowContext, context
+      | _ -> 
+        raise "let!, expected option."
 
     | BasicAST.Expression.IfThenElse(c,t,e) ->
       let b_t, maybe_yield_type, _ = traverseBlock p maybe_yield_type t shadowContext context
@@ -730,6 +689,34 @@ let rec private convertRuleBody (is_create : bool)
             let tp = LookupTypeMethod t id.idRange (Some f.idText) t_args globalContext 
             (tp, maybe_yield_type, TypedAST.Expression.Call(TypedAST.Static(t, TypedAST.Id.buildFrom f, args))), shadowContext, context
 
+    | BasicAST.Expression.Call(BasicAST.Static(BasicAST.Imported(tp,p),f,args)) when tp.idText = "receive_many" && f.IsNone -> 
+        let tps = domain |> Seq.filter(fun d -> d.idText <> "Connected") |> Seq.map(fun d -> Lookup d.idText [] b.Position globalContext context PriorInformationType.Instance)
+        let a = tps
+        (TypedAST.TypeDecl.MaybeType(TypedAST.Just(tps |> Seq.head)), maybe_yield_type, TypedAST.Expression.ReceiveMany(tps |> Seq.head, tp.idRange)), shadowContext, context
+    | BasicAST.Expression.Call(BasicAST.Static(BasicAST.Imported(tp,_),f,args)) when tp.idText = "receive" && f.IsNone -> 
+        let tps = domain |> Seq.filter(fun d -> d.idText <> "Connected") |> Seq.map(fun d -> Lookup d.idText [] b.Position globalContext context PriorInformationType.Instance)
+        (tps |> Seq.head, maybe_yield_type, TypedAST.Expression.Receive(tps |> Seq.head, tp.idRange)), shadowContext, context
+
+    | BasicAST.Expression.Call(BasicAST.Static(BasicAST.Imported(tp,_),f,args)) when tp.idText = "send" -> 
+        let tps = domain |> Seq.filter(fun d -> d.idText <> "Connected") |> Seq.map(fun d -> Lookup d.idText [] b.Position globalContext context PriorInformationType.Instance)
+        let args = [ for a in args do 
+                        let (t, maybe_yield_type, arg), _, _ = traverse p None shadowContext context a 
+                        if maybe_yield_type.IsSome then raiseGeneric __LINE__ __SOURCE_FILE__ |> ignore
+                        yield t, arg ]
+        if args.Length > 1 then printf "Trololololo.."
+        (tps |> Seq.head, maybe_yield_type, TypedAST.Expression.Send(tps |> Seq.head, args.Head, tp.idRange)), shadowContext, context
+        
+
+    | BasicAST.Expression.Call(BasicAST.Static(BasicAST.Imported(tp,_),f,args)) when tp.idText = "send_reliable" -> 
+        let tps = domain |> Seq.filter(fun d -> d.idText <> "Connected") |> Seq.map(fun d -> Lookup d.idText [] b.Position globalContext context PriorInformationType.Instance)
+        let args = [ for a in args do 
+                        let (t, maybe_yield_type, arg), _, _ = traverse p None shadowContext context a 
+                        if maybe_yield_type.IsSome then raiseGeneric __LINE__ __SOURCE_FILE__ |> ignore
+                        yield t, arg ]
+        if args.Length > 1 then printf "Trololololo...reliable.."
+        (tps |> Seq.head, maybe_yield_type, TypedAST.Expression.SendReliable(tps |> Seq.head, args.Head, tp.idRange)), shadowContext, context
+        
+        
     | BasicAST.Expression.Call(BasicAST.Static(tp,f,args)) -> 
         let tp = convertTypeDecl program tp
         let args = [ for a in args do 
@@ -940,7 +927,7 @@ and convertRule p fields (worldName:Id) (entityName:Id) (globalContext:GlobalTyp
     Position  = entityName.idRange
     Domain    = domain
     Body      = b
-    Flag      = r.Flag
+    Flags     = r.Flags
   }
 
 and convertTypeDecl (p:BasicAST.Program) (t:BasicAST.TypeDecl) : TypedAST.TypeDecl =
@@ -1031,9 +1018,9 @@ let private convertCreate (p : BasicAST.Program) (fields : Map<Id, TypedAST.Type
 let private convertEntityBody (fields : Map<TypedAST.Id, TypedAST.TypeDecl *  Map<TypedAST.Id, TypedAST.Field>>) p (globalContext:GlobalTypecheckContext) (worldName:Id) (entityName:Id) (b:BasicAST.EntityBody) : TypedAST.EntityBody =
   let entity_fields = snd fields.[entityName]
   {
+    Create    = convertCreate p fields b.Create worldName entityName globalContext
     Fields    = entity_fields
     Rules     = [ for rule_idx, r in b.Rules |> Seq.mapi(fun i r -> i,r) do yield convertRule p fields worldName entityName globalContext rule_idx r]
-    Create    = convertCreate p fields b.Create worldName entityName globalContext
   }
   
 
@@ -1051,6 +1038,63 @@ let private convertWorld fields p (globalContext:GlobalTypecheckContext) (w:Basi
 
 let ConvertProgram(p:BasicAST.Program) : TypedAST.Program = 
 
+
+  let p =
+    if not Common.is_networked_game then p
+    else
+      {
+        BasicAST.Program.Module    = p.Module
+        BasicAST.Program.ReferencedLibraries = p.ReferencedLibraries
+        BasicAST.Program.Imports   = p.Imports
+        BasicAST.Program.World = 
+          let body = p.World.Body
+          p.World.Rebuild({
+                            BasicAST.EntityBody.Inherits  = body.Inherits
+                            BasicAST.EntityBody.Fields    = 
+                              {
+                                Name            = {Common.idText = "Connected"; Common.idRange = p.World.Position }
+                                Type            = BasicAST.TypeDecl.Imported(({idText = "bool"; idRange = p.World.Position}), 
+                                                                             BasicAST.TypeDecl.Tuple([])) 
+                                IsReference     = false
+                                IsExternal      = None
+                              }:: body.Fields
+                            BasicAST.EntityBody.Rules     = body.Rules
+                            BasicAST.EntityBody.Create    = 
+                              let reversed = body.Create.Body |> List.rev
+                              let (BasicAST.Expression.NewEntity(ids)) = reversed.Head
+                              let ids = ({Common.idText = "Connected"; Common.idRange = p.World.Position }, [BasicAST.Expression.Literal(BasicAST.Bool(false, p.World.Position))]) :: ids
+                              let pre_new_entity =  reversed.Tail |> List.rev
+                              body.Create.Rebuild(pre_new_entity @ [BasicAST.Expression.NewEntity(ids)])
+                          })
+
+
+          
+      
+      
+        BasicAST.Program.Entities  = 
+          [for p in p.Entities do
+           let body = p.Body
+           let p =
+             p.Rebuild({
+                        BasicAST.EntityBody.Inherits  = body.Inherits
+                        BasicAST.EntityBody.Fields    = 
+                          {
+                            Name            = {Common.idText = "Connected"; Common.idRange = p.Position }
+                            Type            = BasicAST.TypeDecl.Imported(({idText = "bool"; idRange = p.Position}), 
+                                                                          BasicAST.TypeDecl.Tuple([])) 
+                            IsReference     = false
+                            IsExternal      = None
+                          }:: body.Fields
+                        BasicAST.EntityBody.Rules     = body.Rules
+                        BasicAST.EntityBody.Create    = 
+                              let reversed = body.Create.Body |> List.rev
+                              let (BasicAST.Expression.NewEntity(ids)) = reversed.Head
+                              let ids = ({Common.idText = "Connected"; Common.idRange = p.Position }, [BasicAST.Expression.Literal(BasicAST.Bool(false, p.Position))]) :: ids
+                              let pre_new_entity =  reversed.Tail |> List.rev
+                              body.Create.Rebuild(pre_new_entity @ [BasicAST.Expression.NewEntity(ids)])
+                          })
+           yield p]
+      }
   
   for t in p.ReferencedLibraries do
     OpenContext.AddReferencedLibraryType t

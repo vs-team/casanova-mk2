@@ -12,7 +12,7 @@ let rec traverseRule current_entity (context : GlobalContext) (rule : TypedAST.R
     Domain    = rule.Domain |> List.map(fun d -> d.Id)
     Body      = traverseBlock (current_entity, None, context) rule.Body current_rule true
     Position  = rule.Position
-    Flag      = rule.Flag
+    Flags     = rule.Flags
   }
 
 
@@ -67,6 +67,12 @@ and traverseExpression (context : ExpressionContext) =
   | TypedAST.Cast(t, e, p) -> Cast(t, traverse e, p)
   | TypedAST.SubtractToQuery(e1, e2) -> Expression.SubtractToQuery(traverse e1, traverse e2)
   | TypedAST.AddToQuery(e1, e2) -> Expression.AddToQuery(traverse e1, traverse e2)
+
+  //NETWORKING
+  | TypedAST.SendReliable (t,e,p) -> Expression.SendReliable(t, traverse e, p)
+  | TypedAST.Send (t,e,p) -> Expression.Send(t, traverse e, p)
+  | TypedAST.ReceiveMany(t,p) -> Expression.ReceiveMany(t, p)
+  | TypedAST.Receive(t,p) -> Expression.Receive(t, p)
 
 
 and traverseQuery (q : TypedAST.QueryExpression) context =
@@ -551,7 +557,7 @@ and traverseQuery' (context : ExpressionContext) : TypedExpression list =
                       [(TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ]))],
                   [(TypedAST.TypeDecl.Unit(p), dest_collection_call "Remove"); (TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ])
               init @ wait :: if_then_else :: []
-            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flag = CasanovaCompiler.ParseAST.Flag.Nothing})
+            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flags = List.Empty})
           
 
           source_block
@@ -783,7 +789,7 @@ and traverseQuery' (context : ExpressionContext) : TypedExpression list =
                       [(TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ]))],
                   [(TypedAST.TypeDecl.Unit(p), dest_collection_call "Remove"); (TypedAST.TypeDecl.Unit(p), Expression.ReEvaluateRule p) ])
               init :: wait :: if_then_else :: []
-            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flag = CasanovaCompiler.ParseAST.Flag.Nothing})
+            dest.Rules.Add({Domain = []; Body = rule; Position = p; Flags = []})
           
 
           source_block
