@@ -35,11 +35,16 @@ namespace GameNetworking
     public struct MessageInfo
     {
       public int EntityID;
+      public int FieldID; //-1 no field
+      public int ContainerID;
       public NetIncomingMessage Message;
 
-      public MessageInfo(int id, NetIncomingMessage message)
+
+      public MessageInfo(int id, NetIncomingMessage message, int containerId, int fieldId = -1)
       {
         EntityID = id;
+        ContainerID = containerId;
+        FieldID = fieldId;
         Message = message;
       }
     }
@@ -60,26 +65,30 @@ namespace GameNetworking
     /*protocol:
       -- Full synchronization
       item 0 = message type
-      item 1 = entity type
-      item 2 = entity id
+      item 1 = entity to send type
+      item 2 = entity to send id
+      item 3 = container id
+      item 4 = field id
       rest = fields
 
       -- Partial synchronization
       item 0 = message type
-      item 1 = entity type
-      item 2 = entity id
+      item 1 = entity to send type
+      item 2 = entity to send id
       item 3 = field id
       rest = field value
     */
 
     /* Order of fields: position, color R, color G, color B */
 
-    public static NetOutgoingMessage CreateShipMessage(Ship ship, NetClient client)
+    public static NetOutgoingMessage CreateWorldShipsMessage(Ship ship, NetClient client, int containerId, int fieldID)
     {
       NetOutgoingMessage message = client.CreateMessage();
       message.Write((int)MessageType.Create);
       message.Write((int)EntityType.Ship);
       message.Write(ship.ID);
+      message.Write(containerId);
+      message.Write(fieldID);
       NetOutgoingMessage posMessage = NetworkUtils.BuildMessage(ship.Position, client);
       message.Write(posMessage);
       message.Write(ship.Color.R);
@@ -88,14 +97,15 @@ namespace GameNetworking
       return message;
     }
 
-    public static NetOutgoingMessage CreateShipMessage(Ship ship, NetClient client, int fieldID)
+    public static NetOutgoingMessage UpdateShipMessage(Ship ship, NetClient client, int entityId, int fieldID)
     {
       NetOutgoingMessage message = client.CreateMessage();
       message.Write((int)MessageType.Update);
       message.Write((int)EntityType.Ship);
       message.Write(ship.ID);
-      NetOutgoingMessage posMessage;
+      message.Write(ship.ID);
       message.Write(fieldID);
+      NetOutgoingMessage posMessage;
       switch (fieldID)
       {
         case 0:
@@ -113,7 +123,7 @@ namespace GameNetworking
       return message;
     }
 
-    public static List<Ship> ReceiveShipMessage()
+    public static List<Ship> ReceiveWorldShipsMessage(int containerId)
     {
       List<Ship> ships = new List<Ship>();
       List<int> processedKeys = new List<int>();
@@ -121,24 +131,34 @@ namespace GameNetworking
       {
         if (kv.Key.Item1 == MessageType.Create && kv.Key.Item2 == EntityType.Ship)
         {
+          Console.WriteLine("Ship");
           MessageInfo info = ReceivedMessages[kv.Key];
           processedKeys.Add(kv.Key.Item3);
-          if (!ShipInfos.ContainsKey(info.EntityID))
+          if (!ShipInfos.ContainsKey(info.EntityID)) 
           {
-            NetIncomingMessage message = info.Message;
-            float x = message.ReadFloat();
-            float y = message.ReadFloat();
-            byte r = message.ReadByte();
-            byte g = message.ReadByte();
-            byte b = message.ReadByte();
-            Microsoft.Xna.Framework.Vector2 position = new Microsoft.Xna.Framework.Vector2(x, y);
-            Microsoft.Xna.Framework.Color color = new Microsoft.Xna.Framework.Color(r, g, b);
-            Ship ship = new Ship(position);
-            ship.Color = color;
-            NetworkInfo<Ship> shipInfo = new NetworkInfo<Ship>(ship, false);
-            ship.ID = info.EntityID;
-            ShipInfos.Add(info.EntityID, shipInfo);
-            ships.Add(ship);
+            Console.WriteLine(info.EntityID);
+            Console.WriteLine(info.FieldID);
+            if (info.FieldID == 1) //1 is field Ships
+            {
+              NetIncomingMessage message = info.Message;
+              Console.WriteLine(info.ContainerID);
+              if (containerId == info.ContainerID)
+              {
+                float x = message.ReadFloat();
+                float y = message.ReadFloat();
+                byte r = message.ReadByte();
+                byte g = message.ReadByte();
+                byte b = message.ReadByte();
+                Microsoft.Xna.Framework.Vector2 position = new Microsoft.Xna.Framework.Vector2(x, y);
+                Microsoft.Xna.Framework.Color color = new Microsoft.Xna.Framework.Color(r, g, b);
+                Ship ship = new Ship(position);
+                ship.Color = color;
+                NetworkInfo<Ship> shipInfo = new NetworkInfo<Ship>(ship, false);
+                ship.ID = info.EntityID;
+                ShipInfos.Add(info.EntityID, shipInfo);
+                ships.Add(ship);
+              }
+            }            
           }
         }     
       }
@@ -153,8 +173,7 @@ namespace GameNetworking
       {
         MessageInfo info = ReceivedMessages[new Tuple<MessageType, EntityType, int>(MessageType.Update, EntityType.Ship, id)];
         NetIncomingMessage message = info.Message;
-        int fieldId = message.ReadInt32();
-        switch (fieldId)
+        switch (info.FieldID)
         {
           case 0:
             float x = message.ReadFloat();
@@ -168,7 +187,7 @@ namespace GameNetworking
             ShipInfos[info.EntityID].Entity.Color = new Microsoft.Xna.Framework.Color(r, g, b);
             break;
           default:
-            throw new ArgumentException("Unknown received field id in Ship: " + fieldId);
+            throw new ArgumentException("Unknown received field id in Ship: " + info.FieldID);
         }
         ReceivedMessages.Remove(new Tuple<MessageType, EntityType, int>(MessageType.Update, EntityType.Ship, id));
       }
@@ -185,7 +204,9 @@ namespace GameNetworking
           MessageType messageType = (MessageType)messages[i].ReadInt32();
           EntityType entityType = (EntityType)messages[i].ReadInt32();
           int entityId = messages[i].ReadInt32();
-          ReceivedMessages[new Tuple<MessageType, EntityType, int>(messageType, entityType, entityId)] = new MessageInfo(entityId, messages[i]);
+          int containerId = messages[i].ReadInt32();
+          int fieldId = messages[i].ReadInt32();
+          ReceivedMessages[new Tuple<MessageType, EntityType, int>(messageType, entityType, entityId)] = new MessageInfo(entityId, messages[i], containerId, fieldId);
         }
       }
     }
