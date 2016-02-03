@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lidgren.Network;
-using Utilities;
 using Prototype;
+using Casanova.Prelude;
 
 namespace GameNetworking
 {
@@ -49,32 +49,32 @@ namespace GameNetworking
       }
     }
 
+    public static Random random = new Random();
     public static int NextID
     {
       get
       {
-        int r = Utilities.Random.RandInt(0, 1000000000);
+        int r = random.Next(0, 1000000000);
         return r.GetHashCode();
       }
     }
 
     public static Dictionary<int, NetworkInfo<Ship>> ShipInfos = new Dictionary<int, NetworkInfo<Ship>>();
+    public static Dictionary<int, NetworkInfo<World>> WorldInfos = new Dictionary<int, NetworkInfo<World>>();
     public static Dictionary<Tuple<MessageType, EntityType, int>, MessageInfo> ReceivedMessages = new Dictionary<Tuple<MessageType, EntityType, int>, MessageInfo>();
 
 
     /*protocol:
       -- Full synchronization
       item 0 = message type
-      item 1 = entity to send type
-      item 2 = entity to send id
-      item 3 = container id
-      item 4 = field id
+      item 1 = entity type
+      item 2 = entity id
       rest = fields
 
       -- Partial synchronization
       item 0 = message type
-      item 1 = entity to send type
-      item 2 = entity to send id
+      item 1 = entity type
+      item 2 = entity id
       item 3 = field id
       rest = field value
     */
@@ -86,7 +86,7 @@ namespace GameNetworking
       NetOutgoingMessage message = client.CreateMessage();
       message.Write((int)MessageType.Create);
       message.Write((int)EntityType.Ship);
-      message.Write(ship.ID);
+      message.Write(ship.Net_ID);
       message.Write(containerId);
       message.Write(fieldID);
       NetOutgoingMessage posMessage = NetworkUtils.BuildMessage(ship.Position, client);
@@ -97,33 +97,22 @@ namespace GameNetworking
       return message;
     }
 
-    public static NetOutgoingMessage UpdateShipMessage(Ship ship, NetClient client, int entityId, int fieldID)
+
+    public static NetOutgoingMessage UpdateShipPositionMessage(Ship ship, NetClient client, int entityId, int fieldID)
     {
       NetOutgoingMessage message = client.CreateMessage();
       message.Write((int)MessageType.Update);
       message.Write((int)EntityType.Ship);
-      message.Write(ship.ID);
-      message.Write(ship.ID);
+      message.Write(ship.Net_ID);
+      message.Write(ship.Net_ID);
       message.Write(fieldID);
       NetOutgoingMessage posMessage;
-      switch (fieldID)
-      {
-        case 0:
-          posMessage = NetworkUtils.BuildMessage(ship.Position, client);
-          message.Write(posMessage);
-          break;
-        case 1:
-          message.Write(ship.Color.R);
-          message.Write(ship.Color.G);
-          message.Write(ship.Color.B);
-          break;
-        default:
-          throw new System.ArgumentException("Unsupported field in Ship: " + fieldID);
-      }
+      posMessage = NetworkUtils.BuildMessage(ship.Position, client);
+      message.Write(posMessage);
       return message;
     }
 
-    public static List<Ship> ReceiveWorldShipsMessage(int containerId)
+    public static Option<List<Ship>> ReceiveWorldShipsMessage(int containerId)
     {
       List<Ship> ships = new List<Ship>();
       List<int> processedKeys = new List<int>();
@@ -134,11 +123,11 @@ namespace GameNetworking
           Console.WriteLine("Ship");
           MessageInfo info = ReceivedMessages[kv.Key];
           processedKeys.Add(kv.Key.Item3);
-          if (!ShipInfos.ContainsKey(info.EntityID)) 
+          if (!ShipInfos.ContainsKey(info.EntityID))
           {
             Console.WriteLine(info.EntityID);
             Console.WriteLine(info.FieldID);
-            if (info.FieldID == 1) //1 is field Ships
+            if (info.FieldID == 2) //2 is field Ships
             {
               NetIncomingMessage message = info.Message;
               Console.WriteLine(info.ContainerID);
@@ -154,42 +143,34 @@ namespace GameNetworking
                 Ship ship = new Ship(position);
                 ship.Color = color;
                 NetworkInfo<Ship> shipInfo = new NetworkInfo<Ship>(ship, false);
-                ship.ID = info.EntityID;
+                ship.Net_ID = info.EntityID;
                 ShipInfos.Add(info.EntityID, shipInfo);
                 ships.Add(ship);
               }
-            }            
+            }
           }
-        }     
+        }
       }
-      foreach(int k in processedKeys)
+      foreach (int k in processedKeys)
         ReceivedMessages.Remove(new Tuple<MessageType, EntityType, int>(MessageType.Create, EntityType.Ship, k));
-      return ships;
+      if (ships.Count > 0)
+        return new Just<List<Ship>>(ships);
+      else return new Nothing<List<Ship>>();
     }
 
-    public static void UpdateShipMessage(int id)
+    public static void UpdateShipPositionMessage(int id)
     {
       if (ReceivedMessages.ContainsKey(new Tuple<MessageType, EntityType, int>(MessageType.Update, EntityType.Ship, id)))
       {
         MessageInfo info = ReceivedMessages[new Tuple<MessageType, EntityType, int>(MessageType.Update, EntityType.Ship, id)];
         NetIncomingMessage message = info.Message;
-        switch (info.FieldID)
+        if (info.FieldID == 2)
         {
-          case 0:
             float x = message.ReadFloat();
             float y = message.ReadFloat();
             ShipInfos[info.EntityID].Entity.Position = new Microsoft.Xna.Framework.Vector2(x, y);
-            break;
-          case 1:
-            byte r = message.ReadByte();
-            byte g = message.ReadByte();
-            byte b = message.ReadByte();
-            ShipInfos[info.EntityID].Entity.Color = new Microsoft.Xna.Framework.Color(r, g, b);
-            break;
-          default:
-            throw new ArgumentException("Unknown received field id in Ship: " + info.FieldID);
+            ReceivedMessages.Remove(new Tuple<MessageType, EntityType, int>(MessageType.Update, EntityType.Ship, id));
         }
-        ReceivedMessages.Remove(new Tuple<MessageType, EntityType, int>(MessageType.Update, EntityType.Ship, id));
       }
     }
 
