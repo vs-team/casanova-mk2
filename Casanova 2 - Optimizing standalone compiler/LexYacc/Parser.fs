@@ -3,7 +3,7 @@ module CasanovaCompiler.Parser
 #nowarn "64";; // turn off warnings that type variables used in production annotations are instantiated to concrete type
 open Microsoft.FSharp.Text.Lexing
 open Microsoft.FSharp.Text.Parsing.ParseHelpers
-# 1 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
 
 #nowarn "1182"  // generated code has lots of unused "parseState"   
 #nowarn "62"
@@ -154,7 +154,7 @@ let rangeOfLongIdent(lid:LongIdent) =
     (lid.Head.idRange,lid) ||> unionRangeWithListBy (fun id -> id.idRange) 
 
 
-# 157 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 157 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
 // This type is the type of tokens accepted by the parser
 type token = 
   | HASH_IF of (Position * string * LexerWhitespaceContinuation)
@@ -2557,7 +2557,7 @@ let _fsyacc_reductionSymbolCounts = [|1us; 1us; 1us; 1us; 2us; 2us; 2us; 3us; 4u
 let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 2us; 3us; 4us; 4us; 4us; 4us; 4us; 4us; 4us; 5us; 5us; 5us; 5us; 6us; 6us; 7us; 8us; 8us; 8us; 8us; 8us; 8us; 9us; 10us; 10us; 11us; 11us; 12us; 12us; 12us; 12us; 13us; 13us; 14us; 14us; 14us; 15us; 15us; 15us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 17us; 17us; 18us; 18us; 18us; 18us; 18us; 18us; 19us; 19us; 19us; 20us; 21us; 22us; 22us; 22us; 23us; 23us; 23us; 24us; 24us; 24us; 25us; 25us; 25us; 25us; 26us; 26us; 27us; 28us; 28us; 29us; 30us; 30us; 31us; 32us; 33us; 33us; 33us; 34us; 34us; 34us; 35us; 36us; 37us; 38us; 39us; 39us; 40us; 41us; 41us; 42us; 42us; 43us; 44us; 44us; 45us; 45us; 46us; 47us; 47us; 48us; 48us; 49us; 49us; 50us; 51us; 52us; 52us; 53us; 53us; 54us; 55us; 56us; 56us; 56us; 56us; 56us; 56us; 57us; 57us; 58us; 58us; 58us; 59us; 59us; 60us; 61us; 61us; 62us; 62us; 62us; 63us; 63us; 64us; 64us; 64us; 65us; 65us; 65us; 66us; 66us; 67us; 68us; 68us; 68us; 69us; 69us; 70us; 71us; 72us; 73us; 74us; 75us; 76us; 77us; 78us; 79us; 80us; 80us; 80us; 80us; 81us; 81us; 82us; 83us; 83us; 84us; 84us; 85us; 85us; 85us; 86us; 86us; 86us; 87us; 88us; 88us; 89us; 90us; 90us; 91us; 91us; 92us; 92us; 92us; 92us; 92us; 92us; 93us; 93us; 93us; 93us; 93us; 93us; 93us; 93us; 94us; 94us; 95us; 96us; 97us; 97us; 97us; 97us; 97us; 97us; 98us; 98us; 99us; 99us; 100us; 100us; 100us; 100us; 101us; 102us; 102us; 102us; 102us; 103us; 103us; 103us; 103us; 103us; 103us; 103us; 103us; 103us; 103us; 103us; 103us; 103us; 104us; 104us; 105us; 105us; 105us; 105us; 105us; 105us; 105us; 106us; 106us; 107us; 107us; 108us; 109us; 109us; 110us; 111us; 111us; 111us; 112us; 113us; 113us; 113us; 114us; 114us; 115us; 115us; 116us; 116us; 117us; 117us; 117us; 117us; 117us; 117us; 118us; 118us; 119us; 119us; 119us; 119us; 120us; 120us; 120us; 120us; 121us; 121us; 121us; 122us; 122us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 123us; 124us; 124us; 125us; 125us; 125us; 126us; 126us; 126us; 126us; 127us; 128us; 128us; 128us; 128us; 128us; 129us; 129us; 130us; 131us; 132us; 133us; 133us; 133us; 134us; 134us; 134us; 134us; 134us; 134us; 135us; 135us; 136us; 136us; 137us; 137us; 137us; 137us; 137us; 137us; 137us; 137us; 138us; 138us; 139us; 139us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 140us; 141us; 141us; 141us; 141us; 141us; 141us; 141us; 141us; 141us; 141us; 142us; 142us; 142us; 142us; 143us; 143us; 143us; 143us; 143us; 143us; 143us; 143us; 144us; 144us; 144us; 144us; 145us; 145us; 145us; 145us; 146us; 146us; 146us; 146us; 146us; 146us; 146us; 146us; 146us; 147us; 148us; 148us; 149us; 149us; 150us; 150us; 150us; 150us; 150us; 151us; 151us; 152us; 153us; 153us; 154us; 154us; 155us; 155us; 155us; 156us; 157us; 157us; 157us; 157us; 158us; 158us; 158us; 158us; 159us; 159us; 159us; 160us; 161us; 161us; 162us; 162us; 163us; 163us; 163us; 163us; 163us; 163us; 163us; 163us; 164us; 164us; 165us; 165us; 165us; 165us; 166us; 166us; 167us; 167us; 168us; 168us; 168us; 168us; 168us; 169us; 169us; 170us; 171us; 172us; 172us; 173us; 173us; 174us; 174us; 175us; 175us; 176us; 176us; 176us; 176us; 176us; 176us; 177us; 177us; 178us; 178us; 178us; 178us; 179us; 179us; 179us; 180us; 180us; 181us; 182us; 182us; 183us; 183us; 183us; 183us; 183us; 183us; 184us; 184us; 184us; 184us; 185us; 186us; 186us; 187us; 187us; 187us; 188us; 188us; 188us; 188us; 188us; 189us; 189us; 189us; 190us; 190us; 190us; 190us; 190us; 190us; 190us; 190us; 190us; 190us; 190us; 191us; 191us; 192us; 192us; 192us; 192us; 192us; 192us; 192us; 193us; 194us; 195us; 195us; 196us; 196us; 197us; 197us; 197us; 197us; 198us; 198us; 199us; 199us; 199us; 199us; 200us; 200us; 201us; 202us; 203us; 203us; 203us; 203us; 203us; 204us; 204us; 204us; 204us; 204us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 205us; 206us; 207us; 207us; 208us; 208us; 209us; 209us; 209us; 209us; 209us; 210us; 211us; 211us; 211us; 212us; 212us; 213us; 213us; 214us; 214us; 215us; 215us; 216us; 216us; 217us; 217us; 217us; 217us; 218us; 218us; 218us; 219us; 219us; 219us; 219us; 220us; 220us; 221us; 221us; 222us; 222us; 223us; 223us; 224us; 224us; 225us; 225us; 226us; 226us; 226us; 226us; 226us; 226us; 227us; 227us; 228us; 228us; 229us; 229us; 230us; 230us; 231us; 231us; 232us; 232us; 233us; 233us; 234us; 235us; 235us; 235us; 236us; 236us; 237us; 237us; 237us; 237us; 237us; 238us; 238us; 238us; 239us; 239us; 239us; 240us; 240us; 240us; 241us; 241us; 241us; 242us; 242us; 242us; 242us; 242us; 243us; 243us; 243us; 243us; 243us; 243us; |]
 let _fsyacc_immediateActions = [|65535us; 49152us; 16385us; 16386us; 16387us; 65535us; 65535us; 65535us; 16389us; 65535us; 16390us; 65535us; 16391us; 65535us; 65535us; 16394us; 65535us; 16395us; 65535us; 65535us; 65535us; 16396us; 16397us; 65535us; 16398us; 16399us; 16400us; 16402us; 65535us; 16403us; 65535us; 16404us; 65535us; 16405us; 65535us; 16408us; 16409us; 16410us; 65535us; 16413us; 65535us; 65535us; 65535us; 65535us; 16414us; 65535us; 65535us; 16415us; 16416us; 16417us; 16418us; 65535us; 16419us; 65535us; 65535us; 16420us; 65535us; 65535us; 65535us; 16421us; 65535us; 65535us; 65535us; 65535us; 16422us; 65535us; 16423us; 65535us; 16424us; 65535us; 16425us; 65535us; 16426us; 16427us; 65535us; 65535us; 16428us; 65535us; 65535us; 16429us; 65535us; 65535us; 16431us; 16432us; 16449us; 16450us; 16451us; 16461us; 65535us; 65535us; 16462us; 65535us; 65535us; 16464us; 65535us; 65535us; 65535us; 65535us; 65535us; 16465us; 65535us; 65535us; 65535us; 65535us; 16466us; 16467us; 16468us; 65535us; 65535us; 16469us; 16470us; 16471us; 16472us; 65535us; 16473us; 65535us; 65535us; 16475us; 65535us; 65535us; 65535us; 65535us; 65535us; 16476us; 65535us; 65535us; 65535us; 65535us; 16477us; 65535us; 65535us; 16478us; 65535us; 65535us; 65535us; 16481us; 65535us; 65535us; 16484us; 16485us; 65535us; 65535us; 16487us; 65535us; 16498us; 16499us; 65535us; 65535us; 16500us; 16501us; 65535us; 65535us; 16503us; 65535us; 16504us; 65535us; 65535us; 65535us; 16505us; 65535us; 65535us; 65535us; 16506us; 65535us; 65535us; 16507us; 65535us; 16508us; 65535us; 65535us; 65535us; 16509us; 65535us; 16510us; 16511us; 65535us; 65535us; 16513us; 65535us; 65535us; 16514us; 16515us; 65535us; 16516us; 65535us; 16522us; 65535us; 16523us; 65535us; 65535us; 16525us; 65535us; 16527us; 65535us; 65535us; 16528us; 65535us; 65535us; 16529us; 16530us; 65535us; 65535us; 16531us; 65535us; 65535us; 16532us; 65535us; 16533us; 16534us; 65535us; 16535us; 16536us; 65535us; 65535us; 16537us; 65535us; 65535us; 16539us; 16540us; 16541us; 65535us; 65535us; 65535us; 16542us; 65535us; 16543us; 16544us; 65535us; 65535us; 16545us; 65535us; 65535us; 16546us; 65535us; 16547us; 65535us; 65535us; 65535us; 16548us; 65535us; 65535us; 65535us; 16549us; 65535us; 65535us; 16550us; 16555us; 16556us; 65535us; 16557us; 65535us; 65535us; 16558us; 16560us; 16561us; 65535us; 65535us; 65535us; 65535us; 65535us; 16562us; 16563us; 16564us; 65535us; 65535us; 16565us; 16566us; 16567us; 65535us; 65535us; 16569us; 65535us; 65535us; 65535us; 16571us; 65535us; 16572us; 16573us; 65535us; 65535us; 16574us; 16575us; 16576us; 16577us; 16578us; 16579us; 16580us; 16581us; 65535us; 65535us; 65535us; 16582us; 16583us; 65535us; 65535us; 65535us; 65535us; 16584us; 16585us; 65535us; 16586us; 16587us; 65535us; 16588us; 65535us; 16589us; 65535us; 65535us; 16591us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16594us; 65535us; 65535us; 65535us; 65535us; 16599us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16604us; 65535us; 16605us; 65535us; 16606us; 16607us; 65535us; 16609us; 65535us; 16610us; 65535us; 16611us; 65535us; 65535us; 16613us; 65535us; 65535us; 16614us; 65535us; 65535us; 16615us; 16616us; 16617us; 16618us; 16619us; 16620us; 16621us; 65535us; 65535us; 16622us; 16623us; 65535us; 65535us; 16625us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16628us; 65535us; 65535us; 65535us; 65535us; 16632us; 65535us; 16634us; 65535us; 65535us; 65535us; 65535us; 16639us; 65535us; 16640us; 65535us; 16641us; 65535us; 65535us; 16644us; 65535us; 16645us; 65535us; 65535us; 16647us; 16648us; 16649us; 65535us; 65535us; 16650us; 65535us; 65535us; 16652us; 65535us; 65535us; 16654us; 65535us; 65535us; 65535us; 65535us; 16656us; 65535us; 16659us; 65535us; 65535us; 65535us; 16660us; 65535us; 16662us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16663us; 65535us; 65535us; 65535us; 65535us; 65535us; 16666us; 16667us; 65535us; 65535us; 65535us; 65535us; 65535us; 16670us; 16671us; 65535us; 65535us; 65535us; 65535us; 65535us; 16673us; 16674us; 65535us; 65535us; 65535us; 16676us; 16677us; 16678us; 16679us; 65535us; 65535us; 16680us; 65535us; 65535us; 16681us; 16682us; 65535us; 16683us; 65535us; 16684us; 16685us; 16686us; 65535us; 16687us; 65535us; 16688us; 16689us; 16690us; 16691us; 65535us; 65535us; 16692us; 65535us; 65535us; 16693us; 16694us; 65535us; 65535us; 16695us; 16696us; 65535us; 65535us; 65535us; 16699us; 16700us; 65535us; 65535us; 65535us; 65535us; 16701us; 16702us; 65535us; 16703us; 16704us; 16705us; 16706us; 65535us; 65535us; 65535us; 65535us; 16707us; 16708us; 16709us; 16710us; 16711us; 65535us; 65535us; 65535us; 16712us; 16713us; 16714us; 16715us; 16716us; 65535us; 65535us; 16717us; 16718us; 16719us; 65535us; 65535us; 16721us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16722us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16745us; 16746us; 16747us; 16748us; 16749us; 16750us; 16751us; 16752us; 16753us; 16754us; 16755us; 16756us; 16757us; 16758us; 16759us; 16760us; 16761us; 16762us; 16763us; 16764us; 16765us; 16766us; 65535us; 65535us; 16767us; 65535us; 16768us; 65535us; 65535us; 16769us; 16770us; 16771us; 65535us; 16772us; 16773us; 16774us; 16775us; 65535us; 65535us; 65535us; 16777us; 16778us; 16779us; 16780us; 65535us; 65535us; 16783us; 65535us; 16785us; 65535us; 65535us; 65535us; 65535us; 16787us; 16788us; 65535us; 65535us; 65535us; 65535us; 16791us; 16792us; 65535us; 16793us; 16794us; 65535us; 65535us; 65535us; 65535us; 16799us; 65535us; 65535us; 16800us; 65535us; 65535us; 16801us; 65535us; 65535us; 65535us; 16802us; 16803us; 16804us; 65535us; 16805us; 65535us; 65535us; 16807us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16813us; 65535us; 65535us; 65535us; 16815us; 65535us; 65535us; 16816us; 65535us; 65535us; 16817us; 65535us; 16818us; 16819us; 16820us; 65535us; 65535us; 16821us; 16822us; 16823us; 16824us; 16825us; 16826us; 16827us; 16829us; 65535us; 65535us; 16830us; 65535us; 65535us; 16831us; 16832us; 16833us; 16834us; 65535us; 16835us; 65535us; 65535us; 16839us; 16840us; 16841us; 16842us; 16843us; 16844us; 16845us; 16846us; 16847us; 65535us; 65535us; 16848us; 16849us; 65535us; 16850us; 16851us; 65535us; 65535us; 16852us; 16853us; 16854us; 16855us; 65535us; 65535us; 16856us; 65535us; 16857us; 16858us; 16859us; 65535us; 16860us; 16861us; 16862us; 16863us; 16864us; 16865us; 65535us; 65535us; 16870us; 16871us; 16872us; 16873us; 16874us; 16875us; 16876us; 16878us; 16880us; 16881us; 65535us; 65535us; 16884us; 65535us; 16885us; 65535us; 16887us; 16888us; 16889us; 65535us; 65535us; 16901us; 65535us; 65535us; 65535us; 65535us; 65535us; 16902us; 65535us; 65535us; 65535us; 16903us; 65535us; 65535us; 65535us; 65535us; 16906us; 65535us; 65535us; 65535us; 16907us; 65535us; 65535us; 16908us; 65535us; 65535us; 65535us; 16909us; 16910us; 65535us; 65535us; 65535us; 16914us; 16915us; 65535us; 16917us; 16918us; 65535us; 65535us; 16920us; 16922us; 16924us; 16925us; 16926us; 16927us; 16928us; 65535us; 16930us; 65535us; 65535us; 16931us; 65535us; 65535us; 16933us; 65535us; 65535us; 16935us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16943us; 65535us; 65535us; 16945us; 65535us; 16946us; 65535us; 16947us; 65535us; 65535us; 16949us; 65535us; 16950us; 65535us; 65535us; 16952us; 65535us; 65535us; 65535us; 65535us; 16955us; 65535us; 65535us; 16957us; 65535us; 16958us; 65535us; 65535us; 65535us; 16959us; 65535us; 16960us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16961us; 65535us; 16962us; 65535us; 16963us; 65535us; 16964us; 65535us; 16965us; 65535us; 16966us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16968us; 65535us; 65535us; 65535us; 65535us; 16971us; 65535us; 65535us; 65535us; 16972us; 65535us; 16977us; 16981us; 16982us; 65535us; 16983us; 16984us; 16985us; 16986us; 16987us; 16988us; 65535us; 16989us; 16990us; 65535us; 16991us; 16992us; 65535us; 16993us; 65535us; 65535us; 65535us; 65535us; 16994us; 16995us; 16996us; 65535us; 16997us; 16998us; 16999us; 17000us; 17001us; 17002us; 65535us; 65535us; 17003us; 65535us; 17004us; 65535us; 65535us; 65535us; 17006us; 65535us; 65535us; 17008us; 65535us; 17009us; 17010us; 65535us; 17012us; 17013us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 17017us; 17018us; 65535us; 17019us; 17020us; 17021us; 17022us; 17023us; 65535us; 17024us; 17025us; 65535us; 65535us; 17026us; 65535us; 17027us; 17028us; 65535us; 65535us; 17029us; 65535us; 65535us; 17030us; 17031us; 17032us; 17033us; 17034us; 17035us; 17036us; 17037us; 17038us; 17039us; 17040us; 17041us; 17042us; 17043us; 17044us; 17045us; 17046us; 17047us; 17048us; 17049us; 17050us; 17051us; 17052us; 17053us; 65535us; 17055us; 65535us; 17056us; 17057us; 65535us; 17058us; 17059us; 17060us; 17061us; 65535us; 17063us; 17064us; 65535us; 17065us; 17066us; 17067us; 17068us; 17069us; 17070us; 65535us; 17072us; 65535us; 65535us; 17083us; 17084us; 17085us; 17086us; 17087us; 17092us; 17096us; 17098us; 17100us; 17104us; 17105us; 17106us; 17107us; 17108us; 17110us; 17112us; 17114us; 17115us; 17116us; 17117us; 17125us; 17126us; 65535us; 65535us; 17130us; 17131us; 17132us; 17133us; 17134us; 65535us; 65535us; 17135us; 17136us; 17137us; 65535us; 17138us; 17139us; 17140us; 65535us; 17141us; 17142us; 17143us; 65535us; 17144us; 17145us; 17146us; 17147us; 17148us; 17149us; 17150us; 17151us; 17152us; 17153us; 17154us; 17155us; 17156us; 17157us; |]
 let _fsyacc_reductions ()  =    [| 
-# 2560 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2560 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -2566,81 +2566,81 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startstart));
-# 2569 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2569 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'casanovaModuleImpl)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 441 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 441 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                    _1 
                    )
-# 441 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 441 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Program));
-# 2580 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2580 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 445 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 445 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   _1 
                    )
-# 445 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 445 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'stringOrKeywordString));
-# 2591 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2591 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 446 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 446 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                           _1 
                    )
-# 446 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 446 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'stringOrKeywordString));
-# 2602 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2602 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'module_keyword)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 451 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 451 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                _2 
                    )
-# 451 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 451 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'cnvModuleIntro));
-# 2614 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2614 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'cnvModuleIntro)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : LexerWhitespaceContinuation)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 455 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 455 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m = rhs parseState 1
                            {ModuleStatement = _1; WorldOrEntityDecls = []; Range = m; ReferencedLibraries = Seq.empty} 
                    )
-# 455 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 455 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'casanovaModuleImpl));
-# 2627 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2627 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynModuleDecl list)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : LexerWhitespaceContinuation)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 459 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 459 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m = rhs parseState 1
                            {ModuleStatement = LongIdentWithDots([Ident("internal_module", Position.Empty)], []); 
                             WorldOrEntityDecls = _1; 
                             Range = m;
                             ReferencedLibraries = Seq.empty} 
                    )
-# 459 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 459 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'casanovaModuleImpl));
-# 2643 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2643 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'cnvModuleIntro)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynModuleDecl list)) in
@@ -2648,14 +2648,14 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 467 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 467 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m2 = rhs parseState 1
                            let m = (m2, _2) ||> unionRangeWithListBy (fun modu -> modu.Range) 
                            {ModuleStatement = _1; WorldOrEntityDecls = _2; Range = m; ReferencedLibraries = Seq.empty} 
                    )
-# 467 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 467 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'casanovaModuleImpl));
-# 2658 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2658 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'cnvModuleIntro)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynModuleDecl list)) in
@@ -2663,14 +2663,14 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 472 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 472 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m2 = rhs parseState 1
                            let m = (m2, _2) ||> unionRangeWithListBy (fun modu -> modu.Range) 
                            {ModuleStatement = _1; WorldOrEntityDecls = _2; Range = m; ReferencedLibraries = Seq.empty} 
                    )
-# 472 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 472 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'casanovaModuleImpl));
-# 2673 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2673 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'cnvModuleIntro)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynModuleDecl list)) in
@@ -2678,38 +2678,38 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 477 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 477 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m2 = rhs parseState 1
                            let m = (m2, _2) ||> unionRangeWithListBy (fun modu -> modu.Range) 
                            {ModuleStatement = _1; WorldOrEntityDecls = _2; Range = m; ReferencedLibraries = Seq.empty} 
                    )
-# 477 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 477 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'casanovaModuleImpl));
-# 2688 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2688 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 482 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 482 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            errorR(Error(FSComp.SR.buildMultiFileRequiresNamespaceOrModule(),rhs parseState 1))
                            Program.Empty() 
                    )
-# 482 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 482 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'casanovaModuleImpl));
-# 2700 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2700 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : LexerWhitespaceContinuation)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 488 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 488 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             errorR(Error(FSComp.SR.buildMultiFileRequiresNamespaceOrModule(),rhs parseState 1))
                             Program.Empty() 
                    )
-# 488 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 488 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'casanovaModuleImpl));
-# 2712 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2712 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExprPossiblyEmpty)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
@@ -2717,95 +2717,95 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 494 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 494 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _2 
                    )
-# 494 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 494 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynModuleDecl list));
-# 2725 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2725 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExprPossiblyEmpty)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 496 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 496 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               // The lex filter ensures we can only get a mismatch in OBLOCKBEGIN/OBLOCKEND tokens if there was some other kind of error, hence we don't need to report this error
                               // reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnClosedBlockInHashLight());   
                               _2 
                             
                    )
-# 496 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 496 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynModuleDecl list));
-# 2740 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2740 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 501 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 501 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               
                               [] 
                             
                    )
-# 501 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 501 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynModuleDecl list));
-# 2753 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2753 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExprPossiblyEmpty)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 505 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 505 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 505 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 505 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynModuleDecl list));
-# 2764 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2764 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 509 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 509 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 509 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 509 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefnsOrExprPossiblyEmpty));
-# 2775 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2775 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 511 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 511 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [] 
                    )
-# 511 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 511 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefnsOrExprPossiblyEmpty));
-# 2785 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2785 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 516 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 516 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 516 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 516 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefnsOrExpr));
-# 2796 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2796 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnOrDirective)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 520 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 520 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 @ _2 
                    )
-# 520 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 520 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefns));
-# 2808 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2808 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnOrDirective)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'topSeparators)) in
@@ -2813,113 +2813,113 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 522 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 522 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               _1 @ _3 
                    )
-# 522 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 522 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefns));
-# 2821 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2821 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 524 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 524 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 524 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 524 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefns));
-# 2832 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2832 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnOrDirective)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 527 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 527 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 527 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 527 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefns));
-# 2843 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2843 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnOrDirective)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'topSeparators)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 529 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 529 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 529 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 529 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefns));
-# 2855 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2855 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'topSeparators)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 531 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 531 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 
                    )
-# 531 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 531 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefns));
-# 2867 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2867 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefn)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 535 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 535 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1  
                    )
-# 535 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 535 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefnOrDirective));
-# 2878 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2878 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributes)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 537 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 537 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                      _1 
                    )
-# 537 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 537 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_attributes));
-# 2889 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2889 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 538 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 538 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                      [] 
                    )
-# 538 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 538 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_attributes));
-# 2899 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2899 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributeList)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 541 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 541 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 541 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 541 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributes));
-# 2910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributeList)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributes)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 @ _2 
                    )
-# 543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributes));
-# 2922 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2922 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributeListElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_seps)) in
@@ -2927,23 +2927,23 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 546 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 546 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                                      _2 
                    )
-# 546 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 546 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeList));
-# 2935 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2935 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 547 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 547 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                             [] 
                    )
-# 547 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 547 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeList));
-# 2946 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2946 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributeListElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_seps)) in
@@ -2951,36 +2951,36 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 549 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 549 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _4 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedLBrackLess());
                              _2 
                    )
-# 549 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 549 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeList));
-# 2960 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2960 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 552 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 552 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _2 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedLBrackLess());
                              [] 
                    )
-# 552 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 552 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeList));
-# 2972 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2972 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attribute)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 557 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 557 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [_1] 
                    )
-# 557 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 557 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeListElements));
-# 2983 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2983 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributeListElements)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps)) in
@@ -2988,12 +2988,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 559 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 559 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 @ [_3] 
                    )
-# 559 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 559 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeListElements));
-# 2996 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 2996 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_HIGH_PRECEDENCE_APP)) in
@@ -3001,13 +3001,13 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 563 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 563 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let arg = match _3 with None -> mkSynUnit _1.Range | Some e -> e 
                             ({ TypeName=_1; ArgExpr=arg; Target=None; AppliesToGetterAndSetter=false; Range=_1.Range } : SynAttribute) 
                    )
-# 563 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 563 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attribute));
-# 3010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributeTarget)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
@@ -3016,13 +3016,13 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let arg = match _4 with None -> mkSynUnit _2.Range | Some e -> e 
                             ({ TypeName=_2; ArgExpr=arg; Target=_1; AppliesToGetterAndSetter=false; Range=_2.Range } : SynAttribute) 
                    )
-# 566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attribute));
-# 3025 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3025 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attributeTarget)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
@@ -3032,86 +3032,86 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 569 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 569 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let arg = match _6 with None -> mkSynUnit _3.Range | Some e -> e 
                             ({ TypeName=_3; ArgExpr=arg; Target=_1; AppliesToGetterAndSetter=false; Range=_3.Range } : SynAttribute) 
                    )
-# 569 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 569 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attribute));
-# 3041 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3041 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'module_keyword)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 573 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 573 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                 Some(ident("module",(rhs parseState 1))) 
                    )
-# 573 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 573 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeTarget));
-# 3052 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3052 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'type_keyword)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 574 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 574 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                               Some(ident("type",(rhs parseState 1))) 
                    )
-# 574 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 574 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeTarget));
-# 3063 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3063 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 575 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 575 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                        Some(_1) 
                    )
-# 575 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 575 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attributeTarget));
-# 3074 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3074 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_attributes)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 582 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 582 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let hwlb,m = _2
                              mkEntryPoint (m,hwlb,_1,m)  
                    )
-# 582 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 582 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefn));
-# 3087 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3087 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_attributes)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'doBinding)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 586 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 586 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            printfn "Hello!"
                            let mWhole = rhs parseState 3 
                            mkEntryPoint (mWhole,_2,_1,mWhole) 
                    )
-# 586 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 586 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefn));
-# 3101 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3101 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefn)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefnList)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 590 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 590 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let types = (_2, true) :: _3
                              [ SynModuleDecl.Types(types, (rhs parseState 1, (types |> List.map(fun e -> fst e))) ||> unionRangeWithListBy (fun t -> t.Range) ) ] 
                    )
-# 590 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 590 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefn));
-# 3114 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3114 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'type_keyword)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefn)) in
@@ -3119,165 +3119,165 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 593 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 593 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let types = (_2, _1) :: _3
                              [ SynModuleDecl.Types(types, (rhs parseState 1, (types |> List.map(fun e -> fst e))) ||> unionRangeWithListBy (fun t -> t.Range) ) ] 
                    )
-# 593 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 593 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefn));
-# 3128 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3128 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 599 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 599 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [SynModuleDecl.Open(_2, _2.Range)] 
                    )
-# 599 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 599 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefn));
-# 3139 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3139 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'importLibrary)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 602 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 602 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let elem, elem_range = _1
                              [SynModuleDecl.OpenLibrary(elem, elem_range)] 
                    )
-# 602 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 602 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefn));
-# 3151 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3151 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'importDecl)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 606 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 606 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let elem, elem_range = _1
                              [SynModuleDecl.Import(elem, elem_range)] 
                    )
-# 606 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 606 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moduleDefn));
-# 3163 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3163 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 613 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 613 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               _2.Lid 
                    )
-# 613 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 613 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleAbbrevBlock));
-# 3175 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3175 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 615 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 615 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               _1.Lid  
                    )
-# 615 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 615 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleAbbrevBlock));
-# 3186 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3186 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'wrappedNamedModuleDefn)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 619 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 619 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               
                               Choice2Of2 _2 
                             
                    )
-# 619 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 619 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleDefnBlock));
-# 3200 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3200 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'wrappedNamedModuleDefn)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 623 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 623 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               // The lex filter ensures we can only get a mismatch in OBLOCKBEGIN/OBLOCKEND tokens if there was some other kind of error, hence we don't need to report this error
                               Choice2Of2 _2 
                             
                    )
-# 623 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 623 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleDefnBlock));
-# 3214 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3214 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 627 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 627 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               // The lex filter ensures we can only get a mismatch in OBLOCKBEGIN/OBLOCKEND tokens if there was some other kind of error, hence we don't need to report this error
                               // reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnClosedBlockInHashLight());   
                               Choice2Of2 _2 
                             
                    )
-# 627 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 627 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleDefnBlock));
-# 3229 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3229 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 632 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 632 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               
                               Choice2Of2 [] 
                             
                    )
-# 632 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 632 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleDefnBlock));
-# 3242 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3242 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'wrappedNamedModuleDefn)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 636 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 636 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                               Choice2Of2 _1 
                              
                    )
-# 636 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 636 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleDefnBlock));
-# 3255 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3255 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 640 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 640 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               
                               Choice1Of2 _1.Lid
                              
                    )
-# 640 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 640 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'namedModuleDefnBlock));
-# 3268 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3268 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'structOrBegin)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExprPossiblyEmpty)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 646 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 646 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               _2 
                    )
-# 646 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 646 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'wrappedNamedModuleDefn));
-# 3280 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3280 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'structOrBegin)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moduleDefnsOrExprPossiblyEmpty)) in
@@ -3285,263 +3285,263 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 648 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 648 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBeginOrStruct());  
                               _2 
                    )
-# 648 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 648 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'wrappedNamedModuleDefn));
-# 3294 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3294 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'structOrBegin)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 651 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 651 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               [] 
                    )
-# 651 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 651 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'wrappedNamedModuleDefn));
-# 3305 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3305 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 655 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 655 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               None 
                    )
-# 655 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 655 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_signature));
-# 3315 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3315 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnBlock)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'declEnd)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 659 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 659 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _2 
                    )
-# 659 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 659 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynMemberDefns));
-# 3327 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3327 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 662 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 662 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            None 
                    )
-# 662 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 662 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_literalValue));
-# 3337 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3337 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 663 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 663 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                            Some(_2) 
                    )
-# 663 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 663 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_literalValue));
-# 3348 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3348 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 664 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 664 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                  Some(_3) 
                    )
-# 664 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 664 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_literalValue));
-# 3360 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3360 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 667 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 667 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                            (false,NonVirtualMemberFlags) 
                    )
-# 667 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 667 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberFlags));
-# 3370 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3370 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 668 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 668 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   (false,NonVirtualMemberFlags) 
                    )
-# 668 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 668 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberFlags));
-# 3380 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3380 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 669 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 669 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         (false,NonVirtualMemberFlags) 
                    )
-# 669 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 669 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberFlags));
-# 3390 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3390 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'memberFlags)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 672 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 672 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                        _1 
                    )
-# 672 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 672 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberSpecFlags));
-# 3401 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3401 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 673 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 673 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                            (false,AbstractMemberFlags) 
                    )
-# 673 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 673 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberSpecFlags));
-# 3411 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3411 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 674 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 674 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                            (false,AbstractMemberFlags) 
                    )
-# 674 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 674 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberSpecFlags));
-# 3421 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3421 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 678 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 678 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            None, MemberKind.Member 
                    )
-# 678 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 678 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classMemberSpfnGetSet));
-# 3431 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3431 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classMemberSpfnGetSetElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 680 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 680 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            Some (rhs2 parseState 1 2), _2 
                    )
-# 680 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 680 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classMemberSpfnGetSet));
-# 3442 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3442 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classMemberSpfnGetSetElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 682 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 682 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            Some (rhs2 parseState 1 2), _2 
                    )
-# 682 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 682 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classMemberSpfnGetSet));
-# 3453 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3453 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classMemberSpfnGetSetElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 684 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 684 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedWith());
                             Some (rhs2 parseState 1 2), _2 
                    )
-# 684 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 684 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classMemberSpfnGetSet));
-# 3465 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3465 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 690 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 690 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            (let (id:Ident) = _1 
                             if id.idText = "get" then MemberKind.PropertyGet 
                             else if id.idText = "set" then MemberKind.PropertySet 
                             else raiseParseErrorAt (rhs parseState 1) (FSComp.SR.parsGetOrSetRequired())) 
                    )
-# 690 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 690 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classMemberSpfnGetSetElements));
-# 3479 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3479 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 695 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 695 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let (id:Ident) = _1 
                            if not ((id.idText = "get" && _3.idText = "set") ||
                                    (id.idText = "set" && _3.idText = "get")) then 
                               raiseParseErrorAt (rhs2 parseState 1 3) (FSComp.SR.parsGetOrSetRequired());
                            MemberKind.PropertyGetSet 
                    )
-# 695 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 695 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classMemberSpfnGetSetElements));
-# 3495 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3495 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconNameAndTyparDecls)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 703 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 703 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 703 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 703 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typeNameInfo));
-# 3506 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3506 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefn)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefnList)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 707 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 707 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (_2, false) :: _3 
                    )
-# 707 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 707 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconDefnList));
-# 3518 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3518 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 709 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 709 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [] 
                    )
-# 709 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 709 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconDefnList));
-# 3528 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3528 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeNameInfo)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefnRhsBlock)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 713 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 713 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let nameRange = rhs parseState 1
                             let (tcDefRepr:SynTypeDefnRepr),members, inherits = _3 nameRange
                             let declRange = unionRanges (rhs parseState 1) tcDefRepr.Range
                             let mWhole = (declRange, members) ||> unionRangeWithListBy (fun (mem:SynMemberDefn) -> mem.Range)    
                             TypeDefn(_1, tcDefRepr, members, inherits, mWhole) 
                    )
-# 713 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 713 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconDefn));
-# 3544 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3544 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'cnvTyconDefnRhs)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
@@ -3551,14 +3551,14 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 729 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 729 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m = unionRanges (rhs parseState 1) (match _6 with [] -> (match _4 with [] -> (rhs parseState 3) | _ -> (rhs parseState 4)) | _ -> (rhs parseState 6))
                             let fields,rules = _2
                             (fun nameRange -> fields nameRange (checkForMultipleAugmentations m (rules @ _4) _6)) 
                    )
-# 729 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 729 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconDefnRhsBlock));
-# 3561 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3561 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefnRhs)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
@@ -3568,106 +3568,106 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 735 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 735 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m = unionRanges (rhs parseState 1) (match _6 with [] -> (match _4 with [] -> (rhs parseState 3) | _ -> (rhs parseState 4)) | _ -> (rhs parseState 6))
                             (fun nameRange -> _2 nameRange (checkForMultipleAugmentations m _4 _6)) 
                    )
-# 735 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 735 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconDefnRhsBlock));
-# 3577 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3577 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tyconDefnOrSpfnCnvRepr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 747 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 747 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                             let inherits,m,rules = _1
                             (fun nameRange augmentation -> SynTypeDefnRepr.Simple (m,m.Range),augmentation, inherits),rules 
                    )
-# 747 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 747 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'cnvTyconDefnRhs));
-# 3590 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3590 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynTypeDefnSimpleRepr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 753 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 753 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m = _1.Range
                             (fun nameRange augmentation -> SynTypeDefnRepr.Simple (_1,m),augmentation, [])
                    )
-# 753 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 753 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconDefnRhs));
-# 3602 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3602 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnMembers)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 759 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 759 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsUnexpectedEndOfFileTypeDefinition());
                              _2 
                    )
-# 759 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 759 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnBlock));
-# 3615 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3615 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnMembers)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnBlock));
-# 3627 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3627 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnMembers)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 764 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 764 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 764 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 764 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnBlock));
-# 3638 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3638 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnMembersAtLeastOne)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 779 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 779 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 779 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 779 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnMembers));
-# 3649 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3649 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnMembers)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 782 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 782 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _2 
                    )
-# 782 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 782 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnMembers));
-# 3660 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3660 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 784 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 784 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [] 
                    )
-# 784 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 784 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnMembers));
-# 3670 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3670 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnMember)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_seps)) in
@@ -3675,12 +3675,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 788 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 788 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 @  _3 
                    )
-# 788 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 788 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnMembersAtLeastOne));
-# 3683 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3683 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_inline)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_inline)) in
@@ -3690,7 +3690,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 793 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 793 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                              
                              let mRhs = _6.Range 
@@ -3715,9 +3715,9 @@ let _fsyacc_reductions ()  =    [|
                                   let b = bindingBuilder (mBindLhs,optReturnType,_6,Some(memFlagsBuilder MemberKind.Member))
                                   [ SynMemberDefn.Member (b,unionRanges mWhole mBindLhs, opt1 @ opt2) ]) 
                    )
-# 793 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 793 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberCore));
-# 3720 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3720 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_inline)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'createBindingPattern)) in
@@ -3726,7 +3726,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 822 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 822 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                              
                              let mRhs = _5.Range 
@@ -3737,9 +3737,9 @@ let _fsyacc_reductions ()  =    [|
                                   let b = bindingBuilder (mBindLhs,optReturnType,_5,Some(memFlagsBuilder MemberKind.Member))             
                                   [ SynMemberDefn.Member(make_synexpr_create b,unionRanges mWhole mBindLhs, []) ]) 
                    )
-# 822 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 822 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'createMemberCoreWithParams));
-# 3742 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3742 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_inline)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_topReturnTypeWithTypeConstraints)) in
@@ -3747,7 +3747,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 836 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 836 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                              
                              let mRhs = _4.Range 
@@ -3757,29 +3757,29 @@ let _fsyacc_reductions ()  =    [|
                                   let test = mkSynPatMaybeVar (LongIdentWithDots([Ident("Create",_range)],[])) _range
                                   [ SynMemberDefn.Member (mkSynBinding test (_range,optReturnType,_4,Some(memFlagsBuilder MemberKind.Member)),unionRanges mWhole _range, []) ]) 
                    )
-# 836 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 836 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'createMemberCore));
-# 3762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 846 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 846 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    
                    )
-# 846 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 846 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'abstractMemberFlags));
-# 3772 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3772 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 847 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 847 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                           
                    )
-# 847 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 847 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'abstractMemberFlags));
-# 3782 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3782 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_declVisibility)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'memberFlags)) in
@@ -3788,223 +3788,223 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 851 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 851 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if isSome _1 then errorR(Error(FSComp.SR.parsVisibilityDeclarationsShouldComePriorToIdentifier(),rhs parseState 1));
                             let _,flags = _2
                             _3 _1 flags
                    )
-# 851 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 851 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnMember));
-# 3798 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3798 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 857 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 857 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         None 
                    )
-# 857 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 857 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_typ));
-# 3808 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3808 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 858 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 858 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                       Some _2 
                    )
-# 858 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 858 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_typ));
-# 3819 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3819 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 863 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 863 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let (LongIdentWithDots(lid,dotms)) = _3 
                              (None,LongIdentWithDots(ident(MangledGlobalName,rhs parseState 1)::lid, rhs parseState 2::dotms)) 
                    )
-# 863 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 863 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPatternLongIdent));
-# 3831 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3831 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 865 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 865 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   (None,_1) 
                    )
-# 865 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 865 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPatternLongIdent));
-# 3842 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3842 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 869 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 869 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             None 
                    )
-# 869 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 869 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_declVisibility));
-# 3852 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3852 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'classDefnBlock)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'declEnd)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 872 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 872 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                        _2 
                    )
-# 872 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 872 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_classDefn));
-# 3864 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3864 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 873 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 873 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                      [] 
                    )
-# 873 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 873 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_classDefn));
-# 3874 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3874 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'asSpec)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 876 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 876 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   Some(_1) 
                    )
-# 876 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 876 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optAsSpec));
-# 3885 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3885 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 877 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 877 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   None 
                    )
-# 877 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 877 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optAsSpec));
-# 3895 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3895 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 880 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 880 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                     _2 
                    )
-# 880 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 880 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'asSpec));
-# 3906 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3906 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'baseSpec)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 883 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 883 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                     Some(_1) 
                    )
-# 883 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 883 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optBaseSpec));
-# 3917 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3917 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 884 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 884 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   None 
                    )
-# 884 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 884 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optBaseSpec));
-# 3927 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3927 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 888 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 888 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if (_2).idText <> "base" then 
                                   errorR(Error(FSComp.SR.parsInheritDeclarationsCannotHaveAsBindings(),rhs2 parseState 1 2)); 
                              ident("base",rhs parseState 2) 
                    )
-# 888 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 888 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'baseSpec));
-# 3940 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3940 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 893 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 893 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              errorR(Error(FSComp.SR.parsInheritDeclarationsCannotHaveAsBindings(),rhs2 parseState 1 2)); 
                              ident("base",rhs parseState 2) 
                    )
-# 893 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 893 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'baseSpec));
-# 3951 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3951 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 897 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 897 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                     
                    )
-# 897 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 897 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberOrOverride));
-# 3961 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3961 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 898 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 898 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                       
                    )
-# 898 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 898 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'memberOrOverride));
-# 3971 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3971 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_declVisibility)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'unionRepr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 903 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 903 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let _SynUnionCases : Choice<_,SynUnionCase> list = _2
                             let rangesOf3 = _SynUnionCases |> List.map (function |Choice1Of2(ec)->ec.Range | Choice2Of2(uc)->uc.Range)
                             let mWhole = (rhs parseState 1, rangesOf3) ||> List.fold unionRanges 
                             SynTypeDefnSimpleRepr.Union ( _SynUnionCases |> List.choose (function Choice2Of2 data -> Some(data) | Choice1Of2 _ -> failwith "huh?"),
                                                           mWhole) 
                    )
-# 903 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 903 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynTypeDefnSimpleRepr));
-# 3987 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 3987 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_declVisibility)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'braceFieldOrRuleDeclList)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 911 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 911 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let inherits,fields,rules = _2
                             inherits,(SynTypeDefnSimpleRepr.Record (fields,lhs parseState)),rules 
                    )
-# 911 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 911 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconDefnOrSpfnCnvRepr));
-# 4000 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4000 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'fieldOrRuleList)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 916 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 916 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let fieldsOrInherit,rules = split (fun x -> match x with CnvRule (_) -> false |_ -> true ) _2
                             let inherits, fields = split (fun x -> match x with CnvField (_) -> false |_ -> true ) fieldsOrInherit
                             let fields,rules = fields |> List.map(fun x -> x.GetField),rules |> List.map(fun x -> x.GetRule)
@@ -4013,16 +4013,16 @@ let _fsyacc_reductions ()  =    [|
                             if inherits.Length = 1 then inherits.Head, fields,rules
                             else [], fields,rules
                    )
-# 916 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 916 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceFieldOrRuleDeclList));
-# 4018 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4018 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'fieldOrRuleList)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 924 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 924 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBrace()); 
                             let fieldsOrInherit,rules = split (fun x -> match x with CnvRule (_) -> false |_ -> true ) _2
                             let inherits, fields = split (fun x -> match x with CnvField (_) -> false |_ -> true ) fieldsOrInherit
@@ -4032,20 +4032,20 @@ let _fsyacc_reductions ()  =    [|
                             if inherits.Length = 1 then inherits.Head, fields,rules
                             else [], fields,rules
                    )
-# 924 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 924 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceFieldOrRuleDeclList));
-# 4037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fieldOrRule)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 936 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 936 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                        [_1] 
                    )
-# 936 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 936 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRuleList));
-# 4048 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4048 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fieldOrRule)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
@@ -4053,25 +4053,25 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 937 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 937 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                      _1 :: _3 
                    )
-# 937 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 937 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRuleList));
-# 4061 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4061 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'topTypeWithTypeConstraints)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 941 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 941 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let ty,arity = _2 
                             let arity = (match arity with SynValInfo([],rmdata)-> rmdata | _ -> SynInfo.unnamedRetVal)
                             Some (SynReturnInfo((ty,arity),rhs parseState 2)) 
                    )
-# 941 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 941 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topReturnTypeWithTypeConstraints));
-# 4074 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4074 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'bindingPattern)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'topReturnTypeWithTypeConstraints)) in
@@ -4079,7 +4079,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 948 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 948 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mRhs = _4.Range 
                              let mWhole = unionRanges (rhs2 parseState 2 3) mRhs 
                              let optReturnType = _2 
@@ -4087,9 +4087,9 @@ let _fsyacc_reductions ()  =    [|
                              (fun vis memFlagsBuilder -> 
                                   [ SynMemberDefn.Member (bindingBuilder (mBindLhs,optReturnType,_4,Some(memFlagsBuilder MemberKind.Member)),unionRanges mWhole mBindLhs, []) ]) 
                    )
-# 948 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 948 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'cnvFieldInitCore));
-# 4092 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4092 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_declVisibility)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'memberCore)) in
@@ -4097,15 +4097,15 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 959 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 959 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if isSome _1 then errorR(Error(FSComp.SR.parsVisibilityDeclarationsShouldComePriorToIdentifier(),rhs parseState 1));
                             let flags = NonVirtualMemberFlags
                             let res = _3 _1 flags
                             CnvRule (res.Head) 
                    )
-# 959 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 959 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRule));
-# 4108 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4108 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_declVisibility)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'createMemberCoreWithParams)) in
@@ -4113,15 +4113,15 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 965 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 965 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if isSome _1 then errorR(Error(FSComp.SR.parsVisibilityDeclarationsShouldComePriorToIdentifier(),rhs parseState 1));
                             let flags = NonVirtualMemberFlags
                             let res = _3 _1 flags
                             CnvRule (res.Head) 
                    )
-# 965 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 965 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRule));
-# 4124 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4124 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_declVisibility)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'createMemberCore)) in
@@ -4129,15 +4129,15 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 972 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 972 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if isSome _1 then errorR(Error(FSComp.SR.parsVisibilityDeclarationsShouldComePriorToIdentifier(),rhs parseState 1));
                             let flags = StaticMemberFlags
                             let res = _3 _1 flags (rhs parseState 2)
                             CnvRule (res.Head) 
                    )
-# 972 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 972 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRule));
-# 4140 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4140 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_declVisibility)) in
@@ -4146,222 +4146,222 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 978 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 978 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let flags = NonVirtualMemberFlags
                             let res = _3 _2 flags
                             let res_head = res.Head
                             CnvRule (res_head) 
                    )
-# 978 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 978 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRule));
-# 4157 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4157 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'inherit_idents)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 983 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 983 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            CnvInherit _2 
                    )
-# 983 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 983 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRule));
-# 4168 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4168 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fieldDecl)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 985 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 985 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let (Field(c,d,is_ref,g)) = _1 
                             CnvField (Field(c,d,is_ref,g))  
                    )
-# 985 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 985 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldOrRule));
-# 4180 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4180 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 989 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 989 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  [Ident(_1, lhs parseState)] 
                    )
-# 989 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 989 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'inherit_idents));
-# 4191 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4191 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'inherit_idents)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 990 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 990 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                       Ident(_1, lhs parseState) :: _3 
                    )
-# 990 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 990 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'inherit_idents));
-# 4203 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4203 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdFieldDeclList)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 994 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 994 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _2 
                    )
-# 994 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 994 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceFieldDeclList));
-# 4215 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4215 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdFieldDeclList)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 996 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 996 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBrace()); 
                             _2 
                    )
-# 996 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 996 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceFieldDeclList));
-# 4228 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4228 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 999 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 999 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [] 
                    )
-# 999 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 999 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceFieldDeclList));
-# 4239 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4239 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1002 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1002 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 1002 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1002 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'interfaceMember));
-# 4249 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4249 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1003 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1003 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                 
                    )
-# 1003 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1003 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'interfaceMember));
-# 4259 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4259 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1007 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1007 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1.Lid 
                    )
-# 1007 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1007 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tyconNameAndTyparDecls));
-# 4270 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4270 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typarAlts)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynTypar)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                              _3::_1 
                    )
-# 1010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typarAlts));
-# 4282 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4282 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynTypar)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1011 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1011 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 [_1] 
                    )
-# 1011 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1011 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typarAlts));
-# 4293 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4293 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attrUnionCaseDecls)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1017 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1017 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 1017 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1017 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionRepr));
-# 4304 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4304 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'firstUnionCaseDeclOfMany)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'attrUnionCaseDecls)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1019 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1019 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 :: _2
                    )
-# 1019 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1019 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionRepr));
-# 4316 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4316 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'firstUnionCaseDecl)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1021 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1021 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [_1] 
                    )
-# 1021 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1021 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionRepr));
-# 4327 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4327 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attrUnionCaseDecl)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'attrUnionCaseDecls)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1024 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1024 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                  _1 :: _2 
                    )
-# 1024 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1024 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attrUnionCaseDecls));
-# 4339 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4339 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attrUnionCaseDecl)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1025 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1025 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                              [ _1 ] 
                    )
-# 1025 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1025 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attrUnionCaseDecls));
-# 4350 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4350 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'unionCaseName)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1029 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1029 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mDecl = rhs parseState 1
                              Choice2Of2 (UnionCase (_1,UnionCaseFields [],mDecl)) 
                            
                    )
-# 1029 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1029 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attrUnionCaseDecl));
-# 4364 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4364 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'unionCaseName)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'unionCaseRepr)) in
@@ -4369,14 +4369,14 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1033 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1033 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mDecl = rhs2 parseState 1 3
                              Choice2Of2 (UnionCase (_1,UnionCaseFields _3,mDecl)) 
                            
                    )
-# 1033 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1033 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attrUnionCaseDecl));
-# 4379 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4379 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'unionCaseName)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'topType)) in
@@ -4384,123 +4384,123 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              libraryOnlyWarning(lhs parseState);
                              let mDecl = rhs2 parseState 1 3
                              Choice2Of2 (UnionCase (_1,UnionCaseFullType _3,mDecl))
                            
                    )
-# 1037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attrUnionCaseDecl));
-# 4395 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4395 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1045 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1045 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1045 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1045 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionCaseName));
-# 4406 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4406 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1047 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1047 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               ident(opNameCons,rhs parseState 2) 
                    )
-# 1047 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1047 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionCaseName));
-# 4417 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4417 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1049 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1049 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               ident(opNameNil,rhs2 parseState 2 3) 
                    )
-# 1049 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1049 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionCaseName));
-# 4428 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4428 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1053 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1053 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                              Choice2Of2 (UnionCase (_1,UnionCaseFields [],rhs parseState 1)) 
                            
                    )
-# 1053 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1053 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'firstUnionCaseDeclOfMany));
-# 4442 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4442 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'firstUnionCaseDecl)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1057 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1057 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1057 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1057 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'firstUnionCaseDeclOfMany));
-# 4454 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4454 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'unionCaseRepr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1061 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1061 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                             Choice2Of2 (UnionCase (_1,UnionCaseFields _3,rhs2 parseState 1 3))
                          
                    )
-# 1061 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1061 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'firstUnionCaseDecl));
-# 4468 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4468 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'braceFieldDeclList)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1067 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1067 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             errorR(Deprecated(FSComp.SR.parsConsiderUsingSeparateRecordType(),lhs parseState)); 
                             _1 
                    )
-# 1067 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1067 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionCaseRepr));
-# 4480 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4480 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleTypeElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1070 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1070 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             List.map mkAnonField (_1 :: _3) 
                    )
-# 1070 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1070 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionCaseRepr));
-# 4492 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4492 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1072 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1072 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [mkAnonField _1] 
                    )
-# 1072 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1072 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'unionCaseRepr));
-# 4503 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4503 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdFieldDecl)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps)) in
@@ -4508,37 +4508,37 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1076 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1076 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 :: _3 
                    )
-# 1076 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1076 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdFieldDeclList));
-# 4516 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4516 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdFieldDecl)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_seps)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1078 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1078 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [_1] 
                    )
-# 1078 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1078 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdFieldDeclList));
-# 4528 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4528 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fieldDecl)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1082 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1082 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let fld = _1
                             let (Field(c,d,is_ref,g)) = fld
                             Field(c,d,is_ref,g)  
                    )
-# 1082 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1082 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdFieldDecl));
-# 4541 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4541 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_ref)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
@@ -4546,35 +4546,35 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1088 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1088 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let mRhs = rhs2 parseState 1 4
                             Field(Some _2,_4,_1,mRhs) 
                    )
-# 1088 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1088 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fieldDecl));
-# 4555 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4555 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1093 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1093 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                           (_2, lhs parseState) 
                    )
-# 1093 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1093 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'importDecl));
-# 4566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1096 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1096 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         (_2, lhs parseState) 
                    )
-# 1096 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1096 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'importLibrary));
-# 4577 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4577 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_rec)) in
@@ -4582,7 +4582,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1100 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1100 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mLetKwd = rhs parseState 1 
                              let isUse = _1
                              let isRec = _2 
@@ -4601,9 +4601,9 @@ let _fsyacc_reductions ()  =    [|
                                                  binds, 
                                                  bindingSetRange, false) 
                    )
-# 1100 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1100 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'defnBindings));
-# 4606 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4606 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_rec)) in
@@ -4611,7 +4611,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1120 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1120 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mLetKwd = rhs parseState 1 
                              printf "babababa "
                              let isUse = _1
@@ -4631,24 +4631,24 @@ let _fsyacc_reductions ()  =    [|
                                                  binds, 
                                                  bindingSetRange, true) 
                    )
-# 1120 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1120 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'defnBindingsWait));
-# 4636 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4636 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mDoKwd = rhs parseState 1 
                              let mWhole = unionRanges mDoKwd _2.Range
                              // any attributes prior to the 'let' are left free, e.g. become top-level attributes 
                              // associated with the module, 'main' function or assembly depending on their target 
                              BindingSetPreAttrs(mDoKwd,false,false,[mkSynDoBinding (true,_2,mWhole)], mWhole, false) 
                    )
-# 1143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'doBinding));
-# 4651 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4651 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_rec)) in
@@ -4657,7 +4657,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1151 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1151 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mLetKwd = rhs parseState 1 
                              let isUse = _1
                              let isRec = _2
@@ -4678,9 +4678,9 @@ let _fsyacc_reductions ()  =    [|
                              // the first binding swallow any attributes prior to the 'let' 
                              BindingSetPreAttrs(mLetKwd,isRec,isUse,binds,bindingSetRange,true), (unionRanges mLetKwd bindingSetRange) 
                    )
-# 1151 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1151 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'hardwhiteLetWaitBindings));
-# 4683 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4683 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_rec)) in
@@ -4689,7 +4689,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1173 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1173 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mLetKwd = rhs parseState 1 
                              let isUse = _1
                              let isRec = _2
@@ -4710,16 +4710,16 @@ let _fsyacc_reductions ()  =    [|
                              // the first binding swallow any attributes prior to the 'let' 
                              BindingSetPreAttrs(mLetKwd,isRec,isUse,binds,bindingSetRange,false), (unionRanges mLetKwd bindingSetRange) 
                    )
-# 1173 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1173 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'hardwhiteLetBindings));
-# 4715 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4715 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteDefnBindingsTerminator)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1196 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1196 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mLetKwd = rhs parseState 1 
                              let bindingSetRange = unionRanges mLetKwd _2.Range 
                              let seqPt = NoSequencePointAtDoBinding 
@@ -4727,85 +4727,85 @@ let _fsyacc_reductions ()  =    [|
                              // associated with the module, 'main' function or assembly depending on their target 
                              BindingSetPreAttrs(mLetKwd,false,false,[mkSynDoBinding (true,_2,bindingSetRange)],bindingSetRange, false), _2 
                    )
-# 1196 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1196 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'hardwhiteDoBinding));
-# 4732 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4732 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'defnBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1204 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1204 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         _1 
                    )
-# 1204 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1204 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnBindings));
-# 4743 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4743 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'doBinding)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1205 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1205 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      _1 
                    )
-# 1205 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1205 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnBindings));
-# 4754 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4754 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1206 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1206 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                 let b,m = _1 in b 
                    )
-# 1206 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1206 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnBindings));
-# 4765 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4765 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteDoBinding)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1207 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1207 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                fst _1 
                    )
-# 1207 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1207 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'classDefnBindings));
-# 4776 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4776 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1212 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1212 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (fun _ m -> ()) 
                    )
-# 1212 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1212 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'hardwhiteDefnBindingsTerminator));
-# 4786 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4786 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1214 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1214 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (fun kwd m -> reportParseErrorAt m (match kwd with 
                                                                 | "let!" -> FSComp.SR.parsUnmatchedLetBang() 
                                                                 | "use!" -> FSComp.SR.parsUnmatchedUseBang() 
                                                                 | "use" -> FSComp.SR.parsUnmatchedUse() 
                                                                 | _ (*"let" *) -> FSComp.SR.parsUnmatchedLet()))  
                    )
-# 1214 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1214 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'hardwhiteDefnBindingsTerminator));
-# 4801 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4801 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'attr_localBinding)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'moreLocalBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1222 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1222 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let (moreBindings, moreBindingRanges) = List.unzip _2
                              let moreLocalBindingsLastRange = if moreBindingRanges.IsEmpty then None else Some (last moreBindingRanges)
                              match _1 with 
@@ -4818,57 +4818,57 @@ let _fsyacc_reductions ()  =    [|
                              | None -> 
                                 moreLocalBindingsLastRange, moreBindings 
                    )
-# 1222 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1222 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'localBindings));
-# 4823 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4823 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'attr_localBinding)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'moreLocalBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1236 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1236 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mLetKwd = rhs parseState 1
                              (match _2 with 
                               | Some (localBindingRange,attrLocalBindingBuilder) -> (attrLocalBindingBuilder ,localBindingRange) :: _3 
                               | None -> _3) 
                    )
-# 1236 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1236 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moreLocalBindings));
-# 4838 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4838 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1241 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1241 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [] 
                    )
-# 1241 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1241 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'moreLocalBindings));
-# 4848 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4848 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'localBinding)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1245 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1245 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let localBindingRange,localBindingBuilder = _1
                              let attrLocalBindingBuilder = localBindingBuilder
                              Some(localBindingRange,attrLocalBindingBuilder) 
                    )
-# 1245 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1245 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attr_localBinding));
-# 4861 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4861 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1249 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1249 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              None 
                    )
-# 1249 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1249 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'attr_localBinding));
-# 4871 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4871 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_inline)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_mutable)) in
@@ -4878,7 +4878,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1253 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1253 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let (expr:SynExpr),opts = _6
                              let mRhs = expr.Range 
                              let optReturnType = _4 
@@ -4887,9 +4887,9 @@ let _fsyacc_reductions ()  =    [|
                              let localBindingBuilder = bindingBuilder (mBindLhs,optReturnType,expr,None)
                              localBindingRange,localBindingBuilder 
                    )
-# 1253 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1253 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'localBinding));
-# 4892 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4892 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_inline)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_mutable)) in
@@ -4898,7 +4898,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1261 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1261 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mWhole = rhs2 parseState 3 5 
                              let optReturnType = _4 
                              let bindingBuilder,mBindLhs = _3 
@@ -4908,9 +4908,9 @@ let _fsyacc_reductions ()  =    [|
                                  bindingBuilder (mBindLhs,optReturnType,arbExpr("localBinding1",zeroWidthAtEnd),None) 
                              mWhole,localBindingBuilder 
                    )
-# 1261 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1261 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'localBinding));
-# 4913 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4913 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_inline)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_mutable)) in
@@ -4920,7 +4920,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1270 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1270 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _5 then reportParseErrorAt (rhs parseState 5) (FSComp.SR.parsUnexpectedEndOfFileDefinition())
                              let optReturnType = _4 
                              let mWhole = match optReturnType with None -> rhs parseState 3 | Some _ -> rhs2 parseState 3 4
@@ -4929,244 +4929,244 @@ let _fsyacc_reductions ()  =    [|
                              let localBindingBuilder = bindingBuilder (mBindLhs,optReturnType,arbExpr("localBinding2",mRhs),None)
                              mWhole,localBindingBuilder 
                    )
-# 1270 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1270 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'localBinding));
-# 4934 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4934 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedExprWithStaticOptimizations)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1281 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1281 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 1281 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1281 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedExprWithStaticOptimizationsBlock));
-# 4946 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4946 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedExprWithStaticOptimizations)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1283 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1283 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsUnexpectedEndOfFile());
                              let a,b = _2
                              (exprFromParseError a, b) 
                    )
-# 1283 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1283 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedExprWithStaticOptimizationsBlock));
-# 4960 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4960 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedExprWithStaticOptimizations)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1287 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1287 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1287 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1287 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedExprWithStaticOptimizationsBlock));
-# 4971 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4971 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_staticOptimizations)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1290 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1290 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                 _1, List.rev _2 
                    )
-# 1290 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1290 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedExprWithStaticOptimizations));
-# 4983 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4983 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_staticOptimizations)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticOptimization)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1293 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1293 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                       _2 :: _1 
                    )
-# 1293 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1293 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_staticOptimizations));
-# 4995 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 4995 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1294 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1294 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            [] 
                    )
-# 1294 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1294 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_staticOptimizations));
-# 5005 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5005 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticOptimizationConditions)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1297 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1297 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                       (_2,_4) 
                    )
-# 1297 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1297 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticOptimization));
-# 5017 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5017 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticOptimizationConditions)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticOptimizationCondition)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1300 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1300 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                         _3 :: _1 
                    )
-# 1300 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1300 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticOptimizationConditions));
-# 5029 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5029 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticOptimizationCondition)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1301 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1301 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                        [_1 ] 
                    )
-# 1301 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1301 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticOptimizationConditions));
-# 5040 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5040 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynTypar)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1304 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1304 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                            CasanovaCompiler.ParseAST.WhenTyparTyconEqualsTycon(_1,_3,lhs parseState) 
                    )
-# 1304 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1304 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticOptimizationCondition));
-# 5052 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5052 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynTypar)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1305 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1305 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         CasanovaCompiler.ParseAST.WhenTyparIsStruct(_1,lhs parseState) 
                    )
-# 1305 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1305 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticOptimizationCondition));
-# 5063 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5063 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : byte)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1308 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1308 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  SynConst.Byte _1 
                    )
-# 1308 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1308 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rawConstant));
-# 5074 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5074 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : int32 * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1309 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1309 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  if snd _1 then errorR(Error(FSComp.SR.lexOutsideThirtyTwoBitSigned(), lhs parseState));
                                  SynConst.Int32 (fst _1) 
                    )
-# 1309 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1309 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rawConstant));
-# 5086 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5086 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : single)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1311 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1311 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   SynConst.Single _1 
                    )
-# 1311 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1311 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rawConstant));
-# 5097 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5097 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : double)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1312 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1312 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   SynConst.Double _1 
                    )
-# 1312 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1312 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rawConstant));
-# 5108 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5108 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : char)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1313 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1313 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 SynConst.Char _1 
                    )
-# 1313 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1313 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rawConstant));
-# 5119 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5119 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'stringOrKeywordString)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1314 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1314 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                  SynConst.String (_1,lhs parseState) 
                    )
-# 1314 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1314 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rawConstant));
-# 5130 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5130 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1318 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1318 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let mAll = unionRanges (rhs parseState 1) _4.Range
                             mkSynFunMatchLambdas false mAll _2 _4 
                    )
-# 1318 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1318 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1321 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1321 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let mAll = rhs2 parseState 1 3
                             mkSynFunMatchLambdas false mAll _2 (arbExpr("anonLambdaExpr1",(rhs parseState 4))) 
                    )
-# 1321 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1321 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5155 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5155 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExprBlockR)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1324 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1324 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let e : SynExpr = _4
                             let mAll = unionRanges (rhs parseState 1) e.Range       
                             mkSynFunMatchLambdas false mAll _2 e 
                    )
-# 1324 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1324 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5169 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5169 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExprBlockR)) in
@@ -5174,227 +5174,227 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1328 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1328 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _5 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileFunBody());
                             let e : SynExpr = _4 
                             let mAll = unionRanges (rhs parseState 1) e.Range
                             exprFromParseError (mkSynFunMatchLambdas false mAll _2 e) 
                    )
-# 1328 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1328 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5185 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5185 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1333 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1333 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             reportParseErrorAt (rhs2 parseState 1 3) (FSComp.SR.parsMissingFunctionBody())
                             mkSynFunMatchLambdas false (rhs2 parseState 1 3) _2 (arbExpr("anonLambdaExpr2",(rhs parseState 4))) 
                    )
-# 1333 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1333 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5197 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5197 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1337 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1337 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _4 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileFunBody())
                             exprFromParseError (mkSynFunMatchLambdas false (rhs2 parseState 1 3) _2 (arbExpr("anonLambdaExpr3",(rhs parseState 4)))) 
                    )
-# 1337 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1337 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5210 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5210 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1340 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1340 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             exprFromParseError (mkSynFunMatchLambdas false (rhs2 parseState 1 2) _2 (arbExpr("anonLambdaExpr4",(rhs parseState 3)))) 
                    )
-# 1340 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1340 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5221 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5221 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1342 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1342 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             exprFromParseError (mkSynFunMatchLambdas false (rhs parseState 1) [] (arbExpr("anonLambdaExpr5",(rhs parseState 2)))) 
                    )
-# 1342 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1342 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'anonLambdaExpr));
-# 5231 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5231 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rawConstant)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1345 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1345 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                        _1 
                    )
-# 1345 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1345 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'constant));
-# 5242 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5242 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rawConstant)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeArg)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1346 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1346 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                             SynConst.Measure(_1, _3) 
                    )
-# 1346 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1346 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'constant));
-# 5254 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5254 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1350 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1350 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              mkSynBinding _1, rhs parseState 1 
                    )
-# 1350 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1350 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'bindingPattern));
-# 5265 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5265 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1354 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1354 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                              let tuple = _1
                              let tuple1 = SynPat.LongIdent(LongIdentWithDots([Ident("Create", rhs parseState 1)],[]),None, [tuple], rhs parseState 1)
                              mkCreateSynBinding tuple1, rhs parseState 1 
                            
                    )
-# 1354 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1354 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'createBindingPattern));
-# 5280 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5280 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1363 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1363 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Named (_1,_3,false,rhs2 parseState 1 3) 
                    )
-# 1363 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1363 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynPat));
-# 5292 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5292 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1365 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1365 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Or(_1,_3,rhs2 parseState 1 3) 
                    )
-# 1365 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1365 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynPat));
-# 5304 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5304 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1367 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1367 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.LongIdent (LongIdentWithDots(mkSynCaseName (rhs parseState 2) opNameCons,[]), None,[SynPat.Tuple ([_1;_3],rhs2 parseState 1 3)],lhs parseState) 
                    )
-# 1367 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1367 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynPat));
-# 5316 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5316 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tuplePatternElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1369 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1369 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Tuple(List.rev _1, lhs parseState) 
                    )
-# 1369 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1369 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynPat));
-# 5327 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5327 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'conjPatternElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1371 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1371 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Ands(List.rev _1, lhs parseState) 
                    )
-# 1371 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1371 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynPat));
-# 5338 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5338 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'constrPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1373 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1373 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1373 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1373 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynPat));
-# 5349 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5349 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tuplePatternElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1376 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1376 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 
                    )
-# 1376 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1376 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tuplePatternElements));
-# 5361 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5361 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1378 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1378 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 :: [] 
                    )
-# 1378 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1378 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tuplePatternElements));
-# 5373 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5373 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'conjPatternElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1382 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1382 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 
                    )
-# 1382 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1382 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'conjPatternElements));
-# 5385 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5385 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynPat)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1384 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1384 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 :: [] 
                    )
-# 1384 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1384 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'conjPatternElements));
-# 5397 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5397 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatternLongIdent)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_explicitValTyparDecls2)) in
@@ -5402,12 +5402,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1388 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1388 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let vis,lid = _1 in SynPat.LongIdent (lid,None,_3,lhs parseState) 
                    )
-# 1388 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1388 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'constrPattern));
-# 5410 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5410 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatternLongIdent)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_explicitValTyparDecls2)) in
@@ -5415,12 +5415,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1390 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1390 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let vis,lid = _1 in SynPat.LongIdent (lid,None,_4,lhs parseState) 
                    )
-# 1390 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1390 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'constrPattern));
-# 5423 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5423 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatternLongIdent)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_explicitValTyparDecls2)) in
@@ -5428,404 +5428,404 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1392 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1392 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let vis,lid = _1 in SynPat.LongIdent (lid,None,_4,lhs parseState) 
                    )
-# 1392 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1392 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'constrPattern));
-# 5436 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5436 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1394 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1394 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1394 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1394 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'constrPattern));
-# 5447 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5447 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1396 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1396 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                    None 
                    )
-# 1396 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1396 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_explicitValTyparDecls2));
-# 5457 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5457 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPattern)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1400 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1400 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 :: _2 
                    )
-# 1400 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1400 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPatterns));
-# 5469 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5469 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1402 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1402 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsSuccessivePatternsShouldBeSpacedOrTupled());
                              _1 :: _3 
                    )
-# 1402 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1402 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPatterns));
-# 5482 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5482 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatterns)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1405 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1405 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsSuccessivePatternsShouldBeSpacedOrTupled());
                              _1 :: _3 
                    )
-# 1405 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1405 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPatterns));
-# 5495 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5495 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1407 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1407 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                          [_1] 
                    )
-# 1407 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1407 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPatterns));
-# 5506 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5506 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recordPatternElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1412 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1412 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 1412 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1412 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5518 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5518 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'listPatternElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1414 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1414 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.ArrayOrList(false,_2,lhs parseState) 
                    )
-# 1414 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1414 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5529 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5529 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'listPatternElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1416 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1416 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.ArrayOrList(true,_2, lhs parseState) 
                    )
-# 1416 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1416 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5540 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5540 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1418 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1418 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Wild (lhs parseState) 
                    )
-# 1418 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1418 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5550 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5550 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicPatternLongIdent)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1420 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1420 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let vis,lidwd = _1 
                              if List.length lidwd.Lid > 1 || (let c = (List.head lidwd.Lid).idText.[0] in Char.IsUpper(c) && not (Char.IsLower c)) 
                              then mkSynPatMaybeVar lidwd (lhs parseState)
                              else mkSynPatVar (List.head lidwd.Lid) 
                    )
-# 1420 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1420 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5564 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5564 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'constant)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1425 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1425 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Const (_1,_1.Range (lhs parseState)) 
                    )
-# 1425 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1425 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5575 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5575 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1427 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1427 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Const(SynConst.Bool false,lhs parseState) 
                    )
-# 1427 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1427 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5585 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5585 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1429 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1429 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Const(SynConst.Bool true,lhs parseState) 
                    )
-# 1429 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1429 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5595 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5595 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1431 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1431 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Null(lhs parseState) 
                    )
-# 1431 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1431 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5605 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5605 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPatternBody)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1433 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1433 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let m = (lhs parseState)
                              SynPat.Paren(_2 m,m) 
                    )
-# 1433 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1433 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5618 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5618 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPatternBody)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1436 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1436 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen()); 
                              patFromParseError (_2 (rhs2 parseState 1 2)) 
                    )
-# 1436 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1436 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5631 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5631 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1439 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1439 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (* silent recovery *) SynPat.Wild (lhs parseState) 
                    )
-# 1439 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1439 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5642 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5642 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1441 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1441 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen()); 
                               SynPat.Wild (lhs parseState)
                    )
-# 1441 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1441 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicPattern));
-# 5654 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5654 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1448 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1448 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun m -> _1) 
                    )
-# 1448 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1448 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPatternBody));
-# 5665 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5665 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1450 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1450 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun m -> SynPat.Const(SynConst.Unit,m)) 
                    )
-# 1450 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1450 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPatternBody));
-# 5675 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5675 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1479 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1479 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Named (_1,_3,false,rhs2 parseState 1 3) 
                    )
-# 1479 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1479 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPattern));
-# 5687 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5687 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1481 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1481 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Or(_1,_3,rhs2 parseState 1 3) 
                    )
-# 1481 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1481 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPattern));
-# 5699 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5699 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleParenPatternElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1483 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1483 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Tuple(List.rev _1,lhs parseState) 
                    )
-# 1483 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1483 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPattern));
-# 5710 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5710 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'conjParenPatternElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1485 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1485 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.Ands(List.rev _1,rhs2 parseState 1 3) 
                    )
-# 1485 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1485 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPattern));
-# 5721 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5721 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeWithTypeConstraints)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1487 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1487 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let lhsm = lhs parseState 
                              SynPat.Typed(_1,_3,lhsm) 
                    )
-# 1487 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1487 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPattern));
-# 5734 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5734 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1490 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1490 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynPat.LongIdent (LongIdentWithDots(mkSynCaseName (rhs parseState 2) opNameCons,[]),None,[ SynPat.Tuple ([_1;_3],rhs2 parseState 1 3) ],lhs parseState) 
                    )
-# 1490 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1490 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPattern));
-# 5746 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5746 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'constrPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1491 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1491 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                          _1 
                    )
-# 1491 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1491 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenPattern));
-# 5757 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5757 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleParenPatternElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1495 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1495 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 
                    )
-# 1495 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1495 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleParenPatternElements));
-# 5769 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5769 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1497 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1497 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 :: [] 
                    )
-# 1497 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1497 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleParenPatternElements));
-# 5781 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5781 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'conjParenPatternElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1501 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1501 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 
                    )
-# 1501 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1501 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'conjParenPatternElements));
-# 5793 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5793 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1503 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1503 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 :: [] 
                    )
-# 1503 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1503 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'conjParenPatternElements));
-# 5805 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5805 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recordPatternElementsAux)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1506 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1506 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                     let rs,m = _1 in SynPat.Record (rs,m) 
                    )
-# 1506 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1506 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recordPatternElements));
-# 5816 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5816 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recordPatternElement)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_seps)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1510 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1510 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_1],lhs parseState 
                    )
-# 1510 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1510 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recordPatternElementsAux));
-# 5828 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5828 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recordPatternElement)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps)) in
@@ -5833,46 +5833,46 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1512 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1512 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let r = _1 in let (rs,dropMark) = _3 in (r :: rs),lhs parseState 
                    )
-# 1512 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1512 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recordPatternElementsAux));
-# 5841 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5841 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1515 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1515 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                     (frontAndBack _1.Lid,_3) 
                    )
-# 1515 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1515 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recordPatternElement));
-# 5853 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5853 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1519 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1519 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [] 
                    )
-# 1519 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1519 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'listPatternElements));
-# 5863 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5863 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_seps)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1521 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1521 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_1] 
                    )
-# 1521 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1521 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'listPatternElements));
-# 5875 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5875 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps)) in
@@ -5880,128 +5880,128 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1523 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1523 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 :: _3 
                    )
-# 1523 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1523 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'listPatternElements));
-# 5888 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5888 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1528 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1528 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 1528 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1528 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromAssignmentExprBlock));
-# 5900 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5900 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1532 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1532 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 1532 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1532 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 5912 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5912 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1534 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1534 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsUnexpectedEndOfFileExpression());
                              exprFromParseError _2 
                    )
-# 1534 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1534 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 5925 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5925 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1537 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1537 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1537 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1537 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 5936 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5936 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1542 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1542 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 1542 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1542 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 5948 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5948 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1544 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1544 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1544 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1544 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 5959 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5959 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1549 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1549 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                          _1 
                    )
-# 1549 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1549 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedSeqExprBlockR));
-# 5970 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5970 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1550 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1550 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         _1 
                    )
-# 1550 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1550 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedSeqExprBlockR));
-# 5981 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5981 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'seqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeWithTypeConstraints)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1553 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1553 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                SynExpr.Typed (_1,_3, unionRanges _1.Range _3.Range) 
                    )
-# 1553 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1553 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedSeqExpr));
-# 5993 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 5993 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'seqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1554 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1554 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    _1 
                    )
-# 1554 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1554 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typedSeqExpr));
-# 6004 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6004 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps)) in
@@ -6009,47 +6009,47 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1558 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1558 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Sequential(SequencePointsAtSeq,true,_1,_3,unionRanges _1.Range _3.Range) 
                    )
-# 1558 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1558 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seqExpr));
-# 6017 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6017 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1560 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1560 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1560 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1560 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seqExpr));
-# 6029 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6029 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1562 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1562 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 1562 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1562 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seqExpr));
-# 6040 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6040 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'seqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1564 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1564 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Sequential(SequencePointsAtSeq,false,_1,_3,unionRanges _1.Range _3.Range ) 
                    )
-# 1564 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1564 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seqExpr));
-# 6052 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6052 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
@@ -6057,86 +6057,86 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Sequential(SequencePointsAtSeq,false,_1,_4,unionRanges _1.Range _4.Range) 
                    )
-# 1566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seqExpr));
-# 6065 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6065 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1568 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1568 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             let mLetKwd,isUse = match hwlb with (BindingSetPreAttrs(m,_,isUse,_,_,_))  -> m,isUse
                             reportParseErrorAt mLetKwd (FSComp.SR.parsExpectedStatementAfterLet(if isUse then "use" else "let"))
                             let fauxRange = m // zero width Position at end of m
                             mkLocalBindings (m,hwlb,arbExpr("seqExpr",fauxRange)) 
                    )
-# 1568 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1568 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seqExpr));
-# 6080 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6080 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1579 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1579 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   debugPrint("recovering via error"); true 
                    )
-# 1579 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1579 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recover));
-# 6090 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6090 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LexerWhitespaceContinuation)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1580 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1580 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 debugPrint("recovering via EOF"); false 
                    )
-# 1580 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1580 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recover));
-# 6101 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6101 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1584 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1584 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1) 
                              [SynExpr.Const(SynConst.Bool(true), mIf) ,_3,mIf] 
                    )
-# 1584 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1584 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'choices));
-# 6113 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6113 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1587 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1587 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1) 
                              [_2,_3,mIf] 
                    )
-# 1587 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1587 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'choices));
-# 6126 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6126 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'choices)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1590 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1590 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1)
                              (SynExpr.Const(SynConst.Bool(true), mIf) ,_3,mIf) :: _4 
                    )
-# 1590 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1590 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'choices));
-# 6139 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6139 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
@@ -6144,51 +6144,51 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1593 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1593 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1)
                              (_2,_3,mIf) :: _4 
                    )
-# 1593 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1593 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'choices));
-# 6153 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6153 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1598 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1598 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1) 
                              [SynExpr.Const(SynConst.Bool(true), mIf),_3,mIf] 
                    )
-# 1598 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1598 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'intChoices));
-# 6165 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6165 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1601 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1601 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1) 
                              [_2,_3,mIf] 
                    )
-# 1601 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1601 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'intChoices));
-# 6178 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6178 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'choices)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1604 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1604 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1)
                              (SynExpr.Const(SynConst.Bool(true), mIf),_3,mIf) :: _4 
                    )
-# 1604 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1604 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'intChoices));
-# 6191 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6191 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'choiceBody)) in
@@ -6196,65 +6196,65 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1607 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1607 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1)
                              (_2,_3,mIf) :: _4 
                    )
-# 1607 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1607 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'intChoices));
-# 6205 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6205 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1612 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1612 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 1612 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1612 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'choiceBody));
-# 6216 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6216 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1614 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1614 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 
                    )
-# 1614 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1614 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'choiceBody));
-# 6228 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6228 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1616 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1616 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _4 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileThen());
                              exprFromParseError _3 
                    )
-# 1616 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1616 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'choiceBody));
-# 6241 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6241 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteDefnBindingsTerminator)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1621 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1621 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mWaitKwd = rhs parseState 1 
                              let bindingSetRange = unionRanges mWaitKwd _2.Range 
                              let seqPt = NoSequencePointAtDoBinding 
                              let e = snd(BindingSetPreAttrs(mWaitKwd,false,false,[mkSynDoBinding (true,_2,bindingSetRange)],bindingSetRange,false), _2)
                              [(e,mWaitKwd)]
                    )
-# 1621 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1621 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parallel));
-# 6257 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6257 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteDefnBindingsTerminator)) in
@@ -6262,306 +6262,306 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1627 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1627 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mWaitKwd = rhs parseState 1 
                              let bindingSetRange = unionRanges mWaitKwd _2.Range 
                              let seqPt = NoSequencePointAtDoBinding 
                              let e = snd(BindingSetPreAttrs(mWaitKwd,false,false,[mkSynDoBinding (true,_2,bindingSetRange)],bindingSetRange,false), _2)
                              (e,mWaitKwd) :: _4 
                    )
-# 1627 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1627 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parallel));
-# 6274 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6274 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'choices)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1635 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1635 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynExpr.Choice(false,_1) 
                    )
-# 1635 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1635 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6285 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6285 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'intChoices)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1637 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1637 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynExpr.Choice(true,_1) 
                    )
-# 1637 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1637 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6296 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6296 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parallel)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1639 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1639 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynExpr.Parallel(_1) 
                    )
-# 1639 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1639 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6307 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6307 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'defnBindingsWait)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1641 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1641 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             mkLocalBindings (unionRanges (rhs2 parseState 1 2) _3.Range,_1,_3) 
                    )
-# 1641 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1641 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6319 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6319 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'defnBindings)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1643 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1643 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             mkLocalBindings (unionRanges (rhs2 parseState 1 2) _3.Range,_1,_3) 
                    )
-# 1643 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1643 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6331 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6331 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'defnBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1645 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1645 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             mkLocalBindings (rhs2 parseState 1 2,_1,arbExpr("declExpr1",(rhs parseState 3))) 
                    )
-# 1645 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1645 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6342 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6342 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetWaitBindings)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1650 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1650 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             mkLocalBindings (unionRanges m _2.Range,hwlb,_2) 
                    )
-# 1650 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1650 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6355 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6355 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetBindings)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1653 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1653 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             mkLocalBindings (unionRanges m _2.Range,hwlb,_2) 
                    )
-# 1653 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1653 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6368 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6368 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetWaitBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1656 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1656 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             reportParseErrorAt (match hwlb with (BindingSetPreAttrs(m,_,_,_,_,_))  -> m) (FSComp.SR.parsErrorInReturnForLetIncorrectIndentation())
                             mkLocalBindings (m,hwlb,arbExpr("declExpr2",(rhs parseState 2))) 
                    )
-# 1656 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1656 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6381 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6381 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1660 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1660 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             reportParseErrorAt (match hwlb with (BindingSetPreAttrs(m,_,_,_,_,_))  -> m) (FSComp.SR.parsErrorInReturnForLetIncorrectIndentation())
                             mkLocalBindings (m,hwlb,arbExpr("declExpr2",(rhs parseState 2))) 
                    )
-# 1660 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1660 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6394 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6394 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetWaitBindings)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1664 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1664 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             mkLocalBindings (unionRanges m _3.Range ,hwlb,_3) 
                    )
-# 1664 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1664 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6407 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6407 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetBindings)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1667 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1667 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             mkLocalBindings (unionRanges m _3.Range ,hwlb,_3) 
                    )
-# 1667 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1667 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6420 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6420 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetWaitBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1670 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1670 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             //reportParseErrorAt (match hwlb with (BindingSetPreAttrs(m,_,_,_,_,_))  -> m) (FSComp.SR.parsErrorInReturnForLetIncorrectIndentation())
                             mkLocalBindings (unionRanges m (rhs parseState 3),hwlb,arbExpr("declExpr3",(rhs parseState 3))) 
                    )
-# 1670 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1670 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6433 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6433 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteLetBindings)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1674 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1674 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let hwlb,m = _1
                             //reportParseErrorAt (match hwlb with (BindingSetPreAttrs(m,_,_,_,_,_))  -> m) (FSComp.SR.parsErrorInReturnForLetIncorrectIndentation())
                             mkLocalBindings (unionRanges m (rhs parseState 3),hwlb,arbExpr("declExpr3",(rhs parseState 3))) 
                    )
-# 1674 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1674 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6446 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6446 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteDoBinding)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1679 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1679 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let e = snd _1
                             SynExpr.Do(e,e.Range) 
                    )
-# 1679 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1679 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6458 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6458 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteDefnBindingsTerminator)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1685 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1685 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mWaitKwd = rhs parseState 1 
                              let bindingSetRange = unionRanges mWaitKwd _2.Range 
                              let seqPt = NoSequencePointAtDoBinding 
                              let e = snd(BindingSetPreAttrs(mWaitKwd,false,false,[mkSynDoBinding (true,_2,bindingSetRange)],bindingSetRange,false), _2)
                              SynExpr.WaitStatement(e,e.Range) 
                    )
-# 1685 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1685 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6474 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6474 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'hardwhiteDefnBindingsTerminator)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1693 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1693 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mYieldKwd = rhs parseState 1 
                              let bindingSetRange = unionRanges mYieldKwd _2.Range 
                              let seqPt = NoSequencePointAtDoBinding 
                              let e = snd(BindingSetPreAttrs(mYieldKwd,false,false,[mkSynDoBinding (true,_2,bindingSetRange)],bindingSetRange,false), _2)
                              SynExpr.YieldStatement(e,e.Range) 
                    )
-# 1693 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1693 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6490 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6490 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'anonLambdaExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1700 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1700 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              printfn "anonLambdaExpr 1"
                              _1 
                    )
-# 1700 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1700 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6502 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6502 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'withClauses)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1704 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1704 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mMatch = (rhs parseState 1)
                              let mWith,(clauses,mLast) = _3 
                              let spBind = SequencePointAtBinding(unionRanges mMatch mWith) 
                              SynExpr.Match(spBind, _2,clauses,false,unionRanges mMatch mLast) 
                    )
-# 1704 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1704 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6517 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6517 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1710 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1710 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileMatch());
                              // Produce approximate expression during error recovery 
                              exprFromParseError _2 
                    )
-# 1710 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1710 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6531 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6531 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ifExprCases)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1715 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1715 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1)
                              _3 _2 mIf 
                    )
-# 1715 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1715 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6544 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6544 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ifExprCases)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1719 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1719 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mIf = (rhs parseState 1)
                              _3 _2 mIf 
                    )
-# 1719 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1719 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6557 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6557 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1724 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1724 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsIncompleteIf()); 
                              // Produce an approximate expression during error recovery. 
                              // Include expressions to make sure they get type checked in case that generates useful results for intellisense. 
@@ -6569,15 +6569,15 @@ let _fsyacc_reductions ()  =    [|
                              // from the context it is used in. 
                              exprFromParseError _2 
                    )
-# 1724 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1724 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6574 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6574 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1732 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1732 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsIncompleteIf())
                              // Produce an approximate expression during error recovery. There can still be value in doing this even
                              // for this pathological case.
@@ -6586,9 +6586,9 @@ let _fsyacc_reductions ()  =    [|
                              let spIfToThen = SequencePointAtBinding mEnd
                              exprFromParseError (SynExpr.IfThenElse(arbExpr("ifGuard1",mEnd),arbExpr("thenBody1",mEnd),None,spIfToThen,true,m,m)) 
                    )
-# 1732 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1732 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6591 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6591 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6597,15 +6597,15 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1741 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1741 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mWhileHeader = unionRanges (rhs parseState 1) _2.Range
                              let spWhile = SequencePointAtWhileLoop mWhileHeader 
                              let mWhileAll = unionRanges (rhs parseState 1) _4.Range
                              SynExpr.While(spWhile,_2,_4,mWhileAll) 
                    )
-# 1741 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1741 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6608 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6608 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6614,16 +6614,16 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1747 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1747 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _5 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileWhile());
                              let mWhileHeader = unionRanges (rhs parseState 1) _2.Range
                              let spWhile = SequencePointAtWhileLoop mWhileHeader 
                              let mWhileAll = unionRanges (rhs parseState 1) _4.Range
                              exprFromParseError (SynExpr.While(spWhile,_2,_4,mWhileAll)) 
                    )
-# 1747 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1747 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6626 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6626 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6631,7 +6631,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1754 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1754 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              // silent recovery 
                              let mWhileHeader = unionRanges (rhs parseState 1) _2.Range
                              let spWhile = SequencePointAtWhileLoop mWhileHeader 
@@ -6639,16 +6639,16 @@ let _fsyacc_reductions ()  =    [|
                              let mWhileAll = unionRanges (rhs parseState 1) (rhs parseState 5)
                              SynExpr.While(spWhile,_2,arbExpr("whileBody1",mWhileBodyArb),mWhileAll) 
                    )
-# 1754 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1754 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6644 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6644 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsWhileDoExpected())
                              let mWhileHeader = unionRanges (rhs parseState 1) _2.Range
                              let spWhile = SequencePointAtWhileLoop mWhileHeader 
@@ -6656,27 +6656,27 @@ let _fsyacc_reductions ()  =    [|
                              let mWhileAll = unionRanges (rhs parseState 1) (rhs parseState 3)
                              exprFromParseError (SynExpr.While(spWhile,_2,arbExpr("whileBody2",mWhileBodyArb),mWhileAll))  
                    )
-# 1762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6661 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6661 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1770 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1770 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _2 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileWhile());
                              arbExpr("whileLoop1",rhs parseState 1)  
                    )
-# 1770 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1770 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6673 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6673 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doneDeclEnd)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1774 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1774 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              //silent recovery
                              let mWhileHeader = rhs parseState 1
                              let spWhile = SequencePointAtWhileLoop mWhileHeader 
@@ -6684,9 +6684,9 @@ let _fsyacc_reductions ()  =    [|
                              let mWhileAll = unionRanges (rhs parseState 1) (rhs parseState 3)
                              exprFromParseError (SynExpr.While(spWhile,arbExpr("whileGuard1",mWhileHeader),arbExpr("whileBody3",mWhileBodyArb),mWhileAll))  
                    )
-# 1774 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1774 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6689 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6689 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopBinder)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6695,14 +6695,14 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1782 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1782 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let spBind = SequencePointAtForLoop(rhs2 parseState 1 3)
                              let (a,b,_) = _2 
                              SynExpr.ForEach(spBind,SeqExprOnly false,true,a,b,_4,unionRanges (rhs parseState 1) _4.Range) 
                    )
-# 1782 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1782 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6705 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6705 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopBinder)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6711,16 +6711,16 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1787 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1787 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _5 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileFor())
                              let spBind = SequencePointAtForLoop(rhs2 parseState 1 3)
                              let (a,b,_) = _2 
                              let mForLoopAll = unionRanges (rhs parseState 1) _4.Range
                              SynExpr.ForEach(spBind,SeqExprOnly false,true,a,b,_4,mForLoopAll) 
                    )
-# 1787 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1787 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6723 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6723 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopBinder)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6728,7 +6728,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1794 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1794 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              // Silent recovery
                              let mForLoopHeader = rhs2 parseState 1 3
                              let spBind = SequencePointAtForLoop mForLoopHeader
@@ -6737,9 +6737,9 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 5
                              SynExpr.ForEach(spBind,SeqExprOnly false,true,a,b,arbExpr("forLoopBody2a",mForLoopBodyArb),mForLoopAll) 
                    )
-# 1794 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1794 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6742 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6742 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopBinder)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6747,7 +6747,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1803 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1803 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _4 then reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsExpectedExpressionAfterToken())
                              let mForLoopHeader = rhs2 parseState 1 3
                              let spBind = SequencePointAtForLoop mForLoopHeader
@@ -6756,16 +6756,16 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 3
                              SynExpr.ForEach(spBind,SeqExprOnly false,true,a,b,arbExpr("forLoopBody2",mForLoopBodyArb),mForLoopAll) 
                    )
-# 1803 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1803 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6761 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6761 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopBinder)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1812 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1812 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let (a,b,ok) = _2 
                              if not _3 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsForDoExpected())
                              let mForLoopHeader = rhs2 parseState 1 3
@@ -6774,9 +6774,9 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 3
                              SynExpr.ForEach(spBind,SeqExprOnly false,true,a,b,arbExpr("forLoopBody1",mForLoopBodyArb),mForLoopAll) 
                    )
-# 1812 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1812 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6779 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6779 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopRange)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6785,16 +6785,16 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1821 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1821 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mForLoopHeader = rhs2 parseState 1 3
                              let spBind = SequencePointAtForLoop mForLoopHeader
                              let (a,b,c,d) = _2 
                              let mForLoopAll = unionRanges (rhs parseState 1) _4.Range
                              SynExpr.For(spBind,a,b,c,d,_4,mForLoopAll) 
                    )
-# 1821 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1821 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6797 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6797 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopRange)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6803,7 +6803,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1828 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1828 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _5 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileFor());
                              // Still produce an expression
                              let mForLoopHeader = rhs2 parseState 1 3
@@ -6812,9 +6812,9 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = unionRanges (rhs parseState 1) _4.Range
                              exprFromParseError (SynExpr.For(spBind,a,b,c,d,_4,mForLoopAll)) 
                    )
-# 1828 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1828 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6817 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6817 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopRange)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6822,7 +6822,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1837 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1837 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              // silent recovery 
                              let mForLoopHeader = rhs2 parseState 1 3
                              let spBind = SequencePointAtForLoop mForLoopHeader
@@ -6831,9 +6831,9 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 5
                              SynExpr.For(spBind,a,b,c,d,arbExpr("declExpr11",mForLoopBodyArb),mForLoopAll) 
                    )
-# 1837 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1837 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6836 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6836 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopRange)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
@@ -6841,7 +6841,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1846 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1846 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _4 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileFor())
                              let mForLoopHeader = rhs2 parseState 1 3
                              let spBind = SequencePointAtForLoop mForLoopHeader
@@ -6850,16 +6850,16 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 3
                              exprFromParseError (SynExpr.For(spBind,a,b,c,d,arbExpr("declExpr11",mForLoopBodyArb),mForLoopAll)) 
                    )
-# 1846 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1846 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6855 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6855 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopRange)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1855 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1855 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileFor());
                              let mForLoopHeader = rhs2 parseState 1 2
                              let spBind = SequencePointAtForLoop mForLoopHeader
@@ -6868,9 +6868,9 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 2
                              exprFromParseError (SynExpr.For(spBind,a,b,c,d,arbExpr("declExpr11",mForLoopBodyArb),mForLoopAll)) 
                    )
-# 1855 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1855 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6873 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6873 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'doToken)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
@@ -6878,35 +6878,35 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1865 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1865 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              // silent recovery 
                              let mForLoopHeader = rhs2 parseState 1 2
                              let mForLoopAll = unionRanges (rhs parseState 1) _4.Range
                              let spBind = SequencePointAtForLoop(mForLoopHeader)
                              SynExpr.For(spBind,mkSynId mForLoopHeader "_loopVar",arbExpr("startLoopRange1",mForLoopHeader),true,arbExpr("endLoopRange1",rhs parseState 3),_4,mForLoopAll) 
                    )
-# 1865 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1865 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6890 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6890 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1884 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1884 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsIdentifierExpected())
                              arbExpr("declExpr12",(rhs parseState 1)) 
                    )
-# 1884 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1884 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6902 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6902 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'doneDeclEnd)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1888 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1888 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsInOrEqualExpected())
                              let mForLoopHeader = rhs2 parseState 1 2
                              let spBind = SequencePointAtForLoop mForLoopHeader
@@ -6914,16 +6914,16 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 4
                              SynExpr.ForEach(spBind,SeqExprOnly false,true,_2,arbExpr("forLoopCollection",mForLoopHeader),arbExpr("forLoopBody3",mForLoopBodyArb),mForLoopAll) 
                    )
-# 1888 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1888 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6919 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6919 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1896 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1896 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileFor());
                              let mForLoopHeader = rhs2 parseState 1 2
                              let spBind = SequencePointAtForLoop mForLoopHeader
@@ -6931,9 +6931,9 @@ let _fsyacc_reductions ()  =    [|
                              let mForLoopAll = rhs2 parseState 1 2
                              exprFromParseError (SynExpr.ForEach(spBind,SeqExprOnly false,true,_2,arbExpr("forLoopCollection",mForLoopHeader),arbExpr("forLoopBody3",mForLoopBodyArb),mForLoopAll)) 
                    )
-# 1896 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1896 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6936 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6936 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'forLoopBinder)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_OBLOCKSEP)) in
@@ -6941,72 +6941,72 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1904 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1904 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let spBind = SequencePointAtForLoop(rhs2 parseState 1 2)
                             let (a,b,_) = _2 in SynExpr.ForEach(spBind,SeqExprOnly true,true,a,b,_4,unionRanges (rhs parseState 1) _4.Range) 
                    )
-# 1904 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1904 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6950 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6950 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1907 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1907 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                              SynExpr.Upcast(_1,_3, unionRanges _1.Range _3.Range) 
                    )
-# 1907 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1907 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6962 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6962 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 ":=" _3 
                    )
-# 1910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6974 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6974 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1912 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1912 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                         let exprs,commas = _1 in SynExpr.Tuple(List.rev exprs, List.rev commas, (commas.Head, exprs) ||> unionRangeWithListBy (fun e -> e.Range) ) 
                    )
-# 1912 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1912 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6985 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6985 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1916 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1916 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     SynExpr.JoinIn(_1,rhs parseState 2,_3,unionRanges _1.Range _3.Range) 
                    )
-# 1916 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1916 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 6997 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 6997 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1917 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1917 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "||" _3 
                    )
-# 1917 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1917 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7009 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7009 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7014,48 +7014,48 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1918 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1918 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1918 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1918 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7022 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7022 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1919 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1919 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "or" _3 
                    )
-# 1919 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1919 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7034 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7034 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1920 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1920 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "&" _3 
                    )
-# 1920 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1920 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7046 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7046 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1921 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1921 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "&&" _3 
                    )
-# 1921 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1921 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7058 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7058 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7063,24 +7063,24 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1922 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1922 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1922 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1922 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7071 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7071 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1923 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1923 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "=" _3 
                    )
-# 1923 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1923 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7083 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7083 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7088,24 +7088,24 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1924 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1924 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1924 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1924 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7096 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7096 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1925 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1925 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "$" _3 
                    )
-# 1925 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1925 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7108 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7108 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
@@ -7113,12 +7113,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1926 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1926 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "<" _3 
                    )
-# 1926 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1926 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7121 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7121 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
@@ -7126,12 +7126,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1927 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1927 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 ">" _3 
                    )
-# 1927 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1927 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7134 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7134 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7139,12 +7139,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1928 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1928 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1928 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1928 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7147 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7147 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7152,24 +7152,24 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1929 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1929 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1929 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1929 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7160 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7160 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1930 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1930 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     SynExpr.App (ExprAtomicFlag.NonAtomic, true, mkSynIdGet (rhs parseState 2) opNameCons,SynExpr.Tuple ([_1;_3],[rhs parseState 2],unionRanges _1.Range _3.Range),unionRanges _1.Range _3.Range) 
                    )
-# 1930 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1930 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7172 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7172 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7177,36 +7177,36 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1931 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1931 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1931 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1931 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7185 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7185 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1932 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1932 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "-" _3 
                    )
-# 1932 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1932 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7197 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7197 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1933 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1933 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 "*" _3 
                    )
-# 1933 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1933 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7209 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7209 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7214,12 +7214,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1934 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1934 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1934 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1934 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7222 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7222 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -7227,405 +7227,405 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1935 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1935 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     mkSynInfix (rhs parseState 2) _1 _2 _3 
                    )
-# 1935 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1935 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7235 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7235 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1937 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1937 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("in")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "@in" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1937 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1937 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7247 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7247 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1939 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1939 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("||")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "||" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1939 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1939 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7259 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7259 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1941 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1941 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1941 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1941 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7272 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7272 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1943 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1943 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("or")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "or" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1943 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1943 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7284 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7284 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1945 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1945 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("&")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "&" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1945 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1945 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7296 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7296 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1947 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1947 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("&&")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "&&" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1947 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1947 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7308 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7308 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1949 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1949 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1949 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1949 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7321 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7321 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1951 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1951 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("=")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "=" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1951 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1951 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7333 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7333 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1953 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1953 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1953 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1953 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7346 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7346 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1955 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1955 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("$")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "$" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1955 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1955 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7358 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7358 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1957 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1957 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("<")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "<" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1957 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1957 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7371 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7371 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1959 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1959 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(">")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 ">" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1959 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1959 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7384 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7384 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1961 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1961 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1961 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1961 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7397 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7397 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1963 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1963 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1963 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1963 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7410 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7410 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1965 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1965 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("::")); 
                                                                                  SynExpr.App (ExprAtomicFlag.NonAtomic, true, mkSynIdGet (rhs parseState 2) opNameCons,SynExpr.Tuple ([_1;(arbExpr("declExprInfix",(rhs parseState 3)))],[rhs parseState 2],unionRanges _1.Range (rhs parseState 3)),unionRanges _1.Range (rhs parseState 3)) 
                    )
-# 1965 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1965 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7422 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7422 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1967 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1967 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1967 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1967 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7435 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7435 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1969 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1969 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("-")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "-" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1969 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1969 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7447 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7447 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1971 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1971 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression("*")); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 "*" (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1971 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1971 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7459 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7459 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1973 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1973 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1973 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1973 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7472 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7472 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1975 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1975 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                                  reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnfinishedExpression(_2)); 
                                                                                  exprFromParseError(mkSynInfix (rhs parseState 2) _1 _2 (arbExpr("declExprInfix",(rhs parseState 3)))) 
                    )
-# 1975 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1975 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7485 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7485 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1978 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1978 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                   _1 
                    )
-# 1978 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1978 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7496 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7496 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1983 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1983 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let con = SynConst.String (_1,rhs parseState 1)
                              let arg2 = SynExpr.Const (con,con.Range (rhs parseState 1)) 
                              arg2 
                    )
-# 1983 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1983 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'dynamicArg));
-# 7509 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7509 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1987 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1987 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 1987 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1987 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'dynamicArg));
-# 7521 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7521 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'withPatternClauses)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1991 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1991 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              rhs parseState 1, _2 
                    )
-# 1991 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1991 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'withClauses));
-# 7532 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7532 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'withPatternClauses)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1993 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1993 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              rhs parseState 1, _2 
                    )
-# 1993 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1993 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'withClauses));
-# 7543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'withPatternClauses)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 1995 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1995 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileWith());
                              rhs parseState 1, _2 
                    )
-# 1995 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 1995 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'withClauses));
-# 7556 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7556 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternClauses)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2000 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2000 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2000 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2000 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'withPatternClauses));
-# 7567 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7567 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternClauses)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2002 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2002 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               _2 
                    )
-# 2002 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2002 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'withPatternClauses));
-# 7578 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7578 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2004 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2004 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               // silent recovery 
                               let mLast = rhs parseState 1
                               [], mLast 
                    )
-# 2004 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2004 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'withPatternClauses));
-# 7590 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7590 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2008 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2008 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               // silent recovery 
                               let mLast = rhs parseState 1
                               [], mLast 
                    )
-# 2008 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2008 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'withPatternClauses));
-# 7602 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7602 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternGuard)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2015 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2015 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1, _2, rhs parseState 1 
                    )
-# 2015 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2015 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternAndGuard));
-# 7614 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7614 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternAndGuard)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2019 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2019 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let pat,guard,patm = _1 
                             let mLast = _2.Range 
                             [Clause(pat,guard,_2,patm,SequencePointAtTarget)], mLast  
                    )
-# 2019 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2019 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternClauses));
-# 7628 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7628 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternAndGuard)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
@@ -7633,109 +7633,109 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2023 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2023 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let pat,guard,patm = _1 
                             let clauses,mLast = _4 
                             (Clause(pat,guard,_2,patm,SequencePointAtTarget) :: clauses), mLast 
                    )
-# 2023 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2023 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternClauses));
-# 7643 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7643 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternAndGuard)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2027 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2027 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let pat,guard,patm = _1 
                             let mLast = rhs parseState 3 
                             // silent recovery 
                             [Clause(pat,guard,_2,patm,SequencePointAtTarget)], mLast  
                    )
-# 2027 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2027 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternClauses));
-# 7658 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7658 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternAndGuard)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2032 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2032 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let pat,guard,patm = _1 
                             let mLast = _2.Range 
                             // silent recovery 
                             [Clause(pat,guard,_2,patm,SequencePointAtTarget)], mLast 
                    )
-# 2032 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2032 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternClauses));
-# 7673 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7673 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'patternAndGuard)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let pat,guard,patm = _1 
                             let mLast = rhs parseState 2
                             // silent recovery 
                             [Clause(pat,guard,SynExpr.Const(SynConst.Unit,mLast),patm,SequencePointAtTarget)], mLast 
                    )
-# 2037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternClauses));
-# 7687 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7687 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2044 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2044 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             Some _2 
                    )
-# 2044 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2044 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternGuard));
-# 7698 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7698 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2046 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2046 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             None 
                    )
-# 2046 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2046 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'patternGuard));
-# 7708 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7708 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExprBlockR)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2050 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2050 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _2 
                    )
-# 2050 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2050 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7719 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7719 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fromTupleExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2055 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2055 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                          let exprs = _1 
                                          exprs 
                    )
-# 2055 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2055 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromExprCondition));
-# 7731 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7731 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'ifExprThen)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'ifExprElifs)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2063 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2063 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let exprThen,mThen = _1 
                              (fun exprGuard mIf -> 
                                  let mIfToThen = unionRanges mIf mThen
@@ -7744,201 +7744,201 @@ let _fsyacc_reductions ()  =    [|
                                  let spIfToThen = SequencePointAtBinding(mIfToThen)
                                  SynExpr.IfThenElse(exprGuard,exprThen,_2,spIfToThen,false,mIfToThen,mIfToEndOfLastBranch)) 
                    )
-# 2063 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2063 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprCases));
-# 7749 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7749 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2073 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2073 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2, rhs parseState 1 
                    )
-# 2073 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2073 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprThen));
-# 7760 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7760 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2075 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2075 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3,rhs parseState 1 
                    )
-# 2075 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2075 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprThen));
-# 7772 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7772 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2077 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2077 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _4 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileThen());
                              exprFromParseError _3,rhs parseState 1 
                    )
-# 2077 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2077 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprThen));
-# 7785 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7785 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2082 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2082 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              None 
                    )
-# 2082 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2082 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprElifs));
-# 7795 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7795 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2084 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2084 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              Some _2 
                    )
-# 2084 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2084 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprElifs));
-# 7806 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7806 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2086 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2086 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              Some _3 
                    )
-# 2086 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2086 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprElifs));
-# 7818 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7818 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2088 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2088 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _4 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileElse());
                              Some (exprFromParseError _3) 
                    )
-# 2088 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2088 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprElifs));
-# 7831 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7831 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ifExprCases)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2091 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2091 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mElif = rhs parseState 1 
                              Some (_3 _2 mElif) 
                    )
-# 2091 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2091 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprElifs));
-# 7844 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7844 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2094 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2094 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              Some (exprFromParseError _2) 
                    )
-# 2094 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2094 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ifExprElifs));
-# 7856 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7856 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tuplePat)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2099 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2099 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let patterns,commas = _1 in (_3 :: patterns),((rhs parseState 2)::commas) 
                    )
-# 2099 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2099 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tuplePat));
-# 7868 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7868 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2110 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2110 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_3 ; _1], [rhs parseState 2] 
                    )
-# 2110 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2110 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tuplePat));
-# 7880 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7880 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2114 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2114 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let exprs,commas = _1 in (_3 :: exprs),((rhs parseState 2)::commas) 
                    )
-# 2114 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2114 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleExpr));
-# 7892 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7892 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2125 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2125 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_3 ; _1], [rhs parseState 2] 
                    )
-# 2125 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2125 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleExpr));
-# 7904 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7904 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2129 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2129 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              mkSynPrefix (rhs parseState 1) (unionRanges (rhs parseState 1) _2.Range) "~-" _2 
                    )
-# 2129 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2129 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7915 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7915 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2131 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2131 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not (IsValidPrefixOperatorUse _1) then reportParseErrorAt _2.Range (FSComp.SR.parsInvalidPrefixOperator());
                              mkSynPrefix (rhs parseState 1) (unionRanges (rhs parseState 1) _2.Range) ("~"^(_1)) _2 
                    )
-# 2131 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2131 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7928 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7928 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2134 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2134 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not (IsValidPrefixOperatorUse _1) then reportParseErrorAt _2.Range (FSComp.SR.parsInvalidPrefixOperator());
                              mkSynPrefix (rhs parseState 1) (unionRanges (rhs parseState 1) _2.Range) ("~"^(_1)) _2 
                    )
-# 2134 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2134 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7941 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7941 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeNonAtomicDeprecated)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_HIGH_PRECEDENCE_APP)) in
@@ -7946,951 +7946,951 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2137 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2137 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.New(false,_2,_4,unionRanges (rhs parseState 1) _4.Range) 
                    )
-# 2137 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2137 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7954 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7954 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeNonAtomicDeprecated)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_HIGH_PRECEDENCE_APP)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2139 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2139 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.New(false,_2,arbExpr("minusExpr",(rhs parseState 4)),unionRanges (rhs parseState 1) (_2).Range) 
                    )
-# 2139 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2139 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7966 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7966 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2141 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2141 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              arbExpr("minusExpr2",(rhs parseState 1)) 
                    )
-# 2141 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2141 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7976 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7976 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.InferredUpcast(_2,unionRanges (rhs parseState 1) _2.Range) 
                    )
-# 2143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7987 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7987 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2145 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2145 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 2145 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2145 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 7998 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 7998 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2149 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2149 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.App (ExprAtomicFlag.NonAtomic, false, _1,_2,unionRanges _1.Range _2.Range)  
                    )
-# 2149 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2149 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2151 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2151 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg,_ = _1 
                              arg 
                    )
-# 2151 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2151 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8022 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8022 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2156 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2156 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg2,hpa2 = _2 
                              if not (IsValidPrefixOperatorUse _1) then reportParseErrorAt arg2.Range (FSComp.SR.parsInvalidPrefixOperator());
                              if hpa2 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsSuccessiveArgsShouldBeSpacedOrTupled());
                              mkSynPrefix (rhs parseState 1) (unionRanges (rhs parseState 1) arg2.Range) ("~"^(_1)) arg2 
                    )
-# 2156 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2156 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2161 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2161 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg,hpa = _1 
                              if hpa then reportParseErrorAt arg.Range (FSComp.SR.parsSuccessiveArgsShouldBeSpacedOrTupled());
                              arg 
                    )
-# 2161 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2161 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8050 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8050 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2168 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2168 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg1,_ = _1 
                              let arg2,_ = _3 
                              SynExpr.App (ExprAtomicFlag.Atomic, false, arg1,arg2,unionRanges arg1.Range arg2.Range),true  
                    )
-# 2168 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2168 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8064 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8064 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2173 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2173 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg1,_ = _1 
                              let arg2,_ = _3 
                              SynExpr.App (ExprAtomicFlag.Atomic, false, arg1,arg2,unionRanges arg1.Range arg2.Range),true  
                    )
-# 2173 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2173 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8078 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8078 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Position * Position option * bool     * SynType list * Position list * Position)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2178 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2178 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg1,_ = _1 
                              let mLessThan,mGreaterThan,_,args,commas,mTypeArgs = _3
                              let mWholeExpr = unionRanges arg1.Range mTypeArgs
                              SynExpr.TypeApp(arg1, mLessThan, args, commas, mGreaterThan, mTypeArgs, mWholeExpr), false 
                    )
-# 2178 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2178 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8093 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8093 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2184 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2184 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg2,hpa2 = _2 
                              if not (IsValidPrefixOperatorUse _1) then reportParseErrorAt arg2.Range (FSComp.SR.parsInvalidPrefixOperator());
                              mkSynPrefix (rhs parseState 1) (unionRanges (rhs parseState 1) arg2.Range) _1 arg2,hpa2 
                    )
-# 2184 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2184 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8107 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8107 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicExprQualification)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2189 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2189 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg1,hpa1 = _1 
                              _3 arg1 (lhs parseState) (rhs parseState 2),hpa1 
                    )
-# 2189 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2189 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8120 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8120 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomicExprQualification)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2192 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2192 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg1 = SynExpr.Ident(ident("base",rhs parseState 1))
                              _3 arg1 (lhs parseState) (rhs parseState 2),false 
                    )
-# 2192 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2192 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8132 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8132 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2195 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2195 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.LongIdent (true,LongIdentWithDots([_2],[]),None,rhs parseState 2),false 
                    )
-# 2195 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2195 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr * bool)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'dynamicArg)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2197 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2197 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let arg1,hpa1 = _1
                              mkSynInfix (rhs parseState 2) arg1 "?" _3, hpa1 
                    )
-# 2197 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2197 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8156 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8156 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2200 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2200 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Ident (ident(MangledGlobalName,rhs parseState 1)), false 
                    )
-# 2200 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2200 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8166 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8166 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'nameop)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2202 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2202 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Ident (_1),false 
                    )
-# 2202 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2202 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8177 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8177 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'listExprElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2204 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2204 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 (lhs parseState) false,false 
                    )
-# 2204 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2204 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8188 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8188 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'listExprElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2206 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2206 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBracket()); 
                              exprFromParseError (_2 (rhs2 parseState 1 2) false), false 
                    )
-# 2206 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2206 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8201 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8201 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2209 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2209 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              // silent recovery 
                              SynExpr.ArrayOrList(false,[ ], lhs parseState),false  
                    )
-# 2209 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2209 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8212 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8212 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2212 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2212 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBracket()); 
                              // silent recovery 
                              exprFromParseError (SynExpr.ArrayOrList(false,[ ], rhs parseState 1)),false  
                    )
-# 2212 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2212 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8225 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8225 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2216 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2216 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1,false 
                    )
-# 2216 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2216 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr * bool));
-# 8236 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8236 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'identOrOp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2220 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2220 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let idm = rhs parseState 1 
                              (fun e lhsm dotm -> mkSynDot dotm lhsm e _1) 
                    )
-# 2220 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2220 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8248 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8248 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2223 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2223 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let idm = rhs parseState 1 
                              (fun e lhsm dotm -> mkSynDot dotm lhsm e (Ident("Create",idm))) 
                    )
-# 2223 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2223 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8259 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8259 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2226 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2226 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun e lhsm dotm -> 
                                  reportParseErrorAt dotm (FSComp.SR.parsMissingQualificationAfterDot()); 
                                  let fixedLhsm = mkRange lhsm.FileName lhsm dotm // previous lhsm is wrong after 'recover'
                                  mkSynDotMissing dotm fixedLhsm e) 
                    )
-# 2226 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2226 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8272 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8272 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2231 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2231 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun e lhsm dotm -> 
                                  reportParseErrorAt dotm (FSComp.SR.parsMissingQualificationAfterDot()); 
                                  let fixedLhsm = mkRange lhsm.FileName lhsm dotm // previous lhsm is wrong after 'recover'
                                  // Include 'e' in the returned expression but throw it away
                                  SynExpr.DiscardAfterMissingQualificationAfterDot(e,fixedLhsm)) 
                    )
-# 2231 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2231 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8287 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8287 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2237 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2237 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun e lhsm dotm -> 
                                  mlCompatWarning (FSComp.SR.parsParenFormIsForML()) (lhs parseState); 
                                  mkSynDotParenGet lhsm dotm e _2) 
                    )
-# 2237 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2237 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8301 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8301 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2241 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2241 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun e lhsm dotm -> mkSynDotBrackGet lhsm dotm e _2) 
                    )
-# 2241 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2241 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8312 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8312 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2244 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2244 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBracket()); 
                              (fun e lhsm dotm -> exprFromParseError (mkSynDotBrackGet lhsm dotm e _2)) 
                    )
-# 2244 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2244 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8325 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8325 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2248 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2248 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mArg = rhs2 parseState 1 3
                              (fun e lhsm dotm -> mkSynDotBrackGet lhsm dotm e (arbExpr("indexerExpr1",mArg))) 
                    )
-# 2248 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2248 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8336 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8336 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2251 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2251 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBracket())
                              let mArg = (rhs parseState 1) 
                              (fun e lhsm dotm -> exprFromParseError (mkSynDotBrackGet lhsm dotm e (arbExpr("indexerExpr2",mArg)))) 
                    )
-# 2251 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2251 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8349 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8349 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'optRange)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2255 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2255 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun e lhsm dotm -> mkSynDotBrackSliceGet lhsm dotm e _2) 
                    )
-# 2255 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2255 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomicExprQualification));
-# 8360 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8360 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2259 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2259 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              mkSynOptionalExpr (rhs parseState 1) (Some _1), mkSynOptionalExpr (rhs parseState 3) (Some _3) 
                    )
-# 2259 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2259 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optRange));
-# 8372 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8372 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2261 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2261 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              mkSynOptionalExpr (rhs parseState 1) (Some _1), mkSynOptionalExpr (rhs parseState 2) None 
                    )
-# 2261 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2261 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optRange));
-# 8383 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8383 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2263 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2263 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              mkSynOptionalExpr (rhs parseState 1) None, mkSynOptionalExpr (rhs parseState 2) (Some _2) 
                    )
-# 2263 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2263 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optRange));
-# 8394 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8394 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2265 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2265 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              mkSynOptionalExpr (rhs parseState 1) None, mkSynOptionalExpr (rhs parseState 1) None 
                    )
-# 2265 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2265 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'optRange));
-# 8404 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8404 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'constant)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2271 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2271 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Const (_1,_1.Range (lhs parseState)) 
                    )
-# 2271 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2271 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8415 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8415 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2273 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2273 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2273 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2273 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8426 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8426 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'braceExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2275 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2275 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2275 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2275 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8437 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8437 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2277 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2277 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Null(lhs parseState) 
                    )
-# 2277 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2277 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8447 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8447 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2279 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2279 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Const(SynConst.Bool false,lhs parseState) 
                    )
-# 2279 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2279 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8457 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8457 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2281 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2281 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Const(SynConst.Bool true,lhs parseState) 
                    )
-# 2281 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2281 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8467 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8467 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'arrayExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2283 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2283 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2283 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2283 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8478 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8478 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'beginEndExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2285 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2285 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2285 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2285 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynExpr));
-# 8489 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8489 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2289 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2289 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Paren(_2, rhs parseState 1, Some(rhs parseState 3), rhs2 parseState 1 3) 
                    )
-# 2289 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2289 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'beginEndExpr));
-# 8500 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8500 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2291 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2291 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBegin()); exprFromParseError _2 
                    )
-# 2291 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2291 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'beginEndExpr));
-# 8512 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8512 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2293 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2293 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (* silent recovery *) arbExpr("beginEndExpr",(lhs parseState))  
                    )
-# 2293 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2293 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'beginEndExpr));
-# 8522 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8522 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2295 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2295 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              mkSynUnit (lhs parseState) 
                    )
-# 2295 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2295 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'beginEndExpr));
-# 8532 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8532 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'listExprElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2299 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2299 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               _2 (lhs parseState) true 
                    )
-# 2299 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2299 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayExpr));
-# 8543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'listExprElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2301 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2301 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBracketBar()); 
                              exprFromParseError (_2 (rhs2 parseState 1 2) true) 
                    )
-# 2301 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2301 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayExpr));
-# 8556 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8556 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2304 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2304 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               (* silent recovery *) SynExpr.ArrayOrList(true,[ ], lhs parseState) 
                    )
-# 2304 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2304 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayExpr));
-# 8566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2306 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2306 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBracketBar());  
                              (* silent recovery *) 
                              exprFromParseError (SynExpr.ArrayOrList(true,[ ], rhs parseState 1)) 
                    )
-# 2306 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2306 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayExpr));
-# 8579 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8579 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2312 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2312 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynExpr.Const(SynConst.Unit,(rhs2 parseState 1 2)) 
                    )
-# 2312 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2312 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8590 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8590 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenExprBody)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2314 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2314 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let m = rhs2 parseState 1 3
                              SynExpr.Paren(_2 m, rhs parseState 1, Some(rhs parseState 3), m) 
                    )
-# 2314 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2314 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8603 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8603 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenExprBody)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_other_than_rparen_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2317 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2317 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not _3 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen())
                              let lhsm = unionRangeWithPos (rhs parseState 1) (rhs parseState 3)
                              SynExpr.Paren(exprFromParseError (_2 lhsm), rhs parseState 1, None, lhsm) 
                    )
-# 2317 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2317 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8617 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8617 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2321 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2321 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              // silent recovery
                              SynExpr.Paren(arbExpr("parenExpr1",(rhs parseState 1)),(rhs parseState 1),Some(rhs parseState 3),(rhs2 parseState 1 3)) 
                    )
-# 2321 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2321 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8629 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8629 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2324 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2324 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen())
                              let lhsm = unionRangeWithPos (rhs parseState 1) (rhs parseState 2)
                              arbExpr("parenExpr2tcs", lhsm) 
                    )
-# 2324 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2324 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8641 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8641 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2328 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2328 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen())
                              let lhsm = unionRangeWithPos (rhs parseState 1) (rhs parseState 2)
                              arbExpr("parenExpr2mcs", lhsm) 
                    )
-# 2328 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2328 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8653 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8653 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2332 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2332 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen())
                              let lhsm = unionRangeWithPos (rhs parseState 1) (rhs parseState 2)
                              arbExpr("parenExpr2rbcs", lhsm) 
                    )
-# 2332 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2332 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8665 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8665 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2336 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2336 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen())
                              let lhsm = unionRangeWithPos (rhs parseState 1) (rhs parseState 2)
                              arbExpr("parenExpr2obecs", lhsm) 
                    )
-# 2336 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2336 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8677 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8677 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2340 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2340 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen()); 
                              arbExpr("parenExpr2",(lhs parseState))  
                    )
-# 2340 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2340 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExpr));
-# 8689 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8689 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2352 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2352 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (fun _m -> _1) 
                    )
-# 2352 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2352 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'parenExprBody));
-# 8700 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8700 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticallyKnownHeadTypar)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2356 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2356 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_1] 
                    )
-# 2356 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2356 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticallyKnownHeadTypars));
-# 8711 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8711 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticallyKnownHeadTyparAlts)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2358 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2358 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              List.rev _2 
                    )
-# 2358 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2358 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticallyKnownHeadTypars));
-# 8723 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8723 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticallyKnownHeadTyparAlts)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticallyKnownHeadTypar)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2362 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2362 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _3 :: _1
                    )
-# 2362 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2362 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticallyKnownHeadTyparAlts));
-# 8735 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8735 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticallyKnownHeadTypar)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2364 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2364 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_1] 
                    )
-# 2364 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2364 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticallyKnownHeadTyparAlts));
-# 8746 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8746 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'braceExprBody)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2368 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2368 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let m,r = _2 in r (rhs2 parseState 1 3) 
                    )
-# 2368 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2368 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceExpr));
-# 8758 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8758 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'braceExprBody)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2370 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2370 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBrace()) ; 
                             let m,r = _2 
                             // Note, we can't use 'exprFromParseError' because the extra syntax node interferes with some syntax-directed transformations for computation expressions
                             r (unionRanges (rhs parseState 1) m) 
                    )
-# 2370 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2370 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceExpr));
-# 8773 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8773 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2375 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2375 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             // silent recovery 
                             arbExpr("braceExpr",rhs2 parseState 1 3)  
                    )
-# 2375 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2375 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceExpr));
-# 8785 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8785 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2378 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2378 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedBrace()) ; 
                             // Note, we can't use 'exprFromParseError' because the extra syntax node interferes with some syntax-directed transformations for computation expressions
                             SynExpr.Record(None,None,[],rhs parseState 1) 
                    )
-# 2378 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2378 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceExpr));
-# 8798 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8798 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2382 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2382 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let m = rhs2 parseState 1 2 
                              SynExpr.Record(None,None,[],m) 
                    )
-# 2382 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2382 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceExpr));
-# 8810 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8810 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2387 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2387 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (lhs parseState), (fun m -> let a,b,c = _1 in SynExpr.Record(a,b,c,m)) 
                    )
-# 2387 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2387 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceExprBody));
-# 8821 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8821 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'monadicExprInitial)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2389 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2389 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m,r = _1 in (m, r false) 
                    )
-# 2389 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2389 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'braceExprBody));
-# 8832 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8832 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'monadicExprInitial)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2393 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2393 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m,r = _1 in (m, r false) 
                    )
-# 2393 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2393 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'monadicExprBody));
-# 8843 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8843 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'monadicExprInitial)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2397 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2397 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m,r = _1 in (fun lhsm isArray -> SynExpr.ArrayOrListOfSeqExpr(isArray, r true m, lhsm)) 
                    )
-# 2397 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2397 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'listExprElements));
-# 8854 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8854 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2399 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2399 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (fun lhsm isArray -> SynExpr.ArrayOrList(isArray,[ ], lhsm)) 
                    )
-# 2399 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2399 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'listExprElements));
-# 8864 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8864 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'seqExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2403 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2403 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1.Range, (fun isArrayOrList lhsm -> SynExpr.CompExpr(isArrayOrList,ref(isArrayOrList),_1,lhsm)) 
                    )
-# 2403 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2403 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'monadicExprInitial));
-# 8875 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8875 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rangeSequenceExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2405 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2405 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 2405 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2405 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'monadicExprInitial));
-# 8886 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8886 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2409 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2409 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let opm = (rhs parseState 2)
                             (unionRanges _1.Range _3.Range),(fun _isArray wholem -> 
                                                                      // in the case of "{ 1 .. 10 }", we want the Position of the expression to include the curlies, that comes from a higher level rule in the grammar,
@@ -8899,9 +8899,9 @@ let _fsyacc_reductions ()  =    [|
                                                                      | SynExpr.App(a,b,c,d,_) -> SynExpr.App(a,b,c,d,wholem)
                                                                      | _ -> failwith "impossible") 
                    )
-# 2409 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2409 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rangeSequenceExpr));
-# 8904 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8904 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
@@ -8909,19 +8909,19 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2417 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2417 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (unionRanges _1.Range _5.Range),(fun _isArray wholem -> mkSynTrifix wholem ".. .." _1 _3 _5) 
                    )
-# 2417 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2417 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rangeSequenceExpr));
-# 8917 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8917 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2420 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2420 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _3 then reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsUnexpectedEndOfFileExpression());
                             let opm = (rhs parseState 2)
                             let e = arbExpr("rangeSeqError1", (rhs parseState 3))
@@ -8932,157 +8932,157 @@ let _fsyacc_reductions ()  =    [|
                                                                      | SynExpr.App(a,b,c,d,_) -> SynExpr.App(a,b,c,d,wholem)
                                                                      | _ -> failwith "impossible") 
                    )
-# 2420 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2420 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rangeSequenceExpr));
-# 8937 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8937 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typedSeqExprBlockR)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2436 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2436 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynExpr.YieldOrReturn((true,false), _2, unionRanges (rhs parseState 1) _2.Range) 
                    )
-# 2436 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2436 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'monadicSingleLineQualifiersThenArrowThenExprR));
-# 8948 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8948 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2442 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2442 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (_1, _3, true) 
                    )
-# 2442 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2442 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'forLoopBinder));
-# 8960 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8960 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rangeSequenceExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2444 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2444 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m,r = _3 in (_1, r false m, true) 
                    )
-# 2444 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2444 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'forLoopBinder));
-# 8972 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8972 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2446 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2446 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _3 then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsExpectedExpressionAfterToken())
                             (_1, arbExpr("forLoopBinder",(rhs parseState 2)), false) 
                    )
-# 2446 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2446 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'forLoopBinder));
-# 8985 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8985 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2449 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2449 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _2 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsInOrEqualExpected())
                             (_1, arbExpr("forLoopBinder2",(rhs parseState 1)), false) 
                    )
-# 2449 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2449 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'forLoopBinder));
-# 8998 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 8998 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2454 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2454 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (_1, _3) 
                    )
-# 2454 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2454 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromLoopBinder));
-# 9010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rangeSequenceExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2456 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2456 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m,r = _3 in (_1, r false m) 
                    )
-# 2456 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2456 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromLoopBinder));
-# 9022 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9022 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2458 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2458 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _3 then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsExpectedExpressionAfterToken())
                             (_1, arbExpr("forLoopBinder",(rhs parseState 2))) 
                    )
-# 2458 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2458 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromLoopBinder));
-# 9035 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9035 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2461 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2461 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _2 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsInOrEqualExpected())
                             (_1, arbExpr("forLoopBinder2",(rhs parseState 1))) 
                    )
-# 2461 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2461 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromLoopBinder));
-# 9048 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9048 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fromTupleExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'fromLoopBinder)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2466 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2466 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let exprs = _1
                              let exprs = exprs
                              _3 :: exprs 
                    )
-# 2466 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2466 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromTupleExpr));
-# 9062 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9062 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fromLoopBinder)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2479 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2479 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_1] 
                    )
-# 2479 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2479 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromTupleExpr));
-# 9073 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9073 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'fromLoopBinder)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'fromLoopBinder)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2481 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2481 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_3 ; _1] 
                    )
-# 2481 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2481 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'fromTupleExpr));
-# 9085 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9085 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'parenPattern)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
@@ -9091,55 +9091,55 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2485 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2485 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              idOfPat (rhs parseState 1) _1,_3,_4,_5 
                    )
-# 2485 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2485 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'forLoopRange));
-# 9099 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9099 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_curriedArgExprs)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2488 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2488 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                         _2 :: _1 
                    )
-# 2488 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2488 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_curriedArgExprs));
-# 9111 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9111 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2489 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2489 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [] 
                    )
-# 2489 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2489 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_curriedArgExprs));
-# 9121 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9121 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2492 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2492 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             None 
                    )
-# 2492 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2492 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_atomicExprAfterType));
-# 9131 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9131 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2493 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2493 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                 Some(_1) 
                    )
-# 2493 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2493 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_atomicExprAfterType));
-# 9142 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9142 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeNonAtomicDeprecated)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_HIGH_PRECEDENCE_APP)) in
@@ -9149,7 +9149,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2497 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2497 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let arg = match _4 with None -> mkSynUnit (lhs parseState) | Some e -> e 
                             let l = List.rev _5
                             let dummyField = mkRecdField (LongIdentWithDots([], [])) // dummy identifier, it will be discarded
@@ -9158,9 +9158,9 @@ let _fsyacc_reductions ()  =    [|
                             let bindings = List.tail l
                             (Some (_2,arg,rhs2 parseState 2 4, inheritsSep, rhs parseState 1), None, bindings) 
                    )
-# 2497 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2497 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9163 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9163 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
@@ -9169,7 +9169,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2506 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2506 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             match _1 with 
                             
                             | LongOrSingleIdent(false, (LongIdentWithDots(_,_) as f),None,m) ->  
@@ -9179,28 +9179,28 @@ let _fsyacc_reductions ()  =    [|
                                  (None, None, l)
                             | _ -> raiseParseErrorAt (rhs parseState 2) (FSComp.SR.parsFieldBinding()) 
                    )
-# 2506 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2506 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9184 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9184 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2520 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2520 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m = rhs parseState 1
                            reportParseErrorAt m (FSComp.SR.parsUnderscoreInvalidFieldName())
                            reportParseErrorAt m (FSComp.SR.parsFieldBinding())
                            let f = mkUnderscoreRecdField m
                            (None, None, [ f, None, None  ]) 
                    )
-# 2520 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2520 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9198 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9198 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2527 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2527 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m = rhs parseState 1
                            reportParseErrorAt m (FSComp.SR.parsUnderscoreInvalidFieldName())      
                            let f = mkUnderscoreRecdField m
@@ -9208,9 +9208,9 @@ let _fsyacc_reductions ()  =    [|
                            
                            (None, None, [f, None, None]) 
                    )
-# 2527 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2527 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9213 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9213 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdExprBindings)) in
@@ -9218,16 +9218,16 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2536 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2536 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnderscoreInvalidFieldName())
                            let f = mkUnderscoreRecdField (rhs parseState 1)
                            let l = List.rev _4
                            let l = rebindRanges (f, Some _3) l _5
                            (None, None, l) 
                    )
-# 2536 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2536 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9230 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9230 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdBinding)) in
@@ -9236,27 +9236,27 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2546 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2546 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let l = List.rev _4
                              let l = rebindRanges _3 l _5
                              (None,Some (_1, (rhs parseState 2, None)), l) 
                    )
-# 2546 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2546 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9246 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9246 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_seps_recd)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2551 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2551 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                              (None,Some (_1, (rhs parseState 2, None)), []) 
                    )
-# 2551 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2551 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9259 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9259 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdBinding)) in
@@ -9265,99 +9265,99 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2555 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2555 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                              let l = List.rev _4
                              let l = rebindRanges _3 l _5
                              (None,Some (_1, (rhs parseState 2, None)), l) 
                    )
-# 2555 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2555 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExpr));
-# 9276 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9276 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps_recd)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2561 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2561 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      Some _1 
                    )
-# 2561 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2561 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_seps_recd));
-# 9287 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9287 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2562 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2562 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            None 
                    )
-# 2562 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2562 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_seps_recd));
-# 9297 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9297 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2565 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2565 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      (rhs parseState 1), None 
                    )
-# 2565 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2565 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps_recd));
-# 9307 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9307 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                       let m = (rhs parseState 1) in (m, Some m) 
                    )
-# 2566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps_recd));
-# 9317 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9317 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2567 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2567 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                (rhs2 parseState 1 2), Some (rhs parseState 1) 
                    )
-# 2567 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2567 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps_recd));
-# 9327 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9327 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2568 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2568 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                (rhs2 parseState 1 2), Some (rhs parseState 2) 
                    )
-# 2568 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2568 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps_recd));
-# 9337 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9337 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2574 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2574 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 mkRecdField _1 
                    )
-# 2574 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2574 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'pathOrUnderscore));
-# 9348 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9348 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2576 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2576 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            let m = rhs parseState 1
                            reportParseErrorAt m (FSComp.SR.parsUnderscoreInvalidFieldName())
                            mkUnderscoreRecdField m 
                    )
-# 2576 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2576 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'pathOrUnderscore));
-# 9360 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9360 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recdExprBindings)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps_recd)) in
@@ -9365,350 +9365,350 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2582 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2582 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (_3, Some _2) :: _1 
                    )
-# 2582 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2582 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExprBindings));
-# 9373 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9373 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2583 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2583 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             [] 
                    )
-# 2583 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2583 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdExprBindings));
-# 9383 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9383 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'pathOrUnderscore)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2587 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2587 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              (_1, Some _3) 
                    )
-# 2587 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2587 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdBinding));
-# 9395 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9395 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'pathOrUnderscore)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2589 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2589 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsFieldBinding())
                              (_1, None)
                            
                    )
-# 2589 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2589 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdBinding));
-# 9409 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9409 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'pathOrUnderscore)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2594 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2594 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsFieldBinding())
                              (_1, None)
                            
                    )
-# 2594 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2594 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdBinding));
-# 9424 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9424 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'pathOrUnderscore)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2599 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2599 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsFieldBinding())
                              (_1, None)
                            
                    )
-# 2599 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2599 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdBinding));
-# 9438 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9438 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'pathOrUnderscore)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2604 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2604 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                              reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsFieldBinding())
                              (_1, None)
                            
                    )
-# 2604 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2604 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'recdBinding));
-# 9453 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9453 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2617 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2617 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   true 
                    )
-# 2617 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2617 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'forLoopDirection));
-# 9463 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9463 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2618 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2618 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   false 
                    )
-# 2618 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2618 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'forLoopDirection));
-# 9473 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9473 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2624 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2624 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                           _1 
                    )
-# 2624 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2624 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typeWithTypeConstraints));
-# 9484 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9484 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2628 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2628 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 2628 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2628 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topTypeWithTypeConstraints));
-# 9495 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9495 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2632 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2632 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             None 
                    )
-# 2632 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2632 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_topReturnTypeWithTypeConstraints));
-# 9505 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9505 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'topTypeWithTypeConstraints)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2634 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2634 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let ty,arity = _2 
                             let arity = (match arity with SynValInfo([],rmdata)-> rmdata | _ -> SynInfo.unnamedRetVal)
                             Some (SynReturnInfo((ty,arity),rhs parseState 2)) 
                    )
-# 2634 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2634 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_topReturnTypeWithTypeConstraints));
-# 9518 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9518 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topTupleType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'topType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2640 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2640 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let dty,dmdata= _1 
                             let rty,(SynValInfo(dmdatas,rmdata)) = _3 
                             SynType.Fun(dty,rty,lhs parseState), (SynValInfo(dmdata::dmdatas, rmdata)) 
                    )
-# 2640 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2640 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topType));
-# 9532 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9532 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topTupleType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2644 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2644 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let ty,rmdata = _1 in ty, (SynValInfo([],(match rmdata with [md] -> md | _ -> SynInfo.unnamedRetVal))) 
                    )
-# 2644 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2644 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topType));
-# 9543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topAppType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'topTupleTypeElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2648 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2648 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let ty,mdata = _1 in let tys,mdatas = List.unzip _3 in (SynType.Tuple(List.map (fun ty -> (false,ty)) (ty ::tys), lhs parseState)),(mdata :: mdatas) 
                    )
-# 2648 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2648 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topTupleType));
-# 9555 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9555 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topAppType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2650 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2650 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let ty,mdata = _1 in ty,[mdata] 
                    )
-# 2650 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2650 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topTupleType));
-# 9566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topAppType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'topTupleTypeElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2653 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2653 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                       _1 :: _3 
                    )
-# 2653 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2653 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topTupleTypeElements));
-# 9578 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9578 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topAppType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2654 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2654 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                       [_1] 
                    )
-# 2654 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2654 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topTupleTypeElements));
-# 9589 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9589 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2659 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2659 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             match _1 with 
                             | SynType.LongIdent(LongIdentWithDots([id],_)) -> _3,SynArgInfo(false,Some id)
                             | _ -> raiseParseErrorAt (rhs parseState 1) (FSComp.SR.parsSyntaxErrorInLabeledType())  
                    )
-# 2659 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2659 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topAppType));
-# 9603 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9603 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2663 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2663 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _4,SynArgInfo(true,Some _2) 
                    )
-# 2663 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2663 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topAppType));
-# 9615 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9615 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2665 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2665 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (_1,SynArgInfo(false,None)) 
                    )
-# 2665 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2665 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topAppType));
-# 9626 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9626 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2667 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2667 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             match _1 with 
                             | SynType.LongIdent(LongIdentWithDots([id],_)) -> _3,SynArgInfo(false,Some id)
                             | _ -> raiseParseErrorAt (rhs parseState 2) (FSComp.SR.parsSyntaxErrorInLabeledType())  
                    )
-# 2667 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2667 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topAppType));
-# 9640 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9640 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2671 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2671 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _4,SynArgInfo(true,Some _2) 
                    )
-# 2671 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2671 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topAppType));
-# 9652 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9652 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2673 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2673 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1,SynArgInfo(false,None) 
                    )
-# 2673 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2673 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topAppType));
-# 9663 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9663 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2678 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2678 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                  SynType.Fun(_1,_3,lhs parseState) 
                    )
-# 2678 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2678 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynType));
-# 9675 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9675 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2679 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2679 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                            _1 
                    )
-# 2679 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2679 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynType));
-# 9686 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9686 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleOrQuotTypeElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2683 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2683 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                 SynType.Tuple((false,_1) :: _3,lhs parseState) 
                    )
-# 2683 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2683 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleType));
-# 9698 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9698 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleOrQuotTypeElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2686 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2686 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            if _1 <> "/" then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedInfixOperator());
                            SynType.Tuple((true, SynType.StaticConstant (SynConst.Int32 1, lhs parseState)):: _2, lhs parseState) 
                    )
-# 2686 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2686 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleType));
-# 9711 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9711 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -9716,36 +9716,36 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2690 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2690 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if _2 <> "/" then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedInfixOperator());
                              SynType.Tuple((true,_1) :: _3, lhs parseState) 
                    )
-# 2690 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2690 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleType));
-# 9725 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9725 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2692 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2692 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                             _1 
                    )
-# 2692 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2692 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleType));
-# 9736 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9736 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleOrQuotTypeElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2695 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2695 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                              (false,_1) :: _3 
                    )
-# 2695 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2695 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleOrQuotTypeElements));
-# 9748 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9748 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -9753,58 +9753,58 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2697 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2697 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if _2 <> "/" then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedInfixOperator());
                              (true,_1) :: _3 
                    )
-# 2697 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2697 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleOrQuotTypeElements));
-# 9762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2699 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2699 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                 [(false,_1)] 
                    )
-# 2699 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2699 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleOrQuotTypeElements));
-# 9773 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9773 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'tupleTypeElements)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2702 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2702 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                        _1 :: _3 
                    )
-# 2702 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2702 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleTypeElements));
-# 9785 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9785 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2703 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2703 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                 [_1] 
                    )
-# 2703 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2703 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'tupleTypeElements));
-# 9796 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9796 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2707 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2707 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynType.LongIdent(_1) 
                    )
-# 2707 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2707 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeCon));
-# 9807 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9807 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeCon)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -9812,76 +9812,76 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2711 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2711 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _2 <> "^" && _2 <> "^-" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedInfixOperator());
                             if _2 = "^-" then SynType.MeasurePower(_1, -(fst _3), lhs parseState)
                             else SynType.MeasurePower(_1, fst _3, lhs parseState)  
                    )
-# 2711 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2711 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeConPower));
-# 9822 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9822 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeCon)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2715 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2715 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            _1 
                    )
-# 2715 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2715 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeConPower));
-# 9833 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9833 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2719 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2719 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                              let Position = lhs parseState
                              SynType.App(SynType.LongIdent(LongIdentWithDots([Ident("list", Position)], [])),
                                          None, [_2], [], None, true, Position)
                            
                    )
-# 2719 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2719 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appType));
-# 9848 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9848 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'arrayTypeSuffix)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2725 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2725 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               SynType.Array(_2,_1,lhs parseState) 
                    )
-# 2725 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2725 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appType));
-# 9860 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9860 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'arrayTypeSuffix)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2727 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2727 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               SynType.Array(_3,_1,lhs parseState) 
                    )
-# 2727 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2727 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appType));
-# 9872 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9872 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeConPower)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2729 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2729 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynType.App(_2, None, [_1], [], None, true, unionRanges (rhs parseState 1) _2.Range) 
                    )
-# 2729 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2729 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appType));
-# 9884 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9884 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypePrefixArguments)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
@@ -9889,65 +9889,65 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2731 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2731 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let args, commas = _2
                              mlCompatWarning (FSComp.SR.parsMultiArgumentGenericTypeFormDeprecated()) (unionRanges (rhs parseState 1) _4.Range); 
                              SynType.App(_4, None, args, commas, None, true, unionRanges (rhs parseState 1) _4.Range) 
                    )
-# 2731 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2731 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appType));
-# 9899 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9899 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'powerType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2735 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2735 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2735 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2735 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appType));
-# 9910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2739 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2739 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              1 
                    )
-# 2739 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2739 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayTypeSuffix));
-# 9920 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9920 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2741 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2741 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              2 
                    )
-# 2741 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2741 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayTypeSuffix));
-# 9930 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9930 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2743 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2743 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              3 
                    )
-# 2743 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2743 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayTypeSuffix));
-# 9940 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9940 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2745 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2745 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              4 
                    )
-# 2745 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2745 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'arrayTypeSuffix));
-# 9950 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9950 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActual)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActual)) in
@@ -9955,46 +9955,46 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2749 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2749 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let typeArgs, commas = _4 in _1 :: _3 :: List.rev typeArgs, (rhs parseState 2)::(List.rev commas) 
                    )
-# 2749 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2749 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypePrefixArguments));
-# 9963 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9963 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgListElements)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActual)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2753 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2753 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let typeArgs, commas = _1
                              _3 :: typeArgs, (rhs parseState 2)::commas 
                    )
-# 2753 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2753 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typeArgListElements));
-# 9976 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9976 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2756 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2756 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [], [] 
                    )
-# 2756 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2756 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typeArgListElements));
-# 9986 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9986 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2760 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2760 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            _1 
                    )
-# 2760 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2760 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'powerType));
-# 9997 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 9997 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -10002,14 +10002,14 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _2 <> "^" && _2 <> "^-" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedInfixOperator());
                             if _2 = "^-" then SynType.MeasurePower(_1, - (fst _3), lhs parseState)
                             else SynType.MeasurePower(_1, fst _3, lhs parseState) 
                    )
-# 2762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'powerType));
-# 10012 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10012 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -10017,53 +10017,53 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2766 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2766 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _2 <> "^" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedInfixOperator());
                             SynType.MeasurePower(_1, - (fst _4), lhs parseState) 
                    )
-# 2766 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2766 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'powerType));
-# 10026 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10026 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'arrayTypeSuffix)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2772 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2772 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               deprecatedWithError (FSComp.SR.parsNonAtomicType()) (lhs parseState);
                               SynType.Array(_2,_1,lhs parseState) 
                    )
-# 2772 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2772 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeNonAtomicDeprecated));
-# 10039 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10039 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'arrayTypeSuffix)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2775 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2775 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               deprecatedWithError (FSComp.SR.parsNonAtomicType()) (lhs parseState);
                               SynType.Array(_3,_1,lhs parseState) 
                    )
-# 2775 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2775 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeNonAtomicDeprecated));
-# 10052 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10052 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeConPower)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2778 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2778 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let mWhole = unionRanges (rhs parseState 1) _2.Range  // note: use "rhs parseState 1" to deal with parens in "(int) list"
                              deprecatedWithError (FSComp.SR.parsNonAtomicType()) mWhole;
                              SynType.App(_2, None, [_1], [], None, true, mWhole) 
                    )
-# 2778 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2778 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeNonAtomicDeprecated));
-# 10066 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10066 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypePrefixArguments)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
@@ -10071,36 +10071,36 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2782 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2782 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let args, commas = _2
                              mlCompatWarning (FSComp.SR.parsMultiArgumentGenericTypeFormDeprecated()) (unionRanges (rhs parseState 1) _4.Range); 
                              SynType.App(_4, None, args, commas, None, true, unionRanges (rhs parseState 1) _4.Range) 
                    )
-# 2782 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2782 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeNonAtomicDeprecated));
-# 10081 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10081 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'powerTypeNonAtomicDeprecated)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2786 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2786 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2786 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2786 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'appTypeNonAtomicDeprecated));
-# 10092 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10092 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2791 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2791 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            _1 
                    )
-# 2791 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2791 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'powerTypeNonAtomicDeprecated));
-# 10103 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10103 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -10108,15 +10108,15 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2793 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2793 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _2 <> "^" && _2 <> "^-" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedInfixOperator());
                             deprecatedWithError (FSComp.SR.parsNonAtomicType()) (lhs parseState);
                             if _2 = "^-" then SynType.MeasurePower(_1, - (fst _3), lhs parseState)
                             else SynType.MeasurePower(_1, fst _3, lhs parseState) 
                    )
-# 2793 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2793 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'powerTypeNonAtomicDeprecated));
-# 10119 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10119 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'atomType)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -10124,164 +10124,164 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2798 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2798 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _2 <> "^" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedInfixOperator());
                             deprecatedWithError (FSComp.SR.parsNonAtomicType()) (lhs parseState);
                             SynType.MeasurePower(_1, - (fst _4), lhs parseState) 
                    )
-# 2798 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2798 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'powerTypeNonAtomicDeprecated));
-# 10134 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10134 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeConPower)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2807 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2807 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 2807 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2807 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10145 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10145 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2809 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2809 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynType.Anon (lhs parseState) 
                    )
-# 2809 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2809 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10155 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10155 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2811 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2811 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _2 
                    )
-# 2811 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2811 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10167 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10167 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2813 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2813 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnmatchedParen()) 
                             _2 
                    )
-# 2813 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2813 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10180 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10180 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'rawConstant)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2816 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2816 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynType.StaticConstant(_1, rhs parseState 1) 
                    )
-# 2816 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2816 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10191 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10191 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2818 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2818 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let m = rhs parseState 1
                             SynType.StaticConstant(SynConst.String (null, m), m) 
                    )
-# 2818 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2818 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10202 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10202 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2821 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2821 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynType.StaticConstant(SynConst.Bool false,lhs parseState) 
                    )
-# 2821 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2821 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10212 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10212 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2823 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2823 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              SynType.StaticConstant(SynConst.Bool true,lhs parseState) 
                    )
-# 2823 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2823 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10222 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10222 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2825 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2825 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (* silent recovery *) SynType.Anon (lhs parseState) 
                    )
-# 2825 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2825 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10233 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10233 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeCon)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Position * Position option * SynType list * Position list * Position)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2827 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2827 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let mLessThan,mGreaterThan,args,commas,mWhole = _2 in SynType.App(_1, Some(mLessThan), args, commas, mGreaterThan, false, unionRanges _1.Range mWhole) 
                    )
-# 2827 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2827 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10245 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10245 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'appTypeCon)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2829 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2829 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _3 then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsExpectedNameAfterToken())
                             _1 
                    )
-# 2829 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2829 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'atomType));
-# 10258 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10258 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Position * Position option * bool     * SynType list * Position list * Position)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2835 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2835 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let mLessThan, mGreaterThan, parsedOk, args, commas, mAll = _1
                             if parsedOk then // if someone has "foo<bar" without a closing greater-than, then the lexfilter does not introduce a HPA, even though it is adjacent
                                 warning(Error(FSComp.SR.parsNonAdjacentTyargs(),rhs parseState 1))
                             mLessThan, mGreaterThan, args, commas, mAll 
                    )
-# 2835 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2835 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * SynType list * Position list * Position));
-# 10272 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10272 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Position * Position option * bool     * SynType list * Position list * Position)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2840 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2840 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let mLessThan, mGreaterThan, _, args, commas, mAll = _2
                             mLessThan, mGreaterThan, args, commas, mAll 
                    )
-# 2840 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2840 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * SynType list * Position list * Position));
-# 10284 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10284 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActualOrDummyIfEmpty)) in
@@ -10291,13 +10291,13 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2845 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2845 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let typeArgs, commas = _5
                             (rhs parseState 1), Some(rhs parseState 6), true, (_2 :: _4 :: List.rev typeArgs), (rhs parseState 3)::(List.rev commas), lhs parseState 
                    )
-# 2845 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2845 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * bool     * SynType list * Position list * Position));
-# 10300 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10300 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActualOrDummyIfEmpty)) in
@@ -10307,7 +10307,7 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2848 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2848 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _6 then 
                                 reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedEndOfFileTypeArgs())
                             else
@@ -10317,9 +10317,9 @@ let _fsyacc_reductions ()  =    [|
                             let zeroWidthAtStartOfNextToken = nextToken
                             (rhs parseState 1), None, false, (_2 :: _4 :: List.rev typeArgs), (rhs parseState 3)::(List.rev commas), unionRanges (rhs parseState 1) zeroWidthAtStartOfNextToken 
                    )
-# 2848 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2848 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * bool     * SynType list * Position list * Position));
-# 10322 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10322 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActualOrDummyIfEmpty)) in
@@ -10327,15 +10327,15 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2858 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2858 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _4 then reportParseErrorAt (rhs parseState 4) (FSComp.SR.parsMissingTypeArgs())
                             let nextToken = rhs parseState 4
                             let zeroWidthAtStartOfNextToken = nextToken
                             (rhs parseState 1), None, false, [_2], [rhs parseState 3], unionRanges (rhs parseState 1) zeroWidthAtStartOfNextToken 
                    )
-# 2858 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2858 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * bool     * SynType list * Position list * Position));
-# 10338 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10338 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActual)) in
@@ -10343,12 +10343,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2864 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2864 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (rhs parseState 1), Some(rhs parseState 3), true, [_2], [], lhs parseState 
                    )
-# 2864 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2864 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * bool     * SynType list * Position list * Position));
-# 10351 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10351 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActual)) in
@@ -10356,35 +10356,35 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2866 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2866 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _3 then 
                                 reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsUnexpectedEndOfFileTypeArgs())
                             else
                                 reportParseErrorAt (rhs parseState 3) (FSComp.SR.parsMissingGreaterThan())
                             (rhs parseState 1), None, false, [_2], [], (rhs2 parseState 1 2) 
                    )
-# 2866 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2866 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * bool     * SynType list * Position list * Position));
-# 10368 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10368 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2873 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2873 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (rhs parseState 1), Some(rhs parseState 2), true, [], [], lhs parseState 
                    )
-# 2873 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2873 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * bool     * SynType list * Position list * Position));
-# 10380 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10380 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2875 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2875 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _2 then  
                                 reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsExpectedTypeAfterToken())
                             else
@@ -10393,31 +10393,31 @@ let _fsyacc_reductions ()  =    [|
                             let zeroWidthAtStartOfNextToken = nextToken
                             (rhs parseState 1), None, false, [], [], unionRanges (rhs parseState 1) zeroWidthAtStartOfNextToken 
                    )
-# 2875 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2875 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Position * Position option * bool     * SynType list * Position list * Position));
-# 10398 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10398 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : SynType)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2885 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2885 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 2885 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2885 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typeArgActual));
-# 10409 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10409 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'typeArgActual)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2889 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2889 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 2889 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2889 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'typeArgActualOrDummyIfEmpty));
-# 10420 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10420 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeExpr)) in
@@ -10425,58 +10425,58 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2894 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2894 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _2 
                    )
-# 2894 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2894 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeArg));
-# 10433 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10433 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2896 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2896 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynMeasure.Anon (lhs parseState) 
                    )
-# 2896 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2896 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeArg));
-# 10445 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10445 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2900 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2900 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             SynMeasure.Named(_1.Lid, _1.Range) 
                    )
-# 2900 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2900 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeAtom));
-# 10456 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10456 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2903 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2903 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _2 
                    )
-# 2903 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2903 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeAtom));
-# 10468 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10468 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeAtom)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2907 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2907 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _1 
                    )
-# 2907 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2907 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypePower));
-# 10479 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10479 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeAtom)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -10484,14 +10484,14 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _2 <> "^" && _2 <> "^-" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedOperatorForUnitOfMeasure());
                             if _2 = "^-" then SynMeasure.Power(_1, - (fst _3), lhs parseState)
                             else SynMeasure.Power(_1, fst _3, lhs parseState) 
                    )
-# 2910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypePower));
-# 10494 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10494 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeAtom)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -10499,71 +10499,71 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2915 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2915 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _2 <> "^" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedOperatorForUnitOfMeasure());
                             SynMeasure.Power(_1, - (fst _4), lhs parseState) 
                    )
-# 2915 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2915 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypePower));
-# 10508 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10508 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : int32 * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2919 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2919 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if fst _1 <> 1 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedIntegerLiteralForUnitOfMeasure());
                             SynMeasure.One 
                    )
-# 2919 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2919 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypePower));
-# 10520 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10520 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypePower)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2924 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2924 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            [_1] 
                    )
-# 2924 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2924 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeSeq));
-# 10531 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10531 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypePower)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeSeq)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2926 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2926 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            _1 :: _2 
                    )
-# 2926 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2926 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeSeq));
-# 10543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeSeq)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2930 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2930 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            SynMeasure.Seq(_1, lhs parseState) 
                    )
-# 2930 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2930 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeExpr));
-# 10554 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10554 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeExpr)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2932 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2932 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            SynMeasure.Product(_1, _3, lhs parseState) 
                    )
-# 2932 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2932 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeExpr));
-# 10566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeExpr)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
@@ -10571,1512 +10571,1512 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2934 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2934 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                            if _2 <> "*" && _2 <> "/" then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsUnexpectedOperatorForUnitOfMeasure());
                            if _2 = "*" then SynMeasure.Product(_1, _3, lhs parseState)
                            else SynMeasure.Divide(_1, _3, lhs parseState) 
                    )
-# 2934 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2934 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeExpr));
-# 10581 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10581 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'measureTypeExpr)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2938 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2938 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _1 <> "/" then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedOperatorForUnitOfMeasure());
                             SynMeasure.Divide(SynMeasure.One, _2, lhs parseState) 
                    )
-# 2938 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2938 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'measureTypeExpr));
-# 10594 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10594 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2943 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2943 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              let id = mkSynId (lhs parseState) (_2).idText
                              Typar(id ,NoStaticReq,false) 
                    )
-# 2943 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2943 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynTypar));
-# 10606 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10606 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'staticallyKnownHeadTypar)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2946 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2946 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 2946 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2946 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : SynTypar));
-# 10617 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10617 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2950 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2950 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if _1 <> "^" then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsUnexpectedTypeParameter());
                             Typar(_2,HeadTypeStaticReq,false) 
                    )
-# 2950 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2950 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'staticallyKnownHeadTypar));
-# 10630 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10630 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2957 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2957 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             ident(_1,rhs parseState 1) 
                    )
-# 2957 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2957 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : Ident));
-# 10641 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10641 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2961 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2961 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              LongIdentWithDots([ident(MangledGlobalName,rhs parseState 1)],[]) 
                    )
-# 2961 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2961 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 10651 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10651 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2963 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2963 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              LongIdentWithDots([Ident("Create", rhs parseState 1)],[]) 
                    )
-# 2963 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2963 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 10661 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10661 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2965 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2965 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              LongIdentWithDots([_1],[]) 
                    )
-# 2965 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2965 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 10672 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10672 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2967 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2967 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let (LongIdentWithDots(lid,dotms)) = _1 in LongIdentWithDots(lid @ [_3], dotms @ [rhs parseState 2]) 
                    )
-# 2967 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2967 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 10684 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10684 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ends_coming_soon_or_recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2969 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2969 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             if not _3 then reportParseErrorAt (rhs parseState 2) (FSComp.SR.parsExpectedNameAfterToken())
                             let (LongIdentWithDots(lid,dotms)) = _1 in LongIdentWithDots(lid, dotms @ [rhs parseState 2])  
                    )
-# 2969 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2969 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 10697 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10697 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'operatorName)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2974 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2974 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              ident(CompileOpName _2,rhs parseState 2) 
                    )
-# 2974 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2974 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opName));
-# 10709 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10709 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2976 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2976 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              reportParseErrorAt (lhs parseState) (FSComp.SR.parsErrorParsingAsOperatorName()); ident(CompileOpName "****",rhs parseState 2) 
                    )
-# 2976 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2976 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opName));
-# 10720 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10720 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2978 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2978 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              ident(CompileOpName "*",rhs parseState 1) 
                    )
-# 2978 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2978 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opName));
-# 10730 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10730 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'barNames)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2982 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2982 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let text = ("|"^String.concat "|" (List.rev _2) ^ "|")
                             ident(text,rhs2 parseState 2 3) 
                    )
-# 2982 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2982 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opName));
-# 10743 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10743 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'barNames)) in
             let _6 = (let data = parseState.GetInput(6) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2986 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2986 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let text = ("|"^String.concat "|" (List.rev _2) ^ ".|" )
                             ident(text,rhs2 parseState 2 5) 
                    )
-# 2986 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2986 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opName));
-# 10756 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10756 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2991 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2991 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not (IsValidPrefixOperatorDefinitionName _1) then 
                                  reportParseErrorAt (lhs parseState) (FSComp.SR.parsInvalidPrefixOperatorDefinition());
                              _1 
                    )
-# 2991 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2991 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10769 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10769 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2994 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2994 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                _1 
                    )
-# 2994 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2994 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10780 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10780 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2995 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2995 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                             _1 
                    )
-# 2995 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2995 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10791 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10791 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2996 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2996 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                             _1 
                    )
-# 2996 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2996 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10802 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10802 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2997 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2997 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                          _1 
                    )
-# 2997 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2997 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10813 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10813 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2998 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2998 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         _1 
                    )
-# 2998 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2998 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10824 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10824 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 2999 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2999 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                           _1 
                    )
-# 2999 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 2999 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10835 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10835 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3000 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3000 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                  _1 
                    )
-# 3000 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3000 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10846 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10846 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3001 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3001 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   "$" 
                    )
-# 3001 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3001 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10856 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10856 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3002 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3002 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                               _1 
                    )
-# 3002 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3002 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10867 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10867 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3003 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3003 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  "-" 
                    )
-# 3003 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3003 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10877 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10877 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3004 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3004 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 "*" 
                    )
-# 3004 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3004 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10887 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10887 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3005 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3005 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   "=" 
                    )
-# 3005 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3005 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10897 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10897 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3006 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3006 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               "or" 
                    )
-# 3006 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3006 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10907 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10907 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3007 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3007 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 "<" 
                    )
-# 3007 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3007 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10918 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10918 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3008 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3008 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    ">" 
                    )
-# 3008 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3008 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10929 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10929 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3009 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3009 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  "?" 
                    )
-# 3009 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3009 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10939 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10939 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                "&" 
                    )
-# 3010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10949 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10949 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3011 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3011 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    "&&" 
                    )
-# 3011 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3011 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10959 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10959 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3012 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3012 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    "||" 
                    )
-# 3012 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3012 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10969 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10969 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3013 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3013 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         ":=" 
                    )
-# 3013 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3013 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10979 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10979 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3015 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3015 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if _1 <> ".[]"  && _1 <> ".()" && _1 <> ".()<-" then 
                                   deprecatedOperator (lhs parseState); 
                              _1 
                    )
-# 3015 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3015 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 10992 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 10992 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3018 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3018 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                       _1 
                    )
-# 3018 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3018 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 11003 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11003 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3019 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3019 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    ".." 
                    )
-# 3019 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3019 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 11013 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11013 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3020 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3020 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                            ".. .." 
                    )
-# 3020 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3020 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 11023 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11023 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string * bool)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string * bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3022 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3022 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if _1 <> _2 then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsMismatchedQuotationName(fst _1));  
                              fst _1 
                    )
-# 3022 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3022 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'operatorName));
-# 11036 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11036 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3027 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3027 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              if not (isUpper _1) then reportParseErrorAt (rhs parseState 1) (FSComp.SR.parsActivePatternCaseMustBeginWithUpperCase());  
                              _1 
                    )
-# 3027 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3027 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'barName));
-# 11048 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11048 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'barName)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3032 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3032 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              [_2] 
                    )
-# 3032 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3032 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'barNames));
-# 11059 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11059 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'barNames)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'barName)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3034 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3034 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              _3 :: _1 
                    )
-# 3034 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3034 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'barNames));
-# 11071 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11071 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3038 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3038 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 3038 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3038 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'identOrOp));
-# 11082 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11082 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opName)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3040 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3040 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             _1 
                    )
-# 3040 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3040 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'identOrOp));
-# 11093 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11093 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3046 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3046 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              LongIdentWithDots([_1],[]) 
                    )
-# 3046 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3046 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 11104 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11104 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'opName)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3048 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3048 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              LongIdentWithDots([_1],[]) 
                    )
-# 3048 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3048 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 11115 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11115 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3050 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3050 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              LongIdentWithDots([Ident("Create", rhs parseState 1)],[]) 
                    )
-# 3050 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3050 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 11125 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11125 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : LongIdentWithDots)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3052 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3052 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             let (LongIdentWithDots(lid,dotms)) = _3 
                             LongIdentWithDots(_1 :: lid, rhs parseState 2 :: dotms) 
                    )
-# 3052 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3052 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 11138 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11138 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Ident)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3055 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3055 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             (* silent recovery *) LongIdentWithDots([_1],[rhs parseState 2]) 
                    )
-# 3055 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3055 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : LongIdentWithDots));
-# 11149 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11149 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'identOrOp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3060 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3060 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                       _1 
                    )
-# 3060 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3060 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'nameop));
-# 11160 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11160 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3063 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3063 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3063 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3063 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topSeparator));
-# 11170 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11170 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3064 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3064 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                
                    )
-# 3064 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3064 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topSeparator));
-# 11180 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11180 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3065 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3065 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3065 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3065 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topSeparator));
-# 11190 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11190 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topSeparator)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3068 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3068 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                             
                    )
-# 3068 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3068 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topSeparators));
-# 11201 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11201 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topSeparator)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'topSeparators)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3069 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3069 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                       
                    )
-# 3069 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3069 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'topSeparators));
-# 11213 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11213 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3072 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3072 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3072 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3072 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'interactiveSeparator));
-# 11223 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11223 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3073 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3073 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3073 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3073 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'interactiveSeparator));
-# 11233 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11233 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'interactiveSeparator)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3076 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3076 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                     
                    )
-# 3076 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3076 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'interactiveSeparators));
-# 11244 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11244 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'interactiveSeparator)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'interactiveSeparators)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3077 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3077 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                       
                    )
-# 3077 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3077 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'interactiveSeparators));
-# 11256 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11256 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'interactiveSeparator)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_interactiveSeparators)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3080 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3080 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                                           
                    )
-# 3080 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3080 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_interactiveSeparators));
-# 11268 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11268 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3081 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3081 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                   
                    )
-# 3081 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3081 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_interactiveSeparators));
-# 11278 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11278 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'topSeparator)) in
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'opt_topSeparators)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3084 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3084 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                           
                    )
-# 3084 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3084 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_topSeparators));
-# 11290 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11290 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3085 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3085 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                 
                    )
-# 3085 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3085 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_topSeparators));
-# 11300 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11300 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3088 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3088 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3088 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3088 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps));
-# 11310 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11310 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3089 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3089 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3089 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3089 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps));
-# 11320 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11320 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3090 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3090 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                
                    )
-# 3090 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3090 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps));
-# 11330 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11330 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3091 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3091 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                
                    )
-# 3091 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3091 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'seps));
-# 11340 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11340 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3096 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3096 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                    )
-# 3096 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3096 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'declEnd));
-# 11350 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11350 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3098 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3098 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                
                    )
-# 3098 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3098 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'declEnd));
-# 11360 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11360 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3100 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3100 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                    )
-# 3100 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3100 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'declEnd));
-# 11370 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11370 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3105 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3105 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                    )
-# 3105 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3105 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_declEnd));
-# 11380 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11380 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3107 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3107 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                              
                    )
-# 3107 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3107 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_declEnd));
-# 11390 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11390 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3109 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3109 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                    )
-# 3109 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3109 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_declEnd));
-# 11400 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11400 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3111 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3111 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                             
                    )
-# 3111 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3111 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_declEnd));
-# 11410 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11410 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3114 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3114 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                     
                    )
-# 3114 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3114 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_ODECLEND));
-# 11420 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11420 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3115 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3115 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                     
                    )
-# 3115 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3115 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_ODECLEND));
-# 11430 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11430 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3118 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3118 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      deprecatedWithError (FSComp.SR.parsNoEqualShouldFollowNamespace()) (lhs parseState); () 
                    )
-# 3118 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3118 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'deprecated_opt_equals));
-# 11440 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11440 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3119 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3119 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                       
                    )
-# 3119 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3119 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'deprecated_opt_equals));
-# 11450 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11450 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3122 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3122 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3122 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3122 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_OBLOCKSEP));
-# 11460 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11460 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3123 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3123 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                     
                    )
-# 3123 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3123 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_OBLOCKSEP));
-# 11470 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11470 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'seps)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3126 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3126 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 
                    )
-# 3126 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3126 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_seps));
-# 11481 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11481 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3127 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3127 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 
                    )
-# 3127 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3127 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_seps));
-# 11491 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11491 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3130 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3130 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                true 
                    )
-# 3130 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3130 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_rec));
-# 11501 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11501 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3131 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3131 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                false 
                    )
-# 3131 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3131 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_rec));
-# 11511 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11511 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3134 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3134 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                
                    )
-# 3134 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3134 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_bar));
-# 11521 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11521 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3135 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3135 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                
                    )
-# 3135 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3135 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_bar));
-# 11531 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11531 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3138 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3138 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   0 
                    )
-# 3138 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3138 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_inline));
-# 11541 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11541 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3139 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3139 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   1 
                    )
-# 3139 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3139 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_inline));
-# 11551 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11551 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3140 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3140 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  2 
                    )
-# 3140 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3140 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_inline));
-# 11561 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11561 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3141 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3141 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      3 
                    )
-# 3141 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3141 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_inline));
-# 11571 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11571 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3142 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3142 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                       4 
                    )
-# 3142 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3142 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_inline));
-# 11581 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11581 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   5 
                    )
-# 3143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_inline));
-# 11591 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11591 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3146 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3146 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    true 
                    )
-# 3146 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3146 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_mutable));
-# 11601 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11601 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3147 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3147 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    false 
                    )
-# 3147 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3147 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_mutable));
-# 11611 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11611 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3150 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3150 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      true 
                    )
-# 3150 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3150 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_ref));
-# 11621 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11621 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3151 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3151 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      false 
                    )
-# 3151 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3151 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_ref));
-# 11631 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11631 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3154 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3154 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                
                    )
-# 3154 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3154 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'doToken));
-# 11641 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11641 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3155 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3155 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                
                    )
-# 3155 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3155 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'doToken));
-# 11651 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11651 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3158 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3158 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 
                    )
-# 3158 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3158 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'doneDeclEnd));
-# 11661 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11661 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3159 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3159 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                     
                    )
-# 3159 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3159 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'doneDeclEnd));
-# 11671 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11671 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3162 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3162 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   mlCompatWarning (FSComp.SR.parsSyntaxModuleStructEndDeprecated()) (lhs parseState); 
                    )
-# 3162 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3162 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'structOrBegin));
-# 11681 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11681 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3163 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3163 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  
                    )
-# 3163 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3163 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'structOrBegin));
-# 11691 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11691 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3166 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3166 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                mlCompatWarning (FSComp.SR.parsSyntaxModuleSigEndDeprecated()) (lhs parseState); 
                    )
-# 3166 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3166 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'sigOrBegin));
-# 11701 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11701 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3167 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3167 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  
                    )
-# 3167 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3167 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'sigOrBegin));
-# 11711 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11711 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3170 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3170 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                  mlCompatWarning (FSComp.SR.parsSyntaxModuleSigEndDeprecated()) (lhs parseState); 
                    )
-# 3170 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3170 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'colonOrEquals));
-# 11721 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11721 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3171 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3171 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   
                    )
-# 3171 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3171 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'colonOrEquals));
-# 11731 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11731 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3174 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3174 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                
                    )
-# 3174 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3174 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_HASH));
-# 11741 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11741 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3177 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3177 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                      
                    )
-# 3177 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3177 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_HIGH_PRECEDENCE_APP));
-# 11751 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11751 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3178 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3178 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                      
                    )
-# 3178 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3178 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_HIGH_PRECEDENCE_APP));
-# 11761 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11761 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3179 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3179 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               
                    )
-# 3179 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3179 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_HIGH_PRECEDENCE_APP));
-# 11771 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11771 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3182 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3182 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                  
                    )
-# 3182 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3182 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_HIGH_PRECEDENCE_TYAPP));
-# 11781 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11781 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3183 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3183 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                               
                    )
-# 3183 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3183 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'opt_HIGH_PRECEDENCE_TYAPP));
-# 11791 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11791 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'type_keyword)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3186 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3186 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                          _2 
                    )
-# 3186 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3186 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'type_keyword));
-# 11802 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11802 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3187 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3187 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         false 
                    )
-# 3187 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3187 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'type_keyword));
-# 11812 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11812 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3188 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3188 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                 false 
                    )
-# 3188 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3188 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'type_keyword));
-# 11822 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11822 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3189 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3189 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                         true 
                    )
-# 3189 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3189 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'type_keyword));
-# 11832 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11832 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3190 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3190 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   false 
                    )
-# 3190 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3190 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'type_keyword));
-# 11842 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11842 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'module_keyword)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3193 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3193 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                              
                    )
-# 3193 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3193 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'module_keyword));
-# 11853 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11853 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3194 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3194 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                           
                    )
-# 3194 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3194 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'module_keyword));
-# 11863 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11863 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3195 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3195 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   
                    )
-# 3195 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3195 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'module_keyword));
-# 11873 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11873 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'rbrace)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3198 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3198 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                      
                    )
-# 3198 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3198 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rbrace));
-# 11884 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11884 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3199 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3199 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                           
                    )
-# 3199 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3199 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rbrace));
-# 11894 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11894 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3200 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3200 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   
                    )
-# 3200 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3200 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rbrace));
-# 11904 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11904 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'rparen)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3203 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3203 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                      
                    )
-# 3203 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3203 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rparen));
-# 11915 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11915 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3204 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3204 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                           
                    )
-# 3204 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3204 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rparen));
-# 11925 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11925 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3205 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3205 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                   
                    )
-# 3205 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3205 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'rparen));
-# 11935 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11935 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : 'oblockend)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3208 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3208 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                            
                    )
-# 3208 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3208 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'oblockend));
-# 11946 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11946 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3209 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3209 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                              
                    )
-# 3209 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3209 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'oblockend));
-# 11956 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11956 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3210 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3210 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                      
                    )
-# 3210 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3210 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'oblockend));
-# 11966 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11966 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3213 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3213 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                             false 
                    )
-# 3213 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3213 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_other_than_rparen_coming_soon_or_recover));
-# 11976 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11976 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3214 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3214 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                               false 
                    )
-# 3214 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3214 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_other_than_rparen_coming_soon_or_recover));
-# 11986 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11986 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3215 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3215 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                               false 
                    )
-# 3215 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3215 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_other_than_rparen_coming_soon_or_recover));
-# 11996 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 11996 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3216 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3216 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                  false 
                    )
-# 3216 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3216 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_other_than_rparen_coming_soon_or_recover));
-# 12006 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12006 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3217 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3217 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    _1 
                    )
-# 3217 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3217 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_other_than_rparen_coming_soon_or_recover));
-# 12017 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12017 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3220 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3220 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                             false 
                    )
-# 3220 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3220 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_coming_soon_or_recover));
-# 12027 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12027 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3221 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3221 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                               false 
                    )
-# 3221 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3221 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_coming_soon_or_recover));
-# 12037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3222 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3222 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                               false 
                    )
-# 3222 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3222 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_coming_soon_or_recover));
-# 12047 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12047 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3223 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3223 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                               false 
                    )
-# 3223 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3223 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_coming_soon_or_recover));
-# 12057 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12057 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3224 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3224 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                                  false 
                    )
-# 3224 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3224 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_coming_soon_or_recover));
-# 12067 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12067 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'recover)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 3225 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3225 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                                    _1 
                    )
-# 3225 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
+# 3225 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fsy"
                  : 'ends_coming_soon_or_recover));
 |]
-# 12079 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
+# 12079 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Parser.fs"
 let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> = 
   { reductions= _fsyacc_reductions ();
     endOfInputTag = _fsyacc_endOfInputTag;

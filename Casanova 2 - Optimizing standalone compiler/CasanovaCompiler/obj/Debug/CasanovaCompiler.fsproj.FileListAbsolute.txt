@@ -6,3 +6,11 @@ C:\Users\Mudy\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompi
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.fsprojResolveAssemblyReference.cache
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.exe
 C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.pdb
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\App.config
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.exe.config
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.exe
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.pdb
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Unity\CasanovaCompiler\CasanovaCompiler.XML
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.fsprojResolveAssemblyReference.cache
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.exe
+C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\CasanovaCompiler\obj\Debug\CasanovaCompiler.pdb

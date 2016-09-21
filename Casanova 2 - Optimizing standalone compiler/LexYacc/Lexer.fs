@@ -1,4 +1,4 @@
-# 1 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
  
 module CasanovaCompiler.Lexer
 open System   
@@ -143,7 +143,7 @@ let extractIdentFromHashIf (lexed:string) =
     let identEnd = (if identEnd = -1 then trimIf.Length else identEnd)
     trimIf.Substring(0, identEnd)
 
-# 146 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 146 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
 let trans : uint16[] array = 
     [| 
     (* State 0 *)
@@ -1614,94 +1614,94 @@ and mlOnly m args skip (lexbuf : Microsoft.FSharp.Text.Lexing.LexBuffer<_>) = _f
 and _fslex_token args skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 212 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 212 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       Keywords.KeywordOrIdentifierToken args lexbuf (lexeme lexbuf) 
-# 1619 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1619 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 214 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 214 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       DO_BANG 
-# 1624 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1624 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 216 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 216 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       YIELD_BANG(true)  
-# 1629 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1629 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 218 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 218 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       YIELD_BANG(false) 
-# 1634 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1634 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 220 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 220 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      printf "hahaha"  
                      LET_BANG(false) 
-# 1640 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1640 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 224 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 224 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       fail args lexbuf (1141,sprintf "Identifiers followed by '%s' are reserved for future use" "#") (Keywords.KeywordOrIdentifierToken args lexbuf (lexeme lexbuf)) 
-# 1645 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1645 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 6 -> ( 
-# 226 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 226 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n = lexemeTrimRightToInt32 args lexbuf 1 
                       if n > 0x80 || n < -0x80 then fail args lexbuf (1142,"This number is outside the allowable range for 8-bit signed integers") (INT8(0y,false))
                       // Allow <max_int+1> to parse as min_int.  Allowed only because we parse '-' as an operator. 
                       else if n = 0x80 then INT8(sbyte(-0x80), true (* 'true' = 'bad'*) )
                       else INT8(sbyte n,false) 
-# 1654 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1654 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 7 -> ( 
-# 232 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 232 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n = lexemeTrimRightToInt32 args lexbuf 1 
                       if n > 0xFF || n < 0 then fail args lexbuf (1143,"This number is outside the allowable range for hexadecimal 8-bit signed integers") (INT8(0y,false))
                       else INT8(sbyte(byte(n)),false) 
-# 1661 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1661 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 8 -> ( 
-# 236 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 236 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n = lexemeTrimRightToInt32 args lexbuf 2 
                       if n > 0xFF || n < 0 then fail args lexbuf (1144,"This number is outside the allowable range for 8-bit unsigned integers") (UINT8(0uy))
                       else UINT8(byte n) 
-# 1668 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1668 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 9 -> ( 
-# 240 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 240 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n = lexemeTrimRightToInt32 args lexbuf 1 
                       if n > 0x8000 || n < -0x8000 then fail args lexbuf (1145,"This number is outside the allowable range for 16-bit signed integers") (INT16(0s,false))
                       // Allow <max_int+1> to parse as min_int.  Allowed only because we parse '-' as an operator. 
                       else if n = 0x8000 then INT16(-0x8000s,true)
                       else INT16(int16 n,false) 
-# 1677 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1677 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 10 -> ( 
-# 246 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 246 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n = lexemeTrimRightToInt32 args lexbuf 1 
                       if n > 0xFFFF || n < 0 then fail args lexbuf (1145,"This number is outside the allowable range for 16-bit signed integers") (INT16(0s,false))
                       else INT16(int16(uint16(n)),false) 
-# 1684 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1684 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 11 -> ( 
-# 250 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 250 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n = lexemeTrimRightToInt32 args lexbuf 2 
                       if n > 0xFFFF || n < 0 then fail args lexbuf (1146,"This number is outside the allowable range for 16-bit unsigned integers") (UINT16(0us))
                       else UINT16(uint16 n) 
-# 1691 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1691 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 12 -> ( 
-# 254 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 254 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexemeTrimRight lexbuf 2 
                       // Allow <max_int+1> to parse as min_int.  Allowed only because we parse '-' as an operator. 
                       if s = "2147483648" then INT32_DOT_DOT(-2147483648,true) else
                       let n = try int32 s with _ ->  fail args lexbuf (1147,"This number is outside the allowable range for 32-bit signed integers") 0
                       INT32_DOT_DOT(n,false)
                     
-# 1701 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1701 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 13 -> ( 
-# 262 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 262 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexeme lexbuf 
                       // Allow <max_int+1> to parse as min_int.  Allowed only because we parse '-' as an operator. 
                       if s = "2147483648" then INT32(-2147483648,true) else
@@ -1709,10 +1709,10 @@ and _fslex_token args skip _fslex_state lexbuf =
                           try int32 s with _ ->  fail args lexbuf (1147,"This number is outside the allowable range for 32-bit signed integers") 0
                       INT32(n,false)
                     
-# 1712 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1712 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 14 -> ( 
-# 271 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 271 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexemeTrimRight lexbuf 1 
                       // Allow <max_int+1> to parse as min_int.  Allowed only because we parse '-' as an operator. 
                       if s = "2147483648" then INT32(-2147483648,true) else
@@ -1720,30 +1720,30 @@ and _fslex_token args skip _fslex_state lexbuf =
                           try int32 s with _ ->  fail args lexbuf (1147,"This number is outside the allowable range for 32-bit signed integers") 0
                       INT32(n,false)
                     
-# 1723 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1723 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 15 -> ( 
-# 280 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 280 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       
                       let s = lexemeTrimRight lexbuf 1 
                       let n = 
                           try int64 s with _ ->  fail args lexbuf (1148,"This number is outside the allowable range for 32-bit unsigned integers") 0L
                       if n > 0xFFFFFFFFL || n < 0L then fail args lexbuf (1148,"This number is outside the allowable range for 32-bit unsigned integers") (UINT32(0u)) else
                       UINT32(uint32 (uint64 n)) 
-# 1733 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1733 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 16 -> ( 
-# 288 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 288 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       
                       let s = lexemeTrimRight lexbuf 2 
                       let n = 
                           try int64 s with _ ->  fail args lexbuf (1148,"This number is outside the allowable range for 32-bit unsigned integers") 0L
                       if n > 0xFFFFFFFFL || n < 0L then fail args lexbuf (1148,"This number is outside the allowable range for 32-bit unsigned integers") (UINT32(0u)) else
                       UINT32(uint32 (uint64 n)) 
-# 1743 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1743 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 17 -> ( 
-# 296 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 296 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexemeTrimRight lexbuf 1 
                       // Allow <max_int+1> to parse as min_int.  Stupid but allowed because we parse '-' as an operator. 
                       if s = "9223372036854775808" then INT64(-9223372036854775808L,true) else
@@ -1751,42 +1751,42 @@ and _fslex_token args skip _fslex_state lexbuf =
                          try int64 s with _ ->  fail args lexbuf (1149,"This number is outside the allowable range for 64-bit signed integers") 0L
                       INT64(n,false)
                     
-# 1754 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1754 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 18 -> ( 
-# 305 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 305 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexemeTrimRight lexbuf 2 
                       let n = 
                         try uint64 s with _ -> fail args lexbuf (1150,"This number is outside the allowable range for 64-bit unsigned integers") 0UL
                       UINT64(n) 
-# 1762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 19 -> ( 
-# 311 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 311 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       try 
                           NATIVEINT(int64 (lexemeTrimRight lexbuf 1)) 
                       with _ ->  fail args lexbuf (1151,"This number is outside the allowable range for signed native integers") (NATIVEINT(0L)) 
-# 1769 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1769 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 20 -> ( 
-# 316 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 316 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       try 
                           UNATIVEINT(uint64 (lexemeTrimRight lexbuf 2)) 
                       with _ ->  fail args lexbuf (1152,"This number is outside the allowable range for unsigned native integers")  (UNATIVEINT(0UL)) 
-# 1776 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1776 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 21 -> ( 
-# 321 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 321 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       IEEE32 (try float32(lexemeTrimRight lexbuf 1) with _ -> fail args lexbuf (1153,"Invalid floating point number") 0.0f) 
-# 1781 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1781 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 22 -> ( 
-# 323 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 323 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       IEEE64 (try float(lexeme lexbuf) with _ -> fail args lexbuf (1153,"Invalid floating point number") 0.0) 
-# 1786 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1786 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 23 -> ( 
-# 326 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 326 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       try 
                          let s = lexemeTrimRight lexbuf 1
                          // This implements a range check for decimal literals 
@@ -1795,54 +1795,54 @@ and _fslex_token args skip _fslex_state lexbuf =
                       with 
                          e -> fail args lexbuf (1154,"This number is outside the allowable range for decimal literals") (DECIMAL (decimal 0))
                     
-# 1798 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1798 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 24 -> ( 
-# 335 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 335 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       
                       let s = lexemeTrimRight lexbuf 2
                       // Even though the intermediate step is an int64, display the "invalid float" message, since it will be less confusing to the user 
                       let n64 = (try (int64 s) with _ -> fail args lexbuf (1153,"Invalid floating point number") 0L) 
                       if n64 > 0xFFFFFFFFL || n64 < 0L then fail args lexbuf (1155,"This number is outside the allowable range for 32-bit floats") (IEEE32 0.0f) else
                       IEEE32 (System.BitConverter.ToSingle(System.BitConverter.GetBytes(int32 (uint32 (uint64 n64))),0)) 
-# 1808 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1808 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 25 -> ( 
-# 343 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 343 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       
                       let n64 = (try int64 (lexemeTrimRight lexbuf 2) with _ -> fail args lexbuf (1153,"Invalid floating point number") 0L) 
                       IEEE64 (System.BitConverter.Int64BitsToDouble(n64)) 
-# 1815 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1815 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 26 -> ( 
-# 348 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 348 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         let s = lexeme lexbuf 
                         BIGNUM (lexemeTrimRight lexbuf 1, s.[s.Length-1..s.Length-1]) 
-# 1821 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1821 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 27 -> ( 
-# 352 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 352 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         fail args lexbuf (1156,"This is not a valid numeric literal. Sample formats include 4, 0x4, 0b0100, 4L, 4UL, 4u, 4s, 4us, 4y, 4uy, 4.0, 4.0f, 4I.") (INT32(0,false)) 
-# 1826 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1826 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 28 -> ( 
-# 355 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 355 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexeme lexbuf 
                       CHAR (if s.[1] = '\\' then escape s.[2] else s.[1])  
-# 1832 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1832 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 29 -> ( 
-# 359 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 359 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexeme lexbuf 
                       let x = int32 (if s.[1] = '\\' then escape s.[2] else s.[1])
                       if x < 0 || x > 127 then 
                           fail args lexbuf (1157,"This is not a valid byte literal") (UINT8(byte 0))
                       else
                           UINT8 (byte(x))  
-# 1842 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1842 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 30 -> ( 
-# 367 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 367 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexeme lexbuf 
                       let c = trigraph s.[2] s.[3] s.[4] 
                       let x = int32 c
@@ -1850,152 +1850,152 @@ and _fslex_token args skip _fslex_state lexbuf =
                           fail args lexbuf (1158,"This is not a valid character literal") (CHAR c)
                       else
                           CHAR c 
-# 1853 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1853 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 31 -> ( 
-# 376 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 376 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let s = lexeme lexbuf 
                       let x = int32 (trigraph s.[2] s.[3] s.[4])
                       if x < 0 || x > 255 then 
                           fail args lexbuf (1157,"This is not a valid byte literal") (UINT8(byte 0))
                       else
                           UINT8 (byte(x))  
-# 1863 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1863 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 32 -> ( 
-# 384 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 384 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let x = int32 (unicodeGraphShort (lexemeTrimBoth lexbuf 3 2))
                       if x < 0 || x > 127 then 
                           fail args lexbuf (1157,"This is not a valid byte literal") (UINT8(byte 0))
                       else
                           UINT8 (byte(x))  
-# 1872 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1872 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 33 -> ( 
-# 390 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 390 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                             CHAR (char (int32 (hexGraphShort (lexemeTrimBoth lexbuf 3 1)))) 
-# 1877 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1877 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 34 -> ( 
-# 391 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 391 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                 CHAR (char (int32 (unicodeGraphShort (lexemeTrimBoth lexbuf 3 1)))) 
-# 1882 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1882 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 35 -> ( 
-# 393 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 393 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let hi,lo = unicodeGraphLong (lexemeTrimBoth lexbuf 3 1) 
                       match hi with 
                       | None -> CHAR (char lo)
                       | Some _ -> fail args lexbuf  (1159,"This Unicode encoding is only valid in string literals") (CHAR (char lo)) 
-# 1890 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1890 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 36 -> ( 
-# 398 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 398 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 1895 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1895 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 37 -> ( 
-# 400 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 400 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 1900 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1900 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 38 -> ( 
-# 402 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 402 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf  
-# 1905 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1905 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 39 -> ( 
-# 404 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 404 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 1910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 40 -> ( 
-# 407 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 407 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       LPAREN_STAR_RPAREN 
-# 1915 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1915 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 41 -> ( 
-# 410 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 410 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let m = lexbuf.LexemeRange 
                       if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,1,m))) else comment (1,m,args) skip lexbuf 
-# 1921 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1921 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 42 -> ( 
-# 414 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 414 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let m = lexbuf.LexemeRange 
                       if not skip then (COMMENT (LexCont.MLOnly(!args.ifdefStack,m))) else mlOnly m args skip lexbuf 
-# 1927 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1927 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 43 -> ( 
-# 418 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 418 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let buf,fin,m = startString args lexbuf 
                       if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m))) else string (buf,fin,m,args) skip lexbuf 
-# 1933 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1933 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 44 -> ( 
-# 422 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 422 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let buf,fin,m = startString args lexbuf 
                       if not skip then (STRING_TEXT (LexCont.TripleQuoteString(!args.ifdefStack,m))) else tripleQuoteString (buf,fin,m,args) skip lexbuf 
-# 1939 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1939 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 45 -> ( 
-# 426 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 426 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       fail args lexbuf  (1160,"This token is reserved for future use") (WHITESPACE (LexCont.Token !args.ifdefStack)) 
-# 1944 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1944 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 46 -> ( 
-# 429 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 429 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let buf,fin,m = startString args lexbuf 
                       if not skip then (STRING_TEXT (LexCont.VerbatimString(!args.ifdefStack,m))) else verbatimString (buf,fin,m,args) skip lexbuf 
-# 1950 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1950 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 47 -> ( 
-# 433 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 433 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if skip then token args skip lexbuf
                       else WHITESPACE (LexCont.Token !args.ifdefStack) 
-# 1956 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1956 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 48 -> ( 
-# 437 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 437 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if args.lightSyntaxStatus.Status then errorR(Error((1161,"TABs are not allowed in F# code unless the #indent \"off\" option is used"),lexbuf.LexemeRange));
                       if not skip then (WHITESPACE (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 1962 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1962 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 49 -> ( 
-# 441 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 441 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       // 4+ slash are 1-line comments, online 3 slash are XmlDoc 
                       let m = lexbuf.LexemeRange 
                       if not skip then (LINE_COMMENT (LexCont.SingleLineComment(!args.ifdefStack,1,m))) else singleLineComment (None,1,m,args) skip lexbuf 
-# 1969 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1969 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 50 -> ( 
-# 446 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 446 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       // Match exactly 3 slash, 4+ slash caught by preceding rule 
                       let m = lexbuf.LexemeRange
                       let doc = lexemeTrimLeft lexbuf 3  
                       let sb = (new StringBuilder(100)).Append(doc)
                       if not skip then (LINE_COMMENT (LexCont.SingleLineComment(!args.ifdefStack,1,m))) else singleLineComment (Some sb,1,m,args) skip lexbuf 
-# 1978 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1978 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 51 -> ( 
-# 453 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 453 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       // Need to read all operator symbols too, otherwise it might be parsed by a rule below 
                       let m = lexbuf.LexemeRange
                       if not skip then (LINE_COMMENT (LexCont.SingleLineComment(!args.ifdefStack,1,m))) else singleLineComment (None,1,m,args) skip lexbuf 
-# 1985 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1985 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 52 -> ( 
-# 458 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 458 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       newline lexbuf; if not skip then (WHITESPACE (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 1990 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1990 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 53 -> ( 
-# 461 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 461 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       Keywords.IdentifierToken args lexbuf (lexemeTrimBoth lexbuf 2 2) 
-# 1995 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 1995 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 54 -> ( 
-# 464 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 464 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                        let pos = lexbuf.EndPos 
                        if skip then 
                          let s = lexeme lexbuf 
@@ -2035,331 +2035,331 @@ and _fslex_token args skip _fslex_state lexbuf =
                          token args skip lexbuf 
                        else 
                          if not skip then (HASH_LINE (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2038 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2038 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 55 -> ( 
-# 507 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 507 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          checkExprOp lexbuf; LQUOTE ("<@ @>", false) 
-# 2043 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2043 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 56 -> ( 
-# 508 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 508 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                           checkExprOp lexbuf; LQUOTE ("<@@ @@>", true) 
-# 2048 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2048 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 57 -> ( 
-# 509 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 509 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          checkExprOp lexbuf; RQUOTE ("<@ @>", false) 
-# 2053 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2053 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 58 -> ( 
-# 510 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 510 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                           checkExprOp lexbuf; RQUOTE ("<@@ @@>", true) 
-# 2058 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2058 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 59 -> ( 
-# 511 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 511 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         HASH 
-# 2063 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2063 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 60 -> ( 
-# 512 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 512 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         AMP 
-# 2068 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2068 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 61 -> ( 
-# 513 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 513 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          AMP_AMP 
-# 2073 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2073 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 62 -> ( 
-# 514 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 514 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          BAR_BAR 
-# 2078 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2078 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 63 -> ( 
-# 515 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 515 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          QUOTE 
-# 2083 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2083 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 64 -> ( 
-# 516 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 516 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         LPAREN 
-# 2088 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2088 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 65 -> ( 
-# 517 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 517 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         RPAREN 
-# 2093 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2093 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 66 -> ( 
-# 518 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 518 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         STAR 
-# 2098 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2098 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 67 -> ( 
-# 519 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 519 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         COMMA 
-# 2103 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2103 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 68 -> ( 
-# 520 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 520 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          RARROW 
-# 2108 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2108 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 69 -> ( 
-# 521 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 521 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          SELECT_OPERATOR 
-# 2113 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2113 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 70 -> ( 
-# 522 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 522 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         INT_SELECT_OPERATOR
-# 2118 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2118 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 71 -> ( 
-# 523 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 523 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          BODY_OPERATOR 
-# 2123 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2123 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 72 -> ( 
-# 524 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 524 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          PARALLEL_OPERATOR 
-# 2128 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2128 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 73 -> ( 
-# 525 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 525 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         QMARK 
-# 2133 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2133 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 74 -> ( 
-# 526 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 526 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          QMARK_QMARK 
-# 2138 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2138 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 75 -> ( 
-# 527 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 527 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          DOT_DOT 
-# 2143 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2143 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 76 -> ( 
-# 528 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 528 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         DOT 
-# 2148 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2148 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 77 -> ( 
-# 529 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 529 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         COLON 
-# 2153 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2153 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 78 -> ( 
-# 530 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 530 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          COLON_COLON 
-# 2158 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2158 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 79 -> ( 
-# 531 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 531 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          COLON_GREATER 
-# 2163 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2163 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 80 -> ( 
-# 532 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 532 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                           RQUOTE_DOT ("<@ @>",false) 
-# 2168 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2168 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 81 -> ( 
-# 533 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 533 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                            RQUOTE_DOT ("<@@ @@>",true) 
-# 2173 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2173 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 82 -> ( 
-# 534 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 534 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                           GREATER_BAR_RBRACK 
-# 2178 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2178 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 83 -> ( 
-# 535 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 535 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                           COLON_QMARK_GREATER 
-# 2183 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2183 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 84 -> ( 
-# 536 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 536 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          COLON_QMARK 
-# 2188 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2188 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 85 -> ( 
-# 537 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 537 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          COLON_EQUALS 
-# 2193 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2193 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 86 -> ( 
-# 538 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 538 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          SEMICOLON_SEMICOLON 
-# 2198 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2198 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 87 -> ( 
-# 539 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 539 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         SEMICOLON 
-# 2203 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2203 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 88 -> ( 
-# 540 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 540 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          LARROW 
-# 2208 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2208 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 89 -> ( 
-# 541 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 541 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         EQUALS 
-# 2213 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2213 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 90 -> ( 
-# 542 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 542 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         LBRACK 
-# 2218 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2218 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 91 -> ( 
-# 543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          LBRACK_BAR 
-# 2223 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2223 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 92 -> ( 
-# 544 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 544 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         LESS false 
-# 2228 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2228 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 93 -> ( 
-# 545 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 545 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         GREATER false 
-# 2233 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2233 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 94 -> ( 
-# 546 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 546 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          LBRACK_LESS 
-# 2238 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2238 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 95 -> ( 
-# 547 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 547 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         RBRACK 
-# 2243 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2243 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 96 -> ( 
-# 548 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 548 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          BAR_RBRACK 
-# 2248 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2248 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 97 -> ( 
-# 549 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 549 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          GREATER_RBRACK 
-# 2253 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2253 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 98 -> ( 
-# 550 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 550 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         LBRACE 
-# 2258 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2258 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 99 -> ( 
-# 551 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 551 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         BAR 
-# 2263 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2263 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 100 -> ( 
-# 552 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 552 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         RBRACE 
-# 2268 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2268 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 101 -> ( 
-# 553 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 553 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         DOLLAR 
-# 2273 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2273 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 102 -> ( 
-# 554 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 554 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         PERCENT_OP("%") 
-# 2278 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2278 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 103 -> ( 
-# 555 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 555 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                          PERCENT_OP("%%") 
-# 2283 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2283 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 104 -> ( 
-# 556 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 556 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         MINUS 
-# 2288 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2288 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 105 -> ( 
-# 557 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 557 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         RESERVED 
-# 2293 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2293 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 106 -> ( 
-# 558 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 558 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                         RESERVED 
-# 2298 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2298 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 107 -> ( 
-# 559 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 559 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                          checkExprOp lexbuf; INFIX_STAR_STAR_OP(lexeme lexbuf) 
-# 2303 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2303 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 108 -> ( 
-# 560 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 560 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                          checkExprOp lexbuf; INFIX_STAR_DIV_MOD_OP(lexeme lexbuf) 
-# 2308 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2308 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 109 -> ( 
-# 561 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 561 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                          checkExprOp lexbuf; PLUS_MINUS_OP(lexeme lexbuf) 
-# 2313 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2313 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 110 -> ( 
-# 562 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 562 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                          checkExprOp lexbuf; INFIX_AT_HAT_OP(lexeme lexbuf) 
-# 2318 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2318 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 111 -> ( 
-# 563 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 563 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                               checkExprOp lexbuf; INFIX_COMPARE_OP(lexeme lexbuf) 
-# 2323 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2323 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 112 -> ( 
-# 564 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 564 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                          checkExprOp lexbuf; INFIX_AMP_OP(lexeme lexbuf) 
-# 2328 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2328 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 113 -> ( 
-# 565 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 565 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                          checkExprOp lexbuf; INFIX_BAR_OP(lexeme lexbuf) 
-# 2333 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2333 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 114 -> ( 
-# 566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                                                          checkExprOp lexbuf; PREFIX_OP(lexeme lexbuf) 
-# 2338 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2338 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 115 -> ( 
-# 568 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 568 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                                       FUNKY_OPERATOR_NAME(lexeme lexbuf) 
-# 2343 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2343 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 116 -> ( 
-# 572 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 572 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     if args.lightSyntaxStatus.ExplicitlySet && args.lightSyntaxStatus.WarnOnMultipleTokens then 
                         warning(Error((0,"#light should only occur as the first non-comment text in an F# source file"),lexbuf.LexemeRange));
                     // TODO unreachable error above, I think? - brianmcn 
                     args.lightSyntaxStatus.Status <- true; 
                     if not skip then (HASH_LIGHT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2352 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2352 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 117 -> ( 
-# 579 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 579 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     args.lightSyntaxStatus.Status <- false; 
                     mlCompatWarning ("Consider using a file with extension '.ml' or '.mli' instead") lexbuf.LexemeRange;
                     if not skip then (HASH_LIGHT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2359 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2359 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 118 -> ( 
-# 584 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 584 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     let m = lexbuf.LexemeRange   
                     let lexed = lexeme lexbuf
                     let id = extractIdentFromHashIf lexed
@@ -2371,10 +2371,10 @@ and _fslex_token args skip _fslex_state lexbuf =
                         else (LexCont.EndLine(LexerEndlineContinuation.Skip(!args.ifdefStack,0,m)), endline (LexerEndlineContinuation.Skip(!args.ifdefStack,0,m)) args skip) )         
                     let tok = shouldStartLine args lexbuf m (1163,"#if directive must appear as the first non-whitespace character on a line") (HASH_IF(m,lexed,cont))
                     if not skip then tok else f lexbuf 
-# 2374 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2374 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 119 -> ( 
-# 597 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 597 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     let lexed = (lexeme lexbuf)
                     match !(args.ifdefStack) with
                     | [] ->  LEX_FAILURE ("#else has no matching #if")
@@ -2385,10 +2385,10 @@ and _fslex_token args skip _fslex_state lexbuf =
                       let tok = HASH_ELSE(m,lexed, LexCont.EndLine(LexerEndlineContinuation.Skip(!args.ifdefStack,0,m)))
                       let tok = shouldStartLine args lexbuf m (1166,"#else directive must appear as the first non-whitespace character on a line") tok
                       if not skip then tok else endline (LexerEndlineContinuation.Skip(!args.ifdefStack,0,m)) args skip lexbuf 
-# 2388 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2388 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 120 -> ( 
-# 609 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 609 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     let lexed = (lexeme lexbuf) 
                     let m = lexbuf.LexemeRange 
                     match !(args.ifdefStack) with
@@ -2398,30 +2398,30 @@ and _fslex_token args skip _fslex_state lexbuf =
                        let tok = HASH_ENDIF(m,lexed,LexCont.EndLine(LexerEndlineContinuation.Token(!args.ifdefStack))) 
                        let tok = shouldStartLine args lexbuf m (1168,"#endif directive must appear as the first non-whitespace character on a line") tok 
                        if not skip then tok else endline (LexerEndlineContinuation.Token(!args.ifdefStack)) args skip lexbuf 
-# 2401 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2401 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 121 -> ( 
-# 620 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 620 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     let tok = fail args lexbuf (1169,"#if directive should be immediately followed by an identifier") (WHITESPACE (LexCont.Token !args.ifdefStack)) 
                     if not skip then tok else token args skip lexbuf 
-# 2407 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2407 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 122 -> ( 
-# 625 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 625 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     unexpectedChar lexbuf 
-# 2412 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2412 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 123 -> ( 
-# 627 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 627 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     EOF (LexCont.Token !args.ifdefStack) 
-# 2417 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2417 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "token"
 (* Rule ifdefSkip *)
 and _fslex_ifdefSkip n m args skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 633 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 633 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     let m = lexbuf.LexemeRange    
                     let _id = extractIdentFromHashIf (lexeme lexbuf) 
                     
@@ -2431,10 +2431,10 @@ and _fslex_ifdefSkip n m args skip _fslex_state lexbuf =
                     else
                       let tok = INACTIVECODE(LexCont.EndLine(LexerEndlineContinuation.Skip(!args.ifdefStack,n+1,m))) 
                       if not skip then tok else endline (LexerEndlineContinuation.Skip(!args.ifdefStack,n+1,m)) args skip lexbuf 
-# 2434 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2434 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 644 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 644 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let lexed = (lexeme lexbuf) 
                      let m = lexbuf.LexemeRange  
                           
@@ -2451,10 +2451,10 @@ and _fslex_ifdefSkip n m args skip _fslex_state lexbuf =
                           if not skip then (HASH_ELSE(m,lexed,LexCont.EndLine(LexerEndlineContinuation.Token(!args.ifdefStack)))) else endline (LexerEndlineContinuation.Token(!args.ifdefStack)) args skip lexbuf 
                       else
                         if not skip then (INACTIVECODE(LexCont.EndLine(LexerEndlineContinuation.Skip(!args.ifdefStack,n,m)))) else endline (LexerEndlineContinuation.Skip(!args.ifdefStack,n,m)) args skip lexbuf 
-# 2454 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2454 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 662 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 662 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let lexed = lexeme lexbuf
                      let m = lexbuf.LexemeRange  
                      
@@ -2471,526 +2471,526 @@ and _fslex_ifdefSkip n m args skip _fslex_state lexbuf =
                           let tok = INACTIVECODE(LexCont.EndLine(LexerEndlineContinuation.Skip(!args.ifdefStack,n-1,m)))
                           let tok = shouldStartLine args lexbuf m (1170,"Syntax error. Wrong nested #endif, unexpected tokens before it.") tok
                           if not skip then tok else endline (LexerEndlineContinuation.Skip(!args.ifdefStack,(n-1),m)) args skip lexbuf 
-# 2474 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2474 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 680 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 680 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      newline lexbuf; ifdefSkip n m args skip lexbuf 
-# 2479 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2479 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 686 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 686 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      // This tries to be nice and get tokens as 'words' because VS uses this when selecting stuff
                      if not skip then (INACTIVECODE (LexCont.IfDefSkip(!args.ifdefStack,n,m))) else ifdefSkip n m args skip lexbuf 
-# 2485 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2485 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 689 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 689 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      EOF (LexCont.IfDefSkip(!args.ifdefStack,n,m)) 
-# 2490 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2490 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "ifdefSkip"
 (* Rule endline *)
 and _fslex_endline cont args skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 695 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 695 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     newline lexbuf; 
                     match cont with
                     | LexerEndlineContinuation.Token(ifdefStack) -> if not skip then (WHITESPACE(LexCont.Token ifdefStack)) else token args skip lexbuf
                     | LexerEndlineContinuation.Skip(ifdefStack, n, m) -> if not skip then (INACTIVECODE (LexCont.IfDefSkip(ifdefStack,n,m))) else ifdefSkip n m args skip lexbuf
                   
-# 2503 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2503 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 701 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 701 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     match cont with
                     | LexerEndlineContinuation.Token(ifdefStack) -> (EOF(LexCont.Token ifdefStack))
                     | LexerEndlineContinuation.Skip(ifdefStack, n, m) -> (EOF(LexCont.IfDefSkip(ifdefStack,n,m)))
                   
-# 2511 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2511 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 707 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 707 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     let tok = fail args lexbuf (1171,"Expected single line comment or end of line") (WHITESPACE (LexCont.Token !args.ifdefStack))
                     if not skip then tok else token args skip lexbuf 
-# 2517 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2517 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "endline"
 (* Rule string *)
 and _fslex_string sargs skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 712 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 712 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (_buf,_fin,m,args) = sargs 
                      newline lexbuf; 
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf 
-# 2528 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2528 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 717 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 717 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addByteChar buf (escape (lexeme lexbuf).[1]);
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf 
-# 2535 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2535 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 722 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 722 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      let s = lexeme lexbuf 
                      addByteChar buf (trigraph s.[1] s.[2] s.[3]);
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf 
-# 2543 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2543 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 728 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 728 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeChar buf (int (hexGraphShort (lexemeTrimLeft lexbuf 2)));
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf  
-# 2550 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2550 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 733 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 733 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeChar buf (int (unicodeGraphShort (lexemeTrimLeft lexbuf 2)));
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf  
-# 2557 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2557 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 738 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 738 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      let hi,lo = unicodeGraphLong (lexemeTrimLeft lexbuf 2) 
                      (match hi with | None -> () | Some c -> addUnicodeChar buf (int c));
                      addUnicodeChar buf (int lo);
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m))) else string sargs skip lexbuf  
-# 2566 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2566 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 6 -> ( 
-# 745 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 745 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,fin,_m,_args) = sargs 
                      let m2 = lexbuf.LexemeRange  
                      callStringFinisher fin buf m2 false 
-# 2573 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2573 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 7 -> ( 
-# 750 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 750 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,fin,_m,_args) = sargs 
                      let m2 = lexbuf.LexemeRange 
                      callStringFinisher fin buf m2 true 
-# 2580 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2580 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 8 -> ( 
-# 755 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 755 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      newline lexbuf; 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf 
-# 2588 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2588 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 9 -> ( 
-# 761 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 761 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs  
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf 
-# 2595 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2595 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 10 -> ( 
-# 767 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 767 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf 
-# 2602 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2602 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 11 -> ( 
-# 772 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 772 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m)))  else string sargs skip lexbuf 
-# 2609 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2609 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 12 -> ( 
-# 777 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 777 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (_buf,_fin,m,args) = sargs 
                      EOF (LexCont.String(!args.ifdefStack,m)) 
-# 2615 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2615 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 13 -> ( 
-# 781 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 781 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.String(!args.ifdefStack,m))) else string sargs skip lexbuf 
-# 2622 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2622 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "string"
 (* Rule verbatimString *)
 and _fslex_verbatimString sargs skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 787 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 787 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                     let (buf,_fin,m,args) = sargs 
                     addByteChar buf '\"';
                     if not skip then (STRING_TEXT (LexCont.VerbatimString(!args.ifdefStack,m)))  else verbatimString sargs skip lexbuf 
-# 2633 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2633 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 792 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 792 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,fin,_m,_args) = sargs 
                      let m2 = lexbuf.LexemeRange 
                      callStringFinisher fin buf m2 false 
-# 2640 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2640 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 797 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 797 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,fin,_m,_args) = sargs 
                      let m2 = lexbuf.LexemeRange 
                      callStringFinisher fin buf m2 true 
-# 2647 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2647 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 802 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 802 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      newline lexbuf; 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.VerbatimString(!args.ifdefStack,m)))  else verbatimString sargs skip lexbuf 
-# 2655 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2655 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 808 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 808 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.VerbatimString(!args.ifdefStack,m)))  else verbatimString sargs skip lexbuf 
-# 2662 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2662 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 814 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 814 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.VerbatimString(!args.ifdefStack,m)))  else verbatimString sargs skip lexbuf 
-# 2669 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2669 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 6 -> ( 
-# 819 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 819 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.VerbatimString(!args.ifdefStack,m)))  else verbatimString sargs skip lexbuf 
-# 2676 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2676 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 7 -> ( 
-# 824 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 824 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (_buf,_fin,m,args) = sargs 
                      EOF (LexCont.VerbatimString(!args.ifdefStack,m)) 
-# 2682 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2682 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 8 -> ( 
-# 828 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 828 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.VerbatimString(!args.ifdefStack,m))) else verbatimString sargs skip lexbuf 
-# 2689 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2689 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "verbatimString"
 (* Rule tripleQuoteString *)
 and _fslex_tripleQuoteString sargs skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 834 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 834 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,fin,_m,_args) = sargs 
                      let m2 = lexbuf.LexemeRange 
                      callStringFinisher fin buf m2 false 
-# 2700 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2700 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 839 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 839 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      newline lexbuf; 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.TripleQuoteString(!args.ifdefStack,m)))  else tripleQuoteString sargs skip lexbuf 
-# 2708 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2708 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 846 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 846 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.TripleQuoteString(!args.ifdefStack,m)))  else tripleQuoteString sargs skip lexbuf 
-# 2715 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2715 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 852 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 852 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.TripleQuoteString(!args.ifdefStack,m)))  else tripleQuoteString sargs skip lexbuf 
-# 2722 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2722 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 857 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 857 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.TripleQuoteString(!args.ifdefStack,m)))  else tripleQuoteString sargs skip lexbuf 
-# 2729 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2729 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 862 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 862 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (_buf,_fin,m,args) = sargs 
                      EOF (LexCont.TripleQuoteString(!args.ifdefStack,m)) 
-# 2735 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2735 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 6 -> ( 
-# 866 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 866 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let (buf,_fin,m,args) = sargs 
                      addUnicodeString buf (lexeme lexbuf); 
                      if not skip then (STRING_TEXT (LexCont.TripleQuoteString(!args.ifdefStack,m))) else tripleQuoteString sargs skip lexbuf 
-# 2742 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2742 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "tripleQuoteString"
 (* Rule singleLineComment *)
 and _fslex_singleLineComment cargs skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 873 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 873 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let buff,_n,_m,args = cargs 
                       trySaveXmlDoc lexbuf buff;
                       newline lexbuf; 
                       // Saves the documentation (if we're collecting any) into a buffer-local variable.
                       if not skip then (LINE_COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2755 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2755 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 880 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 880 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let _, _n,_m,args = cargs 
                       // NOTE: it is legal to end a file with this comment, so we'll return EOF as a token 
                       EOF (LexCont.Token !args.ifdefStack) 
-# 2762 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2762 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 886 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 886 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let buff,n,m,args = cargs 
                       // Append the current token to the XML documentation if we're collecting it 
                       tryAppendXmlDoc buff (lexeme lexbuf);
                       if not skip then (LINE_COMMENT (LexCont.SingleLineComment(!args.ifdefStack,n,m))) else singleLineComment (buff,n,m,args) skip lexbuf  
-# 2770 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2770 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 892 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 892 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let _, _n,_m,args = cargs 
                      if not skip then (LINE_COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2776 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2776 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "singleLineComment"
 (* Rule comment *)
 and _fslex_comment cargs skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 898 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 898 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment (n,m,args) skip lexbuf  
-# 2786 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2786 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 902 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 902 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      if not skip then (COMMENT (LexCont.StringInComment(!args.ifdefStack,n,m))) else stringInComment n m args skip lexbuf 
-# 2792 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2792 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 906 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 906 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      if not skip then (COMMENT (LexCont.TripleQuoteStringInComment(!args.ifdefStack,n,m))) else tripleQuoteStringInComment n m args skip lexbuf 
-# 2798 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2798 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      if not skip then (COMMENT (LexCont.VerbatimStringInComment(!args.ifdefStack,n,m))) else verbatimStringInComment n m args skip lexbuf 
-# 2804 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2804 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 914 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 914 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment cargs skip lexbuf 
-# 2810 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2810 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 918 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 918 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n+1,m))) else comment (n+1,m,args) skip lexbuf 
-# 2816 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2816 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 6 -> ( 
-# 922 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 922 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      newline lexbuf; 
                      if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment cargs skip lexbuf 
-# 2823 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2823 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 7 -> ( 
-# 926 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 926 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      
                      let n,m,args = cargs 
                      if n > 1 then if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n-1,m))) else comment (n-1,m,args) skip lexbuf 
                      else if not skip then (COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2831 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2831 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 8 -> ( 
-# 933 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 933 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                      let n,m,args = cargs 
                      if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment cargs skip lexbuf 
-# 2837 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2837 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 9 -> ( 
-# 937 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 937 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n,m,args = cargs 
                       EOF (LexCont.Comment(!args.ifdefStack,n,m)) 
-# 2843 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2843 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 10 -> ( 
-# 941 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 941 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let n,m,args = cargs 
                       if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment (n,m,args) skip lexbuf 
-# 2849 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2849 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "comment"
 (* Rule stringInComment *)
 and _fslex_stringInComment n m args skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 947 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 947 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       newline lexbuf; 
                       if not skip then (COMMENT (LexCont.StringInComment(!args.ifdefStack,n,m))) else stringInComment n m args skip lexbuf 
-# 2859 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2859 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 959 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 959 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.StringInComment(!args.ifdefStack,n,m))) else stringInComment n m args skip lexbuf 
-# 2864 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2864 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 963 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 963 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment (n,m,args) skip lexbuf 
-# 2869 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2869 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 966 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 966 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       newline lexbuf;  
                       if not skip then (COMMENT (LexCont.StringInComment(!args.ifdefStack,n,m))) else stringInComment n m args skip lexbuf 
-# 2875 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2875 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 970 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 970 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       EOF (LexCont.StringInComment(!args.ifdefStack,n,m)) 
-# 2880 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2880 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 974 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 974 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.StringInComment(!args.ifdefStack,n,m))) else stringInComment n m args skip lexbuf 
-# 2885 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2885 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "stringInComment"
 (* Rule verbatimStringInComment *)
 and _fslex_verbatimStringInComment n m args skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 979 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 979 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.VerbatimStringInComment(!args.ifdefStack,n,m))) else verbatimStringInComment n m args skip lexbuf 
-# 2894 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2894 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 982 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 982 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment (n,m,args) skip lexbuf 
-# 2899 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2899 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 988 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 988 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.VerbatimStringInComment(!args.ifdefStack,n,m))) else verbatimStringInComment n m args skip lexbuf 
-# 2904 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2904 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 991 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 991 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       newline lexbuf;
                       if not skip then (COMMENT (LexCont.VerbatimStringInComment(!args.ifdefStack,n,m))) else verbatimStringInComment n m args skip lexbuf 
-# 2910 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2910 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 995 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 995 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       EOF (LexCont.VerbatimStringInComment(!args.ifdefStack,n,m)) 
-# 2915 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2915 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 999 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 999 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.VerbatimStringInComment(!args.ifdefStack,n,m))) else verbatimStringInComment n m args skip lexbuf 
-# 2920 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2920 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "verbatimStringInComment"
 (* Rule tripleQuoteStringInComment *)
 and _fslex_tripleQuoteStringInComment n m args skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 1004 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1004 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.Comment(!args.ifdefStack,n,m))) else comment (n,m,args) skip lexbuf 
-# 2929 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2929 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 1010 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1010 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.TripleQuoteStringInComment(!args.ifdefStack,n,m))) else tripleQuoteStringInComment n m args skip lexbuf 
-# 2934 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2934 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 1013 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1013 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       newline lexbuf;
                       if not skip then (COMMENT (LexCont.TripleQuoteStringInComment(!args.ifdefStack,n,m))) else tripleQuoteStringInComment n m args skip lexbuf 
-# 2940 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2940 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 1017 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1017 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       EOF (LexCont.TripleQuoteStringInComment(!args.ifdefStack,n,m)) 
-# 2945 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2945 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 1021 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1021 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.TripleQuoteStringInComment(!args.ifdefStack,n,m))) else tripleQuoteStringInComment n m args skip lexbuf 
-# 2950 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2950 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "tripleQuoteStringInComment"
 (* Rule mlOnly *)
 and _fslex_mlOnly m args skip _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 1026 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1026 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       let buf = ByteBuffer.Create 100 
                       let m2 = lexbuf.LexemeRange 
                       let _ = string (buf,defaultStringFinisher,m2,args) skip lexbuf 
                       if not skip then (COMMENT (LexCont.MLOnly(!args.ifdefStack,m))) else mlOnly m args skip lexbuf 
-# 2962 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2962 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 1 -> ( 
-# 1031 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1031 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       newline lexbuf;  if not skip then (COMMENT (LexCont.MLOnly(!args.ifdefStack,m))) else mlOnly m args skip lexbuf 
-# 2967 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2967 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 2 -> ( 
-# 1033 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1033 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                        if not skip then (COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2972 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2972 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 3 -> ( 
-# 1035 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1035 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                        if not skip then (COMMENT (LexCont.Token !args.ifdefStack)) else token args skip lexbuf 
-# 2977 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2977 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 4 -> ( 
-# 1037 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1037 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       if not skip then (COMMENT (LexCont.MLOnly(!args.ifdefStack,m))) else mlOnly m args skip lexbuf 
-# 2982 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2982 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 5 -> ( 
-# 1039 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1039 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                       EOF (LexCont.MLOnly(!args.ifdefStack,m)) 
-# 2987 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2987 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | 6 -> ( 
-# 1042 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
+# 1042 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fsl"
                        if not skip then (COMMENT (LexCont.MLOnly(!args.ifdefStack,m))) else mlOnly m args skip lexbuf 
-# 2992 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 2992 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
           )
   | _ -> failwith "mlOnly"
 
-# 3000000 "C:\Users\Mudy\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"
+# 3000000 "C:\Users\Mohamed Abbadi\Documents\GitHub\casanova-mk2\Casanova 2 - Optimizing standalone compiler\LexYacc\Lexer.fs"

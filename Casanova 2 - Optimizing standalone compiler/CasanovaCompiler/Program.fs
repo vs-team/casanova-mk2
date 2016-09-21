@@ -26,22 +26,7 @@ let generateErrorOutput (errors : string[]) errorColor =
 
 let send_email e =
   try
-    let file_name = "last_error_report.txt"
-    let prev_e = 
-      if File.Exists file_name then
-        File.ReadAllText file_name
-      else ""
-
-    if e <> prev_e then
-      let sc = new SmtpClient("smtp.gmail.com");
-      let nc = new NetworkCredential("moham.abbadi@gmail.com", "berserk1988")
-      sc.UseDefaultCredentials <- false
-      sc.Credentials <- nc
-      sc.EnableSsl <- true
-      sc.Port <- 587
-      sc.Send(new MailMessage("VerSpecTeam@gmail.com", "giuseppemag@gmail.com", "Compiler error", e));
-      sc.Send(new MailMessage("VerSpecTeam@gmail.com", "mabbadi@outlook.com", "Compiler error", e));
-      sc.Send(new MailMessage("VerSpecTeam@gmail.com", "fdigiacom@gmail.com", "Compiler error", e))
+    ()
   with
   | e -> failwith e.Message
 
@@ -144,6 +129,7 @@ let main argv =
 
         do parameters.ReferencedAssemblies.Add("System.dll") |> ignore
         do parameters.ReferencedAssemblies.Add("System.Core.dll") |> ignore
+        do parameters.ReferencedAssemblies.Add("System.Xml.dll") |> ignore
                 
         let res = codeProvider.CompileAssemblyFromSource(parameters, actual_cs_files)
         for e in res.Errors do
